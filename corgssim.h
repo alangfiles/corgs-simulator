@@ -1,9 +1,7 @@
-// #define MAX_RIGHT 0xb000
-// #define MAX_LEFT 0xb000
-#define MIN_X 0x00
-#define MAX_X 0xf0
-#define MIN_Y 0xe0
-#define MAX_Y 0x01
+#define SCREEN_LEFT_EDGE 0x00
+#define SCREEN_RIGHT_EDGE 0xf0
+#define SCREEN_TOP_EDGE 0x01
+#define SCREEN_BOTTOM_EDGE 0xe0
 
 #pragma bss-name(push, "ZEROPAGE")
 
@@ -15,7 +13,7 @@ unsigned char collision_L;
 unsigned char collision_R;
 unsigned char collision_U;
 unsigned char collision_D;
-unsigned char which_bg = 3;
+unsigned char which_bg = 0;
 const unsigned char *p_maps;
 unsigned char coordinates;
 unsigned char temp1;
@@ -82,3 +80,4 @@ void change_room_down(void);
 void load_title(void);
 void clear_title(void);
 void debug_spr(void);
+void change_room_debug(void);

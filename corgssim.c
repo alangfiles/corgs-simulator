@@ -55,7 +55,7 @@ void main(void)
 
 		movement();
 		draw_sprites();
-		//change_room();
+		change_room_debug();
 	}
 }
 
@@ -148,27 +148,27 @@ void movement(void)
 	if (collision_R)
 	{
 		player_x -= 1;
-		if (player_x == MAX_X)
+		if (player_x == SCREEN_RIGHT_EDGE)
 			change_room_right();
 	}
 
 	if (collision_L)
 	{
 		player_x += 1;
-		if (player_x == MIN_X)
+		if (player_x == SCREEN_LEFT_EDGE)
 			change_room_left();
 	}
 
 	if (pad1 & PAD_UP)
 	{
 		player_y -= 1;
-		if (player_y == MIN_Y)
+		if (player_y == SCREEN_TOP_EDGE)
 			change_room_up();
 	}
 	else if (pad1 & PAD_DOWN)
 	{
 		player_y += 1;
-		if (player_y == MAX_Y)
+		if (player_y == SCREEN_BOTTOM_EDGE)
 			change_room_down();
 	}
 
@@ -177,6 +177,14 @@ void movement(void)
 		player_y -= 1;
 	if (collision_U)
 		player_y += 1;
+}
+
+void change_room_debug(void)
+{
+	if(pad1 & PAD_START) 
+	{
+		change_room_up();
+	}
 }
 
 void bg_collision()
@@ -238,7 +246,7 @@ void bg_collision()
 
 void change_room_right()
 {
-	player_x = 0x01;
+	player_x = SCREEN_LEFT_EDGE;
 	if(which_bg == 3)
 	{
 		which_bg = 2;
@@ -253,7 +261,7 @@ void change_room_right()
 
 void change_room_left()
 {
-	player_x = 0xf0;
+	player_x = SCREEN_RIGHT_EDGE;
 	if(which_bg == 2)
 	{
 		which_bg = 3;
@@ -268,12 +276,12 @@ void change_room_left()
 void change_room_up()
 {
 	
-	player_y = 0xf0;
+	player_y = SCREEN_BOTTOM_EDGE;
 	if(which_bg == 0)
 	{
 		which_bg = 3;
 	}
-	else 
+	if(which_bg == 1)
 	{
 		which_bg = 2;
 	}
@@ -282,12 +290,12 @@ void change_room_up()
 
 void change_room_down()
 {
-	player_y = 0x01;
+	player_y = SCREEN_TOP_EDGE;
 	if(which_bg == 3)
 	{
 		which_bg = 0;
 	}
-	else 
+	if(which_bg == 2)
 	{
 		which_bg = 1;
 	}
