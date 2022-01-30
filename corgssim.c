@@ -116,20 +116,20 @@ void draw_sprites(void)
 	oam_clear();
 
 	// draw 1 metasprite
-	oam_meta_spr(BoxGuy1.X, BoxGuy1.Y, PlayerSpr);
+	oam_meta_spr(player_x, player_y, PlayerSpr);
 
 	// // draw the x and y as sprites
 	// oam_spr(20, 20, 0xfe, 1); // 0xfe = X
-	// temp1 = (BoxGuy1.X & 0xff) >> 4;
+	// temp1 = (player_x & 0xff) >> 4;
 	// // oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
 	// oam_spr(28, 20, temp1, 1);
-	// temp1 = (BoxGuy1.X & 0x0f);
+	// temp1 = (player_x & 0x0f);
 	// oam_spr(30, 20, temp1, 1);
 
 	// oam_spr(50, 20, 0xff, 1); // 0xff = Y
-	// temp1 = (BoxGuy1.Y & 0xff) >> 4;
+	// temp1 = (player_y & 0xff) >> 4;
 	// oam_spr(58, 20, temp1, 1);
-	// temp1 = (BoxGuy1.Y & 0x0f);
+	// temp1 = (player_y & 0x0f);
 	// oam_spr(62, 20, temp1, 1);
 }
 
@@ -137,45 +137,49 @@ void movement(void)
 {
 	if (pad1 & PAD_LEFT)
 	{
-		BoxGuy1.X -= 1;
+		player_x -= 1;
 	}
 	else if (pad1 & PAD_RIGHT)
 	{
-		BoxGuy1.X += 1;
+		player_x += 1;
 	}
 
-	bg_collision((char *)&BoxGuy1);
+	bg_collision();
 	if (collision_R)
 	{
-		BoxGuy1.X -= 1;
-		if (BoxGuy1.X == 0xf0)
+		player_x -= 1;
+		if (player_x == MAX_X)
 			change_room_right();
 	}
 
 	if (collision_L)
 	{
-		BoxGuy1.X += 1;
-		if (BoxGuy1.X == 0x0)
+		player_x += 1;
+		if (player_x == MIN_X)
 			change_room_left();
 	}
 
 	if (pad1 & PAD_UP)
 	{
-		BoxGuy1.Y -= 1;
+		player_y -= 1;
+		if (player_y == MIN_Y)
+			change_room_up();
 	}
 	else if (pad1 & PAD_DOWN)
 	{
-		BoxGuy1.Y += 1;
+		player_y += 1;
+		if (player_y == MAX_Y)
+			change_room_down();
 	}
 
-	bg_collision((char *)&BoxGuy1);
+	bg_collision();
 	if (collision_D)
-		BoxGuy1.Y -= 1;
+		player_y -= 1;
 	if (collision_U)
-		BoxGuy1.Y += 1;
+		player_y += 1;
 }
 
-void bg_collision(char *object)
+void bg_collision()
 {
 	// sprite collision with backgrounds
 	// object expected to have first 4 bytes as x,y,width,height
@@ -185,10 +189,10 @@ void bg_collision(char *object)
 	collision_U = 0;
 	collision_D = 0;
 
-	temp1 = object[0];				 // left side
-	temp2 = temp1 + object[2]; // right side
-	temp3 = object[1];				 // top side
-	temp4 = temp3 + object[3]; // bottom side
+	temp1 = player_x;							 // left side
+	temp2 = temp1 + player_width;	 // right side
+	temp3 = player_y;							 // top side
+	temp4 = temp3 + player_height; // bottom side
 
 	if (temp3 >= 0xf0)
 		return;
@@ -227,17 +231,66 @@ void bg_collision(char *object)
 	}
 }
 
+// rooms like:
+//  c4  c3
+//  c1  c2
+// which_bg is 0 index, sorry
+
 void change_room_right()
 {
-	BoxGuy1.X = 0x01;
-	which_bg = 1;
+	player_x = 0x01;
+	if(which_bg == 3)
+	{
+		which_bg = 2;
+	}
+	if (which_bg == 0)
+	{
+		which_bg = 1;
+	}
+	
 	draw_bg();
 }
 
 void change_room_left()
 {
-	BoxGuy1.X = 0xf0;
-	which_bg = 0;
+	player_x = 0xf0;
+	if(which_bg == 2)
+	{
+		which_bg = 3;
+	}
+	if (which_bg == 1)
+	{
+		which_bg = 0;
+	}
+	draw_bg();
+}
+
+void change_room_up()
+{
+	
+	player_y = 0xf0;
+	if(which_bg == 0)
+	{
+		which_bg = 3;
+	}
+	else 
+	{
+		which_bg = 2;
+	}
+	draw_bg();
+}
+
+void change_room_down()
+{
+	player_y = 0x01;
+	if(which_bg == 3)
+	{
+		which_bg = 0;
+	}
+	else 
+	{
+		which_bg = 1;
+	}
 	draw_bg();
 }
 

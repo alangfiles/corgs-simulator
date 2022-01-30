@@ -1,5 +1,9 @@
 // #define MAX_RIGHT 0xb000
 // #define MAX_LEFT 0xb000
+#define MIN_X 0x00
+#define MAX_X 0xf0
+#define MIN_Y 0xe0
+#define MAX_Y 0x01
 
 #pragma bss-name(push, "ZEROPAGE")
 
@@ -11,7 +15,7 @@ unsigned char collision_L;
 unsigned char collision_R;
 unsigned char collision_U;
 unsigned char collision_D;
-unsigned char which_bg;
+unsigned char which_bg = 3;
 const unsigned char *p_maps;
 unsigned char coordinates;
 unsigned char temp1;
@@ -20,6 +24,10 @@ unsigned char temp3;
 unsigned char temp4;
 unsigned char temp_x;
 unsigned char temp_y;
+unsigned char player_x = 64;
+unsigned char player_y = 80;
+unsigned char player_height = 15;
+unsigned char player_width = 15;
 unsigned char i;
 const unsigned char title_text[] = "CORGS Simulator";
 const unsigned char start_text[] = "Press Start";
@@ -39,16 +47,6 @@ enum
 
 unsigned char c_map[240];
 // collision map
-
-struct BoxGuy
-{
-	unsigned char X;
-	unsigned char Y;
-	unsigned char width;
-	unsigned char height;
-};
-
-struct BoxGuy BoxGuy1 = {64, 80, 15, 15};
 
 // these are the 4 backgrounds
 // collision data, made by exporting csv from Tiled, and slight modification by CSV2C.py
@@ -75,10 +73,12 @@ const unsigned char palette_sp[] = {
 void draw_bg(void);
 void draw_sprites(void);
 void movement(void);
-void bg_collision(char *object);
-void door_collision(char *object);
+void bg_collision();
+void door_collision();
 void change_room_right(void);
 void change_room_left(void);
+void change_room_up(void);
+void change_room_down(void);
 void load_title(void);
 void clear_title(void);
 void debug_spr(void);
