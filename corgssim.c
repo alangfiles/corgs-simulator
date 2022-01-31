@@ -55,12 +55,12 @@ void main(void)
 
 		movement();
 		draw_sprites();
-		change_room_debug();
 	}
 }
 
 void draw_bg(void)
 {
+	oam_clear();
 	ppu_off(); // screen off
 
 	p_maps = All_Collision_Maps[which_bg];
@@ -177,14 +177,6 @@ void movement(void)
 		player_y -= 1;
 	if (collision_U)
 		player_y += 1;
-}
-
-void change_room_debug(void)
-{
-	if(pad1 & PAD_START) 
-	{
-		change_room_up();
-	}
 }
 
 void bg_collision()
