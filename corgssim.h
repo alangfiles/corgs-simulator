@@ -3,6 +3,11 @@
 #define SCREEN_TOP_EDGE 0x01
 #define SCREEN_BOTTOM_EDGE 0xe0
 
+#define DOWN_MOVE 0x00
+#define LEFT_MOVE 0x01
+#define UP_MOVE 0x02
+#define RIGHT_MOVE 0x03
+
 #pragma bss-name(push, "ZEROPAGE")
 
 // GLOBAL VARIABLES
@@ -27,6 +32,7 @@ unsigned char player_y = 80;
 unsigned char player_height = 15;
 unsigned char player_width = 15;
 unsigned char i;
+unsigned char last_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 const unsigned char title_text[] = "CORGS Simulator";
 const unsigned char start_text[] = "Press Start";
 

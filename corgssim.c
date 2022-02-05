@@ -144,7 +144,26 @@ void draw_sprites(void)
 	oam_clear();
 
 	// draw 1 metasprite
-	oam_meta_spr(player_x, player_y, PlayerSpr);
+
+
+	switch(last_direction){
+		case DOWN_MOVE:
+			oam_meta_spr(player_x, player_y, PlayerSprDown);
+			break;
+		case LEFT_MOVE:
+			oam_meta_spr(player_x, player_y, PlayerSprLeft);
+			break;
+		case UP_MOVE:
+			oam_meta_spr(player_x, player_y, PlayerSprUp);
+			break;
+		case RIGHT_MOVE:
+			oam_meta_spr(player_x, player_y, PlayerSprRight);
+			break;
+		default:
+			oam_meta_spr(player_x, player_y, PlayerSprUp);	
+			break;
+	}
+	
 
 	// // draw the x and y as sprites
 	// oam_spr(20, 20, 0xfe, 1); // 0xfe = X
@@ -165,10 +184,12 @@ void movement(void)
 {
 	if (pad1 & PAD_LEFT)
 	{
+		last_direction = LEFT_MOVE;
 		player_x -= 1;
 	}
 	else if (pad1 & PAD_RIGHT)
 	{
+		last_direction = RIGHT_MOVE;
 		player_x += 1;
 	}
 
@@ -190,11 +211,13 @@ void movement(void)
 	if (pad1 & PAD_UP)
 	{
 		player_y -= 1;
+		last_direction = UP_MOVE;
 		if (player_y == SCREEN_TOP_EDGE)
 			change_room_up();
 	}
 	else if (pad1 & PAD_DOWN)
 	{
+		last_direction = DOWN_MOVE;
 		player_y += 1;
 		if (player_y == SCREEN_BOTTOM_EDGE)
 			change_room_down();
