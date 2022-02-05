@@ -79,8 +79,22 @@ void draw_bg(void)
 
 			if (c_map[temp1])
 			{
-				vram_put(0x10); // wall
-				vram_put(0x10);
+				if(c_map[temp1]==3)
+				{
+					vram_put(0x07); // water
+					vram_put(0x07);	
+				}
+				if(c_map[temp1]==2)
+				{
+					vram_put(0x08); // wall2
+					vram_put(0x08);	
+				}
+				if(c_map[temp1]==1)
+				{
+					vram_put(0x10); // wall
+					vram_put(0x10);
+				}
+				
 			}
 			else
 			{
@@ -96,8 +110,22 @@ void draw_bg(void)
 
 			if (c_map[temp1])
 			{
-				vram_put(0x10); // wall
-				vram_put(0x10);
+				if(c_map[temp1]==3)
+				{
+					vram_put(0x07); // water
+					vram_put(0x07);	
+				}
+				if(c_map[temp1]==2)
+				{
+					vram_put(0x08); // wall2
+					vram_put(0x08);	
+				}
+				if(c_map[temp1]==1)
+				{
+					vram_put(0x10); // wall
+					vram_put(0x10);
+				}
+				
 			}
 			else
 			{
