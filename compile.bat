@@ -20,4 +20,3 @@ move /Y %name%.nes BUILD\
 
 pause
 
-BUILD\%name%.nes
