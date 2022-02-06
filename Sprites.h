@@ -39,6 +39,14 @@ const unsigned char PlayerSprUp[]={
 	128
 };
 
+const unsigned char PlayerSprUpTwo[]={
+	  0, 0,0x0A,0,
+	  8, 0,0x0B,0,
+	  0, 8,0x1A,0,
+	  8, 8,0x1B,0,
+	128
+};
+
 const unsigned char PlayerSprRight[]={
 	  0, 0,0x04,0,
 	  8, 0,0x05,0,
@@ -47,11 +55,27 @@ const unsigned char PlayerSprRight[]={
 	128
 };
 
+const unsigned char PlayerSprRightTwo[]={
+	  0, 0,0x06,0,
+	  8, 0,0x07,0,
+	  0, 8,0x16,0,
+	  8, 8,0x17,0,
+	128
+};
+
 const unsigned char PlayerSprLeft[]={
 	  0, 0,0x05,0 | OAM_FLIP_H,
 		8, 0,0x04,0 | OAM_FLIP_H,
 		0, 8,0x15,0 | OAM_FLIP_H,
 	  8, 8,0x14,0 | OAM_FLIP_H,
+	128
+};
+
+const unsigned char PlayerSprLeftTwo[]={
+	  0, 0,0x07,0 | OAM_FLIP_H,
+	  8, 0,0x06,0 | OAM_FLIP_H,
+	  0, 8,0x17,0 | OAM_FLIP_H,
+	  8, 8,0x16,0 | OAM_FLIP_H,
 	128
 };
 

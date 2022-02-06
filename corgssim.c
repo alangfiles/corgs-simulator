@@ -12,7 +12,7 @@
 
 void main(void)
 {
-  
+
 	ppu_off(); // screen off
 	//comment
 
@@ -57,7 +57,6 @@ void main(void)
 
 		movement();
 		draw_sprites();
-		
 	}
 }
 
@@ -87,27 +86,26 @@ void draw_bg(void)
 
 			if (c_map[temp1])
 			{
-				if(c_map[temp1]==4)
+				if (c_map[temp1] == 4)
 				{
 					vram_put(0xAB); // blank table
-					vram_put(0xAD);	
+					vram_put(0xAD);
 				}
-				if(c_map[temp1]==3)
+				if (c_map[temp1] == 3)
 				{
 					vram_put(0x88); // water
-					vram_put(0x8A);	
+					vram_put(0x8A);
 				}
-				if(c_map[temp1]==2)
+				if (c_map[temp1] == 2)
 				{
 					vram_put(0x8B); // wall2
-					vram_put(0x8D);	
+					vram_put(0x8D);
 				}
-				if(c_map[temp1]==1)
+				if (c_map[temp1] == 1)
 				{
 					vram_put(0x10); // wall
 					vram_put(0x10);
 				}
-				
 			}
 			else
 			{
@@ -123,27 +121,26 @@ void draw_bg(void)
 
 			if (c_map[temp1])
 			{
-				if(c_map[temp1]==4)
+				if (c_map[temp1] == 4)
 				{
 					vram_put(0xBB); // blank table
-					vram_put(0xBD);	
+					vram_put(0xBD);
 				}
-				if(c_map[temp1]==3)
+				if (c_map[temp1] == 3)
 				{
 					vram_put(0x98); // water
-					vram_put(0x9A);	
+					vram_put(0x9A);
 				}
-				if(c_map[temp1]==2)
+				if (c_map[temp1] == 2)
 				{
 					vram_put(0x9B); // wall2
-					vram_put(0x9D);	
+					vram_put(0x9D);
 				}
-				if(c_map[temp1]==1)
+				if (c_map[temp1] == 1)
 				{
 					vram_put(0x10); // wall
 					vram_put(0x10);
 				}
-				
 			}
 			else
 			{
@@ -159,7 +156,7 @@ void draw_bg(void)
 void draw_sprites(void)
 {
 	++move_frames;
-	if(move_frames > 16)
+	if (move_frames > 16)
 	{
 		move_frames = 0;
 	}
@@ -168,34 +165,71 @@ void draw_sprites(void)
 
 	// draw 1 metasprite
 
-	switch(last_direction){
-		case DOWN_MOVE:
+	switch (last_direction)
+	{
+	case DOWN_MOVE:
 
-			if(pad1 & PAD_DOWN) {
-				if(move_frames < 8) {
-					oam_meta_spr(player_x, player_y, PlayerSprDown);
-				} else {
-					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
-				}	
+		if (pad1 & PAD_DOWN) //only animate if the button is pressed
+		{
+			if (move_frames > 8) {
+				oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
 			} else {
 				oam_meta_spr(player_x, player_y, PlayerSprDown);
 			}
-			
-			break;
-		case LEFT_MOVE:
+		}
+		else  //this is the idle non-moving sprite
+		{
+			oam_meta_spr(player_x, player_y, PlayerSprDown);
+		}
+
+		break;
+	case LEFT_MOVE:
+		if (pad1 & PAD_LEFT) //only animate if the button is pressed
+		{
+			if (move_frames > 8) {
+				oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+			} else {
+				oam_meta_spr(player_x, player_y, PlayerSprLeft);
+			}
+		}
+		else  //this is the idle non-moving sprite
+		{
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
-			break;
-		case UP_MOVE:
+		}
+
+		break;
+	case UP_MOVE:
+		if (pad1 & PAD_UP) //only animate if the button is pressed
+		{
+			if (move_frames > 8) {
+				oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
+			} else {
+				oam_meta_spr(player_x, player_y, PlayerSprUp);
+			}
+		}
+		else  //this is the idle non-moving sprite
+		{
 			oam_meta_spr(player_x, player_y, PlayerSprUp);
-			break;
-		case RIGHT_MOVE:
+		}
+		break;
+	case RIGHT_MOVE:
+		if (pad1 & PAD_RIGHT) //only animate if the button is pressed
+		{
+			if (move_frames > 8) {
+				oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+			} else {
+				oam_meta_spr(player_x, player_y, PlayerSprRight);
+			}
+		}
+		else  //this is the idle non-moving sprite
+		{
 			oam_meta_spr(player_x, player_y, PlayerSprRight);
-			break;
-		default:
-			oam_meta_spr(player_x, player_y, PlayerSprUp);	
-			break;
+		}
+		break;
+	default:
+		oam_meta_spr(player_x, player_y, PlayerSprUp);
+		break;
 	}
-	
 
 	// // draw the x and y as sprites
 	// oam_spr(20, 20, 0xfe, 1); // 0xfe = X
@@ -254,7 +288,7 @@ void movement(void)
 		if (player_y == SCREEN_TOP_EDGE)
 			change_room_up();
 	}
-	else if (pad1 & PAD_DOWN  && !has_moved)
+	else if (pad1 & PAD_DOWN && !has_moved)
 	{
 		last_direction = DOWN_MOVE;
 		player_y += 1;
@@ -269,20 +303,14 @@ void movement(void)
 		player_y -= 1;
 		// if (player_y == SCREEN_BOTTOM_EDGE)
 		// 	change_room_down();
-
-		
 	}
-		
+
 	if (collision_U)
 	{
 		player_y += 1;
 		// if (player_y == SCREEN_TOP_EDGE)
 		// 	change_room_up();
-
-		
-		
 	}
-		
 }
 
 void bg_collision()
@@ -345,7 +373,7 @@ void bg_collision()
 void change_room_right()
 {
 	player_x = SCREEN_LEFT_EDGE;
-	if(which_bg == 3)
+	if (which_bg == 3)
 	{
 		which_bg = 2;
 	}
@@ -353,14 +381,14 @@ void change_room_right()
 	{
 		which_bg = 1;
 	}
-	
+
 	draw_bg();
 }
 
 void change_room_left()
 {
 	player_x = SCREEN_RIGHT_EDGE;
-	if(which_bg == 2)
+	if (which_bg == 2)
 	{
 		which_bg = 3;
 	}
@@ -373,13 +401,13 @@ void change_room_left()
 
 void change_room_up()
 {
-	
+
 	player_y = SCREEN_BOTTOM_EDGE;
-	if(which_bg == 0)
+	if (which_bg == 0)
 	{
 		which_bg = 3;
 	}
-	if(which_bg == 1)
+	if (which_bg == 1)
 	{
 		which_bg = 2;
 	}
@@ -389,11 +417,11 @@ void change_room_up()
 void change_room_down()
 {
 	player_y = SCREEN_TOP_EDGE;
-	if(which_bg == 3)
+	if (which_bg == 3)
 	{
 		which_bg = 0;
 	}
-	if(which_bg == 2)
+	if (which_bg == 2)
 	{
 		which_bg = 1;
 	}
