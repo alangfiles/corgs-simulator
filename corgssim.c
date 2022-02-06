@@ -86,24 +86,29 @@ void draw_bg(void)
 
 			if (c_map[temp1])
 			{
-				if (c_map[temp1] == 4)
+				if (c_map[temp1] == 5) // door
 				{
-					vram_put(0xAB); // blank table
-					vram_put(0xAD);
+					vram_put(0x01);
+					vram_put(0x02);
 				}
-				if (c_map[temp1] == 3)
+				if (c_map[temp1] == 4) // empty table
 				{
-					vram_put(0x88); // water
+					vram_put(0xAB);
+					vram_put(0xAD);  
+				}
+				if (c_map[temp1] == 3) // table 1
+				{
+					vram_put(0x88);
 					vram_put(0x8A);
 				}
-				if (c_map[temp1] == 2)
+				if (c_map[temp1] == 2) // table 2
 				{
-					vram_put(0x8B); // wall2
+					vram_put(0x8B);
 					vram_put(0x8D);
 				}
-				if (c_map[temp1] == 1)
+				if (c_map[temp1] == 1) //brick
 				{
-					vram_put(0x10); // wall
+					vram_put(0x10);
 					vram_put(0x10);
 				}
 			}
@@ -121,24 +126,29 @@ void draw_bg(void)
 
 			if (c_map[temp1])
 			{
-				if (c_map[temp1] == 4)
+				if (c_map[temp1] == 5) // door
 				{
-					vram_put(0xBB); // blank table
+					vram_put(0x11);
+					vram_put(0x12);
+				}
+				if (c_map[temp1] == 4) // empty table
+				{
+					vram_put(0xBB);
 					vram_put(0xBD);
 				}
-				if (c_map[temp1] == 3)
+				if (c_map[temp1] == 3) // table 1
 				{
-					vram_put(0x98); // water
+					vram_put(0x98);
 					vram_put(0x9A);
 				}
-				if (c_map[temp1] == 2)
+				if (c_map[temp1] == 2) // table 2
 				{
-					vram_put(0x9B); // wall2
+					vram_put(0x9B);
 					vram_put(0x9D);
 				}
-				if (c_map[temp1] == 1)
+				if (c_map[temp1] == 1) //brick
 				{
-					vram_put(0x10); // wall
+					vram_put(0x10);
 					vram_put(0x10);
 				}
 			}
@@ -171,13 +181,16 @@ void draw_sprites(void)
 
 		if (pad1 & PAD_DOWN) //only animate if the button is pressed
 		{
-			if (move_frames > 8) {
+			if (move_frames > 8)
+			{
 				oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
-			} else {
+			}
+			else
+			{
 				oam_meta_spr(player_x, player_y, PlayerSprDown);
 			}
 		}
-		else  //this is the idle non-moving sprite
+		else //this is the idle non-moving sprite
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprDown);
 		}
@@ -186,13 +199,16 @@ void draw_sprites(void)
 	case LEFT_MOVE:
 		if (pad1 & PAD_LEFT) //only animate if the button is pressed
 		{
-			if (move_frames > 8) {
+			if (move_frames > 8)
+			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-			} else {
+			}
+			else
+			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			}
 		}
-		else  //this is the idle non-moving sprite
+		else //this is the idle non-moving sprite
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
 		}
@@ -201,13 +217,16 @@ void draw_sprites(void)
 	case UP_MOVE:
 		if (pad1 & PAD_UP) //only animate if the button is pressed
 		{
-			if (move_frames > 8) {
+			if (move_frames > 8)
+			{
 				oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
-			} else {
+			}
+			else
+			{
 				oam_meta_spr(player_x, player_y, PlayerSprUp);
 			}
 		}
-		else  //this is the idle non-moving sprite
+		else //this is the idle non-moving sprite
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprUp);
 		}
@@ -215,13 +234,16 @@ void draw_sprites(void)
 	case RIGHT_MOVE:
 		if (pad1 & PAD_RIGHT) //only animate if the button is pressed
 		{
-			if (move_frames > 8) {
+			if (move_frames > 8)
+			{
 				oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-			} else {
+			}
+			else
+			{
 				oam_meta_spr(player_x, player_y, PlayerSprRight);
 			}
 		}
-		else  //this is the idle non-moving sprite
+		else //this is the idle non-moving sprite
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprRight);
 		}
@@ -333,14 +355,14 @@ void bg_collision()
 	// y out of range
 
 	coordinates = (temp1 >> 4) + (temp3 & 0xf0); // upper left
-	if (c_map[coordinates])
+	if (c_map[coordinates] && c_map[coordinates] != 5)
 	{ // find a corner in the collision map
 		++collision_L;
 		++collision_U;
 	}
 
 	coordinates = (temp2 >> 4) + (temp3 & 0xf0); // upper right
-	if (c_map[coordinates])
+	if (c_map[coordinates] && c_map[coordinates] != 5)
 	{
 		++collision_R;
 		++collision_U;
@@ -351,14 +373,14 @@ void bg_collision()
 	// y out of range
 
 	coordinates = (temp1 >> 4) + (temp4 & 0xf0); // bottom left
-	if (c_map[coordinates])
+	if (c_map[coordinates] && c_map[coordinates] != 5)
 	{
 		++collision_L;
 		++collision_D;
 	}
 
 	coordinates = (temp2 >> 4) + (temp4 & 0xf0); // bottom right
-	if (c_map[coordinates])
+	if (c_map[coordinates] && c_map[coordinates] != 5)
 	{
 		++collision_R;
 		++collision_D;
