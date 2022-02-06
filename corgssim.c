@@ -25,7 +25,8 @@ void main(void)
 	bank_spr(1);
 
 	set_scroll_y(0xff); //shift the bg down 1 pixel
-	load_title();
+	game_mode = MODE_TITLE;
+	load_title(); // initial title load
 	ppu_on_all(); // turn on screen
 
 	// game loop
@@ -48,17 +49,55 @@ void main(void)
 				pal_bright(4); // back to normal brighness
 			}
 		}
+		while (game_mode == MODE_GAME)
+		{
+			ppu_wait_nmi(); // wait till beginning of the frame
+			// the sprites are pushed from a buffer to the OAM during nmi
 
-		ppu_wait_nmi(); // wait till beginning of the frame
-		// the sprites are pushed from a buffer to the OAM during nmi
+			pad1 = pad_poll(0);				 // read the first controller
+			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
 
-		pad1 = pad_poll(0);				 // read the first controller
-		pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
+			movement();
+			item_detection();
+			draw_sprites();
+		}
+		while (game_mode == MODE_END)
+		{
+			ppu_wait_nmi(); // wait till beginning of the frame
+			pad1 = pad_poll(0); // read the first controller
+			pad1_new = get_pad_new(0);
+			if (pad1_new & PAD_START)
+			{
+				pal_fade_to(4, 0); // fade to black
+				clear_end();
+				draw_bg();
 
-		movement();
-		draw_sprites();
+				game_mode = MODE_TITLE;
+				load_title(); // initial title load
+				which_bg = 0;
+				player_x = 64;
+				player_y = 80;
+
+				pal_bright(4); // back to normal brighness
+			}
+		}
 	}
 }
+
+// void debug_spr(void){
+// 	bank_spr(0);
+// 	oam_clear();
+// 	ppu_off();
+
+// 	oam_spr(24, 28, 0xfe, 1); // 0xfe = X
+// 	temp1 = (player_x & 0xff) >> 4;
+// 	// oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
+// 	oam_spr(32, 28, temp1, 1);
+// 	temp1 = (player_x & 0x0f);
+// 	oam_spr(32, 28, temp1, 1);
+// 	ppu_on_all(); // turn on screen
+
+// }
 
 void draw_bg(void)
 {
@@ -94,7 +133,7 @@ void draw_bg(void)
 				if (c_map[temp1] == 4) // empty table
 				{
 					vram_put(0xAB);
-					vram_put(0xAD);  
+					vram_put(0xAD);
 				}
 				if (c_map[temp1] == 3) // table 1
 				{
@@ -158,6 +197,19 @@ void draw_bg(void)
 				vram_put(0);
 			}
 		}
+	}
+
+	//draw secret game
+	if (which_bg == 1)
+	{
+		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
+		vram_put('.');
+		//player_x == 0x30 && player_y == 0xc0
+	}
+	else
+	{
+		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
+		vram_put(' ');
 	}
 
 	ppu_on_all(); // turn on screen
@@ -254,18 +306,46 @@ void draw_sprites(void)
 	}
 
 	// // draw the x and y as sprites
-	// oam_spr(20, 20, 0xfe, 1); // 0xfe = X
+	// oam_spr(24, 28, 0xfe, 1); // 0xfe = X
 	// temp1 = (player_x & 0xff) >> 4;
 	// // oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	// oam_spr(28, 20, temp1, 1);
+	// oam_spr(32, 28, temp1, 1);
 	// temp1 = (player_x & 0x0f);
-	// oam_spr(30, 20, temp1, 1);
+	// oam_spr(32, 28, temp1, 1);
 
-	// oam_spr(50, 20, 0xff, 1); // 0xff = Y
+	// oam_spr(50, 28, 0xff, 1); // 0xff = Y
 	// temp1 = (player_y & 0xff) >> 4;
-	// oam_spr(58, 20, temp1, 1);
+	// oam_spr(58, 28, temp1, 1);
 	// temp1 = (player_y & 0x0f);
-	// oam_spr(62, 20, temp1, 1);
+	// oam_spr(62, 28, temp1, 1);
+
+	// draw the x and y as sprites
+	// oam_spr(20,20,0xfe,1); // 0xfe = X
+	// temp1 = (scroll_x & 0xff) >> 4;
+	// //oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
+	// oam_spr(28,20,temp1,1);
+	// temp1 = (scroll_x & 0x0f);
+	// oam_spr(36,20,temp1,1);
+
+	// oam_spr(50,20,0xff,1); // 0xff = Y
+	// temp1 = (scroll_y & 0xff) >> 4;
+
+	// oam_spr(58,20,temp1,1);
+	// temp1 = (scroll_y & 0x0f);
+	// oam_spr(66,20,temp1,1);
+}
+
+void item_detection(void)
+{
+
+	if (which_bg == 1 
+	&& player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 
+	&& player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08
+	&& (( pad1 & PAD_A) || (pad1 & PAD_B) ))
+	{
+		load_end();
+		game_mode = MODE_END;
+	}
 }
 
 void movement(void)
@@ -452,6 +532,8 @@ void change_room_down()
 
 void load_title(void)
 {
+	oam_clear();
+	ppu_off();
 	// vram_adr(NTADR_A(x,y));
 	vram_adr(NTADR_A(8, 14)); // screen is 32 x 30 tiles
 	i = 0;
@@ -469,8 +551,57 @@ void load_title(void)
 		vram_put(start_text[i]); // this pushes 1 char to the screen
 		++i;
 	}
+	ppu_on_all();
 
-	game_mode = MODE_TITLE;
+}
+
+void load_end(void)
+{
+	player_x = -1;
+	player_y = -1;
+	which_bg = 5;
+	draw_bg();
+	oam_clear();
+	ppu_off();
+	// vram_adr(NTADR_A(x,y));
+	vram_adr(NTADR_A(4, 14)); // screen is 32 x 30 tiles
+	i = 0;
+	while (end_text[i])
+	{
+		vram_put(end_text[i]); // this pushes 1 char to the screen
+		++i;
+	} 
+
+	i = 0;
+	vram_adr(NTADR_A(3, 20)); // screen is 32 x 30 tiles
+	i = 0;
+	while (end_text2[i])
+	{
+		vram_put(end_text2[i]); // this pushes 1 char to the screen
+		++i;
+	}
+	ppu_on_all();
+
+}
+
+void clear_end(void)
+{
+		vram_adr(NTADR_A(8, 14)); // screen is 32 x 30 tiles
+	i = 0;
+	while (end_text[i])
+	{
+		vram_put(' '); // this pushes 1 char to the screen
+		++i;
+	}
+
+	i = 0;
+	vram_adr(NTADR_A(10, 20)); // screen is 32 x 30 tiles
+	i = 0;
+	while (end_text2[i])
+	{
+		vram_put(' '); // this pushes 1 char to the screen
+		++i;
+	}
 }
 
 void clear_title(void)

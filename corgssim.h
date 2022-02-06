@@ -37,6 +37,8 @@ unsigned char move_frames = 0;
 unsigned char has_moved = 0;
 const unsigned char title_text[] = "CORGS Simulator";
 const unsigned char start_text[] = "Press Start";
+const unsigned char end_text[] = "You found a copy of JEQB";
+const unsigned char end_text2[] = "Press Start to play again";
 
 unsigned char game_mode;
 enum
@@ -80,6 +82,7 @@ const unsigned char palette_sp[] = {
 void draw_bg(void);
 void draw_sprites(void);
 void movement(void);
+void item_detection(void);
 void bg_collision();
 void door_collision();
 void change_room_right(void);
@@ -87,6 +90,8 @@ void change_room_left(void);
 void change_room_up(void);
 void change_room_down(void);
 void load_title(void);
+void load_end(void);
 void clear_title(void);
+void clear_end(void);
 void debug_spr(void);
 void change_room_debug(void);
