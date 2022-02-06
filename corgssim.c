@@ -160,8 +160,9 @@ void draw_sprites(void)
 				} else {
 					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
 				}	
+			} else {
+				oam_meta_spr(player_x, player_y, PlayerSprDown);
 			}
-			oam_meta_spr(player_x, player_y, PlayerSprDown);
 			
 			break;
 		case LEFT_MOVE:
