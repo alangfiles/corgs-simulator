@@ -11,8 +11,9 @@
 
 void main(void)
 {
-
+  
 	ppu_off(); // screen off
+	//comment
 
 	// load the palettes
 	pal_bg(palette_bg);
@@ -80,15 +81,20 @@ void draw_bg(void)
 
 			if (c_map[temp1])
 			{
+				if(c_map[temp1]==4)
+				{
+					vram_put(0xAB); // blank table
+					vram_put(0xAD);	
+				}
 				if(c_map[temp1]==3)
 				{
-					vram_put(0x07); // water
-					vram_put(0x07);	
+					vram_put(0x88); // water
+					vram_put(0x8A);	
 				}
 				if(c_map[temp1]==2)
 				{
-					vram_put(0x08); // wall2
-					vram_put(0x08);	
+					vram_put(0x8B); // wall2
+					vram_put(0x8D);	
 				}
 				if(c_map[temp1]==1)
 				{
@@ -111,15 +117,20 @@ void draw_bg(void)
 
 			if (c_map[temp1])
 			{
+				if(c_map[temp1]==4)
+				{
+					vram_put(0xBB); // blank table
+					vram_put(0xBD);	
+				}
 				if(c_map[temp1]==3)
 				{
-					vram_put(0x07); // water
-					vram_put(0x07);	
+					vram_put(0x98); // water
+					vram_put(0x9A);	
 				}
 				if(c_map[temp1]==2)
 				{
-					vram_put(0x08); // wall2
-					vram_put(0x08);	
+					vram_put(0x9B); // wall2
+					vram_put(0x9D);	
 				}
 				if(c_map[temp1]==1)
 				{
