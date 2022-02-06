@@ -75,6 +75,7 @@ const unsigned char palette_sp[] = {
 		0x0f, 0x00, 0x0f, 0x15, // black, gray, pink
 		0, 0, 0, 0};
 
+
 // PROTOTYPES
 void draw_bg(void);
 void draw_sprites(void);
