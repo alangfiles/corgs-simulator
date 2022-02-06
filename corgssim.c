@@ -230,18 +230,21 @@ void movement(void)
 	bg_collision();
 	if (collision_D)
 	{
+		player_y -= 1;
 		// if (player_y == SCREEN_BOTTOM_EDGE)
 		// 	change_room_down();
 
-		player_y -= 1;
+		
 	}
 		
 	if (collision_U)
 	{
+		player_y += 1;
 		// if (player_y == SCREEN_TOP_EDGE)
 		// 	change_room_up();
+
 		
-		player_y += 1;
+		
 	}
 		
 }
