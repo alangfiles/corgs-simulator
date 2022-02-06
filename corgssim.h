@@ -3,6 +3,11 @@
 #define SCREEN_TOP_EDGE 0x01
 #define SCREEN_BOTTOM_EDGE 0xe0
 
+#define PLAYER_LEFT_EDGE 0x01
+#define PLAYER_RIGHT_EDGE 0xef
+#define PLAYER_TOP_EDGE 0x02
+#define PLAYER_BOTTOM_EDGE 0xdf
+
 #define DOWN_MOVE 0x00
 #define LEFT_MOVE 0x01
 #define UP_MOVE 0x02

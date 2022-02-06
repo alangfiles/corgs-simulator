@@ -459,7 +459,7 @@ void bg_collision()
 
 void change_room_right()
 {
-	player_x = SCREEN_LEFT_EDGE;
+	player_x = PLAYER_LEFT_EDGE;
 	if (which_bg == 3)
 	{
 		which_bg = 2;
@@ -474,7 +474,7 @@ void change_room_right()
 
 void change_room_left()
 {
-	player_x = SCREEN_RIGHT_EDGE;
+	player_x = PLAYER_RIGHT_EDGE;
 	if (which_bg == 2)
 	{
 		which_bg = 3;
@@ -489,7 +489,7 @@ void change_room_left()
 void change_room_up()
 {
 
-	player_y = SCREEN_BOTTOM_EDGE;
+	player_y = PLAYER_BOTTOM_EDGE;
 	if (which_bg == 0)
 	{
 		which_bg = 3;
@@ -503,7 +503,7 @@ void change_room_up()
 
 void change_room_down()
 {
-	player_y = SCREEN_TOP_EDGE;
+	player_y = PLAYER_TOP_EDGE;
 	if (which_bg == 3)
 	{
 		which_bg = 0;
