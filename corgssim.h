@@ -35,6 +35,12 @@ unsigned char temp_y;
 unsigned char player_x = 64;
 unsigned char player_y = 80;
 
+// room loader code
+int address;
+unsigned char x; 
+unsigned char y;
+unsigned char index;
+
 unsigned char player_height = 13;
 unsigned char player_width = 13;
 unsigned char i;
@@ -68,6 +74,7 @@ unsigned char c_map[240];
 #include "CSV/c2.c" // called c2
 #include "CSV/c3.c" // called c3
 #include "CSV/c4.c" // called c4
+#include "CSV/c5.c" // called c5
 
 const unsigned char *const All_Collision_Maps[] = {c1, c2, c3, c4};
 
@@ -82,6 +89,20 @@ const unsigned char palette_sp[] = {
 		0x0f, 0x00, 0x0f, 0x15, 
 		0x0f, 0x00, 0x0f, 0x15, 
 		0, 0, 0, 0};
+
+
+// 5 bytes per metatile definition, tile TL, TR, BL, BR, palette 0-3
+// T means top, B means bottom, L left,R right
+// 51 maximum # of metatiles = 255 bytes
+
+const unsigned char metatiles1[]={
+	0, 0, 0, 0,  3,              // 0: Empty space
+	0x10, 0x10, 0x10, 0x10,  1,  // 1: Brick
+	0x8B, 0x8D, 0x9B, 0x9D,  2,  // 2: Table 2
+	0x88, 0x8A, 0x98, 0x9A,  1,  // 3: Table 1
+	0xAB, 0xAD, 0xBB, 0xBD,  0,  // 4: empty table
+	0x01, 0x02, 0x11, 0x12,  2   // 5: door
+};
 
 
 // PROTOTYPES

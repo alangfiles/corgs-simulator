@@ -86,116 +86,73 @@ void main(void)
 
 void draw_bg(void)
 {
+
 	oam_clear();
 	ppu_off(); // screen off
+	set_vram_buffer(); // do at least once, sets a pointer to a buffer
 
-	p_maps = All_Collision_Maps[which_bg];
-	// copy the collision map to c_map
-	memcpy(c_map, p_maps, 240);
+	// p_maps = All_Collision_Maps[which_bg];
+	// // copy the collision map to c_map
+	// memcpy(c_map, p_maps, 240);
 
-	// this sets a start position on the BG, top left of screen
-	vram_adr(NAMETABLE_A);
-
-	// this unpacks a compressed full nametable (used for attributes)
-	vram_unrle(Room1);
-
-	vram_adr(NAMETABLE_A);
-
-	// draw the tiles
-	for (temp_y = 0; temp_y < 15; ++temp_y)
+	switch(which_bg)
 	{
-		for (temp_x = 0; temp_x < 16; ++temp_x)
+		case 0:
+			set_data_pointer(c1);
+			memcpy(c_map, c1, 240);
+			break;
+		case 1:
+			set_data_pointer(c2);
+			memcpy(c_map, c2, 240);
+			break;
+		case 2:
+			set_data_pointer(c3);
+			memcpy(c_map, c3, 240);
+			break;
+		case 3:
+			set_data_pointer(c4);
+			memcpy(c_map, c4, 240);
+			break;
+		case 4:
+			set_data_pointer(c5);
+			memcpy(c_map, c5, 240);
+			break;
+		default:
+			set_data_pointer(c5);
+			memcpy(c_map, c5, 240);
+			break;
+	}
+	set_mt_pointer(metatiles1);
+
+	//draw the tiles
+	for (y = 0;; y += 0x20)
+	{
+		for (x = 0;; x += 0x20)
 		{
-			temp1 = (temp_y << 4) + temp_x;
-
-			if (c_map[temp1])
-			{
-				if (c_map[temp1] == 5) // door
-				{
-					vram_put(0x01);
-					vram_put(0x02);
-				}
-				if (c_map[temp1] == 4) // empty table
-				{
-					vram_put(0xAB);
-					vram_put(0xAD);
-				}
-				if (c_map[temp1] == 3) // table 1
-				{
-					vram_put(0x88);
-					vram_put(0x8A);
-				}
-				if (c_map[temp1] == 2) // table 2
-				{
-					vram_put(0x8B);
-					vram_put(0x8D);
-				}
-				if (c_map[temp1] == 1) //brick
-				{
-					vram_put(0x10);
-					vram_put(0x10);
-				}
-			}
-			else
-			{
-				vram_put(0); // blank
-				vram_put(0);
-			}
+			address = get_ppu_addr(0, x, y);
+			index = (y & 0xf0) + (x >> 4);
+			buffer_4_mt(address, index); // ppu_address, index to the data
+			flush_vram_update2();
+			if (x == 0xe0)
+				break;
 		}
-
-		// do twice
-		for (temp_x = 0; temp_x < 16; ++temp_x)
-		{
-			temp1 = (temp_y << 4) + temp_x;
-
-			if (c_map[temp1])
-			{
-				if (c_map[temp1] == 5) // door
-				{
-					vram_put(0x11);
-					vram_put(0x12);
-				}
-				if (c_map[temp1] == 4) // empty table
-				{
-					vram_put(0xBB);
-					vram_put(0xBD);
-				}
-				if (c_map[temp1] == 3) // table 1
-				{
-					vram_put(0x98);
-					vram_put(0x9A);
-				}
-				if (c_map[temp1] == 2) // table 2
-				{
-					vram_put(0x9B);
-					vram_put(0x9D);
-				}
-				if (c_map[temp1] == 1) //brick
-				{
-					vram_put(0x10);
-					vram_put(0x10);
-				}
-			}
-			else
-			{
-				vram_put(0); // blank
-				vram_put(0);
-			}
-		}
+		if (y == 0xe0)
+			break;
 	}
 
-	//draw secret game
-	if (which_bg == 1)
-	{
-		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
-		vram_put('.');
-		//player_x == 0x30 && player_y == 0xc0
-	}
-	else
-	{
-		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
-		vram_put(' ');
-	}
+
+	// //draw secret game
+	// if (which_bg == 1)
+	// {
+	// 	vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
+	// 	vram_put('.');
+	// 	//player_x == 0x30 && player_y == 0xc0
+	// }
+	// else
+	// {
+	// 	vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
+	// 	vram_put(' ');
+	// }
 
 	ppu_on_all(); // turn on screen
 }
