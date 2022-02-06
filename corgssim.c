@@ -197,17 +197,20 @@ void draw_sprites(void)
 
 void movement(void)
 {
+	has_moved = 0;
 
 	// move left/right
 	if (pad1 & PAD_LEFT)
 	{
 		last_direction = LEFT_MOVE;
 		player_x -= 1;
+		has_moved = 1;
 	}
 	else if (pad1 & PAD_RIGHT)
 	{
 		last_direction = RIGHT_MOVE;
 		player_x += 1;
+		has_moved = 1;
 	}
 
 	// check left/right collisions
@@ -227,14 +230,14 @@ void movement(void)
 	}
 
 	// move up/down
-	if (pad1 & PAD_UP)
+	if (pad1 & PAD_UP && !has_moved)
 	{
 		last_direction = UP_MOVE;
 		player_y -= 1;
 		if (player_y == SCREEN_TOP_EDGE)
 			change_room_up();
 	}
-	else if (pad1 & PAD_DOWN)
+	else if (pad1 & PAD_DOWN  && !has_moved)
 	{
 		last_direction = DOWN_MOVE;
 		player_y += 1;

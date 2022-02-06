@@ -34,6 +34,7 @@ unsigned char player_width = 15;
 unsigned char i;
 unsigned char last_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;
+unsigned char has_moved = 0;
 const unsigned char title_text[] = "CORGS Simulator";
 const unsigned char start_text[] = "Press Start";
 
