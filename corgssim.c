@@ -542,9 +542,10 @@ void load_title(void)
 
 void load_end(void)
 {
-	player_x = -1;
-	player_y = -1;
-	which_bg = 5;
+	//move player off screen
+	player_x = -4;
+	player_y = -4;
+	which_bg = 5; //set background to black
 	draw_bg();
 	oam_clear();
 	ppu_off();
