@@ -84,21 +84,6 @@ void main(void)
 	}
 }
 
-// void debug_spr(void){
-// 	bank_spr(0);
-// 	oam_clear();
-// 	ppu_off();
-
-// 	oam_spr(24, 28, 0xfe, 1); // 0xfe = X
-// 	temp1 = (player_x & 0xff) >> 4;
-// 	// oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-// 	oam_spr(32, 28, temp1, 1);
-// 	temp1 = (player_x & 0x0f);
-// 	oam_spr(32, 28, temp1, 1);
-// 	ppu_on_all(); // turn on screen
-
-// }
-
 void draw_bg(void)
 {
 	oam_clear();

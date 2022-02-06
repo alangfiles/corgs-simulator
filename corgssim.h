@@ -66,9 +66,9 @@ unsigned char c_map[240];
 const unsigned char *const All_Collision_Maps[] = {c1, c2, c3, c4};
 
 const unsigned char palette_bg[] = {
-		0x0f, 0x00, 0x10, 0x30,	 
-		0x0f, 0x14, 0x12, 0x36,	 
+		0x0f, 0x02, 0x10, 0x3d,	 
 		0x0f, 0x06, 0x29, 0x14,	 
+		0x0f, 0x14, 0x12, 0x36,	
 		0x0f, 0x00, 0x23, 0x39}; 
 
 const unsigned char palette_sp[] = {
@@ -84,7 +84,6 @@ void draw_sprites(void);
 void movement(void);
 void item_detection(void);
 void bg_collision();
-void door_collision();
 void change_room_right(void);
 void change_room_left(void);
 void change_room_up(void);
@@ -93,5 +92,3 @@ void load_title(void);
 void load_end(void);
 void clear_title(void);
 void clear_end(void);
-void debug_spr(void);
-void change_room_debug(void);
