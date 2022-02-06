@@ -8,7 +8,7 @@
 #include "LIB/nesdoug.h"
 #include "Sprites.h" // holds our metasprite data
 #include "corgssim.h"
-#include "Tables.h"
+#include "Room1.h"
 
 void main(void)
 {
@@ -73,8 +73,8 @@ void draw_bg(void)
 	// this sets a start position on the BG, top left of screen
 	vram_adr(NAMETABLE_A);
 
-	// this unpacks a compressed full nametable
-	vram_unrle(Tables);
+	// this unpacks a compressed full nametable (used for attributes)
+	vram_unrle(Room1);
 
 	vram_adr(NAMETABLE_A);
 
