@@ -55,6 +55,7 @@ void main(void)
 
 		movement();
 		draw_sprites();
+		
 	}
 }
 
@@ -140,15 +141,28 @@ void draw_bg(void)
 
 void draw_sprites(void)
 {
+	++move_frames;
+	if(move_frames > 16)
+	{
+		move_frames = 0;
+	}
 	// clear all sprites from sprite buffer
 	oam_clear();
 
 	// draw 1 metasprite
 
-
 	switch(last_direction){
 		case DOWN_MOVE:
+
+			if(pad1 & PAD_DOWN) {
+				if(move_frames < 8) {
+					oam_meta_spr(player_x, player_y, PlayerSprDown);
+				} else {
+					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
+				}	
+			}
 			oam_meta_spr(player_x, player_y, PlayerSprDown);
+			
 			break;
 		case LEFT_MOVE:
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
@@ -182,6 +196,7 @@ void draw_sprites(void)
 
 void movement(void)
 {
+
 	// move left/right
 	if (pad1 & PAD_LEFT)
 	{

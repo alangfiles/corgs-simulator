@@ -23,6 +23,14 @@ const unsigned char PlayerSprDown[]={
 	128
 };
 
+const unsigned char PlayerSprDownTwo[]={
+	  0, 0,0x02,0,
+	  8, 0,0x03,0,
+	  0, 8,0x12,0,
+	  8, 8,0x13,0,
+	128
+};
+
 const unsigned char PlayerSprUp[]={
 	  0, 0,0x08,0,
 	  8, 0,0x09,0,
