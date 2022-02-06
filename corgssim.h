@@ -34,8 +34,9 @@ unsigned char temp_x;
 unsigned char temp_y;
 unsigned char player_x = 64;
 unsigned char player_y = 80;
-unsigned char player_height = 15;
-unsigned char player_width = 15;
+
+unsigned char player_height = 13;
+unsigned char player_width = 13;
 unsigned char i;
 unsigned char last_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;

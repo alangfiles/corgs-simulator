@@ -342,13 +342,18 @@ void movement(void)
 	{
 		last_direction = LEFT_MOVE;
 		player_x -= 1;
-		has_moved = 1;
+		has_moved = 1;  
+		if (player_x == SCREEN_LEFT_EDGE)
+			change_room_left();
+		
 	}
 	else if (pad1 & PAD_RIGHT)
 	{
 		last_direction = RIGHT_MOVE;
 		player_x += 1;
 		has_moved = 1;
+		if (player_x == SCREEN_RIGHT_EDGE)
+			change_room_right();
 	}
 
 	// check left/right collisions
@@ -356,15 +361,11 @@ void movement(void)
 	if (collision_R)
 	{
 		player_x -= 1;
-		if (player_x == SCREEN_RIGHT_EDGE)
-			change_room_right();
 	}
 
 	if (collision_L)
 	{
 		player_x += 1;
-		if (player_x == SCREEN_LEFT_EDGE)
-			change_room_left();
 	}
 
 	// move up/down
