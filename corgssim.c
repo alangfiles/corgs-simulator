@@ -182,6 +182,7 @@ void draw_sprites(void)
 
 void movement(void)
 {
+	// move left/right
 	if (pad1 & PAD_LEFT)
 	{
 		last_direction = LEFT_MOVE;
@@ -193,6 +194,7 @@ void movement(void)
 		player_x += 1;
 	}
 
+	// check left/right collisions
 	bg_collision();
 	if (collision_R)
 	{
@@ -208,10 +210,11 @@ void movement(void)
 			change_room_left();
 	}
 
+	// move up/down
 	if (pad1 & PAD_UP)
 	{
-		player_y -= 1;
 		last_direction = UP_MOVE;
+		player_y -= 1;
 		if (player_y == SCREEN_TOP_EDGE)
 			change_room_up();
 	}
@@ -223,11 +226,24 @@ void movement(void)
 			change_room_down();
 	}
 
+	//check collision up/down
 	bg_collision();
 	if (collision_D)
+	{
+		// if (player_y == SCREEN_BOTTOM_EDGE)
+		// 	change_room_down();
+
 		player_y -= 1;
+	}
+		
 	if (collision_U)
+	{
+		// if (player_y == SCREEN_TOP_EDGE)
+		// 	change_room_up();
+		
 		player_y += 1;
+	}
+		
 }
 
 void bg_collision()
