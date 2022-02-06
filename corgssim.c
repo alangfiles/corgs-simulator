@@ -141,18 +141,18 @@ void draw_bg(void)
 	}
 
 
-	// //draw secret game
-	// if (which_bg == 1)
-	// {
-	// 	vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
-	// 	vram_put('.');
-	// 	//player_x == 0x30 && player_y == 0xc0
-	// }
-	// else
-	// {
-	// 	vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
-	// 	vram_put(' ');
-	// }
+	//draw secret game
+	if (which_bg == 1)
+	{
+		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
+		vram_put('.');
+		//player_x == 0x30 && player_y == 0xc0
+	}
+	else
+	{
+		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
+		vram_put(' ');
+	}
 
 	ppu_on_all(); // turn on screen
 }
