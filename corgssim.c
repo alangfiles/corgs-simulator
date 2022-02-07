@@ -47,6 +47,7 @@ void main(void)
 				draw_bg();
 
 				game_mode = MODE_GAME;
+				initialize_game();
 				pal_bright(4); // back to normal brighness
 			}
 		}
@@ -62,28 +63,33 @@ void main(void)
 			movement();
 			item_detection();
 			draw_sprites();
-			if(frame == 60) {
+			if (frame == 60)
+			{
 				draw_timer();
 				frame = 0;
-				
-				if(seconds_left_ones == 0) {
+
+				if (seconds_left_ones == 0)
+				{
 					seconds_left_ones = 9;
-					if(seconds_left_tens == 0) {
+					if (seconds_left_tens == 0)
+					{
 						seconds_left_tens = 5;
 						minutes_left -= 1;
-					} else {
+					}
+					else
+					{
 						seconds_left_tens -= 1;
 					}
-				} else {
+				}
+				else
+				{
 					seconds_left_ones -= 1;
 				}
 			}
-			
-
 		}
 		while (game_mode == MODE_END)
 		{
-			ppu_wait_nmi(); // wait till beginning of the frame
+			ppu_wait_nmi();			// wait till beginning of the frame
 			pad1 = pad_poll(0); // read the first controller
 			pad1_new = get_pad_new(0);
 			if (pad1_new & PAD_START)
@@ -114,32 +120,32 @@ void draw_bg(void)
 	// // copy the collision map to c_map
 	// memcpy(c_map, p_maps, 240);
 
-	switch(which_bg)
+	switch (which_bg)
 	{
-		case 0:
-			set_data_pointer(c1);
-			memcpy(c_map, c1, 240);
-			break;
-		case 1:
-			set_data_pointer(c2);
-			memcpy(c_map, c2, 240);
-			break;
-		case 2:
-			set_data_pointer(c3);
-			memcpy(c_map, c3, 240);
-			break;
-		case 3:
-			set_data_pointer(c4);
-			memcpy(c_map, c4, 240);
-			break;
-		case 4:
-			set_data_pointer(c5);
-			memcpy(c_map, c5, 240);
-			break;
-		default:
-			set_data_pointer(c5);
-			memcpy(c_map, c5, 240);
-			break;
+	case 0:
+		set_data_pointer(c1);
+		memcpy(c_map, c1, 240);
+		break;
+	case 1:
+		set_data_pointer(c2);
+		memcpy(c_map, c2, 240);
+		break;
+	case 2:
+		set_data_pointer(c3);
+		memcpy(c_map, c3, 240);
+		break;
+	case 3:
+		set_data_pointer(c4);
+		memcpy(c_map, c4, 240);
+		break;
+	case 4:
+		set_data_pointer(c5);
+		memcpy(c_map, c5, 240);
+		break;
+	default:
+		set_data_pointer(c5);
+		memcpy(c_map, c5, 240);
+		break;
 	}
 	set_mt_pointer(metatiles1);
 
@@ -158,7 +164,6 @@ void draw_bg(void)
 		if (y == 0xe0)
 			break;
 	}
-
 
 	//draw secret game
 	if (which_bg == 1)
@@ -299,10 +304,7 @@ void draw_sprites(void)
 void item_detection(void)
 {
 
-	if (which_bg == 1 
-	&& player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 
-	&& player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08
-	&& (( pad1 & PAD_A) || (pad1 & PAD_B) ))
+	if (which_bg == 1 && player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 && player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 && ((pad1 & PAD_A) || (pad1 & PAD_B)))
 	{
 		load_end();
 		game_mode = MODE_END;
@@ -318,10 +320,9 @@ void movement(void)
 	{
 		last_direction = LEFT_MOVE;
 		player_x -= 1;
-		has_moved = 1;  
+		has_moved = 1;
 		if (player_x == SCREEN_LEFT_EDGE)
 			change_room_left();
-		
 	}
 	else if (pad1 & PAD_RIGHT)
 	{
@@ -492,16 +493,26 @@ void change_room_down()
 	draw_bg();
 }
 
+void initialize_game(void)
+{
+	player_x = 64;
+	player_y = 80;
+
+	minutes_left = 4;
+	seconds_left_tens = 0;
+	seconds_left_ones = 0;
+}
+
 void draw_timer(void)
 {
-	multi_vram_buffer_horz(items_text, sizeof(items_text), NTADR_A(2,1)); 
+	multi_vram_buffer_horz(items_text, sizeof(items_text), NTADR_A(2, 1));
 
-	multi_vram_buffer_horz(clock_text, sizeof(clock_text), NTADR_A(2,2)); 
-	
-	one_vram_buffer(48 + minutes_left, NTADR_A(23,2));
-	one_vram_buffer(':', NTADR_A(24,2));
-	one_vram_buffer(48 + seconds_left_tens, NTADR_A(25,2));
-	one_vram_buffer(48 + seconds_left_ones, NTADR_A(26,2));
+	multi_vram_buffer_horz(clock_text, sizeof(clock_text), NTADR_A(2, 2));
+
+	one_vram_buffer(48 + minutes_left, NTADR_A(23, 2));
+	one_vram_buffer(':', NTADR_A(24, 2));
+	one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 2));
+	one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 2));
 	//ppu_on_all();
 }
 
@@ -527,8 +538,7 @@ void load_title(void)
 		++i;
 	}
 	ppu_on_all();
-
-}  
+}
 
 void load_end(void)
 {
@@ -546,7 +556,7 @@ void load_end(void)
 	{
 		vram_put(end_text[i]); // this pushes 1 char to the screen
 		++i;
-	} 
+	}
 
 	i = 0;
 	vram_adr(NTADR_A(3, 20)); // screen is 32 x 30 tiles
@@ -557,12 +567,11 @@ void load_end(void)
 		++i;
 	}
 	ppu_on_all();
-
 }
 
 void clear_end(void)
 {
-		vram_adr(NTADR_A(8, 14)); // screen is 32 x 30 tiles
+	vram_adr(NTADR_A(8, 14)); // screen is 32 x 30 tiles
 	i = 0;
 	while (end_text[i])
 	{

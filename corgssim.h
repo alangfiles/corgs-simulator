@@ -131,3 +131,4 @@ void load_title(void);
 void load_end(void);
 void clear_title(void);
 void clear_end(void);
+void initialize_game(void);
