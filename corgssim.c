@@ -20,6 +20,7 @@ void main(void)
 	pal_bg(palette_bg);
 	pal_spr(palette_sp);
 
+	set_vram_buffer(); // do at least once, sets a pointer to a buffer
 	// use the second set of tiles for sprites
 	// both bg and sprites are set to 0 by default
 	bank_spr(1);
@@ -49,8 +50,9 @@ void main(void)
 				pal_bright(4); // back to normal brighness
 			}
 		}
-		while (game_mode == MODE_GAME)
+		while (game_mode == MODE_GAME) //gameloop
 		{
+			++frame;
 			ppu_wait_nmi(); // wait till beginning of the frame
 			// the sprites are pushed from a buffer to the OAM during nmi
 
@@ -60,6 +62,24 @@ void main(void)
 			movement();
 			item_detection();
 			draw_sprites();
+			if(frame == 60) {
+				draw_timer();
+				frame = 0;
+				
+				if(seconds_left_ones == 0) {
+					seconds_left_ones = 9;
+					if(seconds_left_tens == 0) {
+						seconds_left_tens = 5;
+						minutes_left -= 1;
+					} else {
+						seconds_left_tens -= 1;
+					}
+				} else {
+					seconds_left_ones -= 1;
+				}
+			}
+			
+
 		}
 		while (game_mode == MODE_END)
 		{
@@ -89,7 +109,6 @@ void draw_bg(void)
 
 	oam_clear();
 	ppu_off(); // screen off
-	set_vram_buffer(); // do at least once, sets a pointer to a buffer
 
 	// p_maps = All_Collision_Maps[which_bg];
 	// // copy the collision map to c_map
@@ -153,7 +172,7 @@ void draw_bg(void)
 		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
 		vram_put(' ');
 	}
-
+	draw_timer();
 	ppu_on_all(); // turn on screen
 }
 
@@ -473,6 +492,19 @@ void change_room_down()
 	draw_bg();
 }
 
+void draw_timer(void)
+{
+	multi_vram_buffer_horz(items_text, sizeof(items_text), NTADR_A(2,1)); 
+
+	multi_vram_buffer_horz(clock_text, sizeof(clock_text), NTADR_A(2,2)); 
+	
+	one_vram_buffer(48 + minutes_left, NTADR_A(23,2));
+	one_vram_buffer(':', NTADR_A(24,2));
+	one_vram_buffer(48 + seconds_left_tens, NTADR_A(25,2));
+	one_vram_buffer(48 + seconds_left_ones, NTADR_A(26,2));
+	//ppu_on_all();
+}
+
 void load_title(void)
 {
 	oam_clear();
@@ -496,7 +528,7 @@ void load_title(void)
 	}
 	ppu_on_all();
 
-}
+}  
 
 void load_end(void)
 {

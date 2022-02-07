@@ -1,11 +1,11 @@
 #define SCREEN_LEFT_EDGE 0x00
 #define SCREEN_RIGHT_EDGE 0xf0
-#define SCREEN_TOP_EDGE 0x01
+#define SCREEN_TOP_EDGE 0x20
 #define SCREEN_BOTTOM_EDGE 0xe0
 
 #define PLAYER_LEFT_EDGE 0x01
 #define PLAYER_RIGHT_EDGE 0xef
-#define PLAYER_TOP_EDGE 0x02
+#define PLAYER_TOP_EDGE 0x22
 #define PLAYER_BOTTOM_EDGE 0xdf
 
 #define DOWN_MOVE 0x00
@@ -35,6 +35,10 @@ unsigned char temp_y;
 unsigned char player_x = 64;
 unsigned char player_y = 80;
 
+unsigned int minutes_left = 4;
+unsigned int seconds_left_tens = 0;
+unsigned int seconds_left_ones = 0;
+
 // room loader code
 int address;
 unsigned char x; 
@@ -47,10 +51,17 @@ unsigned char i;
 unsigned char last_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;
 unsigned char has_moved = 0;
+unsigned char frame = 0;
 const unsigned char title_text[] = "CORGS Simulator";
 const unsigned char start_text[] = "Press Start";
 const unsigned char end_text[] = "You found a copy of JEQB";
 const unsigned char end_text2[] = "Press Start to play again";
+const unsigned char clock_text[] = "Time Left: ";
+const unsigned char items_text[] = "Items Collected:    0 0 *";
+
+
+
+
 
 unsigned char game_mode;
 enum
@@ -108,6 +119,7 @@ const unsigned char metatiles1[]={
 // PROTOTYPES
 void draw_bg(void);
 void draw_sprites(void);
+void draw_timer(void);
 void movement(void);
 void item_detection(void);
 void bg_collision();
