@@ -183,6 +183,7 @@ void draw_bg(void)
 
 void draw_sprites(void)
 {
+	
 	++move_frames;
 	if (move_frames > 16)
 	{
@@ -192,7 +193,6 @@ void draw_sprites(void)
 	oam_clear();
 
 	// draw 1 metasprite
-
 	switch (last_direction)
 	{
 	case DOWN_MOVE:
@@ -269,6 +269,16 @@ void draw_sprites(void)
 	default:
 		oam_meta_spr(player_x, player_y, PlayerSprUp);
 		break;
+	}
+
+
+	// draw non player sprites:
+	if(which_bg == 0) {
+		oam_meta_spr(100, 70, Shopkeeper);
+	}
+
+	if(which_bg == 1) {
+		oam_meta_spr(160, 140, ShopkeeperTwo);
 	}
 
 	// // draw the x and y as sprites

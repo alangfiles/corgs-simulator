@@ -61,3 +61,20 @@ const unsigned char PlayerSprLeftTwo[]={
 	  8, 8,0x36,0 | OAM_FLIP_H,
 	128
 };
+
+
+const unsigned char Shopkeeper[]={
+	  0, 0,0xE6,0,
+		8, 0,0xE7,0,
+		0, 8,0xF6,0,
+	  8, 8,0xF7,0,
+	128
+};
+
+const unsigned char ShopkeeperTwo[]={
+	  0, 0,0xE4,0,
+		8, 0,0xE5,0,
+		0, 8,0xF4,0,
+	  8, 8,0xF5,0,
+	128
+};
