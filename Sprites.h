@@ -64,17 +64,17 @@ const unsigned char PlayerSprLeftTwo[]={
 
 
 const unsigned char Shopkeeper[]={
-	  0, 0,0xE6,0,
-		8, 0,0xE7,0,
-		0, 8,0xF6,0,
-	  8, 8,0xF7,0,
+	  0, 0,0x66,3,
+		8, 0,0x67,3,
+		0, 8,0x76,3,
+	  8, 8,0x77,3,
 	128
 };
 
 const unsigned char ShopkeeperTwo[]={
-	  0, 0,0xE4,0,
-		8, 0,0xE5,0,
-		0, 8,0xF4,0,
-	  8, 8,0xF5,0,
+	  0, 0,0x62,1,
+		8, 0,0x63,1,
+		0, 8,0x72,1,
+	  8, 8,0x73,1,
 	128
 };
