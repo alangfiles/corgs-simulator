@@ -96,7 +96,7 @@ void main(void)
 			{
 				pal_fade_to(4, 0); // fade to black
 				clear_end();
-				draw_bg();
+				draw_bg(); 
 
 				game_mode = MODE_TITLE;
 				load_title(); // initial title load
@@ -106,7 +106,7 @@ void main(void)
 
 				pal_bright(4); // back to normal brighness
 			}
-		}
+		}  
 	}
 }
 
