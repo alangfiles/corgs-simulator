@@ -78,3 +78,39 @@ const unsigned char ShopkeeperTwo[]={
 	  8, 8,0x73,1,
 	128
 };
+
+const unsigned char Brian[]={
+	  0, 0,0xCE,1,
+		8, 0,0xCF,1,
+		0, 8,0xDE,1,
+	  8, 8,0xDF,1,
+		0, 16,0xEE,1,
+		8, 16,0xEF,1,
+		0, 24,0xFE,1,
+		8, 24,0xFF,1,
+	128
+};
+
+const unsigned char Alan[]={
+	  0, 0,0xCC,1,
+		8, 0,0xCD,1,
+		0, 8,0xDC,1,
+	  8, 8,0xDD,1,
+		0, 16,0xEC,1,
+		8, 16,0xED,1,
+		0, 24,0xFC,1,
+		8, 24,0xFD,1,
+	128
+};
+
+// const unsigned char PunchingMan[]={
+// 	  0, 0,0x78,1,
+// 		8, 0,0x79,1,
+// 		0, 8,0x98,1,
+// 	  8, 8,0x99,1,
+// 		0, 16,0xA8,1,
+// 		8, 16,0xA9,1,
+// 	128
+// };
+
+

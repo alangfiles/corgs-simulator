@@ -271,15 +271,20 @@ void draw_sprites(void)
 		break;
 	}
 
-
+ 
 	// draw non player sprites:
 	if(which_bg == 0) {
 		oam_meta_spr(100, 70, Shopkeeper);
 	}
 
 	if(which_bg == 1) {
-		oam_meta_spr(160, 140, ShopkeeperTwo);
+		oam_meta_spr(40, 70, ShopkeeperTwo);
+		oam_meta_spr(180, 160, Brian);
+		oam_meta_spr(200, 160, Alan);
+		
 	}
+
+	
 
 	// // draw the x and y as sprites
 	// oam_spr(24, 28, 0xfe, 1); // 0xfe = X
