@@ -124,6 +124,7 @@ const unsigned char metatiles1[]={
 void draw_bg(void);
 void draw_sprites(void);
 void draw_timer(void);
+void draw_hud(void);
 void movement(void);
 void item_detection(void);
 void bg_collision();
@@ -135,4 +136,5 @@ void load_title(void);
 void load_end(void);
 void clear_title(void);
 void clear_end(void);
+void countdown_timer(void);
 void initialize_game(void);

@@ -62,30 +62,9 @@ void main(void)
 
 			movement();
 			item_detection();
+			countdown_timer();
 			draw_sprites();
-			if (frame == 60)
-			{
-				draw_timer();
-				frame = 0;
-
-				if (seconds_left_ones == 0)
-				{
-					seconds_left_ones = 9;
-					if (seconds_left_tens == 0)
-					{
-						seconds_left_tens = 5;
-						minutes_left -= 1;
-					}
-					else
-					{
-						seconds_left_tens -= 1;
-					}
-				}
-				else
-				{
-					seconds_left_ones -= 1;
-				}
-			}
+			draw_hud();
 		}
 		while (game_mode == MODE_END)
 		{
@@ -115,10 +94,6 @@ void draw_bg(void)
 
 	oam_clear();
 	ppu_off(); // screen off
-
-	// p_maps = All_Collision_Maps[which_bg];
-	// // copy the collision map to c_map
-	// memcpy(c_map, p_maps, 240);
 
 	switch (which_bg)
 	{
@@ -177,7 +152,6 @@ void draw_bg(void)
 		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
 		vram_put(' ');
 	}
-	draw_timer();
 	ppu_on_all(); // turn on screen
 }
 
@@ -283,43 +257,15 @@ void draw_sprites(void)
 		oam_meta_spr(200, 160, Alan);
 		
 	}
-
-	
-
-	// // draw the x and y as sprites
-	// oam_spr(24, 28, 0xfe, 1); // 0xfe = X
-	// temp1 = (player_x & 0xff) >> 4;
-	// // oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	// oam_spr(32, 28, temp1, 1);
-	// temp1 = (player_x & 0x0f);
-	// oam_spr(32, 28, temp1, 1);
-
-	// oam_spr(50, 28, 0xff, 1); // 0xff = Y
-	// temp1 = (player_y & 0xff) >> 4;
-	// oam_spr(58, 28, temp1, 1);
-	// temp1 = (player_y & 0x0f);
-	// oam_spr(62, 28, temp1, 1);
-
-	// draw the x and y as sprites
-	// oam_spr(20,20,0xfe,1); // 0xfe = X
-	// temp1 = (scroll_x & 0xff) >> 4;
-	// //oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	// oam_spr(28,20,temp1,1);
-	// temp1 = (scroll_x & 0x0f);
-	// oam_spr(36,20,temp1,1);
-
-	// oam_spr(50,20,0xff,1); // 0xff = Y
-	// temp1 = (scroll_y & 0xff) >> 4;
-
-	// oam_spr(58,20,temp1,1);
-	// temp1 = (scroll_y & 0x0f);
-	// oam_spr(66,20,temp1,1);
 }
 
 void item_detection(void)
 {
 
-	if (which_bg == 1 && player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 && player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 && ((pad1 & PAD_A) || (pad1 & PAD_B)))
+	if (which_bg == 1 
+	&& player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 
+	&& player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 
+	&& ((pad1 & PAD_A) || (pad1 & PAD_B)))
 	{
 		load_end();
 		game_mode = MODE_END;
@@ -381,15 +327,11 @@ void movement(void)
 	if (collision_D)
 	{
 		player_y -= 1;
-		// if (player_y == SCREEN_BOTTOM_EDGE)
-		// 	change_room_down();
 	}
 
 	if (collision_U)
 	{
 		player_y += 1;
-		// if (player_y == SCREEN_TOP_EDGE)
-		// 	change_room_up();
 	}
 }
 
@@ -518,7 +460,32 @@ void initialize_game(void)
 	seconds_left_ones = 0;
 }
 
-void draw_timer(void)
+void countdown_timer(void){
+	if (frame == 60)
+			{
+				frame = 0;
+				//nes is bad at mul and div math, so just doing counting for clock.
+				if (seconds_left_ones == 0)
+				{
+					seconds_left_ones = 9;
+					if (seconds_left_tens == 0)
+					{
+						seconds_left_tens = 5;
+						minutes_left -= 1;
+					}
+					else
+					{
+						seconds_left_tens -= 1;
+					}
+				}
+				else
+				{
+					seconds_left_ones -= 1;
+				}
+			}
+}
+
+void draw_hud(void)
 {
 	multi_vram_buffer_horz(items_text, sizeof(items_text), NTADR_A(2, 1));
 
@@ -528,7 +495,6 @@ void draw_timer(void)
 	one_vram_buffer(':', NTADR_A(24, 2));
 	one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 2));
 	one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 2));
-	//ppu_on_all();
 }
 
 void load_title(void)
