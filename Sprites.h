@@ -1,3 +1,8 @@
+const unsigned char Shot[]={
+	  0, 0,0x08,0,
+	128
+};
+
 const unsigned char PlayerSprDown[]={
 	  0, 0,0x02,0,
 	  8, 0,0x03,0,

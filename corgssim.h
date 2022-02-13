@@ -34,6 +34,9 @@ unsigned char temp_x;
 unsigned char temp_y;
 unsigned char player_x = 64;
 unsigned char player_y = 80;
+unsigned char shot_direction = 0;  // 0 = down, 1 = left, 2 = up, 3 = right
+unsigned char shot_x = 0;
+unsigned char shot_y = 0;
 
 unsigned int minutes_left = 4;
 unsigned int seconds_left_tens = 0;
@@ -48,7 +51,7 @@ unsigned char index;
 unsigned char player_height = 13;
 unsigned char player_width = 13;
 unsigned char i;
-unsigned char last_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
+unsigned char player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;
 unsigned char has_moved = 0;
 unsigned char frame = 0;
@@ -126,6 +129,7 @@ void draw_sprites(void);
 void draw_timer(void);
 void draw_hud(void);
 void movement(void);
+void action(void);
 void item_detection(void);
 void bg_collision();
 void change_room_right(void);

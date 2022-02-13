@@ -14,7 +14,7 @@ void main(void)
 {
 
 	ppu_off(); // screen off
-	//comment
+	// comment
 
 	// load the palettes
 	pal_bg(palette_bg);
@@ -25,7 +25,7 @@ void main(void)
 	// both bg and sprites are set to 0 by default
 	bank_spr(1);
 
-	set_scroll_y(0xff); //shift the bg down 1 pixel
+	set_scroll_y(0xff); // shift the bg down 1 pixel
 	game_mode = MODE_TITLE;
 	load_title(); // initial title load
 	ppu_on_all(); // turn on screen
@@ -51,7 +51,7 @@ void main(void)
 				pal_bright(4); // back to normal brighness
 			}
 		}
-		while (game_mode == MODE_GAME) //gameloop
+		while (game_mode == MODE_GAME) // gameloop
 		{
 			++frame;
 			ppu_wait_nmi(); // wait till beginning of the frame
@@ -61,6 +61,7 @@ void main(void)
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
 
 			movement();
+			action();
 			item_detection();
 			countdown_timer();
 			draw_sprites();
@@ -75,7 +76,7 @@ void main(void)
 			{
 				pal_fade_to(4, 0); // fade to black
 				clear_end();
-				draw_bg(); 
+				draw_bg();
 
 				game_mode = MODE_TITLE;
 				load_title(); // initial title load
@@ -85,7 +86,7 @@ void main(void)
 
 				pal_bright(4); // back to normal brighness
 			}
-		}  
+		}
 	}
 }
 
@@ -124,7 +125,7 @@ void draw_bg(void)
 	}
 	set_mt_pointer(metatiles1);
 
-	//draw the tiles
+	// draw the tiles
 	for (y = 0;; y += 0x20)
 	{
 		for (x = 0;; x += 0x20)
@@ -140,12 +141,12 @@ void draw_bg(void)
 			break;
 	}
 
-	//draw secret game
+	// draw secret game
 	if (which_bg == 1)
 	{
 		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
 		vram_put('.');
-		//player_x == 0x30 && player_y == 0xc0
+		// player_x == 0x30 && player_y == 0xc0
 	}
 	else
 	{
@@ -157,7 +158,7 @@ void draw_bg(void)
 
 void draw_sprites(void)
 {
-	
+
 	++move_frames;
 	if (move_frames > 16)
 	{
@@ -166,12 +167,12 @@ void draw_sprites(void)
 	// clear all sprites from sprite buffer
 	oam_clear();
 
-	// draw 1 metasprite
-	switch (last_direction)
+	// draw player (based on which way they're facing and anmiation frames)
+	switch (player_direction)
 	{
 	case DOWN_MOVE:
 
-		if (pad1 & PAD_DOWN) //only animate if the button is pressed
+		if (pad1 & PAD_DOWN) // only animate if the button is pressed
 		{
 			if (move_frames > 8)
 			{
@@ -182,14 +183,14 @@ void draw_sprites(void)
 				oam_meta_spr(player_x, player_y, PlayerSprDown);
 			}
 		}
-		else //this is the idle non-moving sprite
+		else // this is the idle non-moving sprite
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprDown);
 		}
 
 		break;
 	case LEFT_MOVE:
-		if (pad1 & PAD_LEFT) //only animate if the button is pressed
+		if (pad1 & PAD_LEFT) // only animate if the button is pressed
 		{
 			if (move_frames > 8)
 			{
@@ -200,14 +201,14 @@ void draw_sprites(void)
 				oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			}
 		}
-		else //this is the idle non-moving sprite
+		else // this is the idle non-moving sprite
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
 		}
 
 		break;
 	case UP_MOVE:
-		if (pad1 & PAD_UP) //only animate if the button is pressed
+		if (pad1 & PAD_UP) // only animate if the button is pressed
 		{
 			if (move_frames > 8)
 			{
@@ -218,13 +219,13 @@ void draw_sprites(void)
 				oam_meta_spr(player_x, player_y, PlayerSprUp);
 			}
 		}
-		else //this is the idle non-moving sprite
+		else // this is the idle non-moving sprite
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprUp);
 		}
 		break;
 	case RIGHT_MOVE:
-		if (pad1 & PAD_RIGHT) //only animate if the button is pressed
+		if (pad1 & PAD_RIGHT) // only animate if the button is pressed
 		{
 			if (move_frames > 8)
 			{
@@ -235,7 +236,7 @@ void draw_sprites(void)
 				oam_meta_spr(player_x, player_y, PlayerSprRight);
 			}
 		}
-		else //this is the idle non-moving sprite
+		else // this is the idle non-moving sprite
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprRight);
 		}
@@ -245,27 +246,71 @@ void draw_sprites(void)
 		break;
 	}
 
- 
+	if (shot_x >= 0)
+	{ // only draw the shot if it exists
+		oam_meta_spr(shot_x, shot_y, Shot);
+	}
+
 	// draw non player sprites:
-	if(which_bg == 0) {
+	if (which_bg == 0)
+	{
 		oam_meta_spr(100, 70, Shopkeeper);
 	}
 
-	if(which_bg == 1) {
+	if (which_bg == 1)
+	{
 		oam_meta_spr(40, 70, ShopkeeperTwo);
 		oam_meta_spr(180, 160, Brian);
 		oam_meta_spr(200, 160, Alan);
-		
+	}
+}
+
+void action(void)
+{
+	// only allow a shot to be fired if there's not on on screen
+	if (shot_x == 0 && (pad1 & PAD_A))
+	{
+		// the shot starts where the player is and moves in the direction
+		// the player was facing when they shot.
+		shot_x = player_x;
+		shot_y = player_y;
+		shot_direction = player_direction;
+	}
+
+	if (shot_x >= 0) // if there's a shot, update it's direction
+	{
+		switch (shot_direction)
+		{
+		case 0: // down
+			shot_y += 2;
+			break;
+		case 1: // left
+			shot_x -= 2;
+			break;
+		case 2: // up
+			shot_y -= 2;
+			break;
+		case 3: // right
+			shot_x += 2;
+			break;
+		default:
+			break;
+		}
+
+		// if it's offscreen, get rid of it.
+		if (shot_x > 250 || shot_x < 1 ||
+				shot_y > 255 || shot_y < 32)
+		{
+			shot_x = 0;
+			shot_y = 0;
+		}
 	}
 }
 
 void item_detection(void)
 {
 
-	if (which_bg == 1 
-	&& player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 
-	&& player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 
-	&& ((pad1 & PAD_A) || (pad1 & PAD_B)))
+	if (which_bg == 1 && player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 && player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 && ((pad1 & PAD_A) || (pad1 & PAD_B)))
 	{
 		load_end();
 		game_mode = MODE_END;
@@ -279,7 +324,7 @@ void movement(void)
 	// move left/right
 	if (pad1 & PAD_LEFT)
 	{
-		last_direction = LEFT_MOVE;
+		player_direction = LEFT_MOVE;
 		player_x -= 1;
 		has_moved = 1;
 		if (player_x == SCREEN_LEFT_EDGE)
@@ -287,7 +332,7 @@ void movement(void)
 	}
 	else if (pad1 & PAD_RIGHT)
 	{
-		last_direction = RIGHT_MOVE;
+		player_direction = RIGHT_MOVE;
 		player_x += 1;
 		has_moved = 1;
 		if (player_x == SCREEN_RIGHT_EDGE)
@@ -309,20 +354,20 @@ void movement(void)
 	// move up/down
 	if (pad1 & PAD_UP && !has_moved)
 	{
-		last_direction = UP_MOVE;
+		player_direction = UP_MOVE;
 		player_y -= 1;
 		if (player_y == SCREEN_TOP_EDGE)
 			change_room_up();
 	}
 	else if (pad1 & PAD_DOWN && !has_moved)
 	{
-		last_direction = DOWN_MOVE;
+		player_direction = DOWN_MOVE;
 		player_y += 1;
 		if (player_y == SCREEN_BOTTOM_EDGE)
 			change_room_down();
 	}
 
-	//check collision up/down
+	// check collision up/down
 	bg_collision();
 	if (collision_D)
 	{
@@ -460,29 +505,30 @@ void initialize_game(void)
 	seconds_left_ones = 0;
 }
 
-void countdown_timer(void){
+void countdown_timer(void)
+{
 	if (frame == 60)
+	{
+		frame = 0;
+		// nes is bad at mul and div math, so just doing counting for clock.
+		if (seconds_left_ones == 0)
+		{
+			seconds_left_ones = 9;
+			if (seconds_left_tens == 0)
 			{
-				frame = 0;
-				//nes is bad at mul and div math, so just doing counting for clock.
-				if (seconds_left_ones == 0)
-				{
-					seconds_left_ones = 9;
-					if (seconds_left_tens == 0)
-					{
-						seconds_left_tens = 5;
-						minutes_left -= 1;
-					}
-					else
-					{
-						seconds_left_tens -= 1;
-					}
-				}
-				else
-				{
-					seconds_left_ones -= 1;
-				}
+				seconds_left_tens = 5;
+				minutes_left -= 1;
 			}
+			else
+			{
+				seconds_left_tens -= 1;
+			}
+		}
+		else
+		{
+			seconds_left_ones -= 1;
+		}
+	}
 }
 
 void draw_hud(void)
@@ -523,10 +569,10 @@ void load_title(void)
 
 void load_end(void)
 {
-	//move player off screen
+	// move player off screen
 	player_x = -4;
 	player_y = -4;
-	which_bg = 5; //set background to black
+	which_bg = 5; // set background to black
 	draw_bg();
 	oam_clear();
 	ppu_off();
