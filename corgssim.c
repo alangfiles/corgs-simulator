@@ -61,7 +61,9 @@ void main(void)
 			draw_sprites();
 			draw_hud();
 			draw_talking();
-			gray_line(); //for debugging, the lower the line, the less processing we have
+
+			 //for debugging, the lower the line, the less processing we have
+			gray_line();
 
 		}
 		while (game_mode == MODE_END)
@@ -257,8 +259,7 @@ void draw_sprites(void)
 
 void action(void)
 {
-	// only allow a shot to be fired if there's not on on screen
-	if (shot_x == 0 && (pad1 & PAD_A))
+	if (pad1 & PAD_A)
 	{
 		// the shot starts where the player is and moves in the direction
 		// the player was facing when they shot.
@@ -267,34 +268,6 @@ void action(void)
 		shot_direction = player_direction;
 	}
 
-	if (shot_x >= 0) // if there's a shot, update it's direction
-	{
-		switch (shot_direction)
-		{
-		case 0: // down
-			shot_y += 2;
-			break;
-		case 1: // left
-			shot_x -= 2;
-			break;
-		case 2: // up
-			shot_y -= 2;
-			break;
-		case 3: // right
-			shot_x += 2;
-			break;
-		default:
-			break;
-		}
-
-		// if it's offscreen, get rid of it.
-		if (shot_x > 250 || shot_x < 1 ||
-				shot_y > 255 || shot_y < 32)
-		{
-			shot_x = 0;
-			shot_y = 0;
-		}
-	}
 }
 
 void item_detection(void)
@@ -309,6 +282,7 @@ void item_detection(void)
 
 void movement(void)
 {
+	#pragma region playerMovement
 	has_moved = 0;
 
 	// move left/right
@@ -368,6 +342,39 @@ void movement(void)
 	{
 		player_y += 1;
 	}
+
+	#pragma endregion playerMovement
+
+	#pragma region shotMovement
+	if (shot_x >= 0) // if there's a shot, update it's direction
+	{
+		switch (shot_direction)
+		{
+		case 0: // down
+			shot_y += 2;
+			break;
+		case 1: // left
+			shot_x -= 2;
+			break;
+		case 2: // up
+			shot_y -= 2;
+			break;
+		case 3: // right
+			shot_x += 2;
+			break;
+		default:
+			break;
+		}
+
+		// if it's offscreen, get rid of it.
+		if (shot_x > 250 || shot_x < 1 ||
+				shot_y > 255 || shot_y < 32)
+		{
+			shot_x = 0;
+			shot_y = 0;
+		}
+	}
+	#pragma endregion shotMovement
 }
 
 void bg_collision()
