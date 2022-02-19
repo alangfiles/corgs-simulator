@@ -250,18 +250,18 @@ void draw_sprites(void)
 		oam_meta_spr(shot_x, shot_y, Shot);
 	}
 
-	// draw non player sprites:
-	if (which_bg == 0)
-	{
-		oam_meta_spr(100, 70, Shopkeeper);
-	}
+	// // draw non player sprites:
+	// if (which_bg == 0)
+	// {
+	// 	oam_meta_spr(100, 70, Shopkeeper);
+	// }
 
-	if (which_bg == 1)
-	{
-		oam_meta_spr(40, 70, ShopkeeperTwo);
-		oam_meta_spr(180, 160, Brian);
-		oam_meta_spr(200, 160, Alan);
-	}
+	// if (which_bg == 1)
+	// {
+	// 	oam_meta_spr(40, 70, ShopkeeperTwo);
+	// 	oam_meta_spr(180, 160, Brian);
+	// 	oam_meta_spr(200, 160, Alan);
+	// }
 }
 
 void action(void)
