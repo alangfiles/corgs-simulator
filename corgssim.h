@@ -186,9 +186,9 @@ void change_room_right(void);
 void change_room_left(void);
 void change_room_up(void);
 void change_room_down(void);
-void load_title(void);
-void load_end(void);
-void clear_title(void);
+void initialize_title_screen(void);
+void initialize_game_mode(void);
+void initialize_end_screen(void);
 void clear_end(void);
 void countdown_timer(void);
-void initialize_game(void);
+

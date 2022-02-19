@@ -23,10 +23,11 @@ void main(void)
 	// use the second set of tiles for sprites
 	// both bg and sprites are set to 0 by default
 	bank_spr(1);
-
 	set_scroll_y(0xff); // shift the bg down 1 pixel
+
+	//setup title
 	game_mode = MODE_TITLE;
-	load_title(); // initial title load
+	initialize_title_screen();
 	ppu_on_all(); // turn on screen
 
 	// game loop
@@ -39,12 +40,14 @@ void main(void)
 
 			pad1 = pad_poll(0); // read the first controller
 			pad1_new = get_pad_new(0);
+
+			//check for start button
 			if (pad1_new & PAD_START)
 			{
 				pal_fade_to(4, 0); // fade to black
-				clear_title();
+				//clear_title();
 				game_mode = MODE_GAME;
-				initialize_game();
+				initialize_game_mode();
 				draw_bg();
 				pal_bright(4); // back to normal brighness
 			}
@@ -70,20 +73,18 @@ void main(void)
 		while (game_mode == MODE_END)
 		{
 			ppu_wait_nmi();			// wait till beginning of the frame
+
 			pad1 = pad_poll(0); // read the first controller
 			pad1_new = get_pad_new(0);
+
 			if (pad1_new & PAD_START)
 			{
 				pal_fade_to(4, 0); // fade to black
-				clear_end();
-				draw_bg();
-
 				game_mode = MODE_TITLE;
-				load_title(); // initial title load
 				which_bg = 0;
 				player_x = 64;
 				player_y = 80;
-
+				initialize_title_screen(); // initial title load
 				pal_bright(4); // back to normal brighness
 			}
 		}
@@ -313,7 +314,7 @@ void item_detection(void)
 
 	if (which_bg == 1 && player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 && player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 && ((pad1 & PAD_A) || (pad1 & PAD_B)))
 	{
-		load_end();
+		initialize_end_screen();
 		game_mode = MODE_END;
 	}
 }
@@ -496,7 +497,7 @@ void change_room_down()
 	draw_bg();
 }
 
-void initialize_game(void)
+void initialize_game_mode(void)
 {
 	player_x = 64;
 	player_y = 80;
@@ -560,95 +561,32 @@ void draw_talking(void)
 
 }
 
-void load_title(void)
+void initialize_title_screen(void)
 {
-	oam_clear();
 	ppu_off();
+	oam_clear();
 	draw_bg();
-	// vram_adr(NTADR_A(x,y));
-	vram_adr(NTADR_A(11, 17)); // screen is 32 x 30 tiles
-	i = 0;
-	while (title_text[i])
-	{
-		vram_put(title_text[i]); // this pushes 1 char to the screen
-		++i;
-	}
 
-	i = 0;
-	vram_adr(NTADR_A(10, 20)); // screen is 32 x 30 tiles
-	i = 0;
-	while (start_text[i])
-	{
-		vram_put(start_text[i]); // this pushes 1 char to the screen
-		++i;
-	}
+  multi_vram_buffer_horz(title_text, sizeof(title_text), NTADR_A(11, 17));
+	multi_vram_buffer_horz(start_text, sizeof(start_text)-1, NTADR_A(10, 20));
+	
 	ppu_on_all();
 }
 
-void load_end(void)
+void initialize_end_screen(void)
 {
-	// move player off screen
-	player_x = -4;
-	player_y = -4;
+	ppu_off();
+	oam_clear();
+	// // move player off screen
+	// player_x = -4;
+	// player_y = -4;
 	which_bg = 5; // set background to black
 	draw_bg();
-	oam_clear();
-	ppu_off();
-	// vram_adr(NTADR_A(x,y));
-	vram_adr(NTADR_A(4, 14)); // screen is 32 x 30 tiles
-	i = 0;
-	while (end_text[i])
-	{
-		vram_put(end_text[i]); // this pushes 1 char to the screen
-		++i;
-	}
+	
 
-	i = 0;
-	vram_adr(NTADR_A(3, 20)); // screen is 32 x 30 tiles
-	i = 0;
-	while (end_text2[i])
-	{
-		vram_put(end_text2[i]); // this pushes 1 char to the screen
-		++i;
-	}
+
+	multi_vram_buffer_horz(end_text, sizeof(end_text), NTADR_A(4, 14));
+	multi_vram_buffer_horz(end_text2, sizeof(end_text2)-1, NTADR_A(3, 20));
+
 	ppu_on_all();
-}
-
-void clear_end(void)
-{
-	vram_adr(NTADR_A(8, 14)); // screen is 32 x 30 tiles
-	i = 0;
-	while (end_text[i])
-	{
-		vram_put(' '); // this pushes 1 char to the screen
-		++i;
-	}
-
-	i = 0;
-	vram_adr(NTADR_A(10, 20)); // screen is 32 x 30 tiles
-	i = 0;
-	while (end_text2[i])
-	{
-		vram_put(' '); // this pushes 1 char to the screen
-		++i;
-	}
-}
-
-void clear_title(void)
-{
-	vram_adr(NTADR_A(8, 14)); // screen is 32 x 30 tiles
-	i = 0;
-	while (title_text[i])
-	{
-		vram_put(' '); // this pushes 1 char to the screen
-		++i;
-	}
-	i = 0;
-	vram_adr(NTADR_A(10, 20)); // screen is 32 x 30 tiles
-	i = 0;
-	while (start_text[i])
-	{
-		vram_put(' '); // this pushes 1 char to the screen
-		++i;
-	}
 }
