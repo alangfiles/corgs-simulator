@@ -8,7 +8,6 @@
 #include "LIB/nesdoug.h"
 #include "Sprites.h" // holds our metasprite data
 #include "corgssim.h"
-#include "Room1.h"
 
 void main(void)
 {
@@ -44,10 +43,9 @@ void main(void)
 			{
 				pal_fade_to(4, 0); // fade to black
 				clear_title();
-				draw_bg();
-
 				game_mode = MODE_GAME;
 				initialize_game();
+				draw_bg();
 				pal_bright(4); // back to normal brighness
 			}
 		}
@@ -99,28 +97,28 @@ void draw_bg(void)
 	switch (which_bg)
 	{
 	case 0:
-		set_data_pointer(c1);
-		memcpy(c_map, c1, 240);
+		set_data_pointer(blank);
+		memcpy(c_map, blank, 240);
 		break;
 	case 1:
-		set_data_pointer(c2);
-		memcpy(c_map, c2, 240);
+		set_data_pointer(outsidetop);
+		memcpy(c_map, outsidetop, 240);
 		break;
 	case 2:
-		set_data_pointer(c3);
-		memcpy(c_map, c3, 240);
+		set_data_pointer(entry);
+		memcpy(c_map, entry, 240);
 		break;
 	case 3:
-		set_data_pointer(c4);
-		memcpy(c_map, c4, 240);
+		set_data_pointer(blank);
+		memcpy(c_map, blank, 240);
 		break;
 	case 4:
-		set_data_pointer(c5);
-		memcpy(c_map, c5, 240);
+		set_data_pointer(blank);
+		memcpy(c_map, blank, 240);
 		break;
 	default:
-		set_data_pointer(c5);
-		memcpy(c_map, c5, 240);
+		set_data_pointer(blank);
+		memcpy(c_map, blank, 240);
 		break;
 	}
 	set_mt_pointer(metatiles1);
@@ -503,6 +501,7 @@ void initialize_game(void)
 	minutes_left = 4;
 	seconds_left_tens = 0;
 	seconds_left_ones = 0;
+	which_bg = 1;
 }
 
 void countdown_timer(void)

@@ -84,26 +84,25 @@ unsigned char c_map[240];
 
 // these are the 4 backgrounds
 // collision data, made by exporting csv from Tiled, and slight modification by CSV2C.py
-#include "CSV/c1.c" // called c1
-#include "CSV/c2.c" // called c2
-#include "CSV/c3.c" // called c3
-#include "CSV/c4.c" // called c4
-#include "CSV/c5.c" // called c5
+#include "CSV/blank.c"
+#include "CSV/outsidetop.c"
+#include "CSV/entry.c"
 
-const unsigned char *const All_Collision_Maps[] = {c1, c2, c3, c4};
+// const unsigned char *const All_Collision_Maps[] = {blank, outsidetop};
 
 const unsigned char palette_bg[] = {
-		0x0f, 0x10, 0x17, 0x3d,	 
-		0x0f, 0x25, 0x3d, 0x2d,	 
-		0x0f, 0xd6, 0x55, 0x4b,	
-		0x0f, 0x00, 0x23, 0x39}; 
+	0x0f,0x00,0x10,0x1a,
+	0x0f,0x16,0x3d,0x37,
+	0x0f,0x06,0x37,0x1a,
+	0x0f,0x15,0x3d,0x2c
+}; 
 
 const unsigned char palette_sp[] = {
-		0x0F, 0x36, 0x15, 0x1F, 
-		0x0f, 0x36, 0x11, 0x27, 
-		0x0f, 0x00, 0x0f, 0x15, 
-		0x0f, 0x36, 0x1A, 0x07,
-		};
+	0x0F, 0x36, 0x15, 0x1F, 
+	0x0f, 0x36, 0x11, 0x27, 
+	0x0f, 0x00, 0x0f, 0x15, 
+	0x0f, 0x36, 0x1A, 0x07,
+};
 
 
 // 5 bytes per metatile definition, tile TL, TR, BL, BR, palette 0-3
@@ -111,15 +110,57 @@ const unsigned char palette_sp[] = {
 // 51 maximum # of metatiles = 255 bytes
 
 const unsigned char metatiles1[]={
-	0x0, 0x0, 0x0, 0x0, 0,  // 0: Empty space
-	0x10, 0x10, 0x10, 0x10,  0,  // 1: Brick
-	0x0D, 0x1A, 0x18, 0x1A,  2,  // 2: Table 2
-	0x0F, 0x1F, 0x18, 0x1A,  1,  // 3: Table 1
-	0x08, 0x0A, 0x18, 0x1A,  3,  // 4: empty table
-	0x01, 0x02, 0x11, 0x12,  0,  // 5: door
-	0xD5, 0xD6, 0xE5, 0xE6,  0,  // 6: TR corner
-	0xD5, 0xD6, 0xE5, 0xE6,  0,  // 7: TL corner
-	0xD1, 0xD2, 0xE1, 0xE2,  0   // 8: sidewaysDoor
+	0, 0, 0, 0,  2,
+	1, 1, 17, 17,  2,
+	2, 3, 2, 3,  2,
+	18, 19, 18, 19,  2,
+	4, 4, 20, 20,  2,
+	1, 5, 21, 19,  2,
+	6, 1, 19, 22,  2,
+	2, 7, 23, 20,  2,
+	8, 19, 20, 24,  2,
+	9, 9, 9, 9,  2,
+	10, 10, 26, 26,  2,
+	11, 27, 27, 11,  2,
+	12, 0, 12, 0,  1,
+	0, 0, 28, 28,  2,
+	136, 136, 152, 152,  1,
+	128, 130, 144, 146,  0,
+	135, 133, 144, 146,  0,
+	150, 151, 144, 146,  0,
+	128, 129, 144, 145,  0,
+	129, 130, 145, 146,  0,
+	147, 131, 144, 145,  0,
+	149, 133, 145, 146,  0,
+	132, 135, 144, 145,  0,
+	134, 148, 145, 146,  0,
+	128, 130, 129, 129,  0,
+	132, 130, 131, 135,  0,
+	147, 133, 129, 134,  0,
+	192, 193, 208, 209,  3,
+	210, 211, 144, 146,  3,
+	168, 169, 184, 185,  1,
+	170, 171, 186, 187,  1,
+	172, 173, 188, 189,  3,
+	174, 175, 190, 191,  0,
+	158, 159, 144, 146,  0,
+	137, 138, 153, 154,  3,
+	139, 140, 155, 156,  1,
+	162, 163, 176, 179,  0,
+	161, 160, 177, 176,  3,
+	176, 160, 161, 179,  1,
+	206, 206, 222, 222,  1,
+	141, 142, 157, 0,  1,
+	164, 165, 180, 181,  3,
+	166, 167, 182, 183,  3,
+	202, 203, 218, 219,  1,
+	204, 205, 220, 221,  1,
+	13, 13, 29, 29,  3,
+	14, 0, 30, 31,  3,
+	200, 201, 216, 217,  1,
+	194, 195, 0, 0,  0,
+	196, 197, 212, 213,  0,
+	198, 199, 214, 215,  0,
 };
 
 
