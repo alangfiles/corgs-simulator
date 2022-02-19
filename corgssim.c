@@ -38,25 +38,18 @@ void main(void)
 		{
 			ppu_wait_nmi();
 
-			pad1 = pad_poll(0); // read the first controller
+			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
-			//check for start button
 			if (pad1_new & PAD_START)
 			{
-				pal_fade_to(4, 0); // fade to black
-				//clear_title();
-				game_mode = MODE_GAME;
 				initialize_game_mode();
-				draw_bg();
-				pal_bright(4); // back to normal brighness
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
 		{
 			++frame;
 			ppu_wait_nmi(); // wait till beginning of the frame
-			// the sprites are pushed from a buffer to the OAM during nmi
 
 			pad1 = pad_poll(0);				 // read the first controller
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
@@ -69,23 +62,18 @@ void main(void)
 			draw_hud();
 			draw_talking();
 			gray_line(); //for debugging, the lower the line, the less processing we have
+
 		}
 		while (game_mode == MODE_END)
 		{
 			ppu_wait_nmi();			// wait till beginning of the frame
 
-			pad1 = pad_poll(0); // read the first controller
+			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
 			if (pad1_new & PAD_START)
 			{
-				pal_fade_to(4, 0); // fade to black
-				game_mode = MODE_TITLE;
-				which_bg = 0;
-				player_x = 64;
-				player_y = 80;
 				initialize_title_screen(); // initial title load
-				pal_bright(4); // back to normal brighness
 			}
 		}
 	}
@@ -497,17 +485,6 @@ void change_room_down()
 	draw_bg();
 }
 
-void initialize_game_mode(void)
-{
-	player_x = 64;
-	player_y = 80;
-
-	minutes_left = 4;
-	seconds_left_tens = 0;
-	seconds_left_ones = 0;
-	which_bg = 1;
-}
-
 void countdown_timer(void)
 {
 	if (frame == 60)
@@ -561,8 +538,33 @@ void draw_talking(void)
 
 }
 
+void initialize_game_mode(void)
+{
+	pal_fade_to(4, 0); // fade to black
+	ppu_off();
+	oam_clear();
+
+	game_mode = MODE_GAME;
+	player_x = 64;
+	player_y = 80;
+
+	minutes_left = 4;
+	seconds_left_tens = 0;
+	seconds_left_ones = 0;
+	which_bg = 1;
+	
+	draw_bg();
+	ppu_on_all();
+	pal_bright(4); // back to normal brighness
+}
+
+
 void initialize_title_screen(void)
 {
+	game_mode = MODE_TITLE;
+	which_bg = 0;
+	
+
 	ppu_off();
 	oam_clear();
 	draw_bg();
@@ -575,18 +577,19 @@ void initialize_title_screen(void)
 
 void initialize_end_screen(void)
 {
+	pal_fade_to(4, 0); // fade to black
 	ppu_off();
 	oam_clear();
-	// // move player off screen
-	// player_x = -4;
-	// player_y = -4;
+	// move player off screen
+	player_x = -4;
+	player_y = -4;
+
 	which_bg = 5; // set background to black
 	draw_bg();
 	
-
-
 	multi_vram_buffer_horz(end_text, sizeof(end_text), NTADR_A(4, 14));
 	multi_vram_buffer_horz(end_text2, sizeof(end_text2)-1, NTADR_A(3, 20));
 
 	ppu_on_all();
+	pal_bright(4); // back to normal brighness
 }
