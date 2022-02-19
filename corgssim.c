@@ -64,6 +64,7 @@ void main(void)
 			countdown_timer();
 			draw_sprites();
 			draw_hud();
+			// gray_line(); //for debugging, the lower the line, the less processing we have
 		}
 		while (game_mode == MODE_END)
 		{
@@ -105,16 +106,16 @@ void draw_bg(void)
 		memcpy(c_map, entry, 240);
 		break;
 	case 2:
-		set_data_pointer(entry);
-		memcpy(c_map, entry, 240);
+		set_data_pointer(topleft);
+		memcpy(c_map, topleft, 240);
 		break;
 	case 3:
-		set_data_pointer(blank);
-		memcpy(c_map, blank, 240);
+		set_data_pointer(brianalan);
+		memcpy(c_map, brianalan, 240);
 		break;
 	case 4:
-		set_data_pointer(blank);
-		memcpy(c_map, blank, 240);
+		set_data_pointer(gamestoplay);
+		memcpy(c_map, gamestoplay, 240);
 		break;
 	default:
 		set_data_pointer(blank);
@@ -439,9 +440,9 @@ void bg_collision()
 void change_room_right()
 {
 	player_x = PLAYER_LEFT_EDGE;
-	if (which_bg == 3)
+	if (which_bg == 2)
 	{
-		which_bg = 2;
+		which_bg = 3;
 	}
 	if (which_bg == 0)
 	{
@@ -485,11 +486,11 @@ void change_room_down()
 	player_y = PLAYER_TOP_EDGE;
 	if (which_bg == 3)
 	{
-		which_bg = 0;
+		which_bg = 4;
 	}
-	if (which_bg == 2)
+	if (which_bg == 3)
 	{
-		which_bg = 1;
+		which_bg = 4;
 	}
 	draw_bg();
 }
@@ -541,6 +542,11 @@ void draw_hud(void)
 	one_vram_buffer(':', NTADR_A(24, 2));
 	one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 2));
 	one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 2));
+}
+
+void draw_talking(void)
+{
+
 }
 
 void load_title(void)

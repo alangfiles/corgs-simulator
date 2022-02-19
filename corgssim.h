@@ -88,6 +88,9 @@ unsigned char c_map[240];
 #include "CSV/outsidetop.c"
 #include "CSV/entry.c"
 #include "CSV/title.c"
+#include "CSV/topleft.c"
+#include "CSV/brianalan.c"
+#include "CSV/gamestoplay.c"
 
 const unsigned char palette_bg[] = {
 	0x0f,0x00,0x10,0x1a,
@@ -168,6 +171,7 @@ void draw_bg(void);
 void draw_sprites(void);
 void draw_timer(void);
 void draw_hud(void);
+void draw_talking(void);
 void movement(void);
 void action(void);
 void item_detection(void);
