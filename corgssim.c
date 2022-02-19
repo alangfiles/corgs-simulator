@@ -97,12 +97,12 @@ void draw_bg(void)
 	switch (which_bg)
 	{
 	case 0:
-		set_data_pointer(blank);
-		memcpy(c_map, blank, 240);
+		set_data_pointer(title);
+		memcpy(c_map, title, 240);
 		break;
 	case 1:
-		set_data_pointer(outsidetop);
-		memcpy(c_map, outsidetop, 240);
+		set_data_pointer(entry);
+		memcpy(c_map, entry, 240);
 		break;
 	case 2:
 		set_data_pointer(entry);
@@ -165,7 +165,7 @@ void draw_sprites(void)
 	// clear all sprites from sprite buffer
 	oam_clear();
 
-	// draw player (based on which way they're facing and anmiation frames)
+	#pragma region drawplayer
 	switch (player_direction)
 	{
 	case DOWN_MOVE:
@@ -243,6 +243,7 @@ void draw_sprites(void)
 		oam_meta_spr(player_x, player_y, PlayerSprUp);
 		break;
 	}
+	#pragma endregion drawplayer
 
 	if (shot_x >= 0)
 	{ // only draw the shot if it exists
@@ -546,8 +547,9 @@ void load_title(void)
 {
 	oam_clear();
 	ppu_off();
+	draw_bg();
 	// vram_adr(NTADR_A(x,y));
-	vram_adr(NTADR_A(8, 14)); // screen is 32 x 30 tiles
+	vram_adr(NTADR_A(11, 17)); // screen is 32 x 30 tiles
 	i = 0;
 	while (title_text[i])
 	{

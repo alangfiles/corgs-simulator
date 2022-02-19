@@ -55,8 +55,8 @@ unsigned char player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;
 unsigned char has_moved = 0;
 unsigned char frame = 0;
-const unsigned char title_text[] = "CORGS Simulator";
-const unsigned char start_text[] = "Press Start";
+const unsigned char title_text[] = "SIMUALTOR";
+const unsigned char start_text[] = "Press  Start";
 const unsigned char end_text[] = "You found a copy of JEQB";
 const unsigned char end_text2[] = "Press Start to play again";
 const unsigned char clock_text[] = "Time Left: ";
@@ -87,8 +87,7 @@ unsigned char c_map[240];
 #include "CSV/blank.c"
 #include "CSV/outsidetop.c"
 #include "CSV/entry.c"
-
-// const unsigned char *const All_Collision_Maps[] = {blank, outsidetop};
+#include "CSV/title.c"
 
 const unsigned char palette_bg[] = {
 	0x0f,0x00,0x10,0x1a,

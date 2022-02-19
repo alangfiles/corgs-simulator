@@ -1,8 +1,4 @@
-const unsigned char Shot[]={
-	  0, 0,0x08,0,
-	128
-};
-
+#pragma region playersprites
 const unsigned char PlayerSprDown[]={
 	  0, 0,0x02,0,
 	  8, 0,0x03,0,
@@ -66,7 +62,13 @@ const unsigned char PlayerSprLeftTwo[]={
 	  8, 8,0x36,0 | OAM_FLIP_H,
 	128
 };
+#pragma endregion playersprites
 
+
+const unsigned char Shot[]={
+	  0, 0,0x08,0,
+	128
+};
 
 const unsigned char Shopkeeper[]={
 	  0, 0,0x66,3,
