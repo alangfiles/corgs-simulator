@@ -57,8 +57,14 @@ unsigned char has_moved = 0;
 unsigned char frame = 0;
 const unsigned char title_text[] = "SIMUALTOR";
 const unsigned char start_text[] = "Press  Start";
+const unsigned char text_box[] = "                              ";
+const unsigned char intro_text1[] = "You're late to the";
+const unsigned char intro_text2[] = "Central Ohio Retro Gaming";
+const unsigned char intro_text3[] = "convention, hurry and";
+const unsigned char intro_text4[] = "find some good games.";
 const unsigned char end_text[] = "You found a copy of JEQB";
 const unsigned char end_text2[] = "Press Start to play again";
+
 const unsigned char clock_text[] = "Time Left: ";
 const unsigned char items_text[] = "Items Collected:    0 0 *";
 

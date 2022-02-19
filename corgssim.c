@@ -64,7 +64,8 @@ void main(void)
 			countdown_timer();
 			draw_sprites();
 			draw_hud();
-			// gray_line(); //for debugging, the lower the line, the less processing we have
+			draw_talking();
+			gray_line(); //for debugging, the lower the line, the less processing we have
 		}
 		while (game_mode == MODE_END)
 		{
@@ -534,9 +535,8 @@ void countdown_timer(void)
 
 void draw_hud(void)
 {
-	multi_vram_buffer_horz(items_text, sizeof(items_text), NTADR_A(2, 1));
-
-	multi_vram_buffer_horz(clock_text, sizeof(clock_text), NTADR_A(2, 2));
+	// multi_vram_buffer_horz(items_text, sizeof(items_text), NTADR_A(2, 1));
+	// multi_vram_buffer_horz(clock_text, sizeof(clock_text), NTADR_A(2, 2));
 
 	one_vram_buffer(48 + minutes_left, NTADR_A(23, 2));
 	one_vram_buffer(':', NTADR_A(24, 2));
@@ -546,6 +546,17 @@ void draw_hud(void)
 
 void draw_talking(void)
 {
+
+
+
+	// multi_vram_buffer_horz(text_box, sizeof(text_box), NTADR_A(4, 10));
+	// multi_vram_buffer_horz(text_box, sizeof(text_box), NTADR_A(4, 11));
+	// multi_vram_buffer_horz(text_box, sizeof(text_box), NTADR_A(4, 12));
+	// multi_vram_buffer_horz(text_box, sizeof(text_box), NTADR_A(4, 13));
+
+	// multi_vram_buffer_horz(intro_text1, sizeof(intro_text1), NTADR_A(2, 8));
+	// multi_vram_buffer_horz(intro_text2, sizeof(intro_text2), NTADR_A(2, 10));
+	// multi_vram_buffer_horz(intro_text3, sizeof(intro_text3), NTADR_A(2, 12));
 
 }
 
