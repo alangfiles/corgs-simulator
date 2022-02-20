@@ -54,10 +54,13 @@ void main(void)
 			pad1 = pad_poll(0);				 // read the first controller
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
 
-			movement();
+			
 			action();
 			item_detection();
+			movement();
+			
 			countdown_timer();
+			
 			draw_sprites();
 			draw_hud();
 			draw_talking();
@@ -276,7 +279,6 @@ void item_detection(void)
 	if (which_bg == 1 && player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 && player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 && ((pad1 & PAD_A) || (pad1 & PAD_B)))
 	{
 		initialize_end_screen();
-		game_mode = MODE_END;
 	}
 }
 
@@ -370,8 +372,8 @@ void movement(void)
 		if (shot_x > 250 || shot_x < 1 ||
 				shot_y > 255 || shot_y < 32)
 		{
-			shot_x = 0;
-			shot_y = 0;
+			shot_x = -4;
+			shot_y = -4;
 		}
 	}
 	#pragma endregion shotMovement
@@ -587,9 +589,13 @@ void initialize_end_screen(void)
 	pal_fade_to(4, 0); // fade to black
 	ppu_off();
 	oam_clear();
+	oam_hide_rest();
 	// move player off screen
 	player_x = -4;
 	player_y = -4;
+	shot_x = -4;
+	shot_y = -4;
+	game_mode = MODE_END;
 
 	which_bg = 5; // set background to black
 	draw_bg();

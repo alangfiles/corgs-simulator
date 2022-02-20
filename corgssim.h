@@ -35,10 +35,10 @@ unsigned char temp_y;
 unsigned char player_x = 64;
 unsigned char player_y = 80;
 unsigned char shot_direction = 0;  // 0 = down, 1 = left, 2 = up, 3 = right
-unsigned char shot_x = 0;
-unsigned char shot_y = 0;
+unsigned char shot_x = -4;
+unsigned char shot_y = -4;
 
-unsigned int minutes_left = 4;
+unsigned int minutes_left = 1;
 unsigned int seconds_left_tens = 0;
 unsigned int seconds_left_ones = 0;
 
@@ -189,6 +189,5 @@ void change_room_down(void);
 void initialize_title_screen(void);
 void initialize_game_mode(void);
 void initialize_end_screen(void);
-void clear_end(void);
 void countdown_timer(void);
 
