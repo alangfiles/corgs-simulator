@@ -431,11 +431,6 @@ void bg_collision()
 	}
 }
 
-// rooms like:
-//  c4  c3
-//  c1  c2
-// which_bg is 0 index, sorry
-
 void change_room_right()
 {
 	player_x = PLAYER_LEFT_EDGE;
