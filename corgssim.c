@@ -25,7 +25,7 @@ void main(void)
 	bank_spr(1);
 	set_scroll_y(0xff); // shift the bg down 1 pixel
 
-	//setup title
+	// setup title
 	game_mode = MODE_TITLE;
 	initialize_title_screen();
 	ppu_on_all(); // turn on screen
@@ -37,6 +37,12 @@ void main(void)
 		while (game_mode == MODE_TITLE)
 		{
 			ppu_wait_nmi();
+
+			// temp1 = get_frame_count();
+			// temp1 = (temp1 >> 3) & 3;
+			// temp2 = temp1+1 & 3;
+			// pal_col(9,title_color_rotate[temp1]);
+			// pal_col(10,title_color_rotate[temp2]);
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
@@ -54,24 +60,62 @@ void main(void)
 			pad1 = pad_poll(0);				 // read the first controller
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
 
-			
+
+			movement();
 			action();
 			item_detection();
-			movement();
-			
+
 			countdown_timer();
-			
+
 			draw_sprites();
 			draw_hud();
-			draw_talking();
+			if (pad1_new & PAD_B)
+			{
+				draw_talking();
+			}
 
-			 //for debugging, the lower the line, the less processing we have
+			// for debugging, the lower the line, the less processing we have
 			gray_line();
+		}
+		while(game_mode == MODE_TALKING_TIME)
+		{
+			ppu_wait_nmi(); // wait till beginning of the frame
 
+			++talk_frame;
+			// talk_frame = get_frame_count() & 8;
+
+			// just add one more character
+			if(text_rendered != sizeof(long_text) && get_frame_count() & 8) 
+			{
+				ppu_off();
+
+				// get a TEXT_BOX_LENGTH chunk of the text
+				vram_adr(NTADR_A(TEXT_BOX_X+text_x,TEXT_BOX_Y+text_y)); // screen is 32 x 30 tiles
+				vram_put(long_text[text_rendered]);
+				++text_rendered;
+				if(text_rendered == 16 || text_rendered == 32 || text_rendered == 48)
+				{
+					text_x = 1;
+					++text_y;
+				} else {
+					++text_x;
+				}
+
+				ppu_on_all();
+			}
+
+
+			pad1 = pad_poll(0);
+			pad1_new = get_pad_new(0);
+
+			if (pad1_new & PAD_B)
+			{
+				back_to_game();
+			}
 		}
 		while (game_mode == MODE_END)
 		{
-			ppu_wait_nmi();			// wait till beginning of the frame
+			ppu_wait_nmi(); // wait till beginning of the frame
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
@@ -86,7 +130,6 @@ void main(void)
 
 void draw_bg(void)
 {
-
 	oam_clear();
 	ppu_off(); // screen off
 
@@ -161,7 +204,7 @@ void draw_sprites(void)
 	// clear all sprites from sprite buffer
 	oam_clear();
 
-	#pragma region drawplayer
+#pragma region drawplayer
 	switch (player_direction)
 	{
 	case DOWN_MOVE:
@@ -239,7 +282,7 @@ void draw_sprites(void)
 		oam_meta_spr(player_x, player_y, PlayerSprUp);
 		break;
 	}
-	#pragma endregion drawplayer
+#pragma endregion drawplayer
 
 	if (shot_x >= 0)
 	{ // only draw the shot if it exists
@@ -270,7 +313,6 @@ void action(void)
 		shot_y = player_y;
 		shot_direction = player_direction;
 	}
-
 }
 
 void item_detection(void)
@@ -284,7 +326,7 @@ void item_detection(void)
 
 void movement(void)
 {
-	#pragma region playerMovement
+#pragma region playerMovement
 	has_moved = 0;
 
 	// move left/right
@@ -345,9 +387,9 @@ void movement(void)
 		player_y += 1;
 	}
 
-	#pragma endregion playerMovement
+#pragma endregion playerMovement
 
-	#pragma region shotMovement
+#pragma region shotMovement
 	if (shot_x >= 0) // if there's a shot, update it's direction
 	{
 		switch (shot_direction)
@@ -376,7 +418,7 @@ void movement(void)
 			shot_y = -4;
 		}
 	}
-	#pragma endregion shotMovement
+#pragma endregion shotMovement
 }
 
 void bg_collision()
@@ -528,8 +570,53 @@ void draw_hud(void)
 
 void draw_talking(void)
 {
+	oam_clear();
+	ppu_off();
+//	set_mt_pointer(metatiles1);
 
 
+	//top border
+	vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y));
+	vram_fill(0x01,TEXT_BOX_LENGTH+2);
+
+	i = 1;
+	while(i < TEXT_BOX_HEIGHT){
+		vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y+i));
+		vram_put(0x01);
+		vram_fill(' ',TEXT_BOX_LENGTH);
+		vram_put(0x01);
+		++i;
+	}	
+	vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y+i));
+	vram_fill(0x01,TEXT_BOX_LENGTH+2);
+	
+
+	game_mode = MODE_TALKING_TIME;
+	text_rendered = 0;
+
+	// draw the tiles
+	// for (y = 0x80;; y += 0x20)
+	// {
+	// 	for (x = 0x60;; x += 0x20)
+	// 	{
+	// 		address = get_ppu_addr(0, x, y);
+	// 		buffer_1_mt(address, 0); // ppu_address, index to the data
+	// 		flush_vram_update2();
+	// 		if (x == 0xa0)
+	// 			break;
+	// 	}
+	// 	if (y == 0xb0)
+	// 		break;
+	// }
+
+	// multi_vram_buffer_horz(intro_text1, sizeof(intro_text1), NTADR_A(2, 8));
+	// flush_vram_update2();
+	// multi_vram_buffer_horz(intro_text2, sizeof(intro_text2), NTADR_A(2, 10));
+	// flush_vram_update2();
+	// multi_vram_buffer_horz(intro_text3, sizeof(intro_text3), NTADR_A(2, 12));
+	// flush_vram_update2();
+
+	ppu_on_all();
 
 	// multi_vram_buffer_horz(text_box, sizeof(text_box), NTADR_A(4, 10));
 	// multi_vram_buffer_horz(text_box, sizeof(text_box), NTADR_A(4, 11));
@@ -539,7 +626,16 @@ void draw_talking(void)
 	// multi_vram_buffer_horz(intro_text1, sizeof(intro_text1), NTADR_A(2, 8));
 	// multi_vram_buffer_horz(intro_text2, sizeof(intro_text2), NTADR_A(2, 10));
 	// multi_vram_buffer_horz(intro_text3, sizeof(intro_text3), NTADR_A(2, 12));
+}
 
+void back_to_game(void) 
+{
+	ppu_off();
+	oam_clear();
+	game_mode = MODE_GAME;
+
+	draw_bg();
+	ppu_on_all();
 }
 
 void initialize_game_mode(void)
@@ -556,26 +652,24 @@ void initialize_game_mode(void)
 	seconds_left_tens = 0;
 	seconds_left_ones = 0;
 	which_bg = 1;
-	
+
 	draw_bg();
 	ppu_on_all();
 	pal_bright(4); // back to normal brighness
 }
 
-
 void initialize_title_screen(void)
 {
 	game_mode = MODE_TITLE;
 	which_bg = 0;
-	
 
 	ppu_off();
 	oam_clear();
 	draw_bg();
 
-  multi_vram_buffer_horz(title_text, sizeof(title_text), NTADR_A(11, 17));
-	multi_vram_buffer_horz(start_text, sizeof(start_text)-1, NTADR_A(10, 20));
-	
+	multi_vram_buffer_horz(title_text, sizeof(title_text), NTADR_A(11, 17));
+	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 20));
+
 	ppu_on_all();
 }
 
@@ -594,9 +688,9 @@ void initialize_end_screen(void)
 
 	which_bg = 5; // set background to black
 	draw_bg();
-	
+
 	multi_vram_buffer_horz(end_text, sizeof(end_text), NTADR_A(4, 14));
-	multi_vram_buffer_horz(end_text2, sizeof(end_text2)-1, NTADR_A(3, 20));
+	multi_vram_buffer_horz(end_text2, sizeof(end_text2) - 1, NTADR_A(3, 20));
 
 	ppu_on_all();
 	pal_bright(4); // back to normal brighness

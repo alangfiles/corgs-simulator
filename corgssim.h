@@ -13,6 +13,11 @@
 #define UP_MOVE 0x02
 #define RIGHT_MOVE 0x03
 
+#define TEXT_BOX_X 6
+#define TEXT_BOX_Y 12
+#define TEXT_BOX_LENGTH 18
+#define TEXT_BOX_HEIGHT 8
+
 #pragma bss-name(push, "ZEROPAGE")
 
 // GLOBAL VARIABLES
@@ -24,6 +29,10 @@ unsigned char collision_R;
 unsigned char collision_U;
 unsigned char collision_D;
 unsigned char which_bg = 0;
+unsigned char text_rendered = 0;
+unsigned char text_finished = 0;
+unsigned char text_x = 1;
+unsigned char text_y = 1;
 const unsigned char *p_maps;
 unsigned char coordinates;
 unsigned char temp1;
@@ -55,6 +64,8 @@ unsigned char player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;
 unsigned char has_moved = 0;
 unsigned char frame = 0;
+unsigned char talk_frame = 0;
+unsigned char temp1;
 const unsigned char title_text[] = "SIMUALTOR";
 const unsigned char start_text[] = "Press  Start";
 const unsigned char text_box[] = "                              ";
@@ -64,12 +75,14 @@ const unsigned char intro_text3[] = "convention, hurry and";
 const unsigned char intro_text4[] = "find some good games.";
 const unsigned char end_text[] = "You found a copy of JEQB";
 const unsigned char end_text2[] = "Press Start to play again";
+const unsigned char long_text[] = "The quick brown fox jumps over the lazy dogs.";
 
 const unsigned char clock_text[] = "Time Left: ";
 const unsigned char items_text[] = "Items Collected:    0 0 *";
 
-
-
+const unsigned char title_color_rotate[]={
+	0x4,0x6,0x19,0x2
+};
 
 
 unsigned char game_mode;
@@ -79,6 +92,7 @@ enum
 	MODE_GAME,
 	MODE_PAUSE,
 	MODE_SWITCH,
+	MODE_TALKING_TIME,
 	MODE_END,
 	MODE_GAME_OVER
 };
@@ -118,14 +132,14 @@ const unsigned char palette_sp[] = {
 // 51 maximum # of metatiles = 255 bytes
 
 const unsigned char metatiles1[]={
-	0, 0, 0, 0,  2,
-	1, 1, 17, 17,  2,
-	2, 3, 2, 3,  2,
-	18, 19, 18, 19,  2,
-	4, 4, 20, 20,  2,
-	1, 5, 21, 19,  2,
-	6, 1, 19, 22,  2,
-	2, 7, 23, 20,  2,
+	0, 0, 0, 0,  2, //0
+	1, 1, 17, 17,  2, //1
+	2, 3, 2, 3,  2,  //2
+	18, 19, 18, 19,  2, //3
+	4, 4, 20, 20,  2, //4
+	1, 5, 21, 19,  2, //5
+	6, 1, 19, 22,  2, //6
+	2, 7, 23, 20,  2, //7
 	8, 19, 20, 24,  2,
 	9, 9, 9, 9,  2,
 	10, 10, 26, 26,  2,
@@ -153,7 +167,7 @@ const unsigned char metatiles1[]={
 	174, 175, 190, 191,  0,
 	158, 159, 144, 146,  0,
 	137, 138, 153, 154,  3,
-	139, 140, 155, 156,  1,
+	139, 140, 155, 156,  1, //35 the pinball?
 	162, 163, 176, 179,  0,
 	161, 160, 177, 176,  3,
 	176, 160, 161, 179,  1,
@@ -189,5 +203,7 @@ void change_room_down(void);
 void initialize_title_screen(void);
 void initialize_game_mode(void);
 void initialize_end_screen(void);
+void initialize_talking_time(void);
+void back_to_game(void);
 void countdown_timer(void);
 
