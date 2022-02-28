@@ -38,37 +38,55 @@ void main(void)
 		{
 			ppu_wait_nmi();
 
-			// temp1 = get_frame_count();
-			// temp1 = (temp1 >> 3) & 3;
-			// temp2 = temp1+1 & 3;
-			// pal_col(9,title_color_rotate[temp1]);
-			// pal_col(10,title_color_rotate[temp2]);
+			// rotate colors
+			temp1 = get_frame_count();  
+			temp1 = (temp1 >> 3) & 3;
+			temp2 = temp1 + 1 & 3;
+			pal_col(9, title_color_rotate[temp1]);
+			pal_col(10, title_color_rotate[temp2]);
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
 			if (pad1_new & PAD_START)
 			{
-				initialize_game_mode();
+				// initialize game mode:
+				pal_fade_to(4, 0); // fade to black
+				ppu_off();
+				pal_bg(palette_bg);
+
+				// set defaults
+				game_mode = MODE_GAME;
+				player_x = 64;
+				player_y = 120;
+
+				minutes_left = 4;
+				seconds_left_tens = 0;
+				seconds_left_ones = 0;
+				which_bg = 1;
+
+				draw_bg();
+				draw_hud();
+				ppu_on_all();
+				pal_bright(4); // back to normal brighness
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
 		{
-			++frame;
 			ppu_wait_nmi(); // wait till beginning of the frame
+
+			++frame;
 
 			pad1 = pad_poll(0);				 // read the first controller
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
-
 
 			movement();
 			action();
 			item_detection();
 
 			countdown_timer();
-
 			draw_sprites();
-			draw_hud();
+
 			if (pad1_new & PAD_B)
 			{
 				draw_talking();
@@ -77,7 +95,7 @@ void main(void)
 			// for debugging, the lower the line, the less processing we have
 			gray_line();
 		}
-		while(game_mode == MODE_TALKING_TIME)
+		while (game_mode == MODE_TALKING_TIME)
 		{
 			ppu_wait_nmi(); // wait till beginning of the frame
 
@@ -85,25 +103,26 @@ void main(void)
 			// talk_frame = get_frame_count() & 8;
 
 			// just add one more character
-			if(text_rendered != sizeof(long_text) && get_frame_count() & 8) 
+			if (text_rendered != sizeof(long_text) && get_frame_count() & 8)
 			{
 				ppu_off();
 
 				// get a TEXT_BOX_LENGTH chunk of the text
-				vram_adr(NTADR_A(TEXT_BOX_X+text_x,TEXT_BOX_Y+text_y)); // screen is 32 x 30 tiles
+				vram_adr(NTADR_A(TEXT_BOX_X + text_x, TEXT_BOX_Y + text_y)); // screen is 32 x 30 tiles
 				vram_put(long_text[text_rendered]);
 				++text_rendered;
-				if(text_rendered == 16 || text_rendered == 32 || text_rendered == 48)
+				if (text_rendered == 16 || text_rendered == 32 || text_rendered == 48)
 				{
 					text_x = 1;
 					++text_y;
-				} else {
+				}
+				else
+				{
 					++text_x;
 				}
 
 				ppu_on_all();
 			}
-
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
@@ -144,16 +163,16 @@ void draw_bg(void)
 		memcpy(c_map, entry, 240);
 		break;
 	case 2:
-		set_data_pointer(topleft);
-		memcpy(c_map, topleft, 240);
-		break;
-	case 3:
 		set_data_pointer(brianalan);
 		memcpy(c_map, brianalan, 240);
 		break;
+	case 3:
+		set_data_pointer(arcade);
+		memcpy(c_map, arcade, 240);
+		break;
 	case 4:
-		set_data_pointer(gamestoplay);
-		memcpy(c_map, gamestoplay, 240);
+		set_data_pointer(topleft);
+		memcpy(c_map, topleft, 240);
 		break;
 	default:
 		set_data_pointer(blank);
@@ -190,6 +209,12 @@ void draw_bg(void)
 		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
 		vram_put(' ');
 	}
+
+	if (which_bg != 0)
+	{
+		draw_hud();
+	}
+
 	ppu_on_all(); // turn on screen
 }
 
@@ -476,13 +501,13 @@ void bg_collision()
 void change_room_right()
 {
 	player_x = PLAYER_LEFT_EDGE;
-	if (which_bg == 2)
+	if (which_bg == 4)
 	{
 		which_bg = 3;
 	}
-	if (which_bg == 0)
+	if (which_bg == 1)
 	{
-		which_bg = 1;
+		which_bg = 2;
 	}
 
 	draw_bg();
@@ -491,28 +516,33 @@ void change_room_right()
 void change_room_left()
 {
 	player_x = PLAYER_RIGHT_EDGE;
+	if (which_bg == 3)
+	{
+		which_bg = 4;
+	}
 	if (which_bg == 2)
 	{
-		which_bg = 3;
-	}
-	if (which_bg == 1)
-	{
-		which_bg = 0;
+		which_bg = 1;
 	}
 	draw_bg();
 }
 
 void change_room_up()
 {
+	/**
+	 * current room map
+	 * 43
+	 * 12
+	 */
 
 	player_y = PLAYER_BOTTOM_EDGE;
-	if (which_bg == 0)
-	{
-		which_bg = 3;
-	}
 	if (which_bg == 1)
 	{
-		which_bg = 2;
+		which_bg = 4;
+	}
+	if (which_bg == 2)
+	{
+		which_bg = 3;
 	}
 	draw_bg();
 }
@@ -520,13 +550,13 @@ void change_room_up()
 void change_room_down()
 {
 	player_y = PLAYER_TOP_EDGE;
-	if (which_bg == 3)
+	if (which_bg == 4)
 	{
-		which_bg = 4;
+		which_bg = 1;
 	}
 	if (which_bg == 3)
 	{
-		which_bg = 4;
+		which_bg = 2;
 	}
 	draw_bg();
 }
@@ -554,6 +584,12 @@ void countdown_timer(void)
 		{
 			seconds_left_ones -= 1;
 		}
+
+		// update the vram_buffer values only every 60 frames
+		one_vram_buffer(48 + minutes_left, NTADR_A(23, 3));
+		one_vram_buffer(':', NTADR_A(24, 3));
+		one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 3));
+		one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 3));
 	}
 }
 
@@ -562,34 +598,77 @@ void draw_hud(void)
 	// multi_vram_buffer_horz(items_text, sizeof(items_text), NTADR_A(2, 1));
 	// multi_vram_buffer_horz(clock_text, sizeof(clock_text), NTADR_A(2, 2));
 
-	one_vram_buffer(48 + minutes_left, NTADR_A(23, 2));
-	one_vram_buffer(':', NTADR_A(24, 2));
-	one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 2));
-	one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 2));
+	// todo map:
+	one_vram_buffer('-', NTADR_A(2, 4));
+	one_vram_buffer('M', NTADR_A(3, 4));
+	one_vram_buffer('A', NTADR_A(4, 4));
+	one_vram_buffer('P', NTADR_A(5, 4));
+	one_vram_buffer('-', NTADR_A(6, 4));
+
+	// draw buttons B
+	one_vram_buffer(0x01, NTADR_A(B_LOC, 2));
+	one_vram_buffer('B', NTADR_A(B_LOC + 1, 2));
+	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 2));
+	one_vram_buffer(0x01, NTADR_A(B_LOC, 3));
+	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 3));
+	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 3));
+	one_vram_buffer(0x01, NTADR_A(B_LOC, 4));
+	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 4));
+	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 4));
+	one_vram_buffer(0x01, NTADR_A(B_LOC, 5));
+	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 5));
+	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 5));
+	one_vram_buffer(0x01, NTADR_A(B_LOC, 6));
+	one_vram_buffer(0x01, NTADR_A(B_LOC + 1, 6));
+	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 6));
+
+	// draw buttons A
+	one_vram_buffer(0x01, NTADR_A(A_LOC, 2));
+	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
+	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 2));
+	one_vram_buffer(0x01, NTADR_A(A_LOC, 3));
+	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 3));
+	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 3));
+	one_vram_buffer(0x01, NTADR_A(A_LOC, 4));
+	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 4));
+	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 4));
+	one_vram_buffer(0x01, NTADR_A(A_LOC, 5));
+	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 5));
+	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 5));
+	one_vram_buffer(0x01, NTADR_A(A_LOC, 6));
+	one_vram_buffer(0x01, NTADR_A(A_LOC + 1, 6));
+	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 6));
+
+	// draw timer
+	one_vram_buffer('-', NTADR_A(22, 2));
+	one_vram_buffer('T', NTADR_A(23, 2));
+	one_vram_buffer('I', NTADR_A(24, 2));
+	one_vram_buffer('M', NTADR_A(25, 2));
+	one_vram_buffer('E', NTADR_A(26, 2));
+	one_vram_buffer('-', NTADR_A(27, 2));
 }
 
 void draw_talking(void)
 {
 	oam_clear();
 	ppu_off();
-//	set_mt_pointer(metatiles1);
+	//	set_mt_pointer(metatiles1);
 
-
-	//top border
+	// top border
 	vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y));
-	vram_fill(0x01,TEXT_BOX_LENGTH+2);
+	vram_fill(0x01, TEXT_BOX_LENGTH + 2);
 
 	i = 1;
-	while(i < TEXT_BOX_HEIGHT){
-		vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y+i));
+	while (i < TEXT_BOX_HEIGHT)
+	{
+		vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y + i));
 		vram_put(0x01);
-		vram_fill(' ',TEXT_BOX_LENGTH);
+		vram_fill(' ', TEXT_BOX_LENGTH);
 		vram_put(0x01);
 		++i;
-	}	
-	vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y+i));
-	vram_fill(0x01,TEXT_BOX_LENGTH+2);
-	
+	}
+	vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y + i));
+	vram_fill(0x01, TEXT_BOX_LENGTH + 2);
 
 	game_mode = MODE_TALKING_TIME;
 	text_rendered = 0;
@@ -628,7 +707,7 @@ void draw_talking(void)
 	// multi_vram_buffer_horz(intro_text3, sizeof(intro_text3), NTADR_A(2, 12));
 }
 
-void back_to_game(void) 
+void back_to_game(void)
 {
 	ppu_off();
 	oam_clear();
@@ -636,26 +715,6 @@ void back_to_game(void)
 
 	draw_bg();
 	ppu_on_all();
-}
-
-void initialize_game_mode(void)
-{
-	pal_fade_to(4, 0); // fade to black
-	ppu_off();
-	oam_clear();
-
-	game_mode = MODE_GAME;
-	player_x = 64;
-	player_y = 80;
-
-	minutes_left = 4;
-	seconds_left_tens = 0;
-	seconds_left_ones = 0;
-	which_bg = 1;
-
-	draw_bg();
-	ppu_on_all();
-	pal_bright(4); // back to normal brighness
 }
 
 void initialize_title_screen(void)

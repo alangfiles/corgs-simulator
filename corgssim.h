@@ -1,12 +1,12 @@
 #define SCREEN_LEFT_EDGE 0x00
 #define SCREEN_RIGHT_EDGE 0xf0
-#define SCREEN_TOP_EDGE 0x20
-#define SCREEN_BOTTOM_EDGE 0xe0
+#define SCREEN_TOP_EDGE 0x40
+#define SCREEN_BOTTOM_EDGE 0xd0
 
 #define PLAYER_LEFT_EDGE 0x01
 #define PLAYER_RIGHT_EDGE 0xef
-#define PLAYER_TOP_EDGE 0x22
-#define PLAYER_BOTTOM_EDGE 0xdf
+#define PLAYER_TOP_EDGE 0x42
+#define PLAYER_BOTTOM_EDGE 0xcf
 
 #define DOWN_MOVE 0x00
 #define LEFT_MOVE 0x01
@@ -17,6 +17,10 @@
 #define TEXT_BOX_Y 12
 #define TEXT_BOX_LENGTH 18
 #define TEXT_BOX_HEIGHT 8
+
+// HUD stuff
+#define A_LOC 16
+#define B_LOC 12
 
 #pragma bss-name(push, "ZEROPAGE")
 
@@ -42,14 +46,14 @@ unsigned char temp4;
 unsigned char temp_x;
 unsigned char temp_y;
 unsigned char player_x = 64;
-unsigned char player_y = 80;
+unsigned char player_y = 60;
 unsigned char shot_direction = 0;  // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char shot_x = -4;
 unsigned char shot_y = -4;
 
 unsigned int minutes_left = 1;
 unsigned int seconds_left_tens = 0;
-unsigned int seconds_left_ones = 0;
+unsigned int seconds_left_ones = 1;
 
 // room loader code
 int address;
@@ -111,6 +115,7 @@ unsigned char c_map[240];
 #include "CSV/topleft.c"
 #include "CSV/brianalan.c"
 #include "CSV/gamestoplay.c"
+#include "CSV/arcade.c"
 
 const unsigned char palette_bg[] = {
 	0x0f,0x00,0x10,0x1a,
