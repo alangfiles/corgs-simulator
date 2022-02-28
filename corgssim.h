@@ -67,6 +67,7 @@ unsigned char i;
 unsigned char player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;
 unsigned char has_moved = 0;
+unsigned char display_hud = 0;
 unsigned char frame = 0;
 unsigned char talk_frame = 0;
 unsigned char temp1;
@@ -77,8 +78,11 @@ const unsigned char intro_text1[] = "You're late to the";
 const unsigned char intro_text2[] = "Central Ohio Retro Gaming";
 const unsigned char intro_text3[] = "convention, hurry and";
 const unsigned char intro_text4[] = "find some good games.";
-const unsigned char end_text[] = "You found a copy of JEQB";
+const unsigned char jeqb_text[] = "You found a copy of JEQB";
+const unsigned char dashes[] = "-----------------------------";
+const unsigned char underscores[] = "_____________________________";
 const unsigned char end_text2[] = "Press Start to play again";
+
 const unsigned char long_text[] = "The quick brown fox jumps over the lazy dogs.";
 
 const unsigned char clock_text[] = "Time Left: ";

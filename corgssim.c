@@ -39,7 +39,7 @@ void main(void)
 			ppu_wait_nmi();
 
 			// rotate colors
-			temp1 = get_frame_count();  
+			temp1 = get_frame_count();
 			temp1 = (temp1 >> 3) & 3;
 			temp2 = temp1 + 1 & 3;
 			pal_col(9, title_color_rotate[temp1]);
@@ -63,6 +63,7 @@ void main(void)
 				minutes_left = 4;
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
+				display_hud = 1;
 				which_bg = 1;
 
 				draw_bg();
@@ -99,37 +100,43 @@ void main(void)
 		{
 			ppu_wait_nmi(); // wait till beginning of the frame
 
-			++talk_frame;
+			//++talk_frame;
 			// talk_frame = get_frame_count() & 8;
 
-			// just add one more character
-			if (text_rendered != sizeof(long_text) && get_frame_count() & 8)
-			{
-				ppu_off();
+			// // just add one more character
+			// if (text_rendered != sizeof(long_text) && get_frame_count() & 8)
+			// {
+			// 	ppu_off();
 
-				// get a TEXT_BOX_LENGTH chunk of the text
-				vram_adr(NTADR_A(TEXT_BOX_X + text_x, TEXT_BOX_Y + text_y)); // screen is 32 x 30 tiles
-				vram_put(long_text[text_rendered]);
-				++text_rendered;
-				if (text_rendered == 16 || text_rendered == 32 || text_rendered == 48)
-				{
-					text_x = 1;
-					++text_y;
-				}
-				else
-				{
-					++text_x;
-				}
+			// 	// get a TEXT_BOX_LENGTH chunk of the text
+			// 	vram_adr(NTADR_A(TEXT_BOX_X + text_x, TEXT_BOX_Y + text_y)); // screen is 32 x 30 tiles
+			// 	vram_put(long_text[text_rendered]);
+			// 	++text_rendered;
+			// 	if (text_rendered == 16 || text_rendered == 32 || text_rendered == 48)
+			// 	{
+			// 		text_x = 1;
+			// 		++text_y;
+			// 	}
+			// 	else
+			// 	{
+			// 		++text_x;
+			// 	}
 
-				ppu_on_all();
-			}
+			// 	ppu_on_all();
+			// }
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
 			if (pad1_new & PAD_B)
 			{
-				back_to_game();
+				// back to game
+				ppu_off();
+				game_mode = MODE_GAME;
+
+				display_hud = 1;
+				draw_bg();
+				ppu_on_all();
 			}
 		}
 		while (game_mode == MODE_END)
@@ -149,7 +156,6 @@ void main(void)
 
 void draw_bg(void)
 {
-	oam_clear();
 	ppu_off(); // screen off
 
 	switch (which_bg)
@@ -198,7 +204,7 @@ void draw_bg(void)
 	}
 
 	// draw secret game
-	if (which_bg == 1)
+	if (which_bg == 2)
 	{
 		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
 		vram_put('.');
@@ -210,7 +216,7 @@ void draw_bg(void)
 		vram_put(' ');
 	}
 
-	if (which_bg != 0)
+	if (display_hud == 1)
 	{
 		draw_hud();
 	}
@@ -343,9 +349,10 @@ void action(void)
 void item_detection(void)
 {
 
-	if (which_bg == 1 && player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 && player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 && ((pad1 & PAD_A) || (pad1 & PAD_B)))
+	if (which_bg == 2 && player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 && player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 && ((pad1 & PAD_A) || (pad1 & PAD_B)))
 	{
-		initialize_end_screen();
+		draw_talking();
+		// initialize_end_screen();
 	}
 }
 
@@ -606,38 +613,38 @@ void draw_hud(void)
 	one_vram_buffer('-', NTADR_A(6, 4));
 
 	// draw buttons B
-	one_vram_buffer(0x01, NTADR_A(B_LOC, 2));
+	one_vram_buffer('_', NTADR_A(B_LOC, 2));
 	one_vram_buffer('B', NTADR_A(B_LOC + 1, 2));
-	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 2));
-	one_vram_buffer(0x01, NTADR_A(B_LOC, 3));
+	one_vram_buffer('_', NTADR_A(B_LOC + 2, 2));
+	one_vram_buffer(0x0c, NTADR_A(B_LOC, 3));
 	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 3));
-	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 3));
-	one_vram_buffer(0x01, NTADR_A(B_LOC, 4));
+	one_vram_buffer(0x0c, NTADR_A(B_LOC + 2, 3));
+	one_vram_buffer(0x0c, NTADR_A(B_LOC, 4));
 	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 4));
-	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 4));
-	one_vram_buffer(0x01, NTADR_A(B_LOC, 5));
+	one_vram_buffer(0x0c, NTADR_A(B_LOC + 2, 4));
+	one_vram_buffer(0x0c, NTADR_A(B_LOC, 5));
 	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 5));
-	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 5));
-	one_vram_buffer(0x01, NTADR_A(B_LOC, 6));
-	one_vram_buffer(0x01, NTADR_A(B_LOC + 1, 6));
-	one_vram_buffer(0x01, NTADR_A(B_LOC + 2, 6));
+	one_vram_buffer(0x0c, NTADR_A(B_LOC + 2, 5));
+	one_vram_buffer('_', NTADR_A(B_LOC, 6));
+	one_vram_buffer('_', NTADR_A(B_LOC + 1, 6));
+	one_vram_buffer('_', NTADR_A(B_LOC + 2, 6));
 
 	// draw buttons A
-	one_vram_buffer(0x01, NTADR_A(A_LOC, 2));
+	one_vram_buffer('_', NTADR_A(A_LOC, 2));
 	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
-	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 2));
-	one_vram_buffer(0x01, NTADR_A(A_LOC, 3));
+	one_vram_buffer('_', NTADR_A(A_LOC + 2, 2));
+	one_vram_buffer(0x0c, NTADR_A(A_LOC, 3));
 	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 3));
-	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 3));
-	one_vram_buffer(0x01, NTADR_A(A_LOC, 4));
+	one_vram_buffer(0x0c, NTADR_A(A_LOC + 2, 3));
+	one_vram_buffer(0x0c, NTADR_A(A_LOC, 4));
 	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 4));
-	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 4));
-	one_vram_buffer(0x01, NTADR_A(A_LOC, 5));
+	one_vram_buffer(0x0c, NTADR_A(A_LOC + 2, 4));
+	one_vram_buffer(0x0c, NTADR_A(A_LOC, 5));
 	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 5));
-	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 5));
-	one_vram_buffer(0x01, NTADR_A(A_LOC, 6));
-	one_vram_buffer(0x01, NTADR_A(A_LOC + 1, 6));
-	one_vram_buffer(0x01, NTADR_A(A_LOC + 2, 6));
+	one_vram_buffer(0x0c, NTADR_A(A_LOC + 2, 5));
+	one_vram_buffer('_', NTADR_A(A_LOC, 6));
+	one_vram_buffer('_', NTADR_A(A_LOC + 1, 6));
+	one_vram_buffer('_', NTADR_A(A_LOC + 2, 6));
 
 	// draw timer
 	one_vram_buffer('-', NTADR_A(22, 2));
@@ -650,25 +657,37 @@ void draw_hud(void)
 
 void draw_talking(void)
 {
-	oam_clear();
+	// writes to the HUD area
 	ppu_off();
+	display_hud = 0;
+	draw_bg();
 	//	set_mt_pointer(metatiles1);
 
-	// top border
-	vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y));
-	vram_fill(0x01, TEXT_BOX_LENGTH + 2);
-
-	i = 1;
-	while (i < TEXT_BOX_HEIGHT)
-	{
-		vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y + i));
-		vram_put(0x01);
-		vram_fill(' ', TEXT_BOX_LENGTH);
-		vram_put(0x01);
-		++i;
-	}
-	vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y + i));
-	vram_fill(0x01, TEXT_BOX_LENGTH + 2);
+	// // top border
+	// vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y));
+	// vram_fill(0x01, TEXT_BOX_LENGTH + 2);
+	multi_vram_buffer_horz(underscores, sizeof(underscores), NTADR_A(1, 2));
+	multi_vram_buffer_horz(jeqb_text, sizeof(jeqb_text), NTADR_A(2, 4));
+	multi_vram_buffer_horz(underscores, sizeof(underscores), NTADR_A(1, 6));
+	one_vram_buffer('|', NTADR_A(1, 3));
+	one_vram_buffer('|', NTADR_A(1, 4));
+	one_vram_buffer('|', NTADR_A(1, 5));
+	one_vram_buffer('|', NTADR_A(1, 6));
+	one_vram_buffer('|', NTADR_A(30, 3));
+	one_vram_buffer('|', NTADR_A(30, 4));
+	one_vram_buffer('|', NTADR_A(30, 5));
+	one_vram_buffer('|', NTADR_A(30, 6));
+	// i = 1;
+	// while (i < TEXT_BOX_HEIGHT)
+	// {
+	// 	vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y + i));
+	// 	vram_put(0x01);
+	// 	vram_fill(' ', TEXT_BOX_LENGTH);
+	// 	vram_put(0x01);
+	// 	++i;
+	// }
+	// vram_adr(NTADR_A(TEXT_BOX_X, TEXT_BOX_Y + i));
+	// vram_fill(0x01, TEXT_BOX_LENGTH + 2);
 
 	game_mode = MODE_TALKING_TIME;
 	text_rendered = 0;
@@ -707,16 +726,6 @@ void draw_talking(void)
 	// multi_vram_buffer_horz(intro_text3, sizeof(intro_text3), NTADR_A(2, 12));
 }
 
-void back_to_game(void)
-{
-	ppu_off();
-	oam_clear();
-	game_mode = MODE_GAME;
-
-	draw_bg();
-	ppu_on_all();
-}
-
 void initialize_title_screen(void)
 {
 	game_mode = MODE_TITLE;
@@ -748,7 +757,7 @@ void initialize_end_screen(void)
 	which_bg = 5; // set background to black
 	draw_bg();
 
-	multi_vram_buffer_horz(end_text, sizeof(end_text), NTADR_A(4, 14));
+	multi_vram_buffer_horz(jeqb_text, sizeof(jeqb_text), NTADR_A(4, 14));
 	multi_vram_buffer_horz(end_text2, sizeof(end_text2) - 1, NTADR_A(3, 20));
 
 	ppu_on_all();
