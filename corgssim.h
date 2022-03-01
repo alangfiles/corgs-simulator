@@ -108,6 +108,7 @@ enum
 #pragma bss-name(push, "BSS")
 
 unsigned char c_map[240];
+unsigned char a_map[240];
 // collision map
 
 // these are the 4 backgrounds
@@ -115,11 +116,13 @@ unsigned char c_map[240];
 #include "CSV/blank.c"
 #include "CSV/outsidetop.c"
 #include "CSV/entry.c"
+#include "CSV/a_entry.c"
 #include "CSV/title.c"
 #include "CSV/topleft.c"
 #include "CSV/brianalan.c"
 #include "CSV/gamestoplay.c"
 #include "CSV/arcade.c"
+#include "CSV/underground.c"
 
 const unsigned char palette_bg[] = {
 	0x0f,0x00,0x10,0x1a,
@@ -205,6 +208,7 @@ void movement(void);
 void action(void);
 void item_detection(void);
 void bg_collision();
+void action_collision();
 void change_room_right(void);
 void change_room_left(void);
 void change_room_up(void);

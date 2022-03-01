@@ -4,6 +4,13 @@
  *	Doug Fraker 2018
  */
 
+/*
+2/28 todo list:
+[] typewritter text stuff
+[] multiple text lines (automatic wrapping?)
+[] interaction areas (colision detection for things, could actually use a map for this?)
+*/
+
 #include "LIB/neslib.h"
 #include "LIB/nesdoug.h"
 #include "Sprites.h" // holds our metasprite data
@@ -88,10 +95,10 @@ void main(void)
 			countdown_timer();
 			draw_sprites();
 
-			if (pad1_new & PAD_B)
-			{
-				draw_talking();
-			}
+			// if (pad1_new & PAD_B)
+			// {
+			// 	draw_talking();
+			// }
 
 			// for debugging, the lower the line, the less processing we have
 			gray_line();
@@ -167,6 +174,7 @@ void draw_bg(void)
 	case 1:
 		set_data_pointer(entry);
 		memcpy(c_map, entry, 240);
+		memcpy(a_map, a_entry, 240);
 		break;
 	case 2:
 		set_data_pointer(brianalan);
@@ -336,13 +344,22 @@ void draw_sprites(void)
 
 void action(void)
 {
-	if (pad1 & PAD_A)
+	// check for shots
+	if (pad1_new & PAD_A)
 	{
 		// the shot starts where the player is and moves in the direction
 		// the player was facing when they shot.
 		shot_x = player_x;
 		shot_y = player_y;
 		shot_direction = player_direction;
+	}
+	
+	//check for interactable
+	if (pad1_new & PAD_B){
+		action_collision();
+		if(collision_U){
+			draw_talking();
+		}
 	}
 }
 
@@ -451,6 +468,82 @@ void movement(void)
 		}
 	}
 #pragma endregion shotMovement
+}
+
+void action_collision()
+{
+	// a copy of bg_collision, but used to find interactables
+
+	collision_L = 0;
+	collision_R = 0;
+	collision_U = 0;
+	collision_D = 0;
+
+	// this code gets where the player is
+	temp1 = player_x;							 // left side
+	temp2 = temp1 + player_width;	 // right side
+	temp3 = player_y;							 // top side
+	temp4 = temp3 + player_height; // bottom side
+
+	// adujst the interaction box in front of the player
+	// player_direction
+	switch (player_direction)
+	{ // 0 = down, 1 = left, 2 = up, 3 = right
+	case 0:
+		temp3 = temp3 + player_height;
+		temp4 = temp3 + player_height;
+		break;
+	case 1:
+		temp1 = temp1 - player_width;
+		temp2 = temp2 - player_width;
+		break;
+	case 2:
+		temp3 = temp3 - player_height;
+		temp4 = temp3 - player_height;
+		break;
+	case 3:
+		temp1 = temp1 + player_width;
+		temp2 = temp2 + player_width;
+		break;
+	default:
+		break;
+	}
+
+	if (temp3 >= 0xf0)
+		return;
+	// y out of range
+
+	coordinates = (temp1 >> 4) + (temp3 & 0xf0); // upper left
+	if (a_map[coordinates] && a_map[coordinates] != 5)
+	{ // find a corner in the collision map
+		++collision_L;
+		++collision_U;
+	}
+
+	coordinates = (temp2 >> 4) + (temp3 & 0xf0); // upper right
+	if (a_map[coordinates])
+	{
+		collision_R = a_map[coordinates];
+		collision_U = a_map[coordinates];
+	}
+
+	if (temp4 >= 0xf0)
+		return;
+	// y out of range
+
+	coordinates = (temp1 >> 4) + (temp4 & 0xf0); // bottom left
+	if (a_map[coordinates])
+	{
+		collision_L = a_map[coordinates];
+		collision_D = a_map[coordinates];
+	}
+
+	coordinates = (temp2 >> 4) + (temp4 & 0xf0); // bottom right
+	if (a_map[coordinates])
+	{
+		collision_R = a_map[coordinates];
+		collision_D = a_map[coordinates];
+	}
 }
 
 void bg_collision()
