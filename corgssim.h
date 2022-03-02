@@ -34,6 +34,8 @@ unsigned char collision_U;
 unsigned char collision_D;
 unsigned char which_bg = 0;
 unsigned char text_rendered = 0;
+unsigned char text_row = 0;
+unsigned char text_col = 0;
 unsigned char text_finished = 0;
 unsigned char text_x = 1;
 unsigned char text_y = 1;
@@ -61,8 +63,8 @@ unsigned char x;
 unsigned char y;
 unsigned char index;
 
-unsigned char player_height = 13;
-unsigned char player_width = 13;
+unsigned char player_height = 14;
+unsigned char player_width = 14;
 unsigned char i;
 unsigned char player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;
@@ -71,6 +73,7 @@ unsigned char display_hud = 0;
 unsigned char frame = 0;
 unsigned char talk_frame = 0;
 unsigned char temp1;
+unsigned char text_to_use = 0;
 const unsigned char title_text[] = "SIMUALTOR";
 const unsigned char start_text[] = "Press  Start";
 const unsigned char text_box[] = "                              ";
@@ -82,6 +85,9 @@ const unsigned char jeqb_text[] = "You found a copy of JEQB";
 const unsigned char dashes[] = "-----------------------------";
 const unsigned char underscores[] = "_____________________________";
 const unsigned char end_text2[] = "Press Start to play again";
+
+const unsigned char game_text0[] = "Just some old video games";
+const unsigned char game_text1[] = "You found a copy of Warren Robinett's Adventure for Atari 2600";
 
 const unsigned char long_text[] = "The quick brown fox jumps over the lazy dogs.";
 
@@ -196,7 +202,6 @@ const unsigned char metatiles1[]={
 	196, 197, 212, 213,  0,
 	198, 199, 214, 215,  0,
 };
-
 
 // PROTOTYPES
 void draw_bg(void);
