@@ -90,7 +90,6 @@ void main(void)
 
 			movement();
 			action();
-			item_detection();
 
 			countdown_timer();
 			draw_sprites();
@@ -206,6 +205,7 @@ void draw_bg(void)
 	case 4:
 		set_data_pointer(topleft);
 		memcpy(c_map, topleft, 240);
+		memcpy(a_map, a_topleft, 240);
 		break;
 	default:
 		set_data_pointer(blank);
@@ -371,25 +371,34 @@ void action(void)
 		shot_y = player_y;
 		shot_direction = player_direction;
 	}
+
+	if(push_timer > 100){
+		action_collision();
+		if(collision_action == 2){
+			//block is at x112, y160
+			index = (160 & 0xf0) + (112 >> 4); //hardcoded block location
+			//replace block and fix c_map
+			c_map[index] = 0; // set it to 0
+			address = get_ppu_addr(0, 112, 160);
+			buffer_1_mt(address, 49);
+			push_timer = 0;
+		}
+
+		
+
+
+		// if(collision_action == 2){ // push block
+		// 	buffer_1_mt(NTADR_A(8,11),0);
+		// }
+	}
 	
 	//check for interactable
 	if (pad1_new & PAD_B){
 		action_collision();
-		if(collision_U){
+		if(collision_action == 1){
 			text_to_use = 0;
 			draw_talking();
 		}
-	}
-}
-
-void item_detection(void)
-{
-
-	if (which_bg == 2 && player_y < 0xb8 + 0x08 && player_y >= 0xb8 - 0x08 && player_x < 0x3a + 0x08 && player_x >= 0x3a - 0x08 && ((pad1 & PAD_A) || (pad1 & PAD_B)))
-	{
-		text_to_use = 1;
-		draw_talking();
-		// initialize_end_screen();
 	}
 }
 
@@ -398,6 +407,7 @@ void movement(void)
 #pragma region playerMovement
 	has_moved = 0;
 
+	last_player_direction = player_direction;
 	// move left/right
 	if (pad1 & PAD_LEFT)
 	{
@@ -455,6 +465,14 @@ void movement(void)
 	{
 		player_y += 1;
 	}
+	
+	if(player_direction == last_player_direction  // player direction hasn't changed
+	&& (pad1 & PAD_ALL_DIRECTIONS ) ) // one of the direction buttons is held down
+	{
+		++push_timer;
+	} else {
+		push_timer = 0;
+	}
 
 #pragma endregion playerMovement
 
@@ -494,6 +512,7 @@ void action_collision()
 {
 	// a copy of bg_collision, but used to find interactables
 
+	collision_action = 0;
 	collision_L = 0;
 	collision_R = 0;
 	collision_U = 0;
@@ -510,20 +529,20 @@ void action_collision()
 	switch (player_direction)
 	{ // 0 = down, 1 = left, 2 = up, 3 = right
 	case 0:
-		temp3 = temp3 + player_height;
-		temp4 = temp3 + player_height;
+		temp3 = temp3 + ACTION_HEIGHT;
+		temp4 = temp4 + ACTION_HEIGHT;
 		break;
 	case 1:
-		temp1 = temp1 - player_width;
-		temp2 = temp2 - player_width;
+		temp1 = temp1 - ACTION_WIDTH - ACTION_WIDTH;
+		temp2 = temp2 - ACTION_WIDTH - ACTION_WIDTH;
 		break;
 	case 2:
-		temp3 = temp3 - player_height;
-		temp4 = temp3 - player_height;
+		temp3 = temp3 - ACTION_HEIGHT - ACTION_HEIGHT;
+		temp4 = temp4 - ACTION_HEIGHT - ACTION_HEIGHT;
 		break;
 	case 3:
-		temp1 = temp1 + player_width;
-		temp2 = temp2 + player_width;
+		temp1 = temp1 + ACTION_WIDTH;
+		temp2 = temp2 + ACTION_WIDTH;
 		break;
 	default:
 		break;
@@ -534,15 +553,17 @@ void action_collision()
 	// y out of range
 
 	coordinates = (temp1 >> 4) + (temp3 & 0xf0); // upper left
-	if (a_map[coordinates] && a_map[coordinates] != 5)
+	if (a_map[coordinates])
 	{ // find a corner in the collision map
-		++collision_L;
-		++collision_U;
+		collision_action=a_map[coordinates];
+		collision_L = a_map[coordinates];
+		collision_U = a_map[coordinates];
 	}
 
 	coordinates = (temp2 >> 4) + (temp3 & 0xf0); // upper right
 	if (a_map[coordinates])
 	{
+		collision_action=a_map[coordinates];
 		collision_R = a_map[coordinates];
 		collision_U = a_map[coordinates];
 	}
@@ -554,6 +575,7 @@ void action_collision()
 	coordinates = (temp1 >> 4) + (temp4 & 0xf0); // bottom left
 	if (a_map[coordinates])
 	{
+		collision_action=a_map[coordinates];
 		collision_L = a_map[coordinates];
 		collision_D = a_map[coordinates];
 	}
@@ -561,6 +583,7 @@ void action_collision()
 	coordinates = (temp2 >> 4) + (temp4 & 0xf0); // bottom right
 	if (a_map[coordinates])
 	{
+		collision_action=a_map[coordinates];
 		collision_R = a_map[coordinates];
 		collision_D = a_map[coordinates];
 	}

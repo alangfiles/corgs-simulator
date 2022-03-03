@@ -3,10 +3,15 @@
 #define SCREEN_TOP_EDGE 0x40
 #define SCREEN_BOTTOM_EDGE 0xd0
 
+#define ACTION_HEIGHT 4
+#define ACTION_WIDTH 4
+
 #define PLAYER_LEFT_EDGE 0x01
 #define PLAYER_RIGHT_EDGE 0xef
 #define PLAYER_TOP_EDGE 0x42
 #define PLAYER_BOTTOM_EDGE 0xcf
+
+#define PAD_ALL_DIRECTIONS	0x0f
 
 #define DOWN_MOVE 0x00
 #define LEFT_MOVE 0x01
@@ -32,6 +37,7 @@ unsigned char collision_L;
 unsigned char collision_R;
 unsigned char collision_U;
 unsigned char collision_D;
+unsigned char collision_action;
 unsigned char which_bg = 0;
 unsigned char text_rendered = 0;
 unsigned char text_row = 0;
@@ -39,6 +45,7 @@ unsigned char text_col = 0;
 unsigned char text_finished = 0;
 unsigned char text_x = 1;
 unsigned char text_y = 1;
+unsigned char push_timer = 0;
 const unsigned char *p_maps;
 unsigned char coordinates;
 unsigned char temp1;
@@ -67,6 +74,7 @@ unsigned char player_height = 14;
 unsigned char player_width = 14;
 unsigned char i;
 unsigned char player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
+unsigned char last_player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char move_frames = 0;
 unsigned char has_moved = 0;
 unsigned char display_hud = 0;
@@ -125,6 +133,7 @@ unsigned char a_map[240];
 #include "CSV/a_entry.c"
 #include "CSV/title.c"
 #include "CSV/topleft.c"
+#include "CSV/a_topleft.c"
 #include "CSV/brianalan.c"
 #include "CSV/gamestoplay.c"
 #include "CSV/arcade.c"
@@ -211,7 +220,6 @@ void draw_hud(void);
 void draw_talking(void);
 void movement(void);
 void action(void);
-void item_detection(void);
 void bg_collision();
 void action_collision();
 void change_room_right(void);
