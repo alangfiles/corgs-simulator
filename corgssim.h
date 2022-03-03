@@ -39,6 +39,7 @@ unsigned char collision_U;
 unsigned char collision_D;
 unsigned char collision_action;
 unsigned char which_bg = 0;
+unsigned char block_moved = 0;
 unsigned char text_rendered = 0;
 unsigned char text_row = 0;
 unsigned char text_col = 0;

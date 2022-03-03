@@ -207,6 +207,10 @@ void draw_bg(void)
 		memcpy(c_map, topleft, 240);
 		memcpy(a_map, a_topleft, 240);
 		break;
+	case 6:
+		set_data_pointer(underground);
+		memcpy(c_map, underground, 240);
+		break;
 	default:
 		set_data_pointer(blank);
 		memcpy(c_map, blank, 240);
@@ -382,6 +386,7 @@ void action(void)
 			address = get_ppu_addr(0, 112, 160);
 			buffer_1_mt(address, 49);
 			push_timer = 0;
+			block_moved = 1;
 		}
 
 		
@@ -472,6 +477,15 @@ void movement(void)
 		++push_timer;
 	} else {
 		push_timer = 0;
+	}
+
+	if( block_moved &&
+		player_x > 104 && player_x < 120
+	&& player_y > 144 && player_y < 160){
+		which_bg = 6; //underground
+		player_x = 48;
+		player_y= 64;
+		draw_bg();
 	}
 
 #pragma endregion playerMovement
@@ -686,6 +700,12 @@ void change_room_up()
 	if (which_bg == 2)
 	{
 		which_bg = 3;
+	}
+	if(which_bg==6)
+	{
+		which_bg = 4;
+		player_x=130;
+		player_y=160;
 	}
 	draw_bg();
 }
