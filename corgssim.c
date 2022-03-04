@@ -834,38 +834,39 @@ void draw_hud(void)
 	one_vram_buffer('-', NTADR_A(6, 4));
 
 	// draw buttons B
-	one_vram_buffer('_', NTADR_A(B_LOC, 2));
+	one_vram_buffer(0xee, NTADR_A(B_LOC, 2));
 	one_vram_buffer('B', NTADR_A(B_LOC + 1, 2));
-	one_vram_buffer('_', NTADR_A(B_LOC + 2, 2));
-	one_vram_buffer(0x0c, NTADR_A(B_LOC, 3));
+	one_vram_buffer(0xef, NTADR_A(B_LOC + 2, 2));
+	
+	one_vram_buffer(0xfd, NTADR_A(B_LOC, 3));
 	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 3));
-	one_vram_buffer(0x0c, NTADR_A(B_LOC + 2, 3));
-	one_vram_buffer(0x0c, NTADR_A(B_LOC, 4));
+	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 3));
+	one_vram_buffer(0xfd, NTADR_A(B_LOC, 4));
 	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 4));
-	one_vram_buffer(0x0c, NTADR_A(B_LOC + 2, 4));
-	one_vram_buffer(0x0c, NTADR_A(B_LOC, 5));
+	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 4));
+	one_vram_buffer(0xfd, NTADR_A(B_LOC, 5));
 	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 5));
-	one_vram_buffer(0x0c, NTADR_A(B_LOC + 2, 5));
-	one_vram_buffer('_', NTADR_A(B_LOC, 6));
-	one_vram_buffer('_', NTADR_A(B_LOC + 1, 6));
-	one_vram_buffer('_', NTADR_A(B_LOC + 2, 6));
+	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 5));
+	one_vram_buffer(0xfe, NTADR_A(B_LOC, 6));
+	one_vram_buffer(0xed, NTADR_A(B_LOC + 1, 6));
+	one_vram_buffer(0xff, NTADR_A(B_LOC + 2, 6));
 
 	// draw buttons A
-	one_vram_buffer('_', NTADR_A(A_LOC, 2));
+	one_vram_buffer(0xee, NTADR_A(A_LOC, 2));
 	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
-	one_vram_buffer('_', NTADR_A(A_LOC + 2, 2));
-	one_vram_buffer(0x0c, NTADR_A(A_LOC, 3));
+	one_vram_buffer(0xef, NTADR_A(A_LOC + 2, 2));
+	one_vram_buffer(0xfd, NTADR_A(A_LOC, 3));
 	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 3));
-	one_vram_buffer(0x0c, NTADR_A(A_LOC + 2, 3));
-	one_vram_buffer(0x0c, NTADR_A(A_LOC, 4));
-	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 4));
-	one_vram_buffer(0x0c, NTADR_A(A_LOC + 2, 4));
-	one_vram_buffer(0x0c, NTADR_A(A_LOC, 5));
+	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 3));
+	one_vram_buffer(0xfd, NTADR_A(A_LOC, 4));
+	one_vram_buffer('$', NTADR_A(A_LOC + 1, 4));
+	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 4));
+	one_vram_buffer(0xfd, NTADR_A(A_LOC, 5));
 	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 5));
-	one_vram_buffer(0x0c, NTADR_A(A_LOC + 2, 5));
-	one_vram_buffer('_', NTADR_A(A_LOC, 6));
-	one_vram_buffer('_', NTADR_A(A_LOC + 1, 6));
-	one_vram_buffer('_', NTADR_A(A_LOC + 2, 6));
+	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 5));
+	one_vram_buffer(0xfe, NTADR_A(A_LOC, 6));
+	one_vram_buffer(0xed, NTADR_A(A_LOC + 1, 6));
+	one_vram_buffer(0xff, NTADR_A(A_LOC + 2, 6));
 
 	// draw timer
 	one_vram_buffer('-', NTADR_A(22, 2));
@@ -884,16 +885,15 @@ void draw_talking(void)
 	game_mode = MODE_TALKING_TIME;
 	draw_bg();
 
-	multi_vram_buffer_horz(underscores, sizeof(underscores), NTADR_A(1, 2));
-	multi_vram_buffer_horz(underscores, sizeof(underscores), NTADR_A(1, 6));
-	one_vram_buffer('|', NTADR_A(1, 3));
-	one_vram_buffer('|', NTADR_A(1, 4));
-	one_vram_buffer('|', NTADR_A(1, 5));
-	one_vram_buffer('|', NTADR_A(1, 6));
-	one_vram_buffer('|', NTADR_A(30, 3));
-	one_vram_buffer('|', NTADR_A(30, 4));
-	one_vram_buffer('|', NTADR_A(30, 5));
-	one_vram_buffer('|', NTADR_A(30, 6));
+	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
+	multi_vram_buffer_horz(bottomBar, sizeof(bottomBar), NTADR_A(1, 6));
+	
+	one_vram_buffer(0xfd, NTADR_A(1, 3));
+	one_vram_buffer(0xfd, NTADR_A(1, 4));
+	one_vram_buffer(0xfd, NTADR_A(1, 5));
+	one_vram_buffer(0xfd, NTADR_A(30, 3));
+	one_vram_buffer(0xfd, NTADR_A(30, 4));
+	one_vram_buffer(0xfd, NTADR_A(30, 5));
 
 	text_rendered = 0;
 
