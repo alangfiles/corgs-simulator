@@ -95,8 +95,11 @@ const unsigned char dashes[] = "-----------------------------";
 const unsigned char underscores[] = "_____________________________";
 const unsigned char end_text2[] = "Press Start to play again";
 
-const unsigned char game_text0[] = "Just some old video games";
-const unsigned char game_text1[] = "You found a copy of Warren Robinett's Adventure for Atari 2600";
+const unsigned char game_text1[] = "Just some old video games";
+const unsigned char game_text2[] = "You found a copy of Warren Robinett's Adventure for Atari 2600";
+const unsigned char game_text34[] = "Just some arcade games with broken joysticks";
+const unsigned char game_text35[] = "Pinball machines, but you're out of quarters";
+
 
 const unsigned char long_text[] = "The quick brown fox jumps over the lazy dogs.";
 
@@ -106,7 +109,6 @@ const unsigned char items_text[] = "Items Collected:    0 0 *";
 const unsigned char title_color_rotate[]={
 	0x4,0x6,0x19,0x2
 };
-
 
 unsigned char game_mode;
 enum
@@ -128,16 +130,18 @@ unsigned char a_map[240];
 
 // these are the 4 backgrounds
 // collision data, made by exporting csv from Tiled, and slight modification by CSV2C.py
-#include "CSV/blank.c"
-#include "CSV/outsidetop.c"
-#include "CSV/entry.c"
+#include "CSV/a_arcade.c"
+#include "CSV/a_brianalan.c"
 #include "CSV/a_entry.c"
+#include "CSV/a_topleft.c"
+#include "CSV/arcade.c"
+#include "CSV/blank.c"
+#include "CSV/brianalan.c"
+#include "CSV/entry.c"
+#include "CSV/gamestoplay.c"
+#include "CSV/outsidetop.c"
 #include "CSV/title.c"
 #include "CSV/topleft.c"
-#include "CSV/a_topleft.c"
-#include "CSV/brianalan.c"
-#include "CSV/gamestoplay.c"
-#include "CSV/arcade.c"
 #include "CSV/underground.c"
 
 const unsigned char palette_bg[] = {
@@ -219,6 +223,7 @@ void draw_sprites(void);
 void draw_timer(void);
 void draw_hud(void);
 void draw_talking(void);
+void draw_timer(void);
 void movement(void);
 void action(void);
 void bg_collision();

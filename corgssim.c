@@ -82,8 +82,7 @@ void main(void)
 		while (game_mode == MODE_GAME) // gameloop
 		{
 			ppu_wait_nmi(); // wait till beginning of the frame
-
-			++frame;
+			countdown_timer(); // keep ticking the timer
 
 			pad1 = pad_poll(0);				 // read the first controller
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
@@ -91,7 +90,7 @@ void main(void)
 			movement();
 			action();
 
-			countdown_timer();
+			
 			draw_sprites();
 
 			// if (pad1_new & PAD_B)
@@ -105,46 +104,93 @@ void main(void)
 		while (game_mode == MODE_TALKING_TIME)
 		{
 			ppu_wait_nmi(); // wait till beginning of the frame
-			
+			countdown_timer(); //keep ticking the timer
 
 			temp1 = get_frame_count();
 			temp1 = (temp1 >> 3);
 			// if(temp1
 
-			//++talk_frame;
-			// talk_frame = get_frame_count() & 8;
-			if(text_to_use == 0){
-if (text_rendered != sizeof(game_text0) && temp1)
+			switch (text_to_use)
 			{
-				one_vram_buffer(game_text0[text_rendered], NTADR_A(2+text_col, 3+text_row));
-				++text_col;
-				if(text_col == 27){
-					++text_row;
-					text_col=0;
-				}
-				++text_rendered;
-			} else {
-				//render finished
-				text_row=0;
-				text_col=0;
-			}
-			} else {
+			case 1:
 				if (text_rendered != sizeof(game_text1) && temp1)
-			{
-				one_vram_buffer(game_text1[text_rendered], NTADR_A(2+text_col, 3+text_row));
-				++text_col;
-				if(text_col == 27){
-					++text_row;
-					text_col=0;
+				{
+					one_vram_buffer(game_text1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					++text_col;
+					if (text_col == 27)
+					{
+						++text_row;
+						text_col = 0;
+					}
+					++text_rendered;
 				}
-				++text_rendered;
-			} else {
-				//render finished
-				text_row=0;
-				text_col=0;
+				else
+				{
+					// render finished
+					text_row = 0;
+					text_col = 0;
+				}
+				break;
+			case 2:
+				if (text_rendered != sizeof(game_text2) && temp1)
+				{
+					one_vram_buffer(game_text2[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					++text_col;
+					if (text_col == 27)
+					{
+						++text_row;
+						text_col = 0;
+					}
+					++text_rendered;
+				}
+				else
+				{
+					// render finished
+					text_row = 0;
+					text_col = 0;
+				}
+				break;
+			case 34:
+				if (text_rendered != sizeof(game_text34) && temp1)
+				{
+					one_vram_buffer(game_text34[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					++text_col;
+					if (text_col == 27)
+					{
+						++text_row;
+						text_col = 0;
+					}
+					++text_rendered;
+				}
+				else
+				{
+					// render finished
+					text_row = 0;
+					text_col = 0;
+				}
+				break;
+			case 35:
+				if (text_rendered != sizeof(game_text35) && temp1)
+				{
+					one_vram_buffer(game_text35[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					++text_col;
+					if (text_col == 27)
+					{
+						++text_row;
+						text_col = 0;
+					}
+					++text_rendered;
+				}
+				else
+				{
+					// render finished
+					text_row = 0;
+					text_col = 0;
+				}
+				break;
+			default:
+				break;
 			}
-			}
-			
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
@@ -154,9 +200,10 @@ if (text_rendered != sizeof(game_text0) && temp1)
 				// back to game
 				ppu_off();
 
-				
+				text_to_use = 0;
+				text_row = 0;
+				text_col = 0;
 				game_mode = MODE_GAME;
-
 				display_hud = 1;
 				draw_bg();
 				ppu_on_all();
@@ -180,7 +227,7 @@ if (text_rendered != sizeof(game_text0) && temp1)
 void draw_bg(void)
 {
 	ppu_off(); // screen off
-	
+
 	set_mt_pointer(metatiles1);
 
 	switch (which_bg)
@@ -197,10 +244,12 @@ void draw_bg(void)
 	case 2:
 		set_data_pointer(brianalan);
 		memcpy(c_map, brianalan, 240);
+		memcpy(a_map, a_brianalan, 240);
 		break;
 	case 3:
 		set_data_pointer(arcade);
 		memcpy(c_map, arcade, 240);
+		memcpy(a_map, a_arcade, 240);
 		break;
 	case 4:
 		set_data_pointer(topleft);
@@ -210,6 +259,7 @@ void draw_bg(void)
 	case 6:
 		set_data_pointer(underground);
 		memcpy(c_map, underground, 240);
+
 		break;
 	default:
 		set_data_pointer(blank);
@@ -240,16 +290,15 @@ void draw_bg(void)
 		vram_put('.');
 		// player_x == 0x30 && player_y == 0xc0
 	}
-	else
-	{
-		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
-		vram_put(' ');
-	}
 
 	if (display_hud == 1)
 	{
 		draw_hud();
 	}
+
+
+	draw_timer(); // draw timer on screen transitions
+	
 
 	ppu_on_all(); // turn on screen
 }
@@ -376,12 +425,14 @@ void action(void)
 		shot_direction = player_direction;
 	}
 
-	if(push_timer > 100){
+	if (push_timer > 100)
+	{
 		action_collision();
-		if(collision_action == 2){
-			//block is at x112, y160
-			index = (160 & 0xf0) + (112 >> 4); //hardcoded block location
-			//replace block and fix c_map
+		if (collision_action == 2)
+		{
+			// block is at x112, y160
+			index = (160 & 0xf0) + (112 >> 4); // hardcoded block location
+			// replace block and fix c_map
 			c_map[index] = 0; // set it to 0
 			address = get_ppu_addr(0, 112, 160);
 			buffer_1_mt(address, 49);
@@ -389,19 +440,20 @@ void action(void)
 			block_moved = 1;
 		}
 
-		
-
-
 		// if(collision_action == 2){ // push block
 		// 	buffer_1_mt(NTADR_A(8,11),0);
 		// }
 	}
-	
-	//check for interactable
-	if (pad1_new & PAD_B){
+
+	// check for interactable
+	if (pad1_new & PAD_B)
+	{
 		action_collision();
-		if(collision_action == 1){
-			text_to_use = 0;
+
+		// first 100 actions are talking related, just blocking some out
+		if (collision_action > 0 && collision_action < 100)
+		{
+			text_to_use = collision_action;
 			draw_talking();
 		}
 	}
@@ -470,21 +522,24 @@ void movement(void)
 	{
 		player_y += 1;
 	}
-	
-	if(player_direction == last_player_direction  // player direction hasn't changed
-	&& (pad1 & PAD_ALL_DIRECTIONS ) ) // one of the direction buttons is held down
+
+	if (player_direction == last_player_direction // player direction hasn't changed
+			&& (pad1 & PAD_ALL_DIRECTIONS))						// one of the direction buttons is held down
 	{
 		++push_timer;
-	} else {
+	}
+	else
+	{
 		push_timer = 0;
 	}
 
-	if( block_moved &&
-		player_x > 104 && player_x < 120
-	&& player_y > 144 && player_y < 160){
-		which_bg = 6; //underground
+	if (block_moved &&
+			player_x > 104 && player_x < 120 && player_y > 144 && player_y < 160)
+	{
+		which_bg = 6; // underground
 		player_x = 48;
-		player_y= 64;
+		player_y = 64;
+		block_moved = 0;
 		draw_bg();
 	}
 
@@ -569,7 +624,7 @@ void action_collision()
 	coordinates = (temp1 >> 4) + (temp3 & 0xf0); // upper left
 	if (a_map[coordinates])
 	{ // find a corner in the collision map
-		collision_action=a_map[coordinates];
+		collision_action = a_map[coordinates];
 		collision_L = a_map[coordinates];
 		collision_U = a_map[coordinates];
 	}
@@ -577,7 +632,7 @@ void action_collision()
 	coordinates = (temp2 >> 4) + (temp3 & 0xf0); // upper right
 	if (a_map[coordinates])
 	{
-		collision_action=a_map[coordinates];
+		collision_action = a_map[coordinates];
 		collision_R = a_map[coordinates];
 		collision_U = a_map[coordinates];
 	}
@@ -589,7 +644,7 @@ void action_collision()
 	coordinates = (temp1 >> 4) + (temp4 & 0xf0); // bottom left
 	if (a_map[coordinates])
 	{
-		collision_action=a_map[coordinates];
+		collision_action = a_map[coordinates];
 		collision_L = a_map[coordinates];
 		collision_D = a_map[coordinates];
 	}
@@ -597,7 +652,7 @@ void action_collision()
 	coordinates = (temp2 >> 4) + (temp4 & 0xf0); // bottom right
 	if (a_map[coordinates])
 	{
-		collision_action=a_map[coordinates];
+		collision_action = a_map[coordinates];
 		collision_R = a_map[coordinates];
 		collision_D = a_map[coordinates];
 	}
@@ -701,11 +756,11 @@ void change_room_up()
 	{
 		which_bg = 3;
 	}
-	if(which_bg==6)
+	if (which_bg == 6)
 	{
 		which_bg = 4;
-		player_x=130;
-		player_y=160;
+		player_x = 130;
+		player_y = 160;
 	}
 	draw_bg();
 }
@@ -726,6 +781,8 @@ void change_room_down()
 
 void countdown_timer(void)
 {
+	++frame;
+
 	if (frame == 60)
 	{
 		frame = 0;
@@ -749,6 +806,14 @@ void countdown_timer(void)
 		}
 
 		// update the vram_buffer values only every 60 frames
+		draw_timer();
+	}
+}
+
+void draw_timer(void)
+{
+	if (game_mode == MODE_GAME)
+	{
 		one_vram_buffer(48 + minutes_left, NTADR_A(23, 3));
 		one_vram_buffer(':', NTADR_A(24, 3));
 		one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 3));
@@ -816,6 +881,7 @@ void draw_talking(void)
 	// writes to the HUD area
 	ppu_off();
 	display_hud = 0;
+	game_mode = MODE_TALKING_TIME;
 	draw_bg();
 
 	multi_vram_buffer_horz(underscores, sizeof(underscores), NTADR_A(1, 2));
@@ -829,7 +895,6 @@ void draw_talking(void)
 	one_vram_buffer('|', NTADR_A(30, 5));
 	one_vram_buffer('|', NTADR_A(30, 6));
 
-	game_mode = MODE_TALKING_TIME;
 	text_rendered = 0;
 
 	ppu_on_all();
