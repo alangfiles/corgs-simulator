@@ -23,7 +23,7 @@ void main(void)
 	// comment
 
 	// load the palettes
-	pal_bg(palette_bg);
+	pal_bg(title_palette);
 	pal_spr(palette_sp);
 
 	set_vram_buffer(); // do at least once, sets a pointer to a buffer
@@ -49,8 +49,8 @@ void main(void)
 			temp1 = get_frame_count();
 			temp1 = (temp1 >> 3) & 3;
 			temp2 = temp1 + 1 & 3;
-			pal_col(9, title_color_rotate[temp1]);
-			pal_col(10, title_color_rotate[temp2]);
+			//pal_col(6, title_color_rotate[temp1]);
+			pal_col(5, title_color_rotate[temp2]);
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
@@ -60,7 +60,6 @@ void main(void)
 				// initialize game mode:
 				pal_fade_to(4, 0); // fade to black
 				ppu_off();
-				pal_bg(palette_bg);
 
 				// set defaults
 				game_mode = MODE_GAME;
@@ -71,7 +70,7 @@ void main(void)
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
 				display_hud = 1;
-				which_bg = 1;
+				which_bg = 9;
 
 				draw_bg();
 				draw_hud();
@@ -81,7 +80,7 @@ void main(void)
 		}
 		while (game_mode == MODE_GAME) // gameloop
 		{
-			ppu_wait_nmi(); // wait till beginning of the frame
+			ppu_wait_nmi();		 // wait till beginning of the frame
 			countdown_timer(); // keep ticking the timer
 
 			pad1 = pad_poll(0);				 // read the first controller
@@ -90,7 +89,6 @@ void main(void)
 			movement();
 			action();
 
-			
 			draw_sprites();
 
 			// if (pad1_new & PAD_B)
@@ -103,8 +101,8 @@ void main(void)
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
-			ppu_wait_nmi(); // wait till beginning of the frame
-			countdown_timer(); //keep ticking the timer
+			ppu_wait_nmi();		 // wait till beginning of the frame
+			countdown_timer(); // keep ticking the timer
 
 			temp1 = get_frame_count();
 			temp1 = (temp1 >> 3);
@@ -228,38 +226,173 @@ void draw_bg(void)
 {
 	ppu_off(); // screen off
 
-	set_mt_pointer(metatiles1);
-
 	switch (which_bg)
 	{
 	case 0:
+		set_mt_pointer(title_metatiles);
 		set_data_pointer(title);
 		memcpy(c_map, title, 240);
 		break;
 	case 1:
-		set_data_pointer(entry);
-		memcpy(c_map, entry, 240);
-		memcpy(a_map, a_entry, 240);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_1);
+		memcpy(c_map, room_1, 240);
+		// memcpy(a_map, a_entry, 240);
 		break;
 	case 2:
-		set_data_pointer(brianalan);
-		memcpy(c_map, brianalan, 240);
-		memcpy(a_map, a_brianalan, 240);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_2);
+		memcpy(c_map, room_2, 240);
+		// memcpy(a_map, a_entry, 240);
 		break;
 	case 3:
-		set_data_pointer(arcade);
-		memcpy(c_map, arcade, 240);
-		memcpy(a_map, a_arcade, 240);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_3);
+		memcpy(c_map, room_3, 240);
+		// memcpy(a_map, a_entry, 240);
 		break;
 	case 4:
-		set_data_pointer(topleft);
-		memcpy(c_map, topleft, 240);
-		memcpy(a_map, a_topleft, 240);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_4);
+		memcpy(c_map, room_4, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 5:
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_5);
+		memcpy(c_map, room_5, 240);
+		// memcpy(a_map, a_entry, 240);
 		break;
 	case 6:
-		set_data_pointer(underground);
-		memcpy(c_map, underground, 240);
-
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_6);
+		memcpy(c_map, room_6, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 7:
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_7);
+		memcpy(c_map, room_7, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 8:
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_8);
+		memcpy(c_map, room_8, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 9:
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
+		set_data_pointer(room_9);
+		memcpy(c_map, room_9, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 10:
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_10);
+		memcpy(c_map, room_10, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 11:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_11);
+		memcpy(c_map, room_11, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 12:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_12);
+		memcpy(c_map, room_12, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 13:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_13);
+		memcpy(c_map, room_13, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 14:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_14);
+		memcpy(c_map, room_14, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 15:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_15);
+		memcpy(c_map, room_15, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 16:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_16);
+		memcpy(c_map, room_16, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 17:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_17);
+		memcpy(c_map, room_17, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 18:
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
+		set_data_pointer(room_18);
+		memcpy(c_map, room_18, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 19:
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
+		set_data_pointer(room_19);
+		memcpy(c_map, room_19, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 20:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_20);
+		memcpy(c_map, room_20, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 21:
+		set_mt_pointer(cliff_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_21);
+		memcpy(c_map, room_21, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 22:
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_22);
+		memcpy(c_map, room_22, 240);
+		// memcpy(a_map, a_entry, 240);
+		break;
+	case 23:
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_23);
+		memcpy(c_map, room_23, 240);
+		// memcpy(a_map, a_entry, 240);
 		break;
 	default:
 		set_data_pointer(blank);
@@ -284,21 +417,19 @@ void draw_bg(void)
 	}
 
 	// draw secret game
-	if (which_bg == 2)
-	{
-		vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
-		vram_put('.');
-		// player_x == 0x30 && player_y == 0xc0
-	}
+	// if (which_bg == 2)
+	// {
+	// 	vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
+	// 	vram_put('.');
+	// 	// player_x == 0x30 && player_y == 0xc0
+	// }
 
 	if (display_hud == 1)
 	{
 		draw_hud();
 	}
 
-
 	draw_timer(); // draw timer on screen transitions
-	
 
 	ppu_on_all(); // turn on screen
 }
@@ -713,14 +844,10 @@ void bg_collision()
 void change_room_right()
 {
 	player_x = PLAYER_LEFT_EDGE;
-	if (which_bg == 4)
-	{
-		which_bg = 3;
-	}
-	if (which_bg == 1)
-	{
-		which_bg = 2;
-	}
+
+	//hacky, but since we block going to the right
+	// we can just inc the bg
+	++which_bg;
 
 	draw_bg();
 }
@@ -728,55 +855,71 @@ void change_room_right()
 void change_room_left()
 {
 	player_x = PLAYER_RIGHT_EDGE;
-	if (which_bg == 3)
-	{
-		which_bg = 4;
-	}
-	if (which_bg == 2)
-	{
-		which_bg = 1;
-	}
+
+	//hacky, but since we block going to the right
+	// we can just inc the bg
+	--which_bg;
+	
 	draw_bg();
 }
 
 void change_room_up()
 {
-	/**
-	 * current room map
-	 * 43
-	 * 12
-	 */
-
 	player_y = PLAYER_BOTTOM_EDGE;
-	if (which_bg == 1)
-	{
-		which_bg = 4;
+
+	if (which_bg >3 && which_bg < 7){
+		which_bg = which_bg-3;
+		draw_bg();
+		return;
 	}
-	if (which_bg == 2)
-	{
-		which_bg = 3;
+	if (which_bg >7 && which_bg < 11){
+		which_bg = which_bg-4;
+		draw_bg();
+		return;
 	}
-	if (which_bg == 6)
-	{
-		which_bg = 4;
-		player_x = 130;
-		player_y = 160;
+	if (which_bg >10 && which_bg < 18){
+		which_bg = which_bg-3;
+		draw_bg();
+		return;
 	}
-	draw_bg();
+	if (which_bg >17 && which_bg < 21){
+		--which_bg;
+		draw_bg();
+		return;
+	}
+
+	
+	// if (which_bg == 6) // special zelda block stuff
+	// {
+	// 	which_bg = 4;
+	// 	player_x = 130;
+	// 	player_y = 160;
+	// }
 }
 
 void change_room_down()
 {
 	player_y = PLAYER_TOP_EDGE;
-	if (which_bg == 4)
-	{
-		which_bg = 1;
+	if (which_bg >3 && which_bg < 7){
+		which_bg = which_bg+4;
+		draw_bg();
+		return;
 	}
-	if (which_bg == 3)
-	{
-		which_bg = 2;
+	if (which_bg >7 && which_bg < 11){
+		which_bg = which_bg+3;
+		draw_bg();
+		return;
 	}
-	draw_bg();
+	if (which_bg >10 && which_bg < 18){
+		which_bg = which_bg+3;
+		draw_bg();
+		return;
+	}
+	if (which_bg >17 && which_bg < 21){
+		++which_bg;
+		draw_bg();
+		return;
+	}
 }
 
 void countdown_timer(void)
@@ -837,7 +980,7 @@ void draw_hud(void)
 	one_vram_buffer(0xee, NTADR_A(B_LOC, 2));
 	one_vram_buffer('B', NTADR_A(B_LOC + 1, 2));
 	one_vram_buffer(0xef, NTADR_A(B_LOC + 2, 2));
-	
+
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 3));
 	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 3));
@@ -887,7 +1030,7 @@ void draw_talking(void)
 
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
 	multi_vram_buffer_horz(bottomBar, sizeof(bottomBar), NTADR_A(1, 6));
-	
+
 	one_vram_buffer(0xfd, NTADR_A(1, 3));
 	one_vram_buffer(0xfd, NTADR_A(1, 4));
 	one_vram_buffer(0xfd, NTADR_A(1, 5));
