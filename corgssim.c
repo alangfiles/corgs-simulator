@@ -230,169 +230,159 @@ void draw_bg(void)
 	{
 	case 0:
 		set_mt_pointer(title_metatiles);
+		pal_bg(title_palette);
 		set_data_pointer(title);
 		memcpy(c_map, title, 240);
 		break;
 	case 1:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_1);
-		memcpy(c_map, room_1, 240);
-		// memcpy(a_map, a_entry, 240);
-		break;
-	case 2:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_2);
-		memcpy(c_map, room_2, 240);
-		// memcpy(a_map, a_entry, 240);
+		set_mt_pointer(title_metatiles);
+		pal_bg(title_palette);
+		set_data_pointer(title);
+		memcpy(c_map, title, 240);
 		break;
 	case 3:
 		set_mt_pointer(outside_metatiles);
 		pal_bg(outside_palette);
 		set_data_pointer(room_3);
 		memcpy(c_map, room_3, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
-	case 4:
+case 4:
 		set_mt_pointer(outside_metatiles);
 		pal_bg(outside_palette);
 		set_data_pointer(room_4);
 		memcpy(c_map, room_4, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 5:
 		set_mt_pointer(outside_metatiles);
 		pal_bg(outside_palette);
 		set_data_pointer(room_5);
 		memcpy(c_map, room_5, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 6:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
 		set_data_pointer(room_6);
 		memcpy(c_map, room_6, 240);
-		// memcpy(a_map, a_entry, 240);
-		break;
-	case 7:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_7);
-		memcpy(c_map, room_7, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 8:
 		set_mt_pointer(outside_metatiles);
 		pal_bg(outside_palette);
 		set_data_pointer(room_8);
 		memcpy(c_map, room_8, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 9:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
 		set_data_pointer(room_9);
 		memcpy(c_map, room_9, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 10:
 		set_mt_pointer(outside_metatiles);
 		pal_bg(outside_palette);
 		set_data_pointer(room_10);
 		memcpy(c_map, room_10, 240);
-		// memcpy(a_map, a_entry, 240);
-		break;
-	case 11:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_11);
-		memcpy(c_map, room_11, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 12:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
 		set_data_pointer(room_12);
 		memcpy(c_map, room_12, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 13:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
 		set_data_pointer(room_13);
 		memcpy(c_map, room_13, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 14:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
 		set_data_pointer(room_14);
 		memcpy(c_map, room_14, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 15:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
 		set_data_pointer(room_15);
 		memcpy(c_map, room_15, 240);
-		// memcpy(a_map, a_entry, 240);
-		break;
-	case 16:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_16);
-		memcpy(c_map, room_16, 240);
-		// memcpy(a_map, a_entry, 240);
-		break;
-	case 17:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_17);
-		memcpy(c_map, room_17, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 18:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
 		set_data_pointer(room_18);
 		memcpy(c_map, room_18, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 19:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
 		set_data_pointer(room_19);
 		memcpy(c_map, room_19, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 20:
 		set_mt_pointer(inside_metatiles);
 		pal_bg(inside_palette);
 		set_data_pointer(room_20);
 		memcpy(c_map, room_20, 240);
-		// memcpy(a_map, a_entry, 240);
-		break;
-	case 21:
-		set_mt_pointer(cliff_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_21);
-		memcpy(c_map, room_21, 240);
-		// memcpy(a_map, a_entry, 240);
-		break;
-	case 22:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_22);
-		memcpy(c_map, room_22, 240);
-		// memcpy(a_map, a_entry, 240);
 		break;
 	case 23:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
 		set_data_pointer(room_23);
 		memcpy(c_map, room_23, 240);
-		// memcpy(a_map, a_entry, 240);
+		break;
+	case 24:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_24);
+		memcpy(c_map, room_24, 240);
+		break;
+	case 25:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_25);
+		memcpy(c_map, room_25, 240);
+		break;
+	case 28:
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
+		set_data_pointer(room_28);
+		memcpy(c_map, room_28, 240);
+		break;
+	case 33:
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
+		set_data_pointer(room_33);
+		memcpy(c_map, room_33, 240);
+		break;
+	case 38:
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
+		set_data_pointer(room_38);
+		memcpy(c_map, room_38, 240);
+		break;
+	case 43:
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
+		set_data_pointer(room_43);
+		memcpy(c_map, room_43, 240);
+		break;
+	case 46:
+		set_mt_pointer(cliff_metatiles);
+		pal_bg(cliff_palette);
+		set_data_pointer(room_46);
+		memcpy(c_map, room_46, 240);
+		break;
+	case 47:
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
+		set_data_pointer(room_47);
+		memcpy(c_map, room_47, 240);
+		break;
+	case 48:
+		set_mt_pointer(trans_metatiles);
+		pal_bg(trans_palette);
+		set_data_pointer(room_48);
+		memcpy(c_map, room_48, 240);
 		break;
 	default:
 		set_data_pointer(blank);
@@ -791,6 +781,7 @@ void action_collision()
 
 void bg_collision()
 {
+	return; // debug turn this off.
 	// sprite collision with backgrounds
 	// object expected to have first 4 bytes as x,y,width,height
 	// casting to char* so this function could work for any sized structs
@@ -841,12 +832,20 @@ void bg_collision()
 	}
 }
 
+/**
+ * change_room_x
+ * 
+ * the map is a big 5x10 grid with each room numbers
+ *  1 2 3 4 5
+ *  6 7 8 9 10 etc
+ *  . . . . .
+ * 
+ * so the movement is +1(right), -1(left), +5(up), -5(down)
+ */
+
 void change_room_right()
 {
 	player_x = PLAYER_LEFT_EDGE;
-
-	//hacky, but since we block going to the right
-	// we can just inc the bg
 	++which_bg;
 
 	draw_bg();
@@ -855,9 +854,6 @@ void change_room_right()
 void change_room_left()
 {
 	player_x = PLAYER_RIGHT_EDGE;
-
-	//hacky, but since we block going to the right
-	// we can just inc the bg
 	--which_bg;
 	
 	draw_bg();
@@ -866,27 +862,8 @@ void change_room_left()
 void change_room_up()
 {
 	player_y = PLAYER_BOTTOM_EDGE;
-
-	if (which_bg >3 && which_bg < 7){
-		which_bg = which_bg-3;
-		draw_bg();
-		return;
-	}
-	if (which_bg >7 && which_bg < 11){
-		which_bg = which_bg-4;
-		draw_bg();
-		return;
-	}
-	if (which_bg >10 && which_bg < 18){
-		which_bg = which_bg-3;
-		draw_bg();
-		return;
-	}
-	if (which_bg >17 && which_bg < 21){
-		--which_bg;
-		draw_bg();
-		return;
-	}
+	which_bg = which_bg-5;
+	draw_bg();
 
 	
 	// if (which_bg == 6) // special zelda block stuff
@@ -900,26 +877,8 @@ void change_room_up()
 void change_room_down()
 {
 	player_y = PLAYER_TOP_EDGE;
-	if (which_bg >3 && which_bg < 7){
-		which_bg = which_bg+4;
-		draw_bg();
-		return;
-	}
-	if (which_bg >7 && which_bg < 11){
-		which_bg = which_bg+3;
-		draw_bg();
-		return;
-	}
-	if (which_bg >10 && which_bg < 18){
-		which_bg = which_bg+3;
-		draw_bg();
-		return;
-	}
-	if (which_bg >17 && which_bg < 21){
-		++which_bg;
-		draw_bg();
-		return;
-	}
+	which_bg = which_bg+5;
+	draw_bg();
 }
 
 void countdown_timer(void)
