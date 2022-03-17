@@ -349,20 +349,20 @@ case 4:
 		memcpy(c_map, room_28, 240);
 		break;
 	case 33:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
 		set_data_pointer(room_33);
 		memcpy(c_map, room_33, 240);
 		break;
 	case 38:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
 		set_data_pointer(room_38);
 		memcpy(c_map, room_38, 240);
 		break;
 	case 43:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
+		set_mt_pointer(inside_metatiles);
+		pal_bg(inside_palette);
 		set_data_pointer(room_43);
 		memcpy(c_map, room_43, 240);
 		break;
@@ -379,8 +379,8 @@ case 4:
 		memcpy(c_map, room_47, 240);
 		break;
 	case 48:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
+		set_mt_pointer(outside_metatiles);
+		pal_bg(outside_palette);
 		set_data_pointer(room_48);
 		memcpy(c_map, room_48, 240);
 		break;
@@ -428,7 +428,7 @@ void draw_sprites(void)
 {
 
 	++move_frames;
-	if (move_frames > 16)
+	if (move_frames > 64)
 	{
 		move_frames = 0;
 	}
@@ -460,13 +460,37 @@ void draw_sprites(void)
 	case LEFT_MOVE:
 		if (pad1 & PAD_LEFT) // only animate if the button is pressed
 		{
-			if (move_frames > 8)
+			if (move_frames >= 56)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprLeft);
+			}
+			else if (move_frames >= 48 & move_frames <56)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+			}
+			else if (move_frames >= 40 & move_frames <48)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
+			}
+			else if (move_frames >= 32 & move_frames <40)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+			}
+			else if (move_frames >= 24 & move_frames <32)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprLeft);
+			}
+			else if (move_frames >= 16 & move_frames <24)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 			}
-			else
+			else if (move_frames >= 8 & move_frames <16)
 			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeft);
+				oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
+			}
+			else if (move_frames < 8)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 			}
 		}
 		else // this is the idle non-moving sprite
@@ -495,13 +519,37 @@ void draw_sprites(void)
 	case RIGHT_MOVE:
 		if (pad1 & PAD_RIGHT) // only animate if the button is pressed
 		{
-			if (move_frames > 8)
+			if (move_frames >= 56)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprRight);
+			}
+			else if (move_frames >= 48 & move_frames <56)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+			}
+			else if (move_frames >= 40 & move_frames <48)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprRightFive);
+			}
+			else if (move_frames >= 32 & move_frames <40)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+			}
+			else if (move_frames >= 24 & move_frames <32)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprRight);
+			}
+			else if (move_frames >= 16 & move_frames <24)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 			}
-			else
+			else if (move_frames >= 8 & move_frames <16)
 			{
-				oam_meta_spr(player_x, player_y, PlayerSprRight);
+				oam_meta_spr(player_x, player_y, PlayerSprRightThree);
+			}
+			else if (move_frames < 8)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 			}
 		}
 		else // this is the idle non-moving sprite

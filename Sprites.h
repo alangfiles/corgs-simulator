@@ -32,36 +32,86 @@ const unsigned char PlayerSprUpTwo[]={
 };
 
 const unsigned char PlayerSprRight[]={
-	  0, 0,0x24,0,
-	  8, 0,0x23,0,
-	  0, 8,0x34,0,
-	  8, 8,0x33,0,
+	  0, 0,0x20,0,
+	  8, 0,0x21,0,
+	  0, 8,0x30,0,
+	  8, 8,0x31,0,
 	128
 };
 
 const unsigned char PlayerSprRightTwo[]={
-	  0, 0,0x26,0,
-	  8, 0,0x25,0,
-	  0, 8,0x36,0,
+	  0, 0,0x20,0,
+	  8, 0,0x21,0,
+	  0, 8,0x32,0,
+	  8, 8,0x33,0,
+	128
+};
+
+const unsigned char PlayerSprRightThree[]={
+	  0, 0,0x20,0,
+	  8, 0,0x21,0,
+	  0, 8,0x34,0,
 	  8, 8,0x35,0,
 	128
 };
 
+const unsigned char PlayerSprRightFour[]={
+	  0, 0,0x20,0,
+	  8, 0,0x21,0,
+	  0, 8,0x3e,0,
+	  8, 8,0x3f,0,
+	128
+};
+
+const unsigned char PlayerSprRightFive[]={
+	  0, 0,0x20,0,
+	  8, 0,0x21,0,
+	  0, 8,0x4e,0,
+	  8, 8,0x4f,0,
+	128
+};
+
 const unsigned char PlayerSprLeft[]={
-	  0, 0,0x23,0 | OAM_FLIP_H,
-		8, 0,0x24,0 | OAM_FLIP_H,
-		0, 8,0x33,0 | OAM_FLIP_H,
-	  8, 8,0x34,0 | OAM_FLIP_H,
+	  0, 0,0x21,0 | OAM_FLIP_H,
+	  8, 0,0x20,0 | OAM_FLIP_H,
+	  0, 8,0x31,0 | OAM_FLIP_H,
+	  8, 8,0x30,0 | OAM_FLIP_H,
 	128
 };
 
 const unsigned char PlayerSprLeftTwo[]={
-	  0, 0,0x25,0 | OAM_FLIP_H,
-	  8, 0,0x26,0 | OAM_FLIP_H,
-	  0, 8,0x35,0 | OAM_FLIP_H,
-	  8, 8,0x36,0 | OAM_FLIP_H,
+	  0, 0,0x21,0 | OAM_FLIP_H,
+	  8, 0,0x20,0 | OAM_FLIP_H,
+	  0, 8,0x33,0 | OAM_FLIP_H,
+	  8, 8,0x32,0 | OAM_FLIP_H,
 	128
 };
+
+const unsigned char PlayerSprLeftThree[]={
+	  0, 0,0x21,0 | OAM_FLIP_H,
+	  8, 0,0x20,0 | OAM_FLIP_H,
+	  0, 8,0x35,0 | OAM_FLIP_H,
+	  8, 8,0x34,0 | OAM_FLIP_H,
+	128
+};
+
+const unsigned char PlayerSprLeftFour[]={
+	  0, 0,0x21,0 | OAM_FLIP_H,
+	  8, 0,0x20,0 | OAM_FLIP_H,
+	  0, 8,0x3f,0 | OAM_FLIP_H,
+	  8, 8,0x3e,0 | OAM_FLIP_H,
+	128
+};
+
+const unsigned char PlayerSprLeftFive[]={
+	  0, 0,0x21,0 | OAM_FLIP_H,
+	  8, 0,0x20,0 | OAM_FLIP_H,
+	  0, 8,0x4f,0 | OAM_FLIP_H,
+	  8, 8,0x4e,0 | OAM_FLIP_H,
+	128
+};
+
+
 #pragma endregion playersprites
 
 
