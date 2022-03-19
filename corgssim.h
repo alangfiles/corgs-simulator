@@ -37,6 +37,10 @@ unsigned char collision_L;
 unsigned char collision_R;
 unsigned char collision_U;
 unsigned char collision_D;
+unsigned char eject_L; // from the left
+unsigned char eject_R; // remember these from the collision sub routine
+unsigned char eject_D; // from below
+unsigned char eject_U; // from up
 unsigned char collision_action;
 unsigned char which_bg = 0;
 unsigned char block_moved = 0;
@@ -53,6 +57,8 @@ unsigned char temp1;
 unsigned char temp2;
 unsigned char temp3;
 unsigned char temp4;
+unsigned char temp5;
+unsigned char temp6;
 unsigned char temp_x;
 unsigned char temp_y;
 unsigned char player_x = 64;
@@ -140,6 +146,7 @@ void draw_timer(void);
 void movement(void);
 void action(void);
 void bg_collision();
+void bg_collision_sub(void);
 void action_collision();
 void change_room_right(void);
 void change_room_left(void);
@@ -151,4 +158,5 @@ void initialize_end_screen(void);
 void initialize_talking_time(void);
 void back_to_game(void);
 void countdown_timer(void);
+
 

@@ -71,7 +71,7 @@ void main(void)
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
 				display_hud = 1;
-				which_bg = 9;
+				which_bg = 19;
 
 				draw_bg();
 				draw_hud();
@@ -223,7 +223,7 @@ void main(void)
 	}
 }
 
-void draw_bg(void)
+void draw_bg(void)	
 {
 	ppu_off(); // screen off
 
@@ -669,58 +669,102 @@ void action_collision()
 	}
 }
 
-void bg_collision()
-{
-	return; // debug turn this off.
+void bg_collision(void){
+	// note, uses bits in the metatile data to determine collision
 	// sprite collision with backgrounds
-	// object expected to have first 4 bytes as x,y,width,height
-	// casting to char* so this function could work for any sized structs
+	// load the object's x,y,width,height to Generic, then call this
+	
+
 	collision_L = 0;
 	collision_R = 0;
 	collision_U = 0;
 	collision_D = 0;
-
-	temp1 = player_x;							 // left side
-	temp2 = temp1 + player_width;	 // right side
-	temp3 = player_y;							 // top side
-	temp4 = temp3 + player_height; // bottom side
-
-	if (temp3 >= 0xf0)
-		return;
-	// y out of range
-
-	coordinates = (temp1 >> 4) + (temp3 & 0xf0); // upper left
-	if (c_map[coordinates] && c_map[coordinates] != 5)
-	{ // find a corner in the collision map
+	
+	if(player_y >= 0xf0) return;
+	
+	temp6 = temp5 = player_x;
+	temp1 = temp5 & 0xff; // low byte x
+	temp2 = temp5 >> 8; // high byte x
+	
+	eject_L = temp1 | 0xf0;
+	
+	temp3 = player_y; // y top
+	
+	eject_U = temp3 | 0xf0;
+	
+	//if(L_R_switch) temp3 += 2; // fix bug, walking through walls
+	
+	bg_collision_sub();
+	
+	if(collision & COL_ALL){ // find a corner in the collision map
 		++collision_L;
 		++collision_U;
 	}
-
-	coordinates = (temp2 >> 4) + (temp3 & 0xf0); // upper right
-	if (c_map[coordinates] && c_map[coordinates] != 5)
-	{
+	
+	// upper right
+	temp5 += player_width;
+	temp1 = temp5 & 0xff; // low byte x
+	temp2 = temp5 >> 8; // high byte x
+	
+	eject_R = (temp1 + 1) & 0x0f;
+	
+	// temp3 is unchanged
+	bg_collision_sub();
+	
+	if(collision & COL_ALL){ // find a corner in the collision map
 		++collision_R;
 		++collision_U;
 	}
-
-	if (temp4 >= 0xf0)
-		return;
-	// y out of range
-
-	coordinates = (temp1 >> 4) + (temp4 & 0xf0); // bottom left
-	if (c_map[coordinates] && c_map[coordinates] != 5)
-	{
-		++collision_L;
-		++collision_D;
-	}
-
-	coordinates = (temp2 >> 4) + (temp4 & 0xf0); // bottom right
-	if (c_map[coordinates] && c_map[coordinates] != 5)
-	{
+	
+	
+	// again, lower
+	
+	// bottom right, x hasn't changed
+	
+	temp3 = player_y + player_height; //y bottom
+	//if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
+	eject_D = (temp3 + 1) & 0x0f;
+	if(temp3 >= 0xf0) return;
+	
+	bg_collision_sub();
+	
+	if(collision & COL_ALL){ // find a corner in the collision map
 		++collision_R;
+	}
+	if(collision & COL_ALL){ // find a corner in the collision map
 		++collision_D;
 	}
+	
+	// bottom left
+	temp1 = temp6 & 0xff; // low byte x
+	temp2 = temp6 >> 8; // high byte x
+	
+	//temp3, y is unchanged
+
+	bg_collision_sub();
+	
+	if(collision & COL_ALL){ // find a corner in the collision map
+		++collision_L;
+	}
+	if(collision & COL_ALL){ // find a corner in the collision map
+		++collision_D;
+	}
+
+	if((temp3 & 0x0f) > 3) collision_D = 0; // for platforms, only collide with the top 3 pixels
+
 }
+
+
+void bg_collision_sub(void){
+	coordinates = (temp1 >> 4) + (temp3 & 0xf0);
+	
+	collision = c_map[coordinates];
+
+	// look in the colision list to see if this collision colides.
+	collision = collision_list[which_bg - 1][collision];	
+}
+
+
 
 /**
  * change_room_x

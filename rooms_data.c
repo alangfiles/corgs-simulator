@@ -279,23 +279,80 @@ const unsigned char inside_metatiles[]={
 
 #pragma endregion metatiles
 
+#define COL_ALL 0x80
+
+const unsigned char inside_collision[] = {
+	0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,
+};
+const unsigned char outside_collision[] = {
+	0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,
+};
+const unsigned char cliff_collision[] = {
+	0,0,0,0,0,0,0,0,0,0,
+	0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,
+};
+const unsigned char trans_collision[] = {
+	0,0,0,0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,
+};
+
+const unsigned char title_collision[] = {
+	0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	COL_ALL,
+};
+
+const unsigned char * const collision_list[]={
+  title_collision,0,outside_collision,outside_collision,outside_collision,
+  trans_collision,title_collision,outside_collision,outside_collision,outside_collision,
+  0,outside_collision,outside_collision,trans_collision,outside_collision,
+  0,0,inside_collision,inside_collision,inside_collision,
+  0,0,inside_collision,inside_collision,inside_collision,
+  0,0,inside_collision,0,0,
+  0,0,outside_collision,0,0,
+  0,0,outside_collision,0,0,
+  0,0,inside_collision,0,0,
+  cliff_collision,outside_collision,outside_collision,0,0,
+};
 
 const unsigned char * const room_list[]={
-  room_1,0,room_3,room_4,room_5,
-  room_6,0,room_8,room_9,room_10,
-  0,room_12,room_13,room_14,room_15,
-  0,0,room_18,room_19,room_20,
-  0,0,room_23,room_24,room_25,
-  0,0,room_28,0,0,
-  0,0,room_33,0,0,
-  0,0,room_38,0,0,
-  0,0,room_43,0,0,
-  room_46,room_47,room_48,0,0,
+	room_1,blank,room_3,room_4,room_5,
+  room_6,room_1,room_8,room_9,room_10,
+  blank,room_12,room_13,room_14,room_15,
+  blank,blank,room_18,room_19,room_20,
+  blank,blank,room_23,room_24,room_25,
+  blank,blank,room_28,blank,blank,
+  blank,blank,room_33,blank,blank,
+  blank,blank,room_38,blank,blank,
+  blank,blank,room_43,blank,blank,
+  room_46,room_47,room_48,blank,blank,
 };
+
 
 const unsigned char * const room_palette_list[]={
   title_palette,0,outside_palette,outside_palette,outside_palette,
-  trans_palette,0,outside_palette,outside_palette,outside_palette,
+  trans_palette,title_palette,outside_palette,outside_palette,outside_palette,
   0,outside_palette,outside_palette,trans_palette,outside_palette,
   0,0,inside_palette,inside_palette,inside_palette,
   0,0,inside_palette,inside_palette,inside_palette,
@@ -308,7 +365,7 @@ const unsigned char * const room_palette_list[]={
 
 const unsigned char * const room_metatile_list[]={
   title_metatiles,0,outside_metatiles,outside_metatiles,outside_metatiles,
-  trans_metatiles,0,outside_metatiles,outside_metatiles,outside_metatiles,
+  trans_metatiles,title_metatiles,outside_metatiles,outside_metatiles,outside_metatiles,
   0,outside_metatiles,outside_metatiles,trans_metatiles,outside_metatiles,
   0,0,inside_metatiles,inside_metatiles,inside_metatiles,
   0,0,inside_metatiles,inside_metatiles,inside_metatiles,
