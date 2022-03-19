@@ -225,7 +225,9 @@ void main(void)
 
 void draw_bg(void)
 {
+	pal_fade_to(4, 0); // fade to black
 	ppu_off(); // screen off
+	oam_clear(); //clear all sprites
 
 	set_mt_pointer(room_metatile_list[which_bg - 1]);
 	pal_bg(room_palette_list[which_bg - 1]);
@@ -264,6 +266,7 @@ void draw_bg(void)
 	draw_timer(); // draw timer on screen transitions
 
 	ppu_on_all(); // turn on screen
+	pal_fade_to(0, 4); // fade to black
 }
 
 void draw_sprites(void)
