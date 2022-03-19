@@ -50,7 +50,7 @@ void main(void)
 			temp1 = get_frame_count();
 			temp1 = (temp1 >> 3) & 3;
 			temp2 = temp1 + 1 & 3;
-			//pal_col(6, title_color_rotate[temp1]);
+			// pal_col(6, title_color_rotate[temp1]);
 			pal_col(5, title_color_rotate[temp2]);
 
 			pad1 = pad_poll(0);
@@ -227,10 +227,10 @@ void draw_bg(void)
 {
 	ppu_off(); // screen off
 
-	set_mt_pointer(room_metatile_list[which_bg-1]);
-	pal_bg(room_palette_list[which_bg-1]);
-	set_data_pointer(room_list[which_bg-1]);
-	memcpy(c_map, room_list[which_bg-1], 240);
+	set_mt_pointer(room_metatile_list[which_bg - 1]);
+	pal_bg(room_palette_list[which_bg - 1]);
+	set_data_pointer(room_list[which_bg - 1]);
+	memcpy(c_map, room_list[which_bg - 1], 240);
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
@@ -306,27 +306,27 @@ void draw_sprites(void)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			}
-			else if (move_frames >= 48 & move_frames <56)
+			else if (move_frames >= 48 & move_frames < 56)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
 			}
-			else if (move_frames >= 40 & move_frames <48)
+			else if (move_frames >= 40 & move_frames < 48)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
 			}
-			else if (move_frames >= 32 & move_frames <40)
+			else if (move_frames >= 32 & move_frames < 40)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
 			}
-			else if (move_frames >= 24 & move_frames <32)
+			else if (move_frames >= 24 & move_frames < 32)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			}
-			else if (move_frames >= 16 & move_frames <24)
+			else if (move_frames >= 16 & move_frames < 24)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 			}
-			else if (move_frames >= 8 & move_frames <16)
+			else if (move_frames >= 8 & move_frames < 16)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
 			}
@@ -365,27 +365,27 @@ void draw_sprites(void)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprRight);
 			}
-			else if (move_frames >= 48 & move_frames <56)
+			else if (move_frames >= 48 & move_frames < 56)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprRightFour);
 			}
-			else if (move_frames >= 40 & move_frames <48)
+			else if (move_frames >= 40 & move_frames < 48)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprRightFive);
 			}
-			else if (move_frames >= 32 & move_frames <40)
+			else if (move_frames >= 32 & move_frames < 40)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprRightFour);
 			}
-			else if (move_frames >= 24 & move_frames <32)
+			else if (move_frames >= 24 & move_frames < 32)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprRight);
 			}
-			else if (move_frames >= 16 & move_frames <24)
+			else if (move_frames >= 16 & move_frames < 24)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 			}
-			else if (move_frames >= 8 & move_frames <16)
+			else if (move_frames >= 8 & move_frames < 16)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprRightThree);
 			}
@@ -724,12 +724,12 @@ void bg_collision()
 
 /**
  * change_room_x
- * 
+ *
  * the map is a big 5x10 grid with each room numbers
  *  1 2 3 4 5
  *  6 7 8 9 10 etc
  *  . . . . .
- * 
+ *
  * so the movement is +1(right), -1(left), +5(up), -5(down)
  */
 
@@ -745,17 +745,16 @@ void change_room_left()
 {
 	player_x = PLAYER_RIGHT_EDGE;
 	--which_bg;
-	
+
 	draw_bg();
 }
 
 void change_room_up()
 {
 	player_y = PLAYER_BOTTOM_EDGE;
-	which_bg = which_bg-5;
+	which_bg = which_bg - 5;
 	draw_bg();
 
-	
 	// if (which_bg == 6) // special zelda block stuff
 	// {
 	// 	which_bg = 4;
@@ -767,7 +766,7 @@ void change_room_up()
 void change_room_down()
 {
 	player_y = PLAYER_TOP_EDGE;
-	which_bg = which_bg+5;
+	which_bg = which_bg + 5;
 	draw_bg();
 }
 
