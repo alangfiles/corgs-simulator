@@ -15,6 +15,7 @@
 #include "LIB/nesdoug.h"
 #include "Sprites.h" // holds our metasprite data
 #include "corgssim.h"
+#include "rooms_data.c"
 
 void main(void)
 {
@@ -226,169 +227,10 @@ void draw_bg(void)
 {
 	ppu_off(); // screen off
 
-	switch (which_bg)
-	{
-	case 0:
-		set_mt_pointer(title_metatiles);
-		pal_bg(title_palette);
-		set_data_pointer(title);
-		memcpy(c_map, title, 240);
-		break;
-	case 1:
-		set_mt_pointer(title_metatiles);
-		pal_bg(title_palette);
-		set_data_pointer(title);
-		memcpy(c_map, title, 240);
-		break;
-	case 3:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_3);
-		memcpy(c_map, room_3, 240);
-		break;
-case 4:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_4);
-		memcpy(c_map, room_4, 240);
-		break;
-	case 5:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_5);
-		memcpy(c_map, room_5, 240);
-		break;
-	case 6:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
-		set_data_pointer(room_6);
-		memcpy(c_map, room_6, 240);
-		break;
-	case 8:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_8);
-		memcpy(c_map, room_8, 240);
-		break;
-	case 9:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_9);
-		memcpy(c_map, room_9, 240);
-		break;
-	case 10:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_10);
-		memcpy(c_map, room_10, 240);
-		break;
-	case 12:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_12);
-		memcpy(c_map, room_12, 240);
-		break;
-	case 13:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_13);
-		memcpy(c_map, room_13, 240);
-		break;
-	case 14:
-		set_mt_pointer(trans_metatiles);
-		pal_bg(trans_palette);
-		set_data_pointer(room_14);
-		memcpy(c_map, room_14, 240);
-		break;
-	case 15:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_15);
-		memcpy(c_map, room_15, 240);
-		break;
-	case 18:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_18);
-		memcpy(c_map, room_18, 240);
-		break;
-	case 19:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_19);
-		memcpy(c_map, room_19, 240);
-		break;
-	case 20:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_20);
-		memcpy(c_map, room_20, 240);
-		break;
-	case 23:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_23);
-		memcpy(c_map, room_23, 240);
-		break;
-	case 24:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_24);
-		memcpy(c_map, room_24, 240);
-		break;
-	case 25:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_25);
-		memcpy(c_map, room_25, 240);
-		break;
-	case 28:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_28);
-		memcpy(c_map, room_28, 240);
-		break;
-	case 33:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_33);
-		memcpy(c_map, room_33, 240);
-		break;
-	case 38:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_38);
-		memcpy(c_map, room_38, 240);
-		break;
-	case 43:
-		set_mt_pointer(inside_metatiles);
-		pal_bg(inside_palette);
-		set_data_pointer(room_43);
-		memcpy(c_map, room_43, 240);
-		break;
-	case 46:
-		set_mt_pointer(cliff_metatiles);
-		pal_bg(cliff_palette);
-		set_data_pointer(room_46);
-		memcpy(c_map, room_46, 240);
-		break;
-	case 47:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_47);
-		memcpy(c_map, room_47, 240);
-		break;
-	case 48:
-		set_mt_pointer(outside_metatiles);
-		pal_bg(outside_palette);
-		set_data_pointer(room_48);
-		memcpy(c_map, room_48, 240);
-		break;
-	default:
-		set_data_pointer(blank);
-		memcpy(c_map, blank, 240);
-		break;
-	}
+	set_mt_pointer(room_metatile_list[which_bg-1]);
+	pal_bg(room_palette_list[which_bg-1]);
+	set_data_pointer(room_list[which_bg-1]);
+	memcpy(c_map, room_list[which_bg-1], 240);
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
@@ -1053,7 +895,7 @@ void draw_talking(void)
 void initialize_title_screen(void)
 {
 	game_mode = MODE_TITLE;
-	which_bg = 0;
+	which_bg = 1;
 
 	ppu_off();
 	oam_clear();

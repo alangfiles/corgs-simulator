@@ -27,7 +27,7 @@ crt0.o: crt0.s corgssim.chr
 $(NAME).o: $(NAME).s
 	$(CA65) $(NAME).s -g
 
-$(NAME).s: $(NAME).c Sprites.h corgssim.h
+$(NAME).s: $(NAME).c Sprites.h corgssim.h rooms_data.c 
 	$(CC65) -Oirs $(NAME).c --add-source
 
 clean:
