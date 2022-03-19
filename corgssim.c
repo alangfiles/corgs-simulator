@@ -71,7 +71,7 @@ void main(void)
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
 				display_hud = 1;
-				which_bg = 19;
+				which_bg = 18;
 
 				draw_bg();
 				draw_hud();
@@ -223,7 +223,7 @@ void main(void)
 	}
 }
 
-void draw_bg(void)	
+void draw_bg(void)
 {
 	ppu_off(); // screen off
 
@@ -284,13 +284,37 @@ void draw_sprites(void)
 
 		if (pad1 & PAD_DOWN) // only animate if the button is pressed
 		{
-			if (move_frames > 8)
+			if (move_frames >= 56)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprDown);
+			}
+			else if (move_frames >= 48 & move_frames < 56)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprDownThree);
+			}
+			else if (move_frames >= 40 & move_frames < 48)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprDown);
+			}
+			else if (move_frames >= 32 & move_frames < 40)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
 			}
-			else
+			else if (move_frames >= 24 & move_frames < 32)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprDown);
+			}
+			else if (move_frames >= 16 & move_frames < 24)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprDownThree);
+			}
+			else if (move_frames >= 8 & move_frames < 16)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprDown);
+			}
+			else if (move_frames < 8)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
 			}
 		}
 		else // this is the idle non-moving sprite
@@ -344,13 +368,37 @@ void draw_sprites(void)
 	case UP_MOVE:
 		if (pad1 & PAD_UP) // only animate if the button is pressed
 		{
-			if (move_frames > 8)
+			if (move_frames >= 56)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprUp);
+			}
+			else if (move_frames >= 48 & move_frames < 56)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprUpThree);
+			}
+			else if (move_frames >= 40 & move_frames < 48)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprUp);
+			}
+			else if (move_frames >= 32 & move_frames < 40)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
 			}
-			else
+			else if (move_frames >= 24 & move_frames < 32)
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprUp);
+			}
+			else if (move_frames >= 16 & move_frames < 24)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprUpThree);
+			}
+			else if (move_frames >= 8 & move_frames < 16)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprUp);
+			}
+			else if (move_frames < 8)
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
 			}
 		}
 		else // this is the idle non-moving sprite
@@ -422,6 +470,18 @@ void draw_sprites(void)
 	// 	oam_meta_spr(180, 160, Brian);
 	// 	oam_meta_spr(200, 160, Alan);
 	// }
+	if (which_bg == 18)  
+	{
+		// oam_meta_spr(40, 70, ShopkeeperTwo);
+		oam_meta_spr(112, 80, Brian);
+		oam_meta_spr(128, 80, Alan);
+		//oam_meta_spr(112, 80, guy1);
+		// oam_meta_spr(50, 40, peopletest_2_data);
+		// oam_meta_spr(70, 60, peopletest_3_data);
+		// oam_meta_spr(90, 70, peopletest_4_data);
+		// oam_meta_spr(150, 150, peopletest_5_data);
+		// oam_meta_spr(100, 100, peopletest_5_data);
+	}
 }
 
 void action(void)
@@ -669,102 +729,107 @@ void action_collision()
 	}
 }
 
-void bg_collision(void){
+void bg_collision(void)
+{
 	// note, uses bits in the metatile data to determine collision
 	// sprite collision with backgrounds
 	// load the object's x,y,width,height to Generic, then call this
-	
 
 	collision_L = 0;
 	collision_R = 0;
 	collision_U = 0;
 	collision_D = 0;
-	
-	if(player_y >= 0xf0) return;
-	
+
+	if (player_y >= 0xf0)
+		return;
+
 	temp6 = temp5 = player_x;
 	temp1 = temp5 & 0xff; // low byte x
-	temp2 = temp5 >> 8; // high byte x
-	
+	temp2 = temp5 >> 8;		// high byte x
+
 	eject_L = temp1 | 0xf0;
-	
+
 	temp3 = player_y; // y top
-	
+
 	eject_U = temp3 | 0xf0;
-	
-	//if(L_R_switch) temp3 += 2; // fix bug, walking through walls
-	
+
+	// if(L_R_switch) temp3 += 2; // fix bug, walking through walls
+
 	bg_collision_sub();
-	
-	if(collision & COL_ALL){ // find a corner in the collision map
+
+	if (collision & COL_ALL)
+	{ // find a corner in the collision map
 		++collision_L;
 		++collision_U;
 	}
-	
+
 	// upper right
 	temp5 += player_width;
 	temp1 = temp5 & 0xff; // low byte x
-	temp2 = temp5 >> 8; // high byte x
-	
+	temp2 = temp5 >> 8;		// high byte x
+
 	eject_R = (temp1 + 1) & 0x0f;
-	
+
 	// temp3 is unchanged
 	bg_collision_sub();
-	
-	if(collision & COL_ALL){ // find a corner in the collision map
+
+	if (collision & COL_ALL)
+	{ // find a corner in the collision map
 		++collision_R;
 		++collision_U;
 	}
-	
-	
+
 	// again, lower
-	
+
 	// bottom right, x hasn't changed
-	
-	temp3 = player_y + player_height; //y bottom
-	//if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
+
+	temp3 = player_y + player_height; // y bottom
+	// if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
 	eject_D = (temp3 + 1) & 0x0f;
-	if(temp3 >= 0xf0) return;
-	
+	if (temp3 >= 0xf0)
+		return;
+
 	bg_collision_sub();
-	
-	if(collision & COL_ALL){ // find a corner in the collision map
+
+	if (collision & COL_ALL)
+	{ // find a corner in the collision map
 		++collision_R;
 	}
-	if(collision & COL_ALL){ // find a corner in the collision map
+	if (collision & COL_ALL)
+	{ // find a corner in the collision map
 		++collision_D;
 	}
-	
+
 	// bottom left
 	temp1 = temp6 & 0xff; // low byte x
-	temp2 = temp6 >> 8; // high byte x
-	
-	//temp3, y is unchanged
+	temp2 = temp6 >> 8;		// high byte x
+
+	// temp3, y is unchanged
 
 	bg_collision_sub();
-	
-	if(collision & COL_ALL){ // find a corner in the collision map
+
+	if (collision & COL_ALL)
+	{ // find a corner in the collision map
 		++collision_L;
 	}
-	if(collision & COL_ALL){ // find a corner in the collision map
+	if (collision & COL_ALL)
+	{ // find a corner in the collision map
 		++collision_D;
 	}
 
-	if((temp3 & 0x0f) > 3) collision_D = 0; // for platforms, only collide with the top 3 pixels
-
+	if ((temp3 & 0x0f) > 3)
+		collision_D = 0; // for platforms, only collide with the top 3 pixels
 }
 
-
-void bg_collision_sub(void){
+void bg_collision_sub(void)
+{
 	coordinates = (temp1 >> 4) + (temp3 & 0xf0);
-	
+
 	collision = c_map[coordinates];
 
 	// look in the colision list to see if this collision colides.
-	collision = collision_list[which_bg - 1][collision];	
+	collision = collision_list[which_bg - 1][collision];
 }
-
-
 
 /**
  * change_room_x
