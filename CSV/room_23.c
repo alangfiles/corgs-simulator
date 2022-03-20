@@ -15,3 +15,8 @@ const unsigned char room_23[]={
 7,4,4,4,4,4,4,0,0,4,4,4,4,4,4,8,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
+
+const unsigned char room_23_sprites[]={
+	0x30, 0xA0, SPRITE_ALAN,
+	TURN_OFF
+};

@@ -226,8 +226,8 @@ void main(void)
 void draw_bg(void)
 {
 	pal_fade_to(4, 0); // fade to black
-	ppu_off(); // screen off
-	oam_clear(); //clear all sprites
+	ppu_off();				 // screen off
+	oam_clear();			 // clear all sprites
 
 	set_mt_pointer(room_metatile_list[which_bg - 1]);
 	pal_bg(room_palette_list[which_bg - 1]);
@@ -263,10 +263,51 @@ void draw_bg(void)
 		draw_hud();
 	}
 
+	initialize_sprites();
+
 	draw_timer(); // draw timer on screen transitions
 
-	ppu_on_all(); // turn on screen
+	ppu_on_all();			 // turn on screen
 	pal_fade_to(0, 4); // fade to black
+}
+
+void initialize_sprites(void)
+{  
+	// set all sprite types to off
+	//  we'll check this in our rendering loop to figure it we want to display a sprite
+	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
+	{
+		sprites_type[index] = TURN_OFF;
+	}
+
+	pointer = sprite_list[which_bg - 1];
+	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
+	{
+
+		// the bytes of data in the sprite list go:
+		//  x, y, sprite_type_enum
+		//  and the list ends with a 0xff
+
+		temp1 = pointer[index2]; // get a byte of data
+		if (temp1 == TURN_OFF)
+			break; //<--- if we reached the end of list we break
+
+		// otherwise we load the 3 bytes into the correct arrays
+		sprites_x[index] = temp1;
+
+		++index2;
+		temp1 = pointer[index2]; // get 2nd byte of data (y pos)
+
+		sprites_y[index] = temp1;
+
+		++index2;
+		temp1 = pointer[index2]; // get 3rd byte of data (type_enum)
+		sprites_type[index] = temp1;
+
+		++index2; // get the next byte (either an xpos or the TURN_OFF (0xff))
+	}
+
+	
 }
 
 void draw_sprites(void)
@@ -461,6 +502,46 @@ void draw_sprites(void)
 		oam_meta_spr(shot_x, shot_y, Shot);
 	}
 
+#pragma region room_sprites
+	// offset code is for shuffling sprites if we have more than 8
+	// offset = get_frame_count() & 3;
+	// offset = offset << 4; // * 16, the size of the shuffle array
+	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
+	{
+		// index2 = shuffle_array[offset];
+		//++offset;
+		index2 = index; // <-- shortcut to keep the shuffling code in if we need it
+
+		if (sprites_type[index2] == TURN_OFF)
+			break; // we found an empty spot
+
+		temp_y = sprites_y[index2];
+
+		temp_x = sprites_x[index2];
+
+		// this will be inefficient, look into it if we need to
+		//  the whole idea behind having sprites_type and sprites_anim is
+		//  to have different anim frames, which we might want.
+		if (sprites_type[index2] == SPRITE_ALAN)
+		{
+			sprites_anim[index2] = Alan;
+		}
+		if (sprites_type[index2] == SPRITE_BRIAN)
+		{
+			sprites_anim[index2] = Brian;
+		}
+		if (sprites_type[index2] == SPRITE_SHOPKEEPER)
+		{
+			sprites_anim[index2] = Shopkeeper;
+		}
+		if (sprites_type[index2] == SPRITE_GUY1)
+		{
+			sprites_anim[index2] = guy1;
+		}
+
+		oam_meta_spr(temp_x, temp_y, sprites_anim[index2]);
+	}
+#pragma endregion room_sprites
 	// // draw non player sprites:
 	// if (which_bg == 0)
 	// {
@@ -473,18 +554,18 @@ void draw_sprites(void)
 	// 	oam_meta_spr(180, 160, Brian);
 	// 	oam_meta_spr(200, 160, Alan);
 	// }
-	if (which_bg == 18)  
-	{
-		// oam_meta_spr(40, 70, ShopkeeperTwo);
-		oam_meta_spr(112, 80, Brian);
-		oam_meta_spr(128, 80, Alan);
-		//oam_meta_spr(112, 80, guy1);
-		// oam_meta_spr(50, 40, peopletest_2_data);
-		// oam_meta_spr(70, 60, peopletest_3_data);
-		// oam_meta_spr(90, 70, peopletest_4_data);
-		// oam_meta_spr(150, 150, peopletest_5_data);
-		// oam_meta_spr(100, 100, peopletest_5_data);
-	}
+	// if (which_bg == 18)
+	// {
+	// 	// oam_meta_spr(40, 70, ShopkeeperTwo);
+	// 	oam_meta_spr(112, 80, Brian);
+	// 	oam_meta_spr(128, 80, Alan);
+	// 	//oam_meta_spr(112, 80, guy1);
+	// 	// oam_meta_spr(50, 40, peopletest_2_data);
+	// 	// oam_meta_spr(70, 60, peopletest_3_data);
+	// 	// oam_meta_spr(90, 70, peopletest_4_data);
+	// 	// oam_meta_spr(150, 150, peopletest_5_data);
+	// 	// oam_meta_spr(100, 100, peopletest_5_data);
+	// }
 }
 
 void action(void)
@@ -734,8 +815,6 @@ void action_collision()
 
 void bg_collision(void)
 {
-	// note, uses bits in the metatile data to determine collision
-	// sprite collision with backgrounds
 	// load the object's x,y,width,height to Generic, then call this
 
 	collision_L = 0;

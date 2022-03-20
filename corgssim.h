@@ -66,6 +66,26 @@ unsigned char player_y = 60;
 unsigned char shot_direction = 0;  // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char shot_x = -4;
 unsigned char shot_y = -4;
+unsigned char offset;
+const unsigned char * pointer;
+
+//for shuffling 16 enemies
+const unsigned char shuffle_array[]={
+0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,
+15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,
+0,2,4,6,8,10,12,14,1,3,5,7,9,11,13,15,
+15,13,11,9,7,5,3,1,14,12,10,8,6,4,2,0	
+};
+
+#define MAX_ROOM_SPRITES 8
+unsigned char sprites_x[MAX_ROOM_SPRITES];
+unsigned char sprites_y[MAX_ROOM_SPRITES];
+//unsigned char sprites_active[MAX_ROOM_SPRITES];
+//unsigned char sprites_room[MAX_ROOM_SPRITES];
+//unsigned char sprites_actual_x[MAX_ROOM_SPRITES];
+unsigned char sprites_type[MAX_ROOM_SPRITES];
+const unsigned char * sprites_anim[MAX_ROOM_SPRITES];
+
 
 unsigned int minutes_left = 1;
 unsigned int seconds_left_tens = 0;
@@ -76,6 +96,7 @@ int address;
 unsigned char x; 
 unsigned char y;
 unsigned char index;
+unsigned char index2;
 
 unsigned char player_height = 14;
 unsigned char player_width = 14;
@@ -158,5 +179,6 @@ void initialize_end_screen(void);
 void initialize_talking_time(void);
 void back_to_game(void);
 void countdown_timer(void);
+void initialize_sprites(void);
 
 

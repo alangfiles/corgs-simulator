@@ -15,3 +15,15 @@ const unsigned char room_18[]={
 7,4,4,4,4,4,4,0,0,4,4,4,4,4,4,8,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
+
+
+const unsigned char room_18_sprites[]={
+	0x70, 0x50, SPRITE_ALAN,
+	0x60, 0x70, SPRITE_SHOPKEEPER,
+	0x80, 0x50, SPRITE_BRIAN,
+	0x90, 0x70, SPRITE_GUY1,
+	TURN_OFF
+};
+
+
+

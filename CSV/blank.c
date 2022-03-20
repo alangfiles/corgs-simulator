@@ -16,3 +16,7 @@ const unsigned char blank[]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
+const unsigned char blank_sprites[]={
+	TURN_OFF
+};
+

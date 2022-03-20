@@ -1,3 +1,7 @@
+//these enums are used in the room_{X}_sprites values
+enum{SPRITE_SHOPKEEPER, SPRITE_BRIAN, SPRITE_ALAN, SPRITE_GUY1};
+#define TURN_OFF 0xff
+
 #pragma region playersprites
 const unsigned char PlayerSprDown[]={
 	  0,  0,0x00,0,
@@ -139,10 +143,10 @@ const unsigned char Shot[]={
 };
 
 const unsigned char Shopkeeper[]={
-	  0, 0,0x66,3,
-		8, 0,0x67,3,
-		0, 8,0x76,3,
-	  8, 8,0x77,3,
+	  0, 0,0x66,2,
+		8, 0,0x67,2,
+		0, 8,0x76,1,
+	  8, 8,0x77,1,
 	128
 };
 

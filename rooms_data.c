@@ -350,6 +350,20 @@ const unsigned char * const room_list[]={
 };
 
 
+const unsigned char * const sprite_list[]={
+	blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,room_18_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,room_23_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+};
+
+
 const unsigned char * const room_palette_list[]={
   title_palette,0,outside_palette,outside_palette,outside_palette,
   trans_palette,title_palette,outside_palette,outside_palette,outside_palette,
