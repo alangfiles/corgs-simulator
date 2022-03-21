@@ -3,9 +3,9 @@
 #define SCREEN_TOP_EDGE 0x40
 #define SCREEN_BOTTOM_EDGE 0xd0
 
-#define ACTION_HEIGHT 16
-#define ACTION_WIDTH 16
-#define ACTION_BUFFER 4
+#define ACTION_HEIGHT 8
+#define ACTION_WIDTH 8
+#define ACTION_BUFFER 3
 
 #define PLAYER_LEFT_EDGE 0x01
 #define PLAYER_RIGHT_EDGE 0xef
@@ -117,7 +117,6 @@ unsigned char frame = 0;
 unsigned char talk_frame = 0;
 unsigned char temp1;
 unsigned char fade_out = 1;
-unsigned char text_to_use = 0;
 const unsigned char title_text[] = "SIMUALTOR";
 const unsigned char start_text[] = "Press  Start";
 const unsigned char text_box[] = "                              ";

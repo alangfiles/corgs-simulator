@@ -105,7 +105,7 @@ void main(void)
 			temp1 = (temp1 >> 3);
 			// if(temp1
 
-			switch (text_to_use)
+			switch (collision_action)
 			{
 			case TALK_ALAN:
 				if (text_rendered != sizeof(alan_1) && temp1)
@@ -124,7 +124,7 @@ void main(void)
 					// render finished
 					text_row = 0;
 					text_col = 0;
-					text_finished = 1;
+					text_finished = 1;   
 				}
 				break;
 			case TALK_BRIAN:
@@ -202,8 +202,7 @@ void main(void)
 				// back to game
 				ppu_off();
 
-				text_to_use = 0;
-				text_row = 0;
+				text_row = 0; 
 				text_col = 0;
 				game_mode = MODE_GAME;
 				display_hud = 1;
@@ -649,7 +648,6 @@ void action(void)
 
 		if (collision_action != TURN_OFF)
 		{
-			text_to_use = collision_action;
 			draw_talking();
 		}
 	}
@@ -775,52 +773,58 @@ void movement(void)
 
 void action_collision()
 {
+	//by default, no action
 	collision_action = TURN_OFF;
-	// this code gets where the player is
+
+	// temp1 - 4 define the interaction box, based on 
+	// where the player currently is, and then expanding on it.
 	temp1 = player_x;							 // left side
 	temp2 = temp1 + player_width;	 // right side
 	temp3 = player_y;							 // top side
-	temp4 = temp3 + player_height; // bottom side
+	temp4 = temp3 + player_height; // bottom side 
 
-	// adujst the interaction box in front of the player
-	// so now temp1 - 4 show where the interaction box is.
-	// player_direction
-	// we add a buffer to all of these so that the interaction
-	// box is a little bigger
+	//make the whole box a little bigger.
+	temp1 = temp1 - ACTION_BUFFER; 
+	temp2 = temp2 + ACTION_BUFFER;
+	temp3 = temp3 - ACTION_BUFFER;
+	temp4 = temp4 + ACTION_BUFFER;
+
+	// extend the action box in front of the player
+
 	switch (player_direction)
 	{ // 0 = down, 1 = left, 2 = up, 3 = right
 	case 0: 
-		temp3 = temp3 + ACTION_HEIGHT + ACTION_BUFFER;
-		temp4 = temp4 + ACTION_HEIGHT + ACTION_BUFFER;
+		temp4 = temp4 + ACTION_HEIGHT;
 		break;
 	case 1:
-		temp1 = temp1 - ACTION_WIDTH - ACTION_BUFFER;
-		temp2 = temp2 - ACTION_WIDTH - ACTION_BUFFER;
+		temp1 = temp1 - ACTION_WIDTH - ACTION_WIDTH;
 		break;
 	case 2:
-		temp3 = temp3 - ACTION_HEIGHT - ACTION_BUFFER;
-		temp4 = temp4 - ACTION_HEIGHT - ACTION_BUFFER;
+		temp3 = temp3 - ACTION_HEIGHT;
 		break;
 	case 3:
-		temp1 = temp1 + ACTION_WIDTH + ACTION_BUFFER;
-		temp2 = temp2 + ACTION_WIDTH + ACTION_BUFFER;
+		temp2 = temp2 + ACTION_WIDTH + ACTION_WIDTH;
 		break;
 	default:  
 		break;
 	}
 
+
+	// now we've got a big action box (temp1-4)
+	// lets see if any of the talking map points are
+	// inside the box
 	for (index = 0; index < MAX_ROOM_TALKING; ++index)
 	{
 		temp5 = talk_x[index];
 		if(temp5 == TURN_OFF){
-			break;
+			break; //end of list, exit loop
 		}
 
-		if (temp1 < temp5 && temp5 < temp2)
+		if (temp1 <= temp5 && temp5 < temp2)
 		{
 
 			temp6 = talk_y[index];
-			if (temp3 < temp6 && temp6 < temp4)
+			if (temp3 <= temp6 && temp6 < temp4)
 			{
 				collision_action = talk_type[index];
 				return;
@@ -828,7 +832,6 @@ void action_collision()
 		}
 	}
 
-	// todo: see if it's interacting with anything in the current room
 }
 
 void bg_collision(void)
