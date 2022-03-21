@@ -3,8 +3,9 @@
 #define SCREEN_TOP_EDGE 0x40
 #define SCREEN_BOTTOM_EDGE 0xd0
 
-#define ACTION_HEIGHT 4
-#define ACTION_WIDTH 4
+#define ACTION_HEIGHT 16
+#define ACTION_WIDTH 16
+#define ACTION_BUFFER 4
 
 #define PLAYER_LEFT_EDGE 0x01
 #define PLAYER_RIGHT_EDGE 0xef
@@ -77,7 +78,13 @@ const unsigned char shuffle_array[]={
 15,13,11,9,7,5,3,1,14,12,10,8,6,4,2,0	
 };
 
-#define MAX_ROOM_SPRITES 8
+#define MAX_ROOM_TALKING 8
+unsigned char talk_x[MAX_ROOM_TALKING];
+unsigned char talk_y[MAX_ROOM_TALKING];
+unsigned char talk_type[MAX_ROOM_TALKING];
+
+
+#define MAX_ROOM_SPRITES 16
 unsigned char sprites_x[MAX_ROOM_SPRITES];
 unsigned char sprites_y[MAX_ROOM_SPRITES];
 //unsigned char sprites_active[MAX_ROOM_SPRITES];
@@ -98,8 +105,8 @@ unsigned char y;
 unsigned char index;
 unsigned char index2;
 
-unsigned char player_height = 14;
-unsigned char player_width = 14;
+unsigned char player_height = 12;
+unsigned char player_width = 12;
 unsigned char i;
 unsigned char player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
 unsigned char last_player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
@@ -109,6 +116,7 @@ unsigned char display_hud = 0;
 unsigned char frame = 0;
 unsigned char talk_frame = 0;
 unsigned char temp1;
+unsigned char fade_out = 1;
 unsigned char text_to_use = 0;
 const unsigned char title_text[] = "SIMUALTOR";
 const unsigned char start_text[] = "Press  Start";
@@ -153,9 +161,6 @@ enum
 #pragma bss-name(push, "BSS")
 
 unsigned char c_map[240];// collision map
-unsigned char a_map[240];// action map
-unsigned char s_map[240];// sprite map
-
 
 // PROTOTYPES
 void draw_bg(void);
@@ -180,5 +185,6 @@ void initialize_talking_time(void);
 void back_to_game(void);
 void countdown_timer(void);
 void initialize_sprites(void);
+void initialize_talk_map(void);
 
 

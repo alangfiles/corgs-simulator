@@ -349,6 +349,18 @@ const unsigned char * const room_list[]={
   room_46,room_47,room_48,blank,blank,
 };
 
+const unsigned char * const talk_list[]={
+	blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,room_18_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+};
 
 const unsigned char * const sprite_list[]={
 	blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,

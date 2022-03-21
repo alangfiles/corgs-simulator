@@ -18,10 +18,19 @@ const unsigned char room_18[]={
 
 
 const unsigned char room_18_sprites[]={
-	0x70, 0x50, SPRITE_ALAN,
-	0x60, 0x70, SPRITE_SHOPKEEPER,
-	0x80, 0x50, SPRITE_BRIAN,
+	0x70, 0x60, SPRITE_ALAN,
+	//0x60, 0x70, SPRITE_SHOPKEEPER,
+	0x80, 0x60, SPRITE_BRIAN,
 	0x90, 0x70, SPRITE_GUY1,
+	0xA0, 0x70, SPRITE_SHOPKEEPER,
+	TURN_OFF
+};
+
+const unsigned char room_18_talk[]={
+	0x70, 0x70, TALK_ALAN,
+	0x80, 0x70, TALK_BRIAN,
+	0x90, 0x70, TALK_GUY,
+	0xA0, 0x70, TALK_GAME,
 	TURN_OFF
 };
 

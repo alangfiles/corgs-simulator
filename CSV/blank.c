@@ -20,3 +20,6 @@ const unsigned char blank_sprites[]={
 	TURN_OFF
 };
 
+const unsigned char blank_talk[]={
+	TURN_OFF
+};

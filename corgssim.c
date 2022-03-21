@@ -14,6 +14,7 @@
 #include "LIB/neslib.h"
 #include "LIB/nesdoug.h"
 #include "Sprites.h" // holds our metasprite data
+#include "Talk.h"		 // holds our talking data
 #include "corgssim.h"
 #include "rooms_data.c"
 
@@ -92,11 +93,6 @@ void main(void)
 
 			draw_sprites();
 
-			// if (pad1_new & PAD_B)
-			// {
-			// 	draw_talking();
-			// }
-
 			// for debugging, the lower the line, the less processing we have
 			gray_line();
 		}
@@ -111,10 +107,10 @@ void main(void)
 
 			switch (text_to_use)
 			{
-			case 1:
-				if (text_rendered != sizeof(game_text1) && temp1)
+			case TALK_ALAN:
+				if (text_rendered != sizeof(alan_1) && temp1)
 				{
-					one_vram_buffer(game_text1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					one_vram_buffer(alan_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
 					++text_col;
 					if (text_col == 27)
 					{
@@ -128,12 +124,13 @@ void main(void)
 					// render finished
 					text_row = 0;
 					text_col = 0;
+					text_finished = 1;
 				}
 				break;
-			case 2:
-				if (text_rendered != sizeof(game_text2) && temp1)
+			case TALK_BRIAN:
+				if (text_rendered != sizeof(brian_1) && temp1)
 				{
-					one_vram_buffer(game_text2[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					one_vram_buffer(brian_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
 					++text_col;
 					if (text_col == 27)
 					{
@@ -147,12 +144,13 @@ void main(void)
 					// render finished
 					text_row = 0;
 					text_col = 0;
+					text_finished = 1;
 				}
 				break;
-			case 34:
-				if (text_rendered != sizeof(game_text34) && temp1)
+			case TALK_GUY:
+				if (text_rendered != sizeof(guy_1) && temp1)
 				{
-					one_vram_buffer(game_text34[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					one_vram_buffer(guy_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
 					++text_col;
 					if (text_col == 27)
 					{
@@ -166,12 +164,13 @@ void main(void)
 					// render finished
 					text_row = 0;
 					text_col = 0;
+					text_finished = 1;
 				}
 				break;
-			case 35:
-				if (text_rendered != sizeof(game_text35) && temp1)
+			case TALK_GAME:    
+				if (text_rendered != sizeof(game_1) && temp1)
 				{
-					one_vram_buffer(game_text35[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					one_vram_buffer(game_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
 					++text_col;
 					if (text_col == 27)
 					{
@@ -185,16 +184,20 @@ void main(void)
 					// render finished
 					text_row = 0;
 					text_col = 0;
+					text_finished = 1;
 				}
 				break;
 			default:
+				text_row = 0;
+				text_col = 0;
+				text_finished = 1;
 				break;
 			}
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
-			if (pad1_new & PAD_B)
+			if (pad1_new & PAD_B && text_finished == 1)
 			{
 				// back to game
 				ppu_off();
@@ -205,6 +208,7 @@ void main(void)
 				game_mode = MODE_GAME;
 				display_hud = 1;
 				draw_bg();
+				fade_out = 1;
 				ppu_on_all();
 			}
 		}
@@ -225,9 +229,13 @@ void main(void)
 
 void draw_bg(void)
 {
-	pal_fade_to(4, 0); // fade to black
-	ppu_off();				 // screen off
-	oam_clear();			 // clear all sprites
+	if (fade_out == 1)
+	{
+		pal_fade_to(4, 0); // fade to black
+	}
+
+	ppu_off();	 // screen off
+	oam_clear(); // clear all sprites
 
 	set_mt_pointer(room_metatile_list[which_bg - 1]);
 	pal_bg(room_palette_list[which_bg - 1]);
@@ -265,14 +273,49 @@ void draw_bg(void)
 
 	initialize_sprites();
 
+	initialize_talk_map();
+
 	draw_timer(); // draw timer on screen transitions
 
-	ppu_on_all();			 // turn on screen
-	pal_fade_to(0, 4); // fade to black
+	ppu_on_all(); // turn on screen
+
+	if (fade_out == 1)
+	{
+		pal_fade_to(0, 4); // fade to black
+	}
+}
+
+void initialize_talk_map(void)
+{
+	for (index = 0; index < MAX_ROOM_TALKING; ++index)
+	{
+		talk_type[index] = TURN_OFF;
+	}
+ 
+	pointer = sprite_list[which_bg - 1];
+	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
+	{  
+		temp1 = pointer[index2]; // get a byte of data
+		if (temp1 == TURN_OFF)
+			break; //<--- if we reached the end of list we break
+
+		// otherwise we load the 3 bytes into the correct arrays
+		talk_x[index] = temp1;
+
+		++index2;
+		temp1 = pointer[index2]; // get 2nd byte of data (y pos)
+		talk_y[index] = temp1;
+
+		++index2;
+		temp1 = pointer[index2]; // get 3rd byte of data (type_enum)
+		talk_type[index] = temp1;
+
+		++index2; // get the next byte (either an xpos or the TURN_OFF (0xff))
+	}
 }
 
 void initialize_sprites(void)
-{  
+{
 	// set all sprite types to off
 	//  we'll check this in our rendering loop to figure it we want to display a sprite
 	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
@@ -306,8 +349,6 @@ void initialize_sprites(void)
 
 		++index2; // get the next byte (either an xpos or the TURN_OFF (0xff))
 	}
-
-	
 }
 
 void draw_sprites(void)
@@ -504,16 +545,16 @@ void draw_sprites(void)
 
 #pragma region room_sprites
 	// offset code is for shuffling sprites if we have more than 8
-	// offset = get_frame_count() & 3;
-	// offset = offset << 4; // * 16, the size of the shuffle array
+	offset = get_frame_count() & 3;
+	offset = offset << 4; // * 16, the size of the shuffle array
 	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
-		// index2 = shuffle_array[offset];
-		//++offset;
-		index2 = index; // <-- shortcut to keep the shuffling code in if we need it
+		index2 = shuffle_array[offset];
+		++offset;
+		//index2 = index; // <-- shortcut to keep the shuffling code in if we need it
 
 		if (sprites_type[index2] == TURN_OFF)
-			break; // we found an empty spot
+			continue; // we found an empty spot
 
 		temp_y = sprites_y[index2];
 
@@ -580,33 +621,33 @@ void action(void)
 		shot_direction = player_direction;
 	}
 
-	if (push_timer > 100)
-	{
-		action_collision();
-		if (collision_action == 2)
-		{
-			// block is at x112, y160
-			index = (160 & 0xf0) + (112 >> 4); // hardcoded block location
-			// replace block and fix c_map
-			c_map[index] = 0; // set it to 0
-			address = get_ppu_addr(0, 112, 160);
-			buffer_1_mt(address, 49);
-			push_timer = 0;
-			block_moved = 1;
-		}
+	// zelda push block
+	//  if (push_timer > 100)
+	//  {
+	//  	action_collision();
+	//  	if (collision_action == 2)
+	//  	{
+	//  		// block is at x112, y160
+	//  		index = (160 & 0xf0) + (112 >> 4); // hardcoded block location
+	//  		// replace block and fix c_map
+	//  		c_map[index] = 0; // set it to 0
+	//  		address = get_ppu_addr(0, 112, 160);
+	//  		buffer_1_mt(address, 49);
+	//  		push_timer = 0;
+	//  		block_moved = 1;
+	//  	}
 
-		// if(collision_action == 2){ // push block
-		// 	buffer_1_mt(NTADR_A(8,11),0);
-		// }
-	}
+	// 	// if(collision_action == 2){ // push block
+	// 	// 	buffer_1_mt(NTADR_A(8,11),0);
+	// 	// }
+	// }
 
 	// check for interactable
 	if (pad1_new & PAD_B)
 	{
 		action_collision();
 
-		// first 100 actions are talking related, just blocking some out
-		if (collision_action > 0 && collision_action < 100)
+		if (collision_action != TURN_OFF)
 		{
 			text_to_use = collision_action;
 			draw_talking();
@@ -734,14 +775,7 @@ void movement(void)
 
 void action_collision()
 {
-	// a copy of bg_collision, but used to find interactables
-
-	collision_action = 0;
-	collision_L = 0;
-	collision_R = 0;
-	collision_U = 0;
-	collision_D = 0;
-
+	collision_action = TURN_OFF;
 	// this code gets where the player is
 	temp1 = player_x;							 // left side
 	temp2 = temp1 + player_width;	 // right side
@@ -749,68 +783,52 @@ void action_collision()
 	temp4 = temp3 + player_height; // bottom side
 
 	// adujst the interaction box in front of the player
+	// so now temp1 - 4 show where the interaction box is.
 	// player_direction
+	// we add a buffer to all of these so that the interaction
+	// box is a little bigger
 	switch (player_direction)
 	{ // 0 = down, 1 = left, 2 = up, 3 = right
-	case 0:
-		temp3 = temp3 + ACTION_HEIGHT;
-		temp4 = temp4 + ACTION_HEIGHT;
+	case 0: 
+		temp3 = temp3 + ACTION_HEIGHT + ACTION_BUFFER;
+		temp4 = temp4 + ACTION_HEIGHT + ACTION_BUFFER;
 		break;
 	case 1:
-		temp1 = temp1 - ACTION_WIDTH - ACTION_WIDTH;
-		temp2 = temp2 - ACTION_WIDTH - ACTION_WIDTH;
+		temp1 = temp1 - ACTION_WIDTH - ACTION_BUFFER;
+		temp2 = temp2 - ACTION_WIDTH - ACTION_BUFFER;
 		break;
 	case 2:
-		temp3 = temp3 - ACTION_HEIGHT - ACTION_HEIGHT;
-		temp4 = temp4 - ACTION_HEIGHT - ACTION_HEIGHT;
+		temp3 = temp3 - ACTION_HEIGHT - ACTION_BUFFER;
+		temp4 = temp4 - ACTION_HEIGHT - ACTION_BUFFER;
 		break;
 	case 3:
-		temp1 = temp1 + ACTION_WIDTH;
-		temp2 = temp2 + ACTION_WIDTH;
+		temp1 = temp1 + ACTION_WIDTH + ACTION_BUFFER;
+		temp2 = temp2 + ACTION_WIDTH + ACTION_BUFFER;
 		break;
-	default:
+	default:  
 		break;
 	}
 
-	if (temp3 >= 0xf0)
-		return;
-	// y out of range
-
-	coordinates = (temp1 >> 4) + (temp3 & 0xf0); // upper left
-	if (a_map[coordinates])
-	{ // find a corner in the collision map
-		collision_action = a_map[coordinates];
-		collision_L = a_map[coordinates];
-		collision_U = a_map[coordinates];
-	}
-
-	coordinates = (temp2 >> 4) + (temp3 & 0xf0); // upper right
-	if (a_map[coordinates])
+	for (index = 0; index < MAX_ROOM_TALKING; ++index)
 	{
-		collision_action = a_map[coordinates];
-		collision_R = a_map[coordinates];
-		collision_U = a_map[coordinates];
+		temp5 = talk_x[index];
+		if(temp5 == TURN_OFF){
+			break;
+		}
+
+		if (temp1 < temp5 && temp5 < temp2)
+		{
+
+			temp6 = talk_y[index];
+			if (temp3 < temp6 && temp6 < temp4)
+			{
+				collision_action = talk_type[index];
+				return;
+			}
+		}
 	}
 
-	if (temp4 >= 0xf0)
-		return;
-	// y out of range
-
-	coordinates = (temp1 >> 4) + (temp4 & 0xf0); // bottom left
-	if (a_map[coordinates])
-	{
-		collision_action = a_map[coordinates];
-		collision_L = a_map[coordinates];
-		collision_D = a_map[coordinates];
-	}
-
-	coordinates = (temp2 >> 4) + (temp4 & 0xf0); // bottom right
-	if (a_map[coordinates])
-	{
-		collision_action = a_map[coordinates];
-		collision_R = a_map[coordinates];
-		collision_D = a_map[coordinates];
-	}
+	// todo: see if it's interacting with anything in the current room
 }
 
 void bg_collision(void)
@@ -1065,6 +1083,7 @@ void draw_talking(void)
 	ppu_off();
 	display_hud = 0;
 	game_mode = MODE_TALKING_TIME;
+	fade_out = 0;
 	draw_bg();
 
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
@@ -1078,6 +1097,7 @@ void draw_talking(void)
 	one_vram_buffer(0xfd, NTADR_A(30, 5));
 
 	text_rendered = 0;
+	text_finished = 0;
 
 	ppu_on_all();
 }
