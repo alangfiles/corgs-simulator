@@ -103,7 +103,7 @@ void main(void)
 			// temp1 = (temp1 >> 3);
 
 			// draw text
-			if (text_rendered != text_length)
+			if (text_rendered != text_length && text_row < 3)
 			{
 				one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
 				++text_col;
@@ -115,30 +115,40 @@ void main(void)
 				}
 				++text_rendered;
 			}
-			else
-			{
-				// render finished
-				text_row = 0;
-				text_col = 0;
-				text_finished = 1;
+			if(text_row == 3){
+				//draw last character as down arrow
+				one_vram_buffer('V', NTADR_A(29, 5));
 			}
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
-			if (pad1_new & PAD_B && text_finished == 1)
+			if (pad1_new & PAD_B)
 			{
-				// back to game
-				ppu_off();
 
-				text_row = 0;
-				text_col = 0;
-				game_mode = MODE_GAME;
+				if(text_row == 3) {
+					// clear the old text
+					draw_talking();
+					draw_sprites();
+					// set text_row to 0
+					text_row = 0;
+				}
 
-				display_hud = 1; // draw the hud
-				draw_bg();
-				fade_out = 1; // turn back on room fading
-				ppu_on_all();
+				if ((text_rendered == text_length)) // text finished, go back to game
+				{
+					ppu_off();
+
+					//reset values
+					text_rendered = 0;
+					text_row = 0;
+					text_col = 0;
+					game_mode = MODE_GAME;
+
+					display_hud = 1; // draw the hud
+					draw_bg();
+					fade_out = 1; // turn back on room fading
+					ppu_on_all();
+				}
 			}
 		}
 		while (game_mode == MODE_END)
@@ -1014,11 +1024,6 @@ void draw_talking(void)
 	// which writes 1 char a frame.
 	ppu_off();
 	game_mode = MODE_TALKING_TIME;
-
-	text_rendered = 0;
-	text_finished = 0;
-	text_row = 0;
-	text_col = 0;
 
 	fade_out = 0;		 // don't fade bg for draw_bg for talking
 	display_hud = 0; // don't draw hud for draw_bg for talking

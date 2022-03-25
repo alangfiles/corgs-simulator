@@ -19,5 +19,5 @@ const unsigned char brian_1[] = "Alan's to blame for the    programming";
 const unsigned char guy_1[] =   "This game's better than the real thing";
 const unsigned char game_1[] =  "You found an old, dusty    game.";
 const unsigned char play_game_text[] = 
-                                "A corgs emulator game,     looks fun, do you want to  play?";
+                                "A corgs emulator game,     looks fun, do you want to  play? Maybe not, it'll probably take all day and not be that interesting.";
 
