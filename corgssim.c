@@ -52,7 +52,7 @@ void main(void)
 			temp1 = (temp1 >> 3) & 3;
 			temp2 = temp1 + 1 & 3;
 			// pal_col(6, title_color_rotate[temp1]);
-			pal_col(5, title_color_rotate[temp2]);
+			pal_col(5, title_color_rotate[temp2]);  
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
@@ -72,7 +72,7 @@ void main(void)
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
 				display_hud = 1;
-				which_bg = 18;
+				which_bg = 17;
 
 				draw_bg();
 				draw_hud();
@@ -256,10 +256,10 @@ void draw_bg(void)
 	ppu_off();	 // screen off
 	oam_clear(); // clear all sprites
 
-	set_mt_pointer(room_metatile_list[which_bg - 1]);
-	pal_bg(room_palette_list[which_bg - 1]);
-	set_data_pointer(room_list[which_bg - 1]);
-	memcpy(c_map, room_list[which_bg - 1], 240);
+	set_mt_pointer(room_metatile_list[which_bg]);
+	pal_bg(room_palette_list[which_bg]);
+	set_data_pointer(room_list[which_bg]);
+	memcpy(c_map, room_list[which_bg], 240);
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
@@ -311,7 +311,7 @@ void initialize_talk_map(void)
 		talk_type[index] = TURN_OFF;
 	}
 
-	pointer = talk_list[which_bg - 1];
+	pointer = talk_list[which_bg];
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
 		temp1 = pointer[index2]; // get a byte of data
@@ -342,7 +342,7 @@ void initialize_sprites(void)
 		sprites_type[index] = TURN_OFF;
 	}
 
-	pointer = sprite_list[which_bg - 1];
+	pointer = sprite_list[which_bg];
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
 
@@ -972,7 +972,7 @@ void bg_collision_sub(void)
 	collision = c_map[coordinates];
 
 	// look in the colision list to see if this collision colides.
-	collision = collision_list[which_bg - 1][collision];
+	collision = collision_list[which_bg][collision];
 }
 
 /**
@@ -1149,7 +1149,7 @@ void draw_talking(void)
 void initialize_title_screen(void)
 {
 	game_mode = MODE_TITLE;
-	which_bg = 1;
+	which_bg = 0;
 
 	ppu_off();
 	oam_clear();
@@ -1174,7 +1174,7 @@ void initialize_end_screen(void)
 	shot_y = -4;
 	game_mode = MODE_END;
 
-	which_bg = 5; // set background to black
+	which_bg = 4; // set background to black
 	draw_bg();
 
 	multi_vram_buffer_horz(jeqb_text, sizeof(jeqb_text), NTADR_A(4, 14));
