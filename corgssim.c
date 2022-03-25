@@ -49,7 +49,7 @@ void main(void)
 			temp1 = (temp1 >> 3) & 3;
 			temp2 = temp1 + 1 & 3;
 			// pal_col(6, title_color_rotate[temp1]);
-			pal_col(5, title_color_rotate[temp2]);  
+			pal_col(5, title_color_rotate[temp2]);
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
@@ -95,120 +95,32 @@ void main(void)
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
+			// the following code draws 1 char per frame.
 			ppu_wait_nmi();		 // wait till beginning of the frame
 			countdown_timer(); // keep ticking the timer
 
-			temp1 = get_frame_count();
-			temp1 = (temp1 >> 3);
-			// if(temp1
+			// temp1 = get_frame_count();
+			// temp1 = (temp1 >> 3);
 
-			switch (collision_action)
+			// draw text
+			if (text_rendered != text_length)
 			{
-			case TALK_ALAN:
-				if (text_rendered != sizeof(alan_1) && temp1)
+				one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+				++text_col;
+
+				if (text_col == 27) // wrap to next row
 				{
-					one_vram_buffer(alan_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
-					++text_col;
-					if (text_col == 27)
-					{
-						++text_row;
-						text_col = 0;
-					}
-					++text_rendered;
-				}
-				else
-				{
-					// render finished
-					text_row = 0;
+					++text_row;
 					text_col = 0;
-					text_finished = 1;
 				}
-				break;
-			case TALK_BRIAN:
-				if (text_rendered != sizeof(brian_1) && temp1)
-				{
-					one_vram_buffer(brian_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
-					++text_col;
-					if (text_col == 27)
-					{
-						++text_row;
-						text_col = 0;
-					}
-					++text_rendered;
-				}
-				else
-				{
-					// render finished
-					text_row = 0;
-					text_col = 0;
-					text_finished = 1;
-				}
-				break;
-			case TALK_GUY:
-				if (text_rendered != sizeof(guy_1) && temp1)
-				{
-					one_vram_buffer(guy_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
-					++text_col;
-					if (text_col == 27)
-					{
-						++text_row;
-						text_col = 0;
-					}
-					++text_rendered;
-				}
-				else
-				{
-					// render finished
-					text_row = 0;
-					text_col = 0;
-					text_finished = 1;
-				}
-				break;
-			case TALK_PLAY_GAME:
-				if (text_rendered != sizeof(play_game_text) && temp1)
-				{
-					one_vram_buffer(play_game_text[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
-					++text_col;
-					if (text_col == 27)
-					{
-						++text_row;
-						text_col = 0;
-					}
-					++text_rendered;
-				}
-				else
-				{
-					// render finished
-					text_row = 0;
-					text_col = 0;
-					text_finished = 1;
-				}
-				break;
-			case TALK_GAME:
-				if (text_rendered != sizeof(game_1) && temp1)
-				{
-					one_vram_buffer(game_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
-					++text_col;
-					if (text_col == 27)
-					{
-						++text_row;
-						text_col = 0;
-					}
-					++text_rendered;
-				}
-				else
-				{
-					// render finished
-					text_row = 0;
-					text_col = 0;
-					text_finished = 1;
-				}
-				break;
-			default:
+				++text_rendered;
+			}
+			else
+			{
+				// render finished
 				text_row = 0;
 				text_col = 0;
 				text_finished = 1;
-				break;
 			}
 
 			pad1 = pad_poll(0);
@@ -222,9 +134,10 @@ void main(void)
 				text_row = 0;
 				text_col = 0;
 				game_mode = MODE_GAME;
-				display_hud = 1;
+
+				display_hud = 1; // draw the hud
 				draw_bg();
-				fade_out = 1;
+				fade_out = 1; // turn back on room fading
 				ppu_on_all();
 			}
 		}
@@ -603,7 +516,6 @@ void draw_sprites(void)
 		oam_meta_spr(temp_x, temp_y, sprites_anim[index2]);
 	}
 #pragma endregion room_sprites
-	
 }
 
 void action(void)
@@ -646,6 +558,7 @@ void action(void)
 
 		if (collision_action != TURN_OFF)
 		{
+			// draw the talking dialog
 			draw_talking();
 		}
 	}
@@ -1097,11 +1010,18 @@ void draw_hud(void)
 
 void draw_talking(void)
 {
-	// writes to the HUD area
+	// writes to the HUD area, then starts the talking mode
+	// which writes 1 char a frame.
 	ppu_off();
-	display_hud = 0;
 	game_mode = MODE_TALKING_TIME;
-	fade_out = 0;
+
+	text_rendered = 0;
+	text_finished = 0;
+	text_row = 0;
+	text_col = 0;
+
+	fade_out = 0;		 // don't fade bg for draw_bg for talking
+	display_hud = 0; // don't draw hud for draw_bg for talking
 	draw_bg();
 
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
@@ -1114,8 +1034,34 @@ void draw_talking(void)
 	one_vram_buffer(0xfd, NTADR_A(30, 4));
 	one_vram_buffer(0xfd, NTADR_A(30, 5));
 
-	text_rendered = 0;
-	text_finished = 0;
+	// set the pointer to the right dialog
+	switch (collision_action)
+	{
+	case TALK_ALAN:
+		pointer = alan_1;
+		text_length = sizeof(alan_1);
+		break;
+	case TALK_BRIAN:
+		pointer = brian_1;
+		text_length = sizeof(brian_1);
+		break;
+	case TALK_GUY:
+		pointer = guy_1;
+		text_length = sizeof(guy_1);
+		break;
+	case TALK_PLAY_GAME:
+		pointer = play_game_text;
+		text_length = sizeof(play_game_text);
+		break;
+	case TALK_GAME:
+		pointer = game_1;
+		text_length = sizeof(game_1);
+		break;
+	default:
+		pointer = blank_1;
+		text_length = sizeof(blank_1);
+		break;
+	}
 
 	ppu_on_all();
 }
