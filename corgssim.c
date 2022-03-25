@@ -5,10 +5,9 @@
  */
 
 /*
-2/28 todo list:
-[] typewritter text stuff
-[] multiple text lines (automatic wrapping?)
-[] interaction areas (colision detection for things, could actually use a map for this?)
+todo list:
+[] multi-line text
+[] fix text bug where it doesn't start at 0
 */
 
 #include "LIB/neslib.h"
@@ -20,9 +19,7 @@
 
 void main(void)
 {
-
 	ppu_off(); // screen off
-	// comment
 
 	// load the palettes
 	pal_bg(title_palette);
@@ -606,30 +603,7 @@ void draw_sprites(void)
 		oam_meta_spr(temp_x, temp_y, sprites_anim[index2]);
 	}
 #pragma endregion room_sprites
-	// // draw non player sprites:
-	// if (which_bg == 0)
-	// {
-	// 	oam_meta_spr(100, 70, Shopkeeper);
-	// }
-
-	// if (which_bg == 1)
-	// {
-	// 	oam_meta_spr(40, 70, ShopkeeperTwo);
-	// 	oam_meta_spr(180, 160, Brian);
-	// 	oam_meta_spr(200, 160, Alan);
-	// }
-	// if (which_bg == 18)
-	// {
-	// 	// oam_meta_spr(40, 70, ShopkeeperTwo);
-	// 	oam_meta_spr(112, 80, Brian);
-	// 	oam_meta_spr(128, 80, Alan);
-	// 	//oam_meta_spr(112, 80, guy1);
-	// 	// oam_meta_spr(50, 40, peopletest_2_data);
-	// 	// oam_meta_spr(70, 60, peopletest_3_data);
-	// 	// oam_meta_spr(90, 70, peopletest_4_data);
-	// 	// oam_meta_spr(150, 150, peopletest_5_data);
-	// 	// oam_meta_spr(100, 100, peopletest_5_data);
-	// }
+	
 }
 
 void action(void)
@@ -1071,11 +1045,11 @@ void draw_hud(void)
 	// multi_vram_buffer_horz(clock_text, sizeof(clock_text), NTADR_A(2, 2));
 
 	// todo map:
-	one_vram_buffer('-', NTADR_A(2, 4));
+	one_vram_buffer('*', NTADR_A(2, 4));
 	one_vram_buffer('M', NTADR_A(3, 4));
 	one_vram_buffer('A', NTADR_A(4, 4));
 	one_vram_buffer('P', NTADR_A(5, 4));
-	one_vram_buffer('-', NTADR_A(6, 4));
+	one_vram_buffer('*', NTADR_A(6, 4));
 
 	// draw buttons B
 	one_vram_buffer(0xee, NTADR_A(B_LOC, 2));
@@ -1113,12 +1087,12 @@ void draw_hud(void)
 	one_vram_buffer(0xff, NTADR_A(A_LOC + 2, 6));
 
 	// draw timer
-	one_vram_buffer('-', NTADR_A(22, 2));
+	one_vram_buffer('*', NTADR_A(22, 2));
 	one_vram_buffer('T', NTADR_A(23, 2));
 	one_vram_buffer('I', NTADR_A(24, 2));
 	one_vram_buffer('M', NTADR_A(25, 2));
 	one_vram_buffer('E', NTADR_A(26, 2));
-	one_vram_buffer('-', NTADR_A(27, 2));
+	one_vram_buffer('*', NTADR_A(27, 2));
 }
 
 void draw_talking(void)
