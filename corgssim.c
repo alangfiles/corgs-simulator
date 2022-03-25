@@ -564,19 +564,23 @@ void draw_sprites(void)
 		//  to have different anim frames, which we might want.
 		if (sprites_type[index2] == SPRITE_ALAN)
 		{
-			sprites_anim[index2] = Alan;
+			sprites_anim[index2] = Alan92;
 		}
 		if (sprites_type[index2] == SPRITE_BRIAN)
 		{
-			sprites_anim[index2] = Brian;
+			sprites_anim[index2] = Brian93;
 		}
 		if (sprites_type[index2] == SPRITE_SHOPKEEPER)
 		{
-			sprites_anim[index2] = Shopkeeper;
+			sprites_anim[index2] = MuscleMan0;
 		}
 		if (sprites_type[index2] == SPRITE_GUY1)
 		{
-			sprites_anim[index2] = guy1;
+			sprites_anim[index2] = Muscleman1;
+		}
+		if (sprites_type[index2] == SPRITE_SKIRT)
+		{
+			sprites_anim[index2] = SkirtLady39;
 		}
 
 		oam_meta_spr(temp_x, temp_y, sprites_anim[index2]);

@@ -14,3 +14,12 @@ const unsigned char room_9[]={
 13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,
 13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,
 13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,};
+
+const unsigned char room_9_sprites[]={
+	160, 112, SPRITE_SKIRT,
+	TURN_OFF
+};
+
+const unsigned char room_9_talk[]={
+	TURN_OFF
+};

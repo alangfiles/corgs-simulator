@@ -21,8 +21,7 @@ const unsigned char room_18_sprites[]={
 	0x38, 0x88, SPRITE_ALAN,
 	//0x60, 0x70, SPRITE_SHOPKEEPER,
 	0x50, 0xA0, SPRITE_BRIAN,
-	0x70, 0x80, SPRITE_GUY1,
-	0x90, 0xC0, SPRITE_SHOPKEEPER,
+	0x40, 0xA0, SPRITE_SKIRT,
 	TURN_OFF
 };
 
