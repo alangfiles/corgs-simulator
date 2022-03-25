@@ -1,5 +1,5 @@
 //these enums are used in the room_{X}_sprites values
-enum{SPRITE_SHOPKEEPER, SPRITE_BRIAN, SPRITE_ALAN, SPRITE_GUY1, SPRITE_SKIRT};
+enum{SPRITE_SHOPKEEPER, SPRITE_BRIAN, SPRITE_ALAN, SPRITE_GUY1, SPRITE_SKIRT, SPRITE_MUSCLE1, SPRITE_MUSCLE2};
 #define TURN_OFF 0xff
 
 #pragma region playersprites

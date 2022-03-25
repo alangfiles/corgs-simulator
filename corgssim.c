@@ -167,6 +167,26 @@ void main(void)
 					text_finished = 1;
 				}
 				break;
+			case TALK_PLAY_GAME:
+				if (text_rendered != sizeof(play_game_text) && temp1)
+				{
+					one_vram_buffer(play_game_text[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					++text_col;
+					if (text_col == 27)
+					{
+						++text_row;
+						text_col = 0;
+					}
+					++text_rendered;
+				}
+				else
+				{
+					// render finished
+					text_row = 0;
+					text_col = 0;
+					text_finished = 1;
+				}
+				break;
 			case TALK_GAME:    
 				if (text_rendered != sizeof(game_1) && temp1)
 				{
@@ -291,7 +311,7 @@ void initialize_talk_map(void)
 		talk_type[index] = TURN_OFF;
 	}
  
-	pointer = sprite_list[which_bg - 1];
+	pointer = talk_list[which_bg - 1];
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
 	{  
 		temp1 = pointer[index2]; // get a byte of data
@@ -570,11 +590,11 @@ void draw_sprites(void)
 		{
 			sprites_anim[index2] = Brian93;
 		}
-		if (sprites_type[index2] == SPRITE_SHOPKEEPER)
+		if (sprites_type[index2] == SPRITE_MUSCLE1)
 		{
 			sprites_anim[index2] = MuscleMan0;
-		}
-		if (sprites_type[index2] == SPRITE_GUY1)
+		} 
+		if (sprites_type[index2] == SPRITE_MUSCLE2)
 		{
 			sprites_anim[index2] = Muscleman1;
 		}
@@ -782,13 +802,13 @@ void action_collision()
 
 	// temp1 - 4 define the interaction box, based on 
 	// where the player currently is, and then expanding on it.
-	temp1 = player_x;							 // left side
-	temp2 = temp1 + player_width;	 // right side
-	temp3 = player_y;							 // top side
-	temp4 = temp3 + player_height; // bottom side 
+	temp1 = player_x;							 // x- left side
+	temp2 = temp1 + player_width;	 // x- right side
+	temp3 = player_y;							 // y- top side
+	temp4 = temp3 + player_height; // y- bottom side 
 
 	//make the whole box a little bigger.
-	temp1 = temp1 - ACTION_BUFFER; 
+	temp1 = temp1 - ACTION_BUFFER;  
 	temp2 = temp2 + ACTION_BUFFER;
 	temp3 = temp3 - ACTION_BUFFER;
 	temp4 = temp4 + ACTION_BUFFER;
@@ -797,21 +817,36 @@ void action_collision()
 
 	switch (player_direction)
 	{ // 0 = down, 1 = left, 2 = up, 3 = right
-	case 0: 
+	case DOWN_MOVE: 
 		temp4 = temp4 + ACTION_HEIGHT;
 		break;
-	case 1:
-		temp1 = temp1 - ACTION_WIDTH - ACTION_WIDTH;
-		break;
-	case 2:
+	case LEFT_MOVE:
+		temp1 = temp1 - ACTION_WIDTH;
+		break; 
+	case UP_MOVE:
 		temp3 = temp3 - ACTION_HEIGHT;
 		break;
-	case 3:
-		temp2 = temp2 + ACTION_WIDTH + ACTION_WIDTH;
+	case RIGHT_MOVE:
+		temp2 = temp2 + ACTION_WIDTH;
 		break;
 	default:  
 		break;
 	}
+
+	//did out action box push too far out
+	if(temp1 > temp2){
+		temp1 = SCREEN_LEFT_EDGE;
+	}
+	if(temp2 < temp1) {
+		temp2 = SCREEN_RIGHT_EDGE;
+	}
+	if(temp3 > temp4){
+		temp3 = SCREEN_TOP_EDGE;
+	}
+	if(temp4<temp3){
+		temp4 = SCREEN_BOTTOM_EDGE;
+	}
+	
 
 
 	// now we've got a big action box (temp1-4)
