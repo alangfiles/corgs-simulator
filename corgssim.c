@@ -124,7 +124,7 @@ void main(void)
 					// render finished
 					text_row = 0;
 					text_col = 0;
-					text_finished = 1;   
+					text_finished = 1;
 				}
 				break;
 			case TALK_BRIAN:
@@ -187,7 +187,7 @@ void main(void)
 					text_finished = 1;
 				}
 				break;
-			case TALK_GAME:    
+			case TALK_GAME:
 				if (text_rendered != sizeof(game_1) && temp1)
 				{
 					one_vram_buffer(game_1[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
@@ -222,7 +222,7 @@ void main(void)
 				// back to game
 				ppu_off();
 
-				text_row = 0; 
+				text_row = 0;
 				text_col = 0;
 				game_mode = MODE_GAME;
 				display_hud = 1;
@@ -310,10 +310,10 @@ void initialize_talk_map(void)
 	{
 		talk_type[index] = TURN_OFF;
 	}
- 
+
 	pointer = talk_list[which_bg - 1];
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
-	{  
+	{
 		temp1 = pointer[index2]; // get a byte of data
 		if (temp1 == TURN_OFF)
 			break; //<--- if we reached the end of list we break
@@ -570,7 +570,7 @@ void draw_sprites(void)
 	{
 		index2 = shuffle_array[offset];
 		++offset;
-		//index2 = index; // <-- shortcut to keep the shuffling code in if we need it
+		// index2 = index; // <-- shortcut to keep the shuffling code in if we need it
 
 		if (sprites_type[index2] == TURN_OFF)
 			continue; // we found an empty spot
@@ -593,7 +593,7 @@ void draw_sprites(void)
 		if (sprites_type[index2] == SPRITE_MUSCLE1)
 		{
 			sprites_anim[index2] = MuscleMan0;
-		} 
+		}
 		if (sprites_type[index2] == SPRITE_MUSCLE2)
 		{
 			sprites_anim[index2] = Muscleman1;
@@ -797,18 +797,18 @@ void movement(void)
 
 void action_collision()
 {
-	//by default, no action
+	// by default, no action
 	collision_action = TURN_OFF;
 
-	// temp1 - 4 define the interaction box, based on 
+	// temp1 - 4 define the interaction box, based on
 	// where the player currently is, and then expanding on it.
 	temp1 = player_x;							 // x- left side
 	temp2 = temp1 + player_width;	 // x- right side
 	temp3 = player_y;							 // y- top side
-	temp4 = temp3 + player_height; // y- bottom side 
+	temp4 = temp3 + player_height; // y- bottom side
 
-	//make the whole box a little bigger.
-	temp1 = temp1 - ACTION_BUFFER;  
+	// make the whole box a little bigger.
+	temp1 = temp1 - ACTION_BUFFER;
 	temp2 = temp2 + ACTION_BUFFER;
 	temp3 = temp3 - ACTION_BUFFER;
 	temp4 = temp4 + ACTION_BUFFER;
@@ -817,37 +817,39 @@ void action_collision()
 
 	switch (player_direction)
 	{ // 0 = down, 1 = left, 2 = up, 3 = right
-	case DOWN_MOVE: 
+	case DOWN_MOVE:
 		temp4 = temp4 + ACTION_HEIGHT;
 		break;
 	case LEFT_MOVE:
 		temp1 = temp1 - ACTION_WIDTH;
-		break; 
+		break;
 	case UP_MOVE:
 		temp3 = temp3 - ACTION_HEIGHT;
 		break;
 	case RIGHT_MOVE:
 		temp2 = temp2 + ACTION_WIDTH;
 		break;
-	default:  
+	default:
 		break;
 	}
 
-	//did out action box push too far out
-	if(temp1 > temp2){
+	// did out action box push too far out
+	if (temp1 > temp2)
+	{
 		temp1 = SCREEN_LEFT_EDGE;
 	}
-	if(temp2 < temp1) {
+	if (temp2 < temp1)
+	{
 		temp2 = SCREEN_RIGHT_EDGE;
 	}
-	if(temp3 > temp4){
+	if (temp3 > temp4)
+	{
 		temp3 = SCREEN_TOP_EDGE;
 	}
-	if(temp4<temp3){
+	if (temp4 < temp3)
+	{
 		temp4 = SCREEN_BOTTOM_EDGE;
 	}
-	
-
 
 	// now we've got a big action box (temp1-4)
 	// lets see if any of the talking map points are
@@ -855,8 +857,9 @@ void action_collision()
 	for (index = 0; index < MAX_ROOM_TALKING; ++index)
 	{
 		temp5 = talk_x[index];
-		if(temp5 == TURN_OFF){
-			break; //end of list, exit loop
+		if (temp5 == TURN_OFF)
+		{
+			break; // end of list, exit loop
 		}
 
 		if (temp1 <= temp5 && temp5 < temp2)
@@ -870,7 +873,6 @@ void action_collision()
 			}
 		}
 	}
-
 }
 
 void bg_collision(void)
