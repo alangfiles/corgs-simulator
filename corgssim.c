@@ -115,8 +115,9 @@ void main(void)
 				}
 				++text_rendered;
 			}
-			if(text_row == 3){
-				//draw last character as down arrow
+			if (text_row == 3)
+			{
+				// draw last character as down arrow
 				one_vram_buffer('V', NTADR_A(29, 5));
 			}
 
@@ -125,11 +126,12 @@ void main(void)
 
 			if (pad1_new & PAD_B)
 			{
-
-				if(text_row == 3) {
+   
+				if (text_row == 3)
+				{
 					// clear the old text
 					draw_talking();
-					draw_sprites();
+					draw_sprites(); 
 					// set text_row to 0
 					text_row = 0;
 				}
@@ -138,7 +140,7 @@ void main(void)
 				{
 					ppu_off();
 
-					//reset values
+					// reset values
 					text_rendered = 0;
 					text_row = 0;
 					text_col = 0;
