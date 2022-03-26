@@ -1081,9 +1081,10 @@ void initialize_title_screen(void)
 	ppu_off();
 	oam_clear();
 	draw_bg();
+	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 19));
 
-	multi_vram_buffer_horz(title_text, sizeof(title_text), NTADR_A(11, 17));
-	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 20));
+	multi_vram_buffer_horz(credits_1, sizeof(credits_1), NTADR_A(6, 24));
+	multi_vram_buffer_horz(credits_2, sizeof(credits_2) , NTADR_A(3, 25));
 
 	ppu_on_all();
 }
