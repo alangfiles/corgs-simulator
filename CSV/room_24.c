@@ -15,3 +15,11 @@ const unsigned char room_24[]={
 7,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
+
+const unsigned char room_24_sprites[]={
+	80, 160, SPRITE_BackTV101,
+	176, 160, SPRITE_BackTV101,
+	112, 144, SPRITE_HairRight27,
+	128, 144, SPRITE_BigNoseLeft84,
+	TURN_OFF
+};

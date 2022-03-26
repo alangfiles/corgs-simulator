@@ -40,9 +40,13 @@ const unsigned char title_palette[16]={
 	 };
 
 const unsigned char trans_palette[16]={
-	0x0f,0x0f,0x30,0x2c,0x0f,0x16,0x3d,0x37,0x0f,0x06,0x37,0x2a,0x0f,0x2a,0x1b,0x17
+	0x0f,0x0f,0x30,0x2c,
+	0x0f,0x16,0x3d,0x37,
+	0x0f,0x06,0x37,0x2a,
+	0x0f,0x2a,0x1b,0x17
 	 };
 
+	
 const unsigned char inside_palette[16]={ 
 	0x0f,0x0f,0x30,0x2c,0x0f,0x16,0x3d,0x37,0x0f,0x06,0x37,0x2a,0x0f,0x2d,0x3d,0x1a
 	};
@@ -171,8 +175,9 @@ const unsigned char trans_metatiles[]={
 	224, 225, 240, 241,  1,
 	0, 203, 218, 219,  1,
 	206, 207, 222, 223,  3,
-	16, 16, 16, 16,  1,
+	16, 16, 16, 16,  1, //this is the block
 	136, 136, 152, 152,  1,
+	0, 0, 0, 0,  0,  //21 - blocking empty tile
 };
 
 const unsigned char outside_metatiles[]={
@@ -292,7 +297,7 @@ const unsigned char inside_collision[] = {
 };
 const unsigned char outside_collision[] = {
 	0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,COL_ALL,COL_ALL,COL_ALL,
+	0,0,0,0,0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
@@ -300,14 +305,14 @@ const unsigned char outside_collision[] = {
 };
 const unsigned char cliff_collision[] = {
 	0,0,0,0,0,0,0,0,0,0,
-	0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	0,0,0,0,0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,
 };
 const unsigned char trans_collision[] = {
-	0,0,0,0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
+	0,0,0,COL_ALL,0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
@@ -364,11 +369,11 @@ const unsigned char * const talk_list[]={
 };
 
 const unsigned char * const sprite_list[]={
-	blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
+	blank_sprites,blank_sprites,blank_sprites,blank_sprites,room_5_sprites,
   blank_sprites,blank_sprites,blank_sprites,room_9_sprites,blank_sprites,
-  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
-  blank_sprites,blank_sprites,room_18_sprites,blank_sprites,blank_sprites,
-  blank_sprites,blank_sprites,room_23_sprites,blank_sprites,blank_sprites,
+  blank_sprites,blank_sprites,blank_sprites,room_14_sprites,blank_sprites,
+  blank_sprites,blank_sprites,room_18_sprites,room_19_sprites,blank_sprites,
+  blank_sprites,blank_sprites,room_23_sprites,room_24_sprites,blank_sprites,
   blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
   blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
   blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,

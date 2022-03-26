@@ -183,6 +183,17 @@ void draw_bg(void)
 	set_data_pointer(room_list[which_bg]);
 	memcpy(c_map, room_list[which_bg], 240);
 
+	// dungeon only
+	if (which_bg == 6)
+	{
+		// I figure I can change the palette here to get
+		// gray bricks, but I can't figure it out.
+		pal_col(19, 0x2d);
+		pal_col(23, 0x2d);
+		pal_col(28, 0x2d);
+		pal_col(31, 0x2d);
+	}
+
 	// draw the tiles
 	for (y = 0;; y += 0x20)
 	{
@@ -504,26 +515,81 @@ void draw_sprites(void)
 		//  to have different anim frames, which we might want.
 		switch (sprites_type[index2])
 		{
-		case SPRITE_ALAN:
+		case SPRITE_ALAN92:
 			// we could do somethign here like:
 			//  if frame 1 - 8 use AlanAnim1
 			//  else use AlanAnim2
 			sprites_anim[index2] = Alan92;
 			break;
-		case SPRITE_BRIAN:
+		case SPRITE_BRIAN93:
 			sprites_anim[index2] = Brian93;
 			break;
-		case SPRITE_MUSCLE1:
-			sprites_anim[index2] = MuscleMan0;
+		case SPRITE_PlayerSprUp:
+			sprites_anim[index2] = PlayerSprUp;
 			break;
-		case SPRITE_MUSCLE2:
-			sprites_anim[index2] = Muscleman1;
+		case SPRITE_PunchoutMan112:
+			sprites_anim[index2] = PunchoutMan112;
 			break;
-		case SPRITE_SKIRT:
+		case SPRITE_PunchOutMat113:
+			sprites_anim[index2] = PunchOutMat113;
+			break;
+		case SPRITE_LunchLadyHead36:
+			sprites_anim[index2] = LunchLadyHead36;
+			break;
+		case SPRITE_BaldRight22:
+			sprites_anim[index2] = BaldRight22;
+			break;
+		case SPRITE_HairForward114:
+			sprites_anim[index2] = HairForward114;
+			break;
+		case SPRITE_Banner99:
+			sprites_anim[index2] = Banner99;
+			break;
+		case SPRITE_BoyKid42:
+			sprites_anim[index2] = BoyKid42;
+			break;
+		case SPRITE_BaldBehind7:
+			sprites_anim[index2] = BaldBehind7;
+			break;
+		case SPRITE_SkirtLady39:
 			sprites_anim[index2] = SkirtLady39;
 			break;
-		case SPRITE_BLOCK:
-			sprites_anim[index2] = DungeonBlock;
+		case SPRITE_HairBehind10:
+			sprites_anim[index2] = HairBehind10;
+			break;
+		case SPRITE_HatForward17:
+			sprites_anim[index2] = HatForward17;
+			break;
+		case SPRITE_PrettyGirlBehindStand109:
+			sprites_anim[index2] = PrettyGirlBehindStand109;
+			break;
+		case SPRITE_SideLadyRight86:
+			sprites_anim[index2] = SideLadyRight86;
+			break;
+		case SPRITE_WideBoyBehind120:
+			sprites_anim[index2] = WideBoyBehind120;
+			break;
+		case SPRITE_SleepyGuyBehind123:
+			sprites_anim[index2] = SleepyGuyBehind123;
+			break;
+		case SPRITE_BackTV101:
+			sprites_anim[index2] = BackTV101;
+			break;
+		case SPRITE_HairRight27:
+			sprites_anim[index2] = HairRight27;
+			break;
+		case SPRITE_BigNoseLeft84:
+			sprites_anim[index2] = BigNoseLeft84;
+			break;
+		case SPRITE_Wizard53:
+			sprites_anim[index2] = Wizard53;
+			break;
+		case SPRITE_Car95:
+			sprites_anim[index2] = Car95;
+			break;
+		case SPRITE_Car96:
+			sprites_anim[index2] = Car96;
+			break;
 		default:
 			break;
 		}
@@ -546,16 +612,25 @@ void action(void)
 	}
 
 	// dungeon push block
-	if (push_timer > 100 && which_bg == DUNGEON_BLOCK_ROOM)
-	{
-		index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4); // hardcoded block location
-		// replace block and fix c_map
-		c_map[index] = 0; // set it to (walkable)
-		address = get_ppu_addr(0, DUNGEON_BLOCK_X, DUNGEON_BLOCK_Y);
-		buffer_1_mt(address, 50);
-		push_timer = 0;
-		block_moved = 1;
-	}
+	//  if (push_timer > 100)
+	//  {
+	//  	action_collision();
+	//  	if (collision_action == 2)
+	//  	{
+	//  		// block is at x112, y160
+	//  		index = (160 & 0xf0) + (112 >> 4); // hardcoded block location
+	//  		// replace block and fix c_map
+	//  		c_map[index] = 0; // set it to 0
+	//  		address = get_ppu_addr(0, 112, 160);
+	//  		buffer_1_mt(address, 49);
+	//  		push_timer = 0;
+	//  		block_moved = 1;
+	//  	}
+
+	// 	// if(collision_action == 2){ // push block
+	// 	// 	buffer_1_mt(NTADR_A(8,11),0);
+	// 	// }
+	// }
 
 	// check for interactable
 	if (pad1_new & PAD_B)
@@ -635,8 +710,7 @@ void movement(void)
 	}
 
 	if (player_direction == last_player_direction // player direction hasn't changed
-			&& (pad1 & PAD_ALL_DIRECTIONS)						// one of the direction buttons is held down
-			&& !has_moved)														// and the player hasn't moved
+			&& (pad1 & PAD_ALL_DIRECTIONS))						// one of the direction buttons is held down
 	{
 		++push_timer;
 	}
@@ -644,6 +718,16 @@ void movement(void)
 	{
 		push_timer = 0;
 	}
+
+	// if (block_moved &&
+	// 		player_x > 104 && player_x < 120 && player_y > 144 && player_y < 160)
+	// {
+	// 	which_bg = 6; // underground
+	// 	player_x = 48;
+	// 	player_y = 64;
+	// 	block_moved = 0;
+	// 	draw_bg();
+	// }
 
 #pragma endregion playerMovement
 
@@ -681,12 +765,8 @@ void movement(void)
 #pragma region specialCases
 
 	// dungeon block
-	if (block_moved
-			&& which_bg == DUNGEON_BLOCK_ROOM
-			&& player_x > DUNGEON_BLOCK_X - 4 
-			&& player_x < DUNGEON_BLOCK_X + 4 
-			&& player_y > DUNGEON_BLOCK_Y - 4 
-			&& player_y < DUNGEON_BLOCK_Y + 4)
+	if ( // block_moved &&
+			which_bg == DUNGEON_BLOCK_ROOM && player_x > DUNGEON_BLOCK_X - 4 && player_x < DUNGEON_BLOCK_X + 4 && player_y > DUNGEON_BLOCK_Y - 4 && player_y < DUNGEON_BLOCK_Y + 4)
 	{
 		which_bg = 5; // underground
 		player_x = 48;
@@ -922,9 +1002,9 @@ void change_room_up()
 		which_bg = 11; // teleport to the top outdoors
 	}
 
-	if (which_bg == 1)
+	if (which_bg == 0)
 	{ // going up from the dungeon
-		which_bg = 23;
+		which_bg = DUNGEON_BLOCK_ROOM;
 		// put the player near the dungeon block
 		player_x = 130;
 		player_y = 160;

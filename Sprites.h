@@ -1,5 +1,8 @@
 //these enums are used in the room_{X}_sprites values
-enum{SPRITE_SHOPKEEPER, SPRITE_BRIAN, SPRITE_ALAN, SPRITE_GUY1, SPRITE_SKIRT, SPRITE_MUSCLE1, SPRITE_MUSCLE2, SPRITE_BLOCK};
+enum{SPRITE_PlayerSprUp, SPRITE_ALAN92, SPRITE_BRIAN93, SPRITE_PunchoutMan112, SPRITE_PunchOutMat113, SPRITE_LunchLadyHead36, SPRITE_BaldRight22, 
+SPRITE_HairForward114, SPRITE_Banner99, SPRITE_BoyKid42, SPRITE_BaldBehind7, SPRITE_SkirtLady39, SPRITE_PrettyGirlBehindStand109, SPRITE_HairBehind10, 
+ SPRITE_HatForward17, SPRITE_SideLadyRight86, SPRITE_WideBoyBehind120, SPRITE_SleepyGuyBehind123, SPRITE_BackTV101, SPRITE_HairRight27, SPRITE_BigNoseLeft84, 
+ SPRITE_Wizard53, SPRITE_Car95, SPRITE_Car96, SPRITE_MUSCLEMAN0};
 #define TURN_OFF 0xff
 
 #pragma region playersprites
@@ -242,7 +245,7 @@ const unsigned char HairBehind9[]={
 
 };
 
-const unsigned char HariBehind10[]={
+const unsigned char HairBehind10[]={
 
 	  0,  0,0x73,1|OAM_FLIP_H,
 	  8,  0,0x73,1,
@@ -1169,7 +1172,7 @@ const unsigned char Banner100[]={
 
 };
 
-const unsigned char BackTV[]={
+const unsigned char BackTV101[]={
 
 	  0,  0,0x0f,3,
 	  0,  8,0x1f,3,
@@ -1287,20 +1290,122 @@ const unsigned char PunchoutMan112[]={
 	  8,  8,0x1d,2|OAM_FLIP_H,
 	  0, 16,0x2e,2|OAM_FLIP_H,
 	  8, 16,0x2d,2|OAM_FLIP_H,
-	 16, 16,0x2c,2,
 	128
 
 };
 
+const unsigned char PunchOutMat113[]={
+	
+	  0,  0,0x2c,2,
+	  8,  0,0x2c,2|OAM_FLIP_H,
+	  0,  8,0x2c,2|OAM_FLIP_V,
+	  8,  8,0x2c,2|OAM_FLIP_H|OAM_FLIP_V,
+	128
+};
 
+const unsigned char HairForward114[]={
+	  0,  0,0x66,2,
+	  8,  0,0x67,2,
+	  0,  8,0x75,2|OAM_FLIP_H,
+	  8,  8,0x75,2,
+	128
+};
 
+const unsigned char HatBehind115 []={
 
+	  8,  8,0xa7,2,
+	  0,  8,0xa7,2|OAM_FLIP_H,
+	  8,  0,0xb7,2,
+	  0,  0,0xb7,2|OAM_FLIP_H,
+	128
 
+};
 
+const unsigned char HatBehind116[]={
 
+	  8,  8,0xa7,0,
+	  0,  8,0xa7,0|OAM_FLIP_H,
+	  8,  0,0xb7,0,
+	  0,  0,0xb7,0|OAM_FLIP_H,
+	128
 
+};
 
+const unsigned char HatBehind117[]={
 
+	  8,  8,0xa7,1,
+	  0,  8,0xa7,1|OAM_FLIP_H,
+	  8,  0,0xb7,1,
+	  0,  0,0xb7,1|OAM_FLIP_H,
+	128
+
+};
+
+const unsigned char WideBoyBehind118[]={
+
+	  0,  8,0xf2,1,
+	  8,  0,0xd3,1,
+	  0,  0,0xd3,1|OAM_FLIP_H,
+	  8,  8,0xf2,1|OAM_FLIP_H,
+	128
+
+};
+
+const unsigned char WideBoyBehind119[]={
+
+	  0,  8,0xf2,0,
+	  8,  0,0xd3,0,
+	  0,  0,0xd3,0|OAM_FLIP_H,
+	  8,  8,0xf2,0|OAM_FLIP_H,
+	128
+
+};
+
+const unsigned char WideBoyBehind120[]={
+
+	  0,  8,0xf2,2,
+	  8,  0,0xd3,2,
+	  0,  0,0xd3,2|OAM_FLIP_H,
+	  8,  8,0xf2,2|OAM_FLIP_H,
+	128
+
+};
+
+const unsigned char BaldTankBehind121[]={
+
+	  0,  8,0xf3,0,
+	  8,  8,0xf3,0|OAM_FLIP_H,
+	  0,  0,0xd4,0,
+	  8,  0,0xd4,0|OAM_FLIP_H,
+	128
+
+};
+
+const unsigned char BaldTankBehind122[]={
+
+	  0,  8,0xf3,2,
+	  8,  8,0xf3,2|OAM_FLIP_H,
+	  0,  0,0xd4,2,
+	  8,  0,0xd4,2|OAM_FLIP_H,
+	128
+
+};
+
+const unsigned char SleepyGuyBehind123[]={
+
+	  0,  8,0xb3,2,
+	  0,  0,0x93,2,
+	128
+
+};
+
+const unsigned char SleepyGuyBehind124[]={
+
+	  0,  8,0xb3,3,
+	  0,  0,0x93,3,
+	128
+
+};
 
 const unsigned char DungeonBlock[]={
 	  0, 0,0x0B,3,
@@ -1309,5 +1414,3 @@ const unsigned char DungeonBlock[]={
 	  8, 8,0x1C,3,
 	128
 };
-
-

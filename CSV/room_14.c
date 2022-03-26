@@ -15,3 +15,10 @@ const unsigned char room_14[]={
 9,9,9,9,9,9,9,0,0,9,9,9,9,9,9,9,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
+
+const unsigned char room_14_sprites[]={
+	108, 160, SPRITE_Banner99,
+	48,64, SPRITE_Car95,
+	160, 64, SPRITE_Car96,
+	TURN_OFF
+};
