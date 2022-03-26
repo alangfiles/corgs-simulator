@@ -6,8 +6,8 @@
 
 /*
 todo list:
-[] multi-line text
-[] fix text bug where it doesn't start at 0
+[] fix char size/aligning
+[] add in sounds
 */
 
 #include "LIB/neslib.h"
@@ -185,14 +185,16 @@ void draw_bg(void)
 	memcpy(c_map, room_list[which_bg], 240);
 
 	// dungeon only
-	if (which_bg == 6)
+	if (which_bg == 5)
 	{
 		// I figure I can change the palette here to get
 		// gray bricks, but I can't figure it out.
-		pal_col(19, 0x2d);
-		pal_col(23, 0x2d);
-		pal_col(28, 0x2d);
-		pal_col(31, 0x2d);
+		// block 19 use bg palette 1, so it should be 4,5,6,7
+		//pal_col(4, 0x2d);//<-- not changes for bg tile
+		//0x0f,0x2d,0x00,0x20,//
+		pal_col(5, 0x00);
+		pal_col(6, 0x30);
+		pal_col(7, 0x20);
 	}
 
 	// draw the tiles

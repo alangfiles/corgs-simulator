@@ -175,7 +175,7 @@ const unsigned char trans_metatiles[]={
 	224, 225, 240, 241,  1,
 	0, 203, 218, 219,  1,
 	206, 207, 222, 223,  3,
-	16, 16, 16, 16,  1, //this is the block
+	16, 16, 16, 16,  1, //19 this is the block
 	136, 136, 152, 152,  1,
 	0, 0, 0, 0,  0,  //21 - blocking empty tile
 };
