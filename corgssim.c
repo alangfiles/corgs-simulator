@@ -546,7 +546,7 @@ void action(void)
 	}
 
 	// dungeon push block
-	if (push_timer > 100 && which_bg == 22)
+	if (push_timer > 100 && which_bg == DUNGEON_BLOCK_ROOM)
 	{
 		index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4); // hardcoded block location
 		// replace block and fix c_map
@@ -681,8 +681,9 @@ void movement(void)
 #pragma region specialCases
 
 	// dungeon block
-	if (block_moved &&
-			player_x > DUNGEON_BLOCK_X - 4 
+	if (block_moved
+			&& which_bg == DUNGEON_BLOCK_ROOM
+			&& player_x > DUNGEON_BLOCK_X - 4 
 			&& player_x < DUNGEON_BLOCK_X + 4 
 			&& player_y > DUNGEON_BLOCK_Y - 4 
 			&& player_y < DUNGEON_BLOCK_Y + 4)
@@ -695,7 +696,7 @@ void movement(void)
 	}
 	// index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4);
 	// temp1 = (player_y & 0xf0 + player_x >> 4);
-	// if (which_bg == 22 && temp1 == index)
+	// if (which_bg == DUNGEON_BLOCK_ROOM && temp1 == index)
 	// {
 	// 	// dungeon block
 	// 	which_bg = 5;
