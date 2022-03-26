@@ -1,5 +1,5 @@
 //these enums are used in the room_{X}_sprites values
-enum{SPRITE_SHOPKEEPER, SPRITE_BRIAN, SPRITE_ALAN, SPRITE_GUY1, SPRITE_SKIRT, SPRITE_MUSCLE1, SPRITE_MUSCLE2};
+enum{SPRITE_SHOPKEEPER, SPRITE_BRIAN, SPRITE_ALAN, SPRITE_GUY1, SPRITE_SKIRT, SPRITE_MUSCLE1, SPRITE_MUSCLE2, SPRITE_BLOCK};
 #define TURN_OFF 0xff
 
 #pragma region playersprites
@@ -1302,14 +1302,12 @@ const unsigned char PunchoutMan112[]={
 
 
 
-// const unsigned char PunchingMan[]={
-// 	  0, 0,0x78,1,
-// 		8, 0,0x79,1,
-// 		0, 8,0x98,1,
-// 	  8, 8,0x99,1,
-// 		0, 16,0xA8,1,
-// 		8, 16,0xA9,1,
-// 	128
-// };
+const unsigned char DungeonBlock[]={
+	  0, 0,0x0B,3,
+		8, 0,0x0C,3,
+		0, 8,0x1B,3,
+	  8, 8,0x1C,3,
+	128
+};
 
 

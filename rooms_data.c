@@ -275,6 +275,7 @@ const unsigned char inside_metatiles[]={
 	195, 196, 0, 212,  2,
 	197, 198, 213, 201,  2,
 	199, 200, 202, 201,  2,
+	0xC0, 0, 0xD0, 0xD1,  3,
 };
 
 #pragma endregion metatiles
@@ -287,7 +288,7 @@ const unsigned char inside_collision[] = {
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
 	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,
+	0,
 };
 const unsigned char outside_collision[] = {
 	0,0,0,0,0,0,0,0,0,0,

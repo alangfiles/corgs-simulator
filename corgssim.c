@@ -505,9 +505,9 @@ void draw_sprites(void)
 		switch (sprites_type[index2])
 		{
 		case SPRITE_ALAN:
-			//we could do somethign here like:
-			// if frame 1 - 8 use AlanAnim1
-			// else use AlanAnim2
+			// we could do somethign here like:
+			//  if frame 1 - 8 use AlanAnim1
+			//  else use AlanAnim2
 			sprites_anim[index2] = Alan92;
 			break;
 		case SPRITE_BRIAN:
@@ -522,6 +522,8 @@ void draw_sprites(void)
 		case SPRITE_SKIRT:
 			sprites_anim[index2] = SkirtLady39;
 			break;
+		case SPRITE_BLOCK:
+			sprites_anim[index2] = DungeonBlock;
 		default:
 			break;
 		}
@@ -544,25 +546,16 @@ void action(void)
 	}
 
 	// dungeon push block
-	//  if (push_timer > 100)
-	//  {
-	//  	action_collision();
-	//  	if (collision_action == 2)
-	//  	{
-	//  		// block is at x112, y160
-	//  		index = (160 & 0xf0) + (112 >> 4); // hardcoded block location
-	//  		// replace block and fix c_map
-	//  		c_map[index] = 0; // set it to 0
-	//  		address = get_ppu_addr(0, 112, 160);
-	//  		buffer_1_mt(address, 49);
-	//  		push_timer = 0;
-	//  		block_moved = 1;
-	//  	}
-
-	// 	// if(collision_action == 2){ // push block
-	// 	// 	buffer_1_mt(NTADR_A(8,11),0);
-	// 	// }
-	// }
+	if (push_timer > 100 && which_bg == 22)
+	{
+		index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4); // hardcoded block location
+		// replace block and fix c_map
+		c_map[index] = 0; // set it to (walkable)
+		address = get_ppu_addr(0, DUNGEON_BLOCK_X, DUNGEON_BLOCK_Y);
+		buffer_1_mt(address, 50);
+		push_timer = 0;
+		block_moved = 1;
+	}
 
 	// check for interactable
 	if (pad1_new & PAD_B)
@@ -642,23 +635,14 @@ void movement(void)
 	}
 
 	if (player_direction == last_player_direction // player direction hasn't changed
-			&& (pad1 & PAD_ALL_DIRECTIONS))						// one of the direction buttons is held down
+			&& (pad1 & PAD_ALL_DIRECTIONS)						// one of the direction buttons is held down
+			&& !has_moved)														// and the player hasn't moved
 	{
 		++push_timer;
 	}
 	else
 	{
 		push_timer = 0;
-	}
-
-	if (block_moved &&
-			player_x > 104 && player_x < 120 && player_y > 144 && player_y < 160)
-	{
-		which_bg = 6; // underground
-		player_x = 48;
-		player_y = 64;
-		block_moved = 0;
-		draw_bg();
 	}
 
 #pragma endregion playerMovement
@@ -693,6 +677,31 @@ void movement(void)
 		}
 	}
 #pragma endregion shotMovement
+
+#pragma region specialCases
+
+	// dungeon block
+	if (block_moved &&
+			player_x > DUNGEON_BLOCK_X - 4 
+			&& player_x < DUNGEON_BLOCK_X + 4 
+			&& player_y > DUNGEON_BLOCK_Y - 4 
+			&& player_y < DUNGEON_BLOCK_Y + 4)
+	{
+		which_bg = 5; // underground
+		player_x = 48;
+		player_y = 64;
+		block_moved = 0;
+		draw_bg();
+	}
+	// index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4);
+	// temp1 = (player_y & 0xf0 + player_x >> 4);
+	// if (which_bg == 22 && temp1 == index)
+	// {
+	// 	// dungeon block
+	// 	which_bg = 5;
+	// 	draw_bg();
+	// }
+#pragma endregion
 }
 
 void action_collision()
@@ -906,21 +915,21 @@ void change_room_up()
 {
 	player_y = PLAYER_BOTTOM_EDGE;
 	which_bg = which_bg - 5;
-	
 
-	if(which_bg == 41){ //going up from the back door area
-		which_bg = 11; //teleport to the top outdoors
+	if (which_bg == 41)
+	{								 // going up from the back door area
+		which_bg = 11; // teleport to the top outdoors
 	}
 
-	if(which_bg == 1){ //going up from the dungeon
+	if (which_bg == 1)
+	{ // going up from the dungeon
 		which_bg = 23;
-		//put the player near the dungeon block
+		// put the player near the dungeon block
 		player_x = 130;
 		player_y = 160;
 	}
 
 	draw_bg();
- 
 }
 
 void change_room_down()
@@ -928,8 +937,8 @@ void change_room_down()
 	player_y = PLAYER_TOP_EDGE;
 	which_bg = which_bg + 5;
 	draw_bg();
-	
-	if(which_bg == 47)  //the back door
+
+	if (which_bg == 47) // the back door
 	{
 		collision_action = TALK_LOCKED_DOORS;
 		draw_talking();

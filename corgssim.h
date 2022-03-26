@@ -32,6 +32,9 @@
 #define PLAYER_HEIGHT 12
 #define PLAYER_WIDTH 12
 
+#define DUNGEON_BLOCK_X 0xA0
+#define DUNGEON_BLOCK_Y 0xC0
+
 // HUD stuff
 #define A_LOC 16
 #define B_LOC 12
