@@ -543,7 +543,7 @@ void action(void)
 		shot_direction = player_direction;
 	}
 
-	// zelda push block
+	// dungeon push block
 	//  if (push_timer > 100)
 	//  {
 	//  	action_collision();
@@ -906,14 +906,21 @@ void change_room_up()
 {
 	player_y = PLAYER_BOTTOM_EDGE;
 	which_bg = which_bg - 5;
-	draw_bg();
+	
 
-	// if (which_bg == 6) // special zelda block stuff
-	// {
-	// 	which_bg = 4;
-	// 	player_x = 130;
-	// 	player_y = 160;
-	// }
+	if(which_bg == 41){ //going up from the back door area
+		which_bg = 11; //teleport to the top outdoors
+	}
+
+	if(which_bg == 1){ //going up from the dungeon
+		which_bg = 23;
+		//put the player near the dungeon block
+		player_x = 130;
+		player_y = 160;
+	}
+
+	draw_bg();
+ 
 }
 
 void change_room_down()
@@ -921,6 +928,12 @@ void change_room_down()
 	player_y = PLAYER_TOP_EDGE;
 	which_bg = which_bg + 5;
 	draw_bg();
+	
+	if(which_bg == 47)  //the back door
+	{
+		collision_action = TALK_LOCKED_DOORS;
+		draw_talking();
+	}
 }
 
 void countdown_timer(void)
@@ -1061,6 +1074,10 @@ void draw_talking(void)
 	case TALK_GAME:
 		pointer = game_1;
 		text_length = sizeof(game_1);
+		break;
+	case TALK_LOCKED_DOORS:
+		pointer = locked_doors;
+		text_length = sizeof(locked_doors);
 		break;
 	default:
 		pointer = blank_1;

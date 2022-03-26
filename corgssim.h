@@ -60,7 +60,7 @@ unsigned char text_length = 0;
 unsigned char text_row = 0;
 unsigned char text_col = 0;
 
-// zelda block
+// dungeon block
 unsigned char push_timer = 0;
 unsigned char block_moved = 0;
 unsigned char has_moved = 0;
