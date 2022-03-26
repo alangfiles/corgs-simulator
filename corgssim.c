@@ -798,7 +798,7 @@ void action_collision()
 	temp1 = player_x;							 // x- left side
 	temp2 = temp1 + PLAYER_WIDTH;	 // x- right side
 	temp3 = player_y;							 // y- top side
-	temp4 = temp3 + PLAYER_HEIGHT; // y- bottom side
+	temp4 = temp3 + PLAYER_HEIGHT; // y- bottom side 
 
 	// make the whole box a little bigger.
 	temp1 = temp1 - ACTION_BUFFER;
@@ -880,7 +880,7 @@ void bg_collision(void)
 	if (player_y >= 0xf0)
 		return;
 
-	temp6 = temp5 = player_x;
+	temp6 = temp5 = player_x + PLAYER_OFFSET; // upper left (temp6 = save for reuse)
 	temp1 = temp5 & 0xff; // low byte x
 	temp2 = temp5 >> 8;		// high byte x
 
@@ -901,7 +901,7 @@ void bg_collision(void)
 	}
 
 	// upper right
-	temp5 += PLAYER_WIDTH;
+	temp5 += PLAYER_WIDTH - PLAYER_OFFSET;
 	temp1 = temp5 & 0xff; // low byte x
 	temp2 = temp5 >> 8;		// high byte x
 
@@ -920,7 +920,7 @@ void bg_collision(void)
 
 	// bottom right, x hasn't changed
 
-	temp3 = player_y + PLAYER_HEIGHT; // y bottom
+	temp3 = player_y + PLAYER_HEIGHT + PLAYER_OFFSET; // y bottom
 	// if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
 	eject_D = (temp3 + 1) & 0x0f;
 	if (temp3 >= 0xf0)

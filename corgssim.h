@@ -31,6 +31,7 @@
 
 #define PLAYER_HEIGHT 12
 #define PLAYER_WIDTH 12
+#define PLAYER_OFFSET 2 //offset the player sprite so it's not aligned with the left side
 
 #define DUNGEON_BLOCK_X 0xA0
 #define DUNGEON_BLOCK_Y 0xC0
