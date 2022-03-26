@@ -126,12 +126,12 @@ void main(void)
 
 			if (pad1_new & PAD_B)
 			{
-   
+
 				if (text_row == 3)
 				{
 					// clear the old text
 					draw_talking();
-					draw_sprites(); 
+					draw_sprites();
 					// set text_row to 0
 					text_row = 0;
 				}
@@ -497,35 +497,36 @@ void draw_sprites(void)
 		if (sprites_type[index2] == TURN_OFF)
 			continue; // we found an empty spot
 
-		temp_y = sprites_y[index2];
+		temp1 = sprites_x[index2]; // temp_x value
+		temp2 = sprites_y[index2]; // temp_y value
 
-		temp_x = sprites_x[index2];
-
-		// this will be inefficient, look into it if we need to
 		//  the whole idea behind having sprites_type and sprites_anim is
 		//  to have different anim frames, which we might want.
-		if (sprites_type[index2] == SPRITE_ALAN)
+		switch (sprites_type[index2])
 		{
+		case SPRITE_ALAN:
+			//we could do somethign here like:
+			// if frame 1 - 8 use AlanAnim1
+			// else use AlanAnim2
 			sprites_anim[index2] = Alan92;
-		}
-		if (sprites_type[index2] == SPRITE_BRIAN)
-		{
+			break;
+		case SPRITE_BRIAN:
 			sprites_anim[index2] = Brian93;
-		}
-		if (sprites_type[index2] == SPRITE_MUSCLE1)
-		{
+			break;
+		case SPRITE_MUSCLE1:
 			sprites_anim[index2] = MuscleMan0;
-		}
-		if (sprites_type[index2] == SPRITE_MUSCLE2)
-		{
+			break;
+		case SPRITE_MUSCLE2:
 			sprites_anim[index2] = Muscleman1;
-		}
-		if (sprites_type[index2] == SPRITE_SKIRT)
-		{
+			break;
+		case SPRITE_SKIRT:
 			sprites_anim[index2] = SkirtLady39;
+			break;
+		default:
+			break;
 		}
 
-		oam_meta_spr(temp_x, temp_y, sprites_anim[index2]);
+		oam_meta_spr(temp1, temp2, sprites_anim[index2]);
 	}
 #pragma endregion room_sprites
 }
@@ -806,7 +807,7 @@ void bg_collision(void)
 		++collision_U;
 	}
 
-	// upper right  
+	// upper right
 	temp5 += PLAYER_WIDTH;
 	temp1 = temp5 & 0xff; // low byte x
 	temp2 = temp5 >> 8;		// high byte x
@@ -1081,7 +1082,7 @@ void initialize_title_screen(void)
 	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 19));
 
 	multi_vram_buffer_horz(credits_1, sizeof(credits_1), NTADR_A(6, 24));
-	multi_vram_buffer_horz(credits_2, sizeof(credits_2) , NTADR_A(3, 25));
+	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 
 	ppu_on_all();
 }

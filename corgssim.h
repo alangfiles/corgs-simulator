@@ -72,8 +72,18 @@ unsigned char temp3;
 unsigned char temp4;
 unsigned char temp5;
 unsigned char temp6;
-unsigned char temp_x;
-unsigned char temp_y;
+
+struct Base {
+	unsigned char x;
+	unsigned char y;
+	unsigned char width;
+	unsigned char height;
+};
+
+struct Base Generic; 
+struct Base Generic2; 
+
+
 unsigned char player_x = 0x80;
 unsigned char player_y = 0x80;
 unsigned char shot_direction = DOWN;
