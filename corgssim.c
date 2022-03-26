@@ -118,7 +118,8 @@ void main(void)
 			if (text_row == 3)
 			{
 				// draw last character as down arrow
-				one_vram_buffer('V', NTADR_A(29, 5));
+				//'&' is used in the chr as the down caret
+				one_vram_buffer('&', NTADR_A(29, 5)); 
 			}
 
 			pad1 = pad_poll(0);
@@ -1188,8 +1189,9 @@ void initialize_title_screen(void)
 	draw_bg();
 	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 19));
 
-	multi_vram_buffer_horz(credits_1, sizeof(credits_1), NTADR_A(6, 24));
+	multi_vram_buffer_horz(credits_1, sizeof(credits_1), NTADR_A(7, 24));
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
+	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
 
 	ppu_on_all();
 }
