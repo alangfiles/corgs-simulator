@@ -243,7 +243,7 @@ void initialize_talk_map(void)
 	for (index = 0; index < MAX_ROOM_TALKING; ++index)
 	{
 		talk_type[index] = TURN_OFF;
-	}
+	} 
 
 	pointer = talk_list[which_bg];
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
