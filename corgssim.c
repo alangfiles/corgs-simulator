@@ -6,8 +6,10 @@
 
 /*
 todo list:
-[] fix char size/aligning
-[] add in sounds
+[] add in sounds and music (space concerns)
+[] add collectables (dungeon game)
+[] yes/no for talking time prompt
+[] collision for sprites
 */
 
 #include "LIB/neslib.h"
@@ -86,6 +88,7 @@ void main(void)
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
 
 			movement();
+			sprite_collisions();
 			action();
 
 			draw_sprites();
@@ -190,8 +193,8 @@ void draw_bg(void)
 		// I figure I can change the palette here to get
 		// gray bricks, but I can't figure it out.
 		// block 19 use bg palette 1, so it should be 4,5,6,7
-		//pal_col(4, 0x2d);//<-- not changes for bg tile
-		//0x0f,0x2d,0x00,0x20,//
+		// pal_col(4, 0x2d);//<-- not changes for bg tile
+		// 0x0f,0x2d,0x00,0x20,//
 		pal_col(5, 0x00);
 		pal_col(6, 0x30);
 		pal_col(7, 0x20);
@@ -245,7 +248,7 @@ void initialize_talk_map(void)
 	for (index = 0; index < MAX_ROOM_TALKING; ++index)
 	{
 		talk_type[index] = TURN_OFF;
-	} 
+	}
 
 	pointer = talk_list[which_bg];
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
@@ -788,6 +791,56 @@ void movement(void)
 #pragma endregion
 }
 
+void sprite_collisions(void)
+{
+
+	// set the first Generic to the players attributes
+	Generic.x = player_x;
+	Generic.y = player_y;
+	Generic.width = PLAYER_WIDTH;
+	Generic.height = PLAYER_HEIGHT;
+
+	// go through all the sprites in the room
+	// all other sprites are 16x16 (not always true)
+	// but we'll put larger sprites in unreachable places
+	Generic2.width = 16;
+	Generic2.height = 16;
+	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
+	{
+		if (sprites_type[index] == TURN_OFF)
+		{
+			break; // run out of sprites, stop checking collisions
+		}
+
+		Generic2.x = sprites_x[index];
+		Generic2.y = sprites_y[index];
+		if (check_collision(&Generic, &Generic2))
+		{
+			// player is coliding with sprite,
+			// lets just move the player back 1 px
+			switch (player_direction)
+			{
+			case DOWN:
+				// they're moving down and ran into something
+				// so push them back up
+				--player_y;
+				break;
+			case UP:
+				++player_y;
+				break;
+			case LEFT:
+				++player_x;
+				break;
+			case RIGHT:
+				--player_x;
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
+
 void action_collision()
 {
 	// by default, no action
@@ -798,7 +851,7 @@ void action_collision()
 	temp1 = player_x;							 // x- left side
 	temp2 = temp1 + PLAYER_WIDTH;	 // x- right side
 	temp3 = player_y;							 // y- top side
-	temp4 = temp3 + PLAYER_HEIGHT; // y- bottom side 
+	temp4 = temp3 + PLAYER_HEIGHT; // y- bottom side
 
 	// make the whole box a little bigger.
 	temp1 = temp1 - ACTION_BUFFER;
@@ -881,8 +934,8 @@ void bg_collision(void)
 		return;
 
 	temp6 = temp5 = player_x + PLAYER_OFFSET; // upper left (temp6 = save for reuse)
-	temp1 = temp5 & 0xff; // low byte x
-	temp2 = temp5 >> 8;		// high byte x
+	temp1 = temp5 & 0xff;											// low byte x
+	temp2 = temp5 >> 8;												// high byte x
 
 	eject_L = temp1 | 0xf0;
 

@@ -37,7 +37,7 @@
 #define DUNGEON_BLOCK_Y 0xC0
 #define DUNGEON_BLOCK_ROOM 22
 
-#define STARTING_ROOM 5
+#define STARTING_ROOM 18
 
 // HUD stuff
 #define A_LOC 16
@@ -80,6 +80,11 @@ unsigned char temp4;
 unsigned char temp5;
 unsigned char temp6;
 
+unsigned char player_direction = DOWN;
+unsigned char last_player_direction = DOWN;
+unsigned char player_x = 0x80;
+unsigned char player_y = 0x80;
+
 struct Base {
 	unsigned char x;
 	unsigned char y;
@@ -91,8 +96,6 @@ struct Base Generic;
 struct Base Generic2; 
 
 
-unsigned char player_x = 0x80;
-unsigned char player_y = 0x80;
 unsigned char shot_direction = DOWN;
 unsigned char shot_x = -4;
 unsigned char shot_y = -4;
@@ -138,9 +141,6 @@ unsigned char y;
 unsigned char index;
 unsigned char index2;
 
-
-unsigned char player_direction = DOWN;
-unsigned char last_player_direction = DOWN;
 
 //used for animation, could be replaced by getframes?
 unsigned char move_frames = 0;
@@ -192,6 +192,7 @@ void action(void);
 void action_collision();
 void bg_collision();
 void bg_collision_sub(void);
+void sprite_collisions(void);
 void change_room_right(void);
 void change_room_left(void);
 void change_room_up(void);
