@@ -119,7 +119,7 @@ void main(void)
 			{
 				// draw last character as down arrow
 				//'&' is used in the chr as the down caret
-				one_vram_buffer('&', NTADR_A(29, 5));
+				one_vram_buffer('&', NTADR_A(15, 6));
 			}
 
 			pad1 = pad_poll(0);
