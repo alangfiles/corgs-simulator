@@ -36,6 +36,8 @@
 #define DUNGEON_BLOCK_Y 0xC0
 #define DUNGEON_BLOCK_ROOM 22
 
+#define STARTING_ROOM 5
+
 // HUD stuff
 #define A_LOC 16
 #define B_LOC 12

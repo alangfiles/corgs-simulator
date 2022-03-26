@@ -69,7 +69,7 @@ void main(void)
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
 				display_hud = 1;
-				which_bg = 17;
+				which_bg = STARTING_ROOM;
 
 				draw_bg();
 				draw_hud();
