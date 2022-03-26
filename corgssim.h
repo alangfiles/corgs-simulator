@@ -19,10 +19,18 @@
 #define UP_MOVE 0x02
 #define RIGHT_MOVE 0x03
 
+#define DOWN 0x00
+#define LEFT 0x01
+#define UP 0x02
+#define RIGHT 0x03
+
 #define TEXT_BOX_X 6
 #define TEXT_BOX_Y 12
 #define TEXT_BOX_LENGTH 18
 #define TEXT_BOX_HEIGHT 8
+
+#define PLAYER_HEIGHT 12
+#define PLAYER_WIDTH 12
 
 // HUD stuff
 #define A_LOC 16
@@ -42,16 +50,21 @@ unsigned char eject_L; // from the left
 unsigned char eject_R; // remember these from the collision sub routine
 unsigned char eject_D; // from below
 unsigned char eject_U; // from up
+
 unsigned char collision_action;
 unsigned char which_bg = 0;
-unsigned char block_moved = 0;
+
+// used for talking time
 unsigned char text_rendered = 0;
 unsigned char text_length = 0;
 unsigned char text_row = 0;
 unsigned char text_col = 0;
-unsigned char text_finished = 0;
+
+// zelda block
 unsigned char push_timer = 0;
-const unsigned char *p_maps;
+unsigned char block_moved = 0;
+unsigned char has_moved = 0;
+
 unsigned char coordinates;
 unsigned char temp1;
 unsigned char temp2;
@@ -61,12 +74,16 @@ unsigned char temp5;
 unsigned char temp6;
 unsigned char temp_x;
 unsigned char temp_y;
-unsigned char player_x = 64;
-unsigned char player_y = 60;
-unsigned char shot_direction = 0;  // 0 = down, 1 = left, 2 = up, 3 = right
+unsigned char player_x = 0x80;
+unsigned char player_y = 0x80;
+unsigned char shot_direction = DOWN;
 unsigned char shot_x = -4;
 unsigned char shot_y = -4;
+
+//offset used for shuffling sprites
 unsigned char offset;
+
+//pointer used for a bunch of things
 const unsigned char * pointer;
 
 //for shuffling 16 enemies
@@ -92,8 +109,8 @@ unsigned char sprites_y[MAX_ROOM_SPRITES];
 unsigned char sprites_type[MAX_ROOM_SPRITES];
 const unsigned char * sprites_anim[MAX_ROOM_SPRITES];
 
-
-unsigned int minutes_left = 1;
+//timer stuff
+unsigned int minutes_left = 4;
 unsigned int seconds_left_tens = 0;
 unsigned int seconds_left_ones = 1;
 
@@ -104,37 +121,26 @@ unsigned char y;
 unsigned char index;
 unsigned char index2;
 
-unsigned char player_height = 12;
-unsigned char player_width = 12;
-unsigned char i;
-unsigned char player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
-unsigned char last_player_direction = 0; // 0 = down, 1 = left, 2 = up, 3 = right
+
+unsigned char player_direction = DOWN;
+unsigned char last_player_direction = DOWN;
+
+//used for animation, could be replaced by getframes?
 unsigned char move_frames = 0;
-unsigned char has_moved = 0;
+
+
 unsigned char display_hud = 0;
-unsigned char frame = 0;
-unsigned char talk_frame = 0;
-unsigned char temp1;
 unsigned char fade_out = 1;
+
+//used for clock tick frame
+unsigned char frame = 0;
+
 const unsigned char start_text[] = "Press  Start";
 const unsigned char credits_1[] = "Created in 2022 by";
 const unsigned char credits_2[] = "Brian Burke and Alan Files";
-const unsigned char jeqb_text[] = "You found a copy of JEQB";
-const unsigned char dashes[] = "-----------------------------";
 const unsigned char topBar[] = {0xee,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xef};
 const unsigned char bottomBar[] = {0xfe,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xff};
 const unsigned char end_text2[] = "Press Start to play again";
-
-const unsigned char game_text1[] = "Just some old video games";
-const unsigned char game_text2[] = "You found a copy of Warren Robinett's Adventure for Atari 2600";
-const unsigned char game_text34[] = "Just some arcade games with broken joysticks";
-const unsigned char game_text35[] = "Pinball machines, but you're out of quarters";
-
-
-const unsigned char long_text[] = "The quick brown fox jumps over the lazy dogs.";
-
-const unsigned char clock_text[] = "Time Left: ";
-const unsigned char items_text[] = "Items Collected:    0 0 *";
 
 const unsigned char title_color_rotate[]={
 	0x4,0x6,0x19,0x2
@@ -162,12 +168,12 @@ void draw_sprites(void);
 void draw_timer(void);
 void draw_hud(void);
 void draw_talking(void);
-void draw_timer(void);
+void countdown_timer(void);
 void movement(void);
 void action(void);
+void action_collision();
 void bg_collision();
 void bg_collision_sub(void);
-void action_collision();
 void change_room_right(void);
 void change_room_left(void);
 void change_room_up(void);
@@ -176,8 +182,6 @@ void initialize_title_screen(void);
 void initialize_game_mode(void);
 void initialize_end_screen(void);
 void initialize_talking_time(void);
-void back_to_game(void);
-void countdown_timer(void);
 void initialize_sprites(void);
 void initialize_talk_map(void);
 

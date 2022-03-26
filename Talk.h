@@ -21,3 +21,8 @@ const unsigned char game_1[] =  "You found an old, dusty    game.";
 const unsigned char play_game_text[] = 
                                 "A corgs emulator game,     looks fun, do you want to  play? Maybe not, it'll probably take all day and not be that interesting.";
 
+//some texts I might want
+const unsigned char game_text1[] = "Just some old video games";
+const unsigned char game_text2[] = "You found a copy of Warren Robinett's Adventure for Atari 2600";
+const unsigned char game_text34[] = "Just some arcade games with broken joysticks";
+const unsigned char game_text35[] = "Pinball machines, but you're out of quarters";

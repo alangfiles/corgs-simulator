@@ -702,9 +702,9 @@ void action_collision()
 	// temp1 - 4 define the interaction box, based on
 	// where the player currently is, and then expanding on it.
 	temp1 = player_x;							 // x- left side
-	temp2 = temp1 + player_width;	 // x- right side
+	temp2 = temp1 + PLAYER_WIDTH;	 // x- right side
 	temp3 = player_y;							 // y- top side
-	temp4 = temp3 + player_height; // y- bottom side
+	temp4 = temp3 + PLAYER_HEIGHT; // y- bottom side
 
 	// make the whole box a little bigger.
 	temp1 = temp1 - ACTION_BUFFER;
@@ -806,8 +806,8 @@ void bg_collision(void)
 		++collision_U;
 	}
 
-	// upper right
-	temp5 += player_width;
+	// upper right  
+	temp5 += PLAYER_WIDTH;
 	temp1 = temp5 & 0xff; // low byte x
 	temp2 = temp5 >> 8;		// high byte x
 
@@ -826,7 +826,7 @@ void bg_collision(void)
 
 	// bottom right, x hasn't changed
 
-	temp3 = player_y + player_height; // y bottom
+	temp3 = player_y + PLAYER_HEIGHT; // y bottom
 	// if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
 	eject_D = (temp3 + 1) & 0x0f;
 	if (temp3 >= 0xf0)
@@ -966,9 +966,6 @@ void draw_timer(void)
 
 void draw_hud(void)
 {
-	// multi_vram_buffer_horz(items_text, sizeof(items_text), NTADR_A(2, 1));
-	// multi_vram_buffer_horz(clock_text, sizeof(clock_text), NTADR_A(2, 2));
-
 	// todo map:
 	one_vram_buffer('*', NTADR_A(2, 4));
 	one_vram_buffer('M', NTADR_A(3, 4));
@@ -1105,7 +1102,6 @@ void initialize_end_screen(void)
 	which_bg = 4; // set background to black
 	draw_bg();
 
-	multi_vram_buffer_horz(jeqb_text, sizeof(jeqb_text), NTADR_A(4, 14));
 	multi_vram_buffer_horz(end_text2, sizeof(end_text2) - 1, NTADR_A(3, 20));
 
 	ppu_on_all();
