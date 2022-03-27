@@ -57,6 +57,11 @@ void main(void)
 
 			if (pad1_new & PAD_START)
 			{
+
+				if (code_active == 1)
+				{
+					// play sound
+				}
 				// initialize game mode:
 				pal_fade_to(4, 0); // fade to black
 				ppu_off();
@@ -76,6 +81,20 @@ void main(void)
 				draw_hud();
 				ppu_on_all();
 				pal_bright(4); // back to normal brighness
+			}
+
+			if (pad1_new & (PAD_ALL_DIRECTIONS + PAD_A + PAD_B))
+			{
+				if(pad1_new & code[index]){ // the next item in the code is pressed
+					++index;
+				} else {
+					index = 0; // reset the code
+				}
+			}
+			if (index == 10) // 10 correct inputs
+			{
+				code_active = 1;
+				//maybe flash the screen?
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -151,9 +170,9 @@ void main(void)
 
 					bg_display_hud = 1; // draw the hud
 					draw_bg();
-					bg_fade_out = 1; // turn back on room fading
-					display_hud_sprites = 1; //turn back on hud sprites
-					item_found = 0; //reset item found (in case we were in the item found mode)
+					bg_fade_out = 1;				 // turn back on room fading
+					display_hud_sprites = 1; // turn back on hud sprites
+					item_found = 0;					 // reset item found (in case we were in the item found mode)
 					ppu_on_all();
 				}
 			}
@@ -180,7 +199,7 @@ void draw_bg(void)
 		pal_fade_to(4, 0); // fade to black
 	}
 
-	ppu_off(); // screen off
+	ppu_off();	 // screen off
 	oam_clear(); // clear all sprites
 
 	set_mt_pointer(room_metatile_list[which_bg]);
@@ -626,6 +645,14 @@ void draw_sprites(void)
 		if (items_collected & ITEM_THIRD_GAME)
 		{
 			oam_meta_spr(0x34, 0x10, CD126);
+		}
+
+		if (code_active == 1)
+		{
+			oam_meta_spr(0xBA, 0x30, PlayerHead);
+			one_vram_buffer('x', NTADR_A(25, 6));
+			one_vram_buffer('3', NTADR_A(26, 6));
+			one_vram_buffer('0', NTADR_A(27, 6));
 		}
 	}
 #pragma endregion
@@ -1256,8 +1283,8 @@ void draw_talking(void)
 	ppu_off();
 	game_mode = MODE_TALKING_TIME;
 
-	bg_fade_out = 0;			// don't fade bg for draw_bg for talking
-	bg_display_hud = 0;		// don't draw hud for draw_bg for talking
+	bg_fade_out = 0;		// don't fade bg for draw_bg for talking
+	bg_display_hud = 0; // don't draw hud for draw_bg for talking
 	draw_bg();
 
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
@@ -1317,6 +1344,7 @@ void initialize_title_screen(void)
 {
 	game_mode = MODE_TITLE;
 	which_bg = 0;
+	index = 0;
 
 	ppu_off();
 	oam_clear();

@@ -13,6 +13,7 @@
 #define PLAYER_BOTTOM_EDGE 0xcf
 
 #define PAD_ALL_DIRECTIONS	0x0f
+#define PAD_ANY_BUT_SELECT	0xdf
 
 #define DOWN_MOVE 0x00
 #define LEFT_MOVE 0x01
@@ -23,6 +24,8 @@
 #define LEFT 0x01
 #define UP 0x02
 #define RIGHT 0x03
+#define B_BUTTON 0x04
+#define A_BUTTON 0x04
 
 #define TEXT_BOX_X 6
 #define TEXT_BOX_Y 12
@@ -43,7 +46,11 @@
 #define DUNGEON_GAME_X 0x80
 #define DUNGEON_GAME_Y 0x90
 
-
+const unsigned char code[]={
+	PAD_UP, PAD_UP, PAD_DOWN, PAD_DOWN,
+	 PAD_LEFT, PAD_RIGHT, PAD_LEFT, PAD_RIGHT, 
+	 PAD_B, PAD_A};
+unsigned char code_active = 0;
 
 #define STARTING_ROOM 23
 
@@ -157,7 +164,7 @@ unsigned int seconds_left_ones = 1;
 int address;
 unsigned char x; 
 unsigned char y;
-unsigned char index;
+unsigned char index = 0;
 unsigned char index2;
 
 

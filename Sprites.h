@@ -1430,3 +1430,9 @@ const unsigned char CD126[]={
 	  8,  8,0xcb,3|OAM_FLIP_V,
 	128
 };
+
+const unsigned char PlayerHead[]={
+	  0,  0,0x00,0,
+	  8,  0,0x01,0,
+	128
+};
