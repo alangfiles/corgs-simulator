@@ -45,7 +45,7 @@
 
 
 
-#define STARTING_ROOM 5
+#define STARTING_ROOM 23
 
 // HUD stuff
 #define A_LOC 16

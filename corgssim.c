@@ -153,6 +153,7 @@ void main(void)
 					draw_bg();
 					bg_fade_out = 1; // turn back on room fading
 					display_hud_sprites = 1; //turn back on hud sprites
+					item_found = 0; //reset item found (in case we were in the item found mode)
 					ppu_on_all();
 				}
 			}
@@ -647,10 +648,7 @@ void draw_sprites(void)
 		{
 			// draw the sprite above the players head
 			oam_meta_spr(player_x, player_y - 16, FloppyDisk125);
-			collision_action = TALK_ITEM_1;
 		}
-		item_found = 0;
-		draw_talking();
 	}
 
 #pragma endregion
@@ -855,6 +853,8 @@ void movement(void)
 		{
 			items_collected = items_collected | ITEM_DUNGEON_GAME; // pick up the item
 			item_found = ITEM_DUNGEON_GAME;
+			collision_action = TALK_ITEM_1;
+			draw_talking();
 		}
 	}
 
