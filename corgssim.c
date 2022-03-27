@@ -9,7 +9,6 @@ todo list:
 [] add in sounds and music (space concerns)
 [] add collectables (dungeon game)
 [] yes/no for talking time prompt
-[] collision for sprites
 */
 
 #include "LIB/neslib.h"
@@ -188,7 +187,7 @@ void draw_bg(void)
 	memcpy(c_map, room_list[which_bg], 240);
 
 	// dungeon only
-	if (which_bg == 5)
+	if (which_bg == DUNGEON_GAME_ROOM)
 	{
 		// I figure I can change the palette here to get
 		// gray bricks, but I can't figure it out.
@@ -603,6 +602,18 @@ void draw_sprites(void)
 		oam_meta_spr(temp1, temp2, sprites_anim[index2]);
 	}
 #pragma endregion room_sprites
+
+#pragma region special_sprites
+	if (which_bg == DUNGEON_GAME_ROOM)
+	{
+		// if the dungeon game isn't collected
+		if (!items_collected & ITEM_DUNGEON_GAME)
+		{
+			oam_meta_spr(DUNGEON_GAME_X, DUNGEON_GAME_Y, GamePrize97);
+		}
+	}
+
+#pragma endregion
 }
 
 void action(void)
@@ -771,15 +782,41 @@ void movement(void)
 #pragma region specialCases
 
 	// dungeon block
-	if ( // block_moved &&
-			which_bg == DUNGEON_BLOCK_ROOM && player_x > DUNGEON_BLOCK_X - 4 && player_x < DUNGEON_BLOCK_X + 4 && player_y > DUNGEON_BLOCK_Y - 4 && player_y < DUNGEON_BLOCK_Y + 4)
+	Generic.x = player_x;
+	Generic.y = player_y;
+	Generic.width = PLAYER_WIDTH;
+	Generic.height = PLAYER_HEIGHT;
+
+	if (which_bg == DUNGEON_BLOCK_ROOM)
 	{
-		which_bg = 5; // underground
-		player_x = 48;
-		player_y = 64;
-		block_moved = 0;
-		draw_bg();
+		//make the block a little smaller before activating
+		Generic2.x = DUNGEON_BLOCK_X+7;
+		Generic2.y = DUNGEON_BLOCK_Y+7;
+		Generic2.width = 4;
+		Generic2.height = 4;
+		if ( // block_moved &&
+				check_collision(&Generic, &Generic2))
+		{
+			which_bg = DUNGEON_GAME_ROOM;
+			player_x = 48;
+			player_y = 64;
+			block_moved = 0;
+			draw_bg();
+		}
 	}
+
+	if (which_bg == DUNGEON_GAME_ROOM && (!items_collected & ITEM_DUNGEON_GAME))
+	{
+		Generic2.x = DUNGEON_GAME_X+7;
+		Generic2.y = DUNGEON_GAME_Y+7;
+		Generic2.width = 1;
+		Generic2.height = 1;
+		if (check_collision(&Generic, &Generic2))
+		{
+			items_collected = items_collected | ITEM_DUNGEON_GAME; //pick up the item
+		}
+	}
+
 	// index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4);
 	// temp1 = (player_y & 0xf0 + player_x >> 4);
 	// if (which_bg == DUNGEON_BLOCK_ROOM && temp1 == index)

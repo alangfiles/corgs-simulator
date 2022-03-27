@@ -33,11 +33,19 @@
 #define PLAYER_WIDTH 12
 #define PLAYER_OFFSET 2 //offset the player sprite so it's not aligned with the left side
 
+
+/* special locations for special things */
 #define DUNGEON_BLOCK_X 0xA0
 #define DUNGEON_BLOCK_Y 0xC0
 #define DUNGEON_BLOCK_ROOM 22
 
-#define STARTING_ROOM 18
+#define DUNGEON_GAME_ROOM 5
+#define DUNGEON_GAME_X 0x80
+#define DUNGEON_GAME_Y 0x90
+
+
+
+#define STARTING_ROOM 5
 
 // HUD stuff
 #define A_LOC 16
@@ -84,6 +92,14 @@ unsigned char player_direction = DOWN;
 unsigned char last_player_direction = DOWN;
 unsigned char player_x = 0x80;
 unsigned char player_y = 0x80;
+
+// items collected like:
+// 0000 0CBA
+// A = dungeon game
+// b = other game
+// c = other game
+#define ITEM_DUNGEON_GAME 0x01
+unsigned char items_collected = 0;
 
 struct Base {
 	unsigned char x;
