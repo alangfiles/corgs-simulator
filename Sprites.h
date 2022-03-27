@@ -1414,3 +1414,19 @@ const unsigned char DungeonBlock[]={
 	  8, 8,0x1C,3,
 	128
 };
+
+const unsigned char FloppyDisk125[]={
+	  0,  0,0xea,2,
+	  8,  0,0xeb,2,
+	  0,  8,0xfa,2,
+	  8,  8,0xfa,2|OAM_FLIP_H,
+	128
+};
+
+const unsigned char CD126[]={
+	  0,  0,0xca,3,
+	  8,  0,0xcb,3,
+	  0,  8,0xda,3,
+	  8,  8,0xcb,3|OAM_FLIP_V,
+	128
+};

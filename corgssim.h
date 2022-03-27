@@ -45,7 +45,7 @@
 
 
 
-#define STARTING_ROOM 5
+#define STARTING_ROOM 23
 
 // HUD stuff
 #define A_LOC 16
@@ -100,6 +100,7 @@ unsigned char player_y = 0x80;
 // c = other game
 #define ITEM_DUNGEON_GAME 0x01
 unsigned char items_collected = 0;
+unsigned char item_found = 0;
 
 struct Base {
 	unsigned char x;
@@ -162,14 +163,15 @@ unsigned char index2;
 unsigned char move_frames = 0;
 
 
-unsigned char display_hud = 0;
-unsigned char fade_out = 1;
+unsigned char bg_display_hud = 0;
+unsigned char bg_fade_out = 1;
+unsigned char bg_clear_sprites = 1;
 
 //used for clock tick frame
 unsigned char frame = 0;
 
 const unsigned char start_text[] = "Press  Start";
-const unsigned char credits_1[] = "Created in 2022 by";
+const unsigned char credits_1[] = "Created by";
 const unsigned char credits_2[] = "Brian Burke and Alan Files";
 const unsigned char credits_3[] = ";2022"; //';' in chr is (c)
 const unsigned char topBar[] = {0xee,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xed,0xef};

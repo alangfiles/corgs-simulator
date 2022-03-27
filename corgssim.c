@@ -69,7 +69,7 @@ void main(void)
 				minutes_left = 4;
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
-				display_hud = 1;
+				bg_display_hud = 1;
 				which_bg = STARTING_ROOM;
 
 				draw_bg();
@@ -149,9 +149,10 @@ void main(void)
 					text_col = 0;
 					game_mode = MODE_GAME;
 
-					display_hud = 1; // draw the hud
+					bg_display_hud = 1; // draw the hud
 					draw_bg();
-					fade_out = 1; // turn back on room fading
+					bg_fade_out = 1; // turn back on room fading
+					bg_clear_sprites = 1;
 					ppu_on_all();
 				}
 			}
@@ -173,13 +174,16 @@ void main(void)
 
 void draw_bg(void)
 {
-	if (fade_out == 1)
+	if (bg_fade_out == 1)
 	{
 		pal_fade_to(4, 0); // fade to black
 	}
 
-	ppu_off();	 // screen off
-	oam_clear(); // clear all sprites
+	ppu_off(); // screen off
+	if (bg_clear_sprites)
+	{
+		oam_clear(); // clear all sprites
+	}
 
 	set_mt_pointer(room_metatile_list[which_bg]);
 	pal_bg(room_palette_list[which_bg]);
@@ -223,7 +227,7 @@ void draw_bg(void)
 	// 	// player_x == 0x30 && player_y == 0xc0
 	// }
 
-	if (display_hud == 1)
+	if (bg_display_hud == 1)
 	{
 		draw_hud();
 	}
@@ -236,7 +240,7 @@ void draw_bg(void)
 
 	ppu_on_all(); // turn on screen
 
-	if (fade_out == 1)
+	if (bg_fade_out == 1)
 	{
 		pal_fade_to(0, 4); // fade to black
 	}
@@ -320,178 +324,185 @@ void draw_sprites(void)
 	oam_clear();
 
 #pragma region drawplayer
-	switch (player_direction)
+	if (item_found) // special player sprite used if item found
 	{
-	case DOWN_MOVE:
+		oam_meta_spr(player_x, player_y, PrizeGuy94);
+	}
+	else
+	{
+		switch (player_direction)
+		{
+		case DOWN_MOVE:
 
-		if (pad1 & PAD_DOWN) // only animate if the button is pressed
-		{
-			if (move_frames >= 56)
+			if (pad1 & PAD_DOWN) // only animate if the button is pressed
+			{
+				if (move_frames >= 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDown);
+				}
+				else if (move_frames >= 48 & move_frames < 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
+				}
+				else if (move_frames >= 40 & move_frames < 48)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDown);
+				}
+				else if (move_frames >= 32 & move_frames < 40)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
+				}
+				else if (move_frames >= 24 & move_frames < 32)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDown);
+				}
+				else if (move_frames >= 16 & move_frames < 24)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
+				}
+				else if (move_frames >= 8 & move_frames < 16)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDown);
+				}
+				else if (move_frames < 8)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
+				}
+			}
+			else // this is the idle non-moving sprite
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprDown);
 			}
-			else if (move_frames >= 48 & move_frames < 56)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprDownThree);
-			}
-			else if (move_frames >= 40 & move_frames < 48)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprDown);
-			}
-			else if (move_frames >= 32 & move_frames < 40)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
-			}
-			else if (move_frames >= 24 & move_frames < 32)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprDown);
-			}
-			else if (move_frames >= 16 & move_frames < 24)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprDownThree);
-			}
-			else if (move_frames >= 8 & move_frames < 16)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprDown);
-			}
-			else if (move_frames < 8)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
-			}
-		}
-		else // this is the idle non-moving sprite
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprDown);
-		}
 
-		break;
-	case LEFT_MOVE:
-		if (pad1 & PAD_LEFT) // only animate if the button is pressed
-		{
-			if (move_frames >= 56)
+			break;
+		case LEFT_MOVE:
+			if (pad1 & PAD_LEFT) // only animate if the button is pressed
+			{
+				if (move_frames >= 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeft);
+				}
+				else if (move_frames >= 48 & move_frames < 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+				}
+				else if (move_frames >= 40 & move_frames < 48)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
+				}
+				else if (move_frames >= 32 & move_frames < 40)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+				}
+				else if (move_frames >= 24 & move_frames < 32)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeft);
+				}
+				else if (move_frames >= 16 & move_frames < 24)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+				}
+				else if (move_frames >= 8 & move_frames < 16)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
+				}
+				else if (move_frames < 8)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+				}
+			}
+			else // this is the idle non-moving sprite
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			}
-			else if (move_frames >= 48 & move_frames < 56)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-			}
-			else if (move_frames >= 40 & move_frames < 48)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
-			}
-			else if (move_frames >= 32 & move_frames < 40)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-			}
-			else if (move_frames >= 24 & move_frames < 32)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeft);
-			}
-			else if (move_frames >= 16 & move_frames < 24)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-			}
-			else if (move_frames >= 8 & move_frames < 16)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
-			}
-			else if (move_frames < 8)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-			}
-		}
-		else // this is the idle non-moving sprite
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprLeft);
-		}
 
-		break;
-	case UP_MOVE:
-		if (pad1 & PAD_UP) // only animate if the button is pressed
-		{
-			if (move_frames >= 56)
+			break;
+		case UP_MOVE:
+			if (pad1 & PAD_UP) // only animate if the button is pressed
+			{
+				if (move_frames >= 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUp);
+				}
+				else if (move_frames >= 48 & move_frames < 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
+				}
+				else if (move_frames >= 40 & move_frames < 48)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUp);
+				}
+				else if (move_frames >= 32 & move_frames < 40)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
+				}
+				else if (move_frames >= 24 & move_frames < 32)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUp);
+				}
+				else if (move_frames >= 16 & move_frames < 24)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
+				}
+				else if (move_frames >= 8 & move_frames < 16)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUp);
+				}
+				else if (move_frames < 8)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
+				}
+			}
+			else // this is the idle non-moving sprite
 			{
 				oam_meta_spr(player_x, player_y, PlayerSprUp);
 			}
-			else if (move_frames >= 48 & move_frames < 56)
+			break;
+		case RIGHT_MOVE:
+			if (pad1 & PAD_RIGHT) // only animate if the button is pressed
 			{
-				oam_meta_spr(player_x, player_y, PlayerSprUpThree);
+				if (move_frames >= 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRight);
+				}
+				else if (move_frames >= 48 & move_frames < 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+				}
+				else if (move_frames >= 40 & move_frames < 48)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFive);
+				}
+				else if (move_frames >= 32 & move_frames < 40)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+				}
+				else if (move_frames >= 24 & move_frames < 32)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRight);
+				}
+				else if (move_frames >= 16 & move_frames < 24)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+				}
+				else if (move_frames >= 8 & move_frames < 16)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightThree);
+				}
+				else if (move_frames < 8)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+				}
 			}
-			else if (move_frames >= 40 & move_frames < 48)
+			else // this is the idle non-moving sprite
 			{
-				oam_meta_spr(player_x, player_y, PlayerSprUp);
+				oam_meta_spr(player_x, player_y, PlayerSprRight);
 			}
-			else if (move_frames >= 32 & move_frames < 40)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
-			}
-			else if (move_frames >= 24 & move_frames < 32)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprUp);
-			}
-			else if (move_frames >= 16 & move_frames < 24)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprUpThree);
-			}
-			else if (move_frames >= 8 & move_frames < 16)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprUp);
-			}
-			else if (move_frames < 8)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
-			}
-		}
-		else // this is the idle non-moving sprite
-		{
+			break;
+		default:
 			oam_meta_spr(player_x, player_y, PlayerSprUp);
+			break;
 		}
-		break;
-	case RIGHT_MOVE:
-		if (pad1 & PAD_RIGHT) // only animate if the button is pressed
-		{
-			if (move_frames >= 56)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRight);
-			}
-			else if (move_frames >= 48 & move_frames < 56)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-			}
-			else if (move_frames >= 40 & move_frames < 48)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRightFive);
-			}
-			else if (move_frames >= 32 & move_frames < 40)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-			}
-			else if (move_frames >= 24 & move_frames < 32)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRight);
-			}
-			else if (move_frames >= 16 & move_frames < 24)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-			}
-			else if (move_frames >= 8 & move_frames < 16)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRightThree);
-			}
-			else if (move_frames < 8)
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-			}
-		}
-		else // this is the idle non-moving sprite
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprRight);
-		}
-		break;
-	default:
-		oam_meta_spr(player_x, player_y, PlayerSprUp);
-		break;
 	}
 #pragma endregion drawplayer
 
@@ -603,24 +614,43 @@ void draw_sprites(void)
 	}
 #pragma endregion room_sprites
 
+#pragma region hud_sprites
+	if (!item_found)
+	{
+		if (items_collected & ITEM_DUNGEON_GAME)
+		{
+			oam_meta_spr(0x10, 0x10, FloppyDisk125);
+		}
+	}
+#pragma endregion
+
 #pragma region special_sprites
 	if (which_bg == DUNGEON_GAME_ROOM)
 	{
 		// if the dungeon game isn't collected
 		if (!items_collected & ITEM_DUNGEON_GAME)
 		{
-			oam_meta_spr(DUNGEON_GAME_X, DUNGEON_GAME_Y, GamePrize97);
+			oam_meta_spr(DUNGEON_GAME_X, DUNGEON_GAME_Y, FloppyDisk125);
 		}
+	}
+
+
+	// display holding item status
+	if (item_found)
+	{
+		if (item_found == ITEM_DUNGEON_GAME)
+		{
+			// draw the sprite above the players head
+			oam_meta_spr(player_x, player_y - 16, FloppyDisk125);
+			collision_action = TALK_ITEM_1;
+		}
+		item_found = 0;
+		draw_talking();
 	}
 
 #pragma endregion
 
-#pragma region hud_sprites
-if (items_collected & ITEM_DUNGEON_GAME)
-		{
-			oam_meta_spr(0x10, 0x10, GamePrize97);
-		}
-#pragma endregion
+
 }
 
 void action(void)
@@ -796,9 +826,9 @@ void movement(void)
 
 	if (which_bg == DUNGEON_BLOCK_ROOM)
 	{
-		//make the block a little smaller before activating
-		Generic2.x = DUNGEON_BLOCK_X+7;
-		Generic2.y = DUNGEON_BLOCK_Y+7;
+		// make the block a little smaller before activating
+		Generic2.x = DUNGEON_BLOCK_X + 7;
+		Generic2.y = DUNGEON_BLOCK_Y + 7;
 		Generic2.width = 4;
 		Generic2.height = 4;
 		if ( // block_moved &&
@@ -814,13 +844,14 @@ void movement(void)
 
 	if (which_bg == DUNGEON_GAME_ROOM && (!items_collected & ITEM_DUNGEON_GAME))
 	{
-		Generic2.x = DUNGEON_GAME_X+7;
-		Generic2.y = DUNGEON_GAME_Y+7;
+		Generic2.x = DUNGEON_GAME_X + 7;
+		Generic2.y = DUNGEON_GAME_Y + 7;
 		Generic2.width = 1;
 		Generic2.height = 1;
 		if (check_collision(&Generic, &Generic2))
 		{
-			items_collected = items_collected | ITEM_DUNGEON_GAME; //pick up the item
+			items_collected = items_collected | ITEM_DUNGEON_GAME; // pick up the item
+			item_found = ITEM_DUNGEON_GAME;
 		}
 	}
 
@@ -1180,7 +1211,7 @@ void draw_hud(void)
 	one_vram_buffer(' ', NTADR_A(B_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 4));
-	one_vram_buffer(' ', NTADR_A(B_LOC + 1, 4));
+	one_vram_buffer('?', NTADR_A(B_LOC + 1, 4));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 4));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 5));
 	one_vram_buffer(' ', NTADR_A(B_LOC + 1, 5));
@@ -1222,8 +1253,9 @@ void draw_talking(void)
 	ppu_off();
 	game_mode = MODE_TALKING_TIME;
 
-	fade_out = 0;		 // don't fade bg for draw_bg for talking
-	display_hud = 0; // don't draw hud for draw_bg for talking
+	bg_fade_out = 0;			// don't fade bg for draw_bg for talking
+	bg_display_hud = 0;		// don't draw hud for draw_bg for talking
+	bg_clear_sprites = 0; // don't clear sprites for talking time
 	draw_bg();
 
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
@@ -1263,6 +1295,10 @@ void draw_talking(void)
 		pointer = locked_doors;
 		text_length = sizeof(locked_doors);
 		break;
+	case TALK_ITEM_1:
+		pointer = item_1;
+		text_length = sizeof(item_1);
+		break;
 	default:
 		pointer = blank_1;
 		text_length = sizeof(blank_1);
@@ -1282,7 +1318,7 @@ void initialize_title_screen(void)
 	draw_bg();
 	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 19));
 
-	multi_vram_buffer_horz(credits_1, sizeof(credits_1), NTADR_A(7, 24));
+	multi_vram_buffer_horz(credits_1, sizeof(credits_1), NTADR_A(11, 24));
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
 
