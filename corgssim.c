@@ -614,6 +614,13 @@ void draw_sprites(void)
 	}
 
 #pragma endregion
+
+#pragma region hud_sprites
+if (items_collected & ITEM_DUNGEON_GAME)
+		{
+			oam_meta_spr(0x10, 0x10, GamePrize97);
+		}
+#pragma endregion
 }
 
 void action(void)
@@ -1163,12 +1170,6 @@ void draw_timer(void)
 
 void draw_hud(void)
 {
-	// todo map:
-	one_vram_buffer('*', NTADR_A(2, 4));
-	one_vram_buffer('M', NTADR_A(3, 4));
-	one_vram_buffer('A', NTADR_A(4, 4));
-	one_vram_buffer('P', NTADR_A(5, 4));
-	one_vram_buffer('*', NTADR_A(6, 4));
 
 	// draw buttons B
 	one_vram_buffer(0xee, NTADR_A(B_LOC, 2));
@@ -1176,13 +1177,13 @@ void draw_hud(void)
 	one_vram_buffer(0xef, NTADR_A(B_LOC + 2, 2));
 
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 3));
-	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 3));
+	one_vram_buffer(' ', NTADR_A(B_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 4));
-	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 4));
+	one_vram_buffer(' ', NTADR_A(B_LOC + 1, 4));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 4));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 5));
-	one_vram_buffer(0x0, NTADR_A(B_LOC + 1, 5));
+	one_vram_buffer(' ', NTADR_A(B_LOC + 1, 5));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 5));
 	one_vram_buffer(0xfe, NTADR_A(B_LOC, 6));
 	one_vram_buffer(0xed, NTADR_A(B_LOC + 1, 6));
@@ -1193,13 +1194,13 @@ void draw_hud(void)
 	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
 	one_vram_buffer(0xef, NTADR_A(A_LOC + 2, 2));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 3));
-	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 3));
+	one_vram_buffer(' ', NTADR_A(A_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 3));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 4));
 	one_vram_buffer('$', NTADR_A(A_LOC + 1, 4));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 4));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 5));
-	one_vram_buffer(0x0, NTADR_A(A_LOC + 1, 5));
+	one_vram_buffer(' ', NTADR_A(A_LOC + 1, 5));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 5));
 	one_vram_buffer(0xfe, NTADR_A(A_LOC, 6));
 	one_vram_buffer(0xed, NTADR_A(A_LOC + 1, 6));
