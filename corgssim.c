@@ -152,7 +152,7 @@ void main(void)
 					bg_display_hud = 1; // draw the hud
 					draw_bg();
 					bg_fade_out = 1; // turn back on room fading
-					bg_clear_sprites = 1;
+					display_hud_sprites = 1; //turn back on hud sprites
 					ppu_on_all();
 				}
 			}
@@ -180,10 +180,7 @@ void draw_bg(void)
 	}
 
 	ppu_off(); // screen off
-	if (bg_clear_sprites)
-	{
-		oam_clear(); // clear all sprites
-	}
+	oam_clear(); // clear all sprites
 
 	set_mt_pointer(room_metatile_list[which_bg]);
 	pal_bg(room_palette_list[which_bg]);
@@ -615,11 +612,19 @@ void draw_sprites(void)
 #pragma endregion room_sprites
 
 #pragma region hud_sprites
-	if (!item_found)
+	if (display_hud_sprites)
 	{
 		if (items_collected & ITEM_DUNGEON_GAME)
 		{
 			oam_meta_spr(0x10, 0x10, FloppyDisk125);
+		}
+		if (items_collected & ITEM_SECOND_GAME)
+		{
+			oam_meta_spr(0x22, 0x10, GamePrize97);
+		}
+		if (items_collected & ITEM_THIRD_GAME)
+		{
+			oam_meta_spr(0x34, 0x10, CD126);
 		}
 	}
 #pragma endregion
@@ -627,13 +632,13 @@ void draw_sprites(void)
 #pragma region special_sprites
 	if (which_bg == DUNGEON_GAME_ROOM)
 	{
+
 		// if the dungeon game isn't collected
-		if (!items_collected & ITEM_DUNGEON_GAME)
+		if (!(items_collected & ITEM_DUNGEON_GAME))
 		{
 			oam_meta_spr(DUNGEON_GAME_X, DUNGEON_GAME_Y, FloppyDisk125);
 		}
 	}
-
 
 	// display holding item status
 	if (item_found)
@@ -649,8 +654,6 @@ void draw_sprites(void)
 	}
 
 #pragma endregion
-
-
 }
 
 void action(void)
@@ -842,7 +845,7 @@ void movement(void)
 		}
 	}
 
-	if (which_bg == DUNGEON_GAME_ROOM && (!items_collected & ITEM_DUNGEON_GAME))
+	if (which_bg == DUNGEON_GAME_ROOM && (!(items_collected & ITEM_DUNGEON_GAME)))
 	{
 		Generic2.x = DUNGEON_GAME_X + 7;
 		Generic2.y = DUNGEON_GAME_Y + 7;
@@ -1255,7 +1258,6 @@ void draw_talking(void)
 
 	bg_fade_out = 0;			// don't fade bg for draw_bg for talking
 	bg_display_hud = 0;		// don't draw hud for draw_bg for talking
-	bg_clear_sprites = 0; // don't clear sprites for talking time
 	draw_bg();
 
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
@@ -1267,6 +1269,9 @@ void draw_talking(void)
 	one_vram_buffer(0xfd, NTADR_A(30, 3));
 	one_vram_buffer(0xfd, NTADR_A(30, 4));
 	one_vram_buffer(0xfd, NTADR_A(30, 5));
+
+	display_hud_sprites = 0;
+	draw_sprites();
 
 	// set the pointer to the right dialog
 	switch (collision_action)

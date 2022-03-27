@@ -45,7 +45,7 @@
 
 
 
-#define STARTING_ROOM 23
+#define STARTING_ROOM 5
 
 // HUD stuff
 #define A_LOC 16
@@ -99,7 +99,9 @@ unsigned char player_y = 0x80;
 // b = other game
 // c = other game
 #define ITEM_DUNGEON_GAME 0x01
-unsigned char items_collected = 0;
+#define ITEM_SECOND_GAME 0x02
+#define ITEM_THIRD_GAME 0x04
+unsigned char items_collected = 0x06; //debug, start with some items
 unsigned char item_found = 0;
 
 struct Base {
@@ -165,7 +167,7 @@ unsigned char move_frames = 0;
 
 unsigned char bg_display_hud = 0;
 unsigned char bg_fade_out = 1;
-unsigned char bg_clear_sprites = 1;
+unsigned char display_hud_sprites = 1;
 
 //used for clock tick frame
 unsigned char frame = 0;
