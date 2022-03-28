@@ -209,7 +209,7 @@ enum
 
 enum{
 	CHOICE_PLAY_GAME
-}
+};
 
 #pragma bss-name(push, "BSS")
 
