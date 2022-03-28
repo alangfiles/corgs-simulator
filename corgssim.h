@@ -81,6 +81,9 @@ unsigned char text_rendered = 0;
 unsigned char text_length = 0;
 unsigned char text_row = 0;
 unsigned char text_col = 0;
+unsigned char text_decision = TURN_OFF;
+unsigned char text_action = 0;
+
 
 // dungeon block
 unsigned char push_timer = 0;
@@ -199,9 +202,14 @@ enum
 	MODE_PAUSE,
 	MODE_SWITCH,
 	MODE_TALKING_TIME,
+	MODE_DECISION_TIME,
 	MODE_END,
-	MODE_GAME_OVER
+	MODE_GAME_OVER,
 };
+
+enum{
+	CHOICE_PLAY_GAME
+}
 
 #pragma bss-name(push, "BSS")
 

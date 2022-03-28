@@ -1,14 +1,8 @@
-/*	example code for cc65, for NES
- *  move some sprites with the controllers
- *	using neslib
- *	Doug Fraker 2018
- */
-
 /*
 todo list:
 [] add in sounds and music (space concerns)
-[] add collectables (dungeon game)
 [] yes/no for talking time prompt
+[] add run out of time ending
 */
 
 #include "LIB/neslib.h"
@@ -85,16 +79,19 @@ void main(void)
 
 			if (pad1_new & (PAD_ALL_DIRECTIONS + PAD_A + PAD_B))
 			{
-				if(pad1_new & code[index]){ // the next item in the code is pressed
+				if (pad1_new & code[index])
+				{ // the next item in the code is pressed
 					++index;
-				} else {
+				}
+				else
+				{
 					index = 0; // reset the code
 				}
 			}
 			if (index == 10) // 10 correct inputs
 			{
 				code_active = 1;
-				//maybe flash the screen?
+				// maybe flash the screen?
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -116,9 +113,8 @@ void main(void)
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
-			// the following code draws 1 char per frame.
-			ppu_wait_nmi();		 // wait till beginning of the frame
-			countdown_timer(); // keep ticking the timer
+			ppu_wait_nmi();
+			countdown_timer(); // keep ticking the game timer
 
 			// temp1 = get_frame_count();
 			// temp1 = (temp1 >> 3);
@@ -136,45 +132,89 @@ void main(void)
 				}
 				++text_rendered;
 			}
-			if (text_row == 3)
+			if (text_row == 3) // if there's more than 1 page of
 			{
-				// draw last character as down arrow
-				//'&' is used in the chr as the down caret
-				one_vram_buffer('&', NTADR_A(15, 6));
+				one_vram_buffer('&', NTADR_A(15, 6)); //& = down caret
 			}
 
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
-			if (pad1_new & PAD_B)
+			if ((pad1_new & PAD_B) && text_row == 3)
 			{
+				// clear the old text
+				draw_talking();
+				// set text_row to 0
+				text_row = 0;
+			}
 
-				if (text_row == 3)
+			if ((text_rendered == text_length) && text_decision != TURN_OFF) // if there's a text decision
+			{
+				// draw the last row as yes/no
+				// 0xed is bottom bar
+				// 0x60 is arrow
+				if (text_decision == 0)
 				{
-					// clear the old text
-					draw_talking();
-					draw_sprites();
-					// set text_row to 0
-					text_row = 0;
+					one_vram_buffer(0x60, NTADR_A(10, 6));
+					one_vram_buffer(0xed, NTADR_A(18, 6));
+				}
+				else
+				{
+					one_vram_buffer(0xed, NTADR_A(10, 6));
+					one_vram_buffer(0x60, NTADR_A(18, 6));
 				}
 
-				if ((text_rendered == text_length)) // text finished, go back to game
+				one_vram_buffer('Y', NTADR_A(11, 6));
+				one_vram_buffer('E', NTADR_A(12, 6));
+				one_vram_buffer('S', NTADR_A(13, 6));
+
+				one_vram_buffer('N', NTADR_A(19, 6));
+				one_vram_buffer('O', NTADR_A(20, 6));
+			}
+
+			if (pad1_new & PAD_RIGHT)
+			{
+				text_decision = 1;
+			}
+			if (pad1_new & PAD_LEFT)
+			{
+				text_decision = 0;
+			}
+
+			if ((pad1_new & PAD_B) && (text_rendered == text_length))
+			{
+				ppu_off();
+
+				// handle talking actions here?
+				switch (text_action)
 				{
-					ppu_off();
-
-					// reset values
-					text_rendered = 0;
-					text_row = 0;
-					text_col = 0;
-					game_mode = MODE_GAME;
-
-					bg_display_hud = 1; // draw the hud
-					draw_bg();
-					bg_fade_out = 1;				 // turn back on room fading
-					display_hud_sprites = 1; // turn back on hud sprites
-					item_found = 0;					 // reset item found (in case we were in the item found mode)
-					ppu_on_all();
+				case CHOICE_PLAY_GAME:
+					if (text_decision == 0) // yes
+					{
+						game_mode = MODE_TITLE;
+						initialize_title_screen();
+						ppu_on_all(); // turn on screen
+					}
+					// if no, we just exit talking
+					break;
+				default:
+					break;
 				}
+
+				// text finished, go back to game
+
+				// reset values
+				text_rendered = 0;
+				text_row = 0;
+				text_col = 0;
+				game_mode = MODE_GAME;
+
+				bg_display_hud = 1; // draw the hud
+				draw_bg();
+				bg_fade_out = 1;				 // turn back on room fading
+				display_hud_sprites = 1; // turn back on hud sprites
+				item_found = 0;					 // reset item found (in case we were in the item found mode)
+				ppu_on_all();
 			}
 		}
 		while (game_mode == MODE_END)
@@ -1283,8 +1323,9 @@ void draw_talking(void)
 	ppu_off();
 	game_mode = MODE_TALKING_TIME;
 
-	bg_fade_out = 0;		// don't fade bg for draw_bg for talking
-	bg_display_hud = 0; // don't draw hud for draw_bg for talking
+	text_decision = TURN_OFF; // no text decisions
+	bg_fade_out = 0;					// don't fade bg for draw_bg for talking
+	bg_display_hud = 0;				// don't draw hud for draw_bg for talking
 	draw_bg();
 
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
@@ -1318,6 +1359,8 @@ void draw_talking(void)
 	case TALK_PLAY_GAME:
 		pointer = play_game_text;
 		text_length = sizeof(play_game_text);
+		text_decision = 0;
+		text_action = CHOICE_PLAY_GAME;
 		break;
 	case TALK_GAME:
 		pointer = game_1;
