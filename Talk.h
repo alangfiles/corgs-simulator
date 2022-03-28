@@ -23,7 +23,7 @@ const unsigned char guy_1[] =   "This game's better than the real thing";
 const unsigned char game_1[] =  "You found an old, dusty    game.";
 const unsigned char locked_doors[] =  "You hear the doors click   behind you, they're locked.";
 const unsigned char play_game_text[] = 
-                                "A corgs emulator game,     looks fun, do you want to  play? Maybe not, it'll probably take all day and not be that interesting.";
+                                "A corgs emulator game,     looks fun, do you want to  play?";
 
 
 //some texts I might want

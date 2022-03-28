@@ -185,12 +185,15 @@ void main(void)
 			{
 				ppu_off();
 
-				// handle talking actions here?
+				temp1 = 0; // using this to help handle actions
+
+				// handle talking actions
 				switch (text_action)
 				{
 				case CHOICE_PLAY_GAME:
 					if (text_decision == 0) // yes
 					{
+						temp1 = 1;
 						game_mode = MODE_TITLE;
 						initialize_title_screen();
 						ppu_on_all(); // turn on screen
@@ -203,18 +206,21 @@ void main(void)
 
 				// text finished, go back to game
 
-				// reset values
-				text_rendered = 0;
-				text_row = 0;
-				text_col = 0;
-				game_mode = MODE_GAME;
+				if (temp1 == 0) // we didn't exit before
+				{
+					// reset values
+					text_rendered = 0;
+					text_row = 0;
+					text_col = 0;
+					game_mode = MODE_GAME;
 
-				bg_display_hud = 1; // draw the hud
-				draw_bg();
-				bg_fade_out = 1;				 // turn back on room fading
-				display_hud_sprites = 1; // turn back on hud sprites
-				item_found = 0;					 // reset item found (in case we were in the item found mode)
-				ppu_on_all();
+					bg_display_hud = 1; // draw the hud
+					draw_bg();
+					bg_fade_out = 1;				 // turn back on room fading
+					display_hud_sprites = 1; // turn back on hud sprites
+					item_found = 0;					 // reset item found (in case we were in the item found mode)
+					ppu_on_all();
+				}
 			}
 		}
 		while (game_mode == MODE_END)
