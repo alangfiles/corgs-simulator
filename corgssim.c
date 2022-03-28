@@ -196,7 +196,7 @@ void main(void)
 						text_rendered = 0;
 						text_row = 0;
 						text_col = 0;
-						bg_display_hud = 1; // draw the hud
+						bg_display_hud = 0; // draw the hud
 						bg_fade_out = 1;				 // turn back on room fading
 						display_hud_sprites = 1; // turn back on hud sprites
 						item_found = 0;					 // reset item found (in case we were in the item found mode)
