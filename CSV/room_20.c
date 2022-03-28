@@ -15,3 +15,10 @@ const unsigned char room_20[]={
 7,4,4,4,4,4,4,0,0,4,4,4,4,4,4,8,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
+
+const unsigned char room_20_sprites[]={
+	182, 127, SPRITE_GlassesLeft31,
+	40, 96, SPRITE_BaldForward13,
+	
+	TURN_OFF
+};

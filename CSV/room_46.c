@@ -15,3 +15,8 @@ const unsigned char room_46[]={
 16,16,16,16,16,16,16,16,16,16,16,43,40,40,40,40,
 16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
 };
+
+const unsigned char room_46_sprites[]={
+	65, 92, SPRITE_King75,
+	TURN_OFF
+};

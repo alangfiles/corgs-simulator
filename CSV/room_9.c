@@ -16,12 +16,13 @@ const unsigned char room_9[]={
 13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,};
 
 const unsigned char room_9_sprites[]={
-	37, 90, SPRITE_BoyKid42,
+	48, 160, SPRITE_Car96,
+	80, 160, SPRITE_Car96,
+	176, 160, SPRITE_Car95,
+	160, 112, SPRITE_SkirtLady39,
+	37, 90, SPRITE_GirlKid47,
 	137,87, SPRITE_LunchLadyHead36,
 	144, 128, SPRITE_BaldBehind7,
-	144, 144, SPRITE_PrettyGirlBehindStand109,
-	144, 160, SPRITE_SkirtLady39,
-	144, 176, SPRITE_HairBehind10,
 	TURN_OFF
 };
 

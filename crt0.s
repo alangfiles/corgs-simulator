@@ -261,20 +261,19 @@ detectNTSC:
 .segment "RODATA"
 
 music_data:
-;	.include "MUSIC/songs.s"
+	.include "MUSIC/TestMusic3.s"
 
 
 
 	.if(FT_SFX_ENABLE)
 sounds_data:
-;	.include "sounds.s"
+	.include "MUSIC/SoundFx.s"
 	.endif
 
 	
 	
 .segment "SAMPLES"
 ;	.incbin "music_dpcm.bin"
-
 
 
 .segment "VECTORS"

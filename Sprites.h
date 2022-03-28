@@ -2,7 +2,10 @@
 enum{SPRITE_PlayerSprUp, SPRITE_ALAN92, SPRITE_BRIAN93, SPRITE_PunchoutMan112, SPRITE_PunchOutMat113, SPRITE_LunchLadyHead36, SPRITE_BaldRight22, 
 SPRITE_HairForward114, SPRITE_Banner99, SPRITE_BoyKid42, SPRITE_BaldBehind7, SPRITE_SkirtLady39, SPRITE_PrettyGirlBehindStand109, SPRITE_HairBehind10, 
  SPRITE_HatForward17, SPRITE_SideLadyRight86, SPRITE_WideBoyBehind120, SPRITE_SleepyGuyBehind123, SPRITE_BackTV101, SPRITE_HairRight27, SPRITE_BigNoseLeft84, 
- SPRITE_Wizard53, SPRITE_Car95, SPRITE_Car96, SPRITE_MUSCLEMAN0};
+ SPRITE_Wizard53, SPRITE_Car95, SPRITE_Car96, SPRITE_SkinnyHatMan49, SPRITE_GlassesLeft31, SPRITE_BaldForward13, SPRITE_GirlKid47, SPRITE_BlueBeard74, 
+ SPRITE_King75, SPRITE_BigNoseRight83, SPRITE_BaldTankBehind121, SPRITE_OldCoot63, SPRITE_GlassesRight33, SPRITE_HairRight28, SPRITE_SideLadyRight87,  
+ SPRITE_DressGirl61, SPRITE_MuscleMan0, SPRITE_MuscleMan1, SPRITE_MuscleMan2};
+ 
 #define TURN_OFF 0xff
 
 #pragma region playersprites
@@ -155,7 +158,7 @@ const unsigned char MuscleMan0[]={
 
 };
 
-const unsigned char Muscleman1[]={
+const unsigned char MuscleMan1[]={
 
 	  0,  0,0x62,2,
 	  0,  8,0x72,2,
@@ -620,7 +623,7 @@ const unsigned char SkinnyHatMan48[]={
 
 };
 
-const unsigned char SkinHatMan49[]={
+const unsigned char SkinnyHatMan49[]={
 
 	  0,  0,0xa2,2,
 	  0,  8,0xb2,2,
@@ -1429,6 +1432,35 @@ const unsigned char CD126[]={
 	  0,  8,0xda,3,
 	  8,  8,0xcb,3|OAM_FLIP_V,
 	128
+};
+
+const unsigned char Dollars127[]={
+
+	  0, 24,0x58,2,
+	  8, 24,0x59,2,
+	  0, 16,0x48,2,
+	  8, 16,0x49,2,
+	  0,  8,0x5a,2,
+	  8,  8,0x5b,2,
+	 16,- 8,0x4a,2,
+	  0,  0,0x59,2|OAM_FLIP_H|OAM_FLIP_V,
+	  8,  0,0x58,2|OAM_FLIP_H|OAM_FLIP_V,
+	128
+
+};
+
+const unsigned char Question128[]={
+
+	  0,  0,0x68,2,
+	  8,  0,0x69,2,
+	  0,  8,0x78,2,
+	  8,  8,0x79,2,
+	  0, 16,0x6a,2,
+	  8, 16,0x6b,2,
+	  0, 24,0x7a,2,
+	  8, 24,0x7b,2,
+	128
+
 };
 
 const unsigned char PlayerHead[]={

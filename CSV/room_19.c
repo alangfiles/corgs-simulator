@@ -19,8 +19,10 @@ const unsigned char room_19[]={
 const unsigned char room_19_sprites[]={
 	176, 80,  SPRITE_HatForward17,
 	80, 80, SPRITE_SideLadyRight86,
+	64, 80, SPRITE_SkinnyHatMan49,
 	48, 190, SPRITE_WideBoyBehind120,
 	80, 190, SPRITE_SleepyGuyBehind123,
 	176, 190, SPRITE_BaldBehind7,
+	
 	TURN_OFF
 };

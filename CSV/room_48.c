@@ -15,3 +15,8 @@ const unsigned char room_48[]={
 35,33,37,35,35,37,37,33,37,35,37,37,36,34,37,33,
 13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,
 };
+
+const unsigned char room_48_sprites[]={
+	84, 80, SPRITE_BlueBeard74,
+	TURN_OFF
+};

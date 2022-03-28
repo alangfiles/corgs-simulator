@@ -679,6 +679,54 @@ void draw_sprites(void)
 		case SPRITE_Car96:
 			sprites_anim[index2] = Car96;
 			break;
+		case SPRITE_SkinnyHatMan49:
+			sprites_anim[index2] = SkinnyHatMan49;
+			break;
+		case SPRITE_GlassesLeft31:
+			sprites_anim[index2] = GlassesLeft31;
+			break;	
+		case SPRITE_BaldForward13:
+			sprites_anim[index2] = BaldForward13;
+			break;	
+		case SPRITE_GirlKid47:
+			sprites_anim[index2] = GirlKid47;
+			break;	
+		case SPRITE_BlueBeard74:
+			sprites_anim[index2] = BlueBeard74;
+			break;	
+		case SPRITE_King75:
+			sprites_anim[index2] = King75;
+			break;	
+		case SPRITE_BigNoseRight83:
+			sprites_anim[index2] = BigNoseRight83;
+			break;	
+		case SPRITE_BaldTankBehind121:
+			sprites_anim[index2] = BaldTankBehind121;
+			break;	
+		case SPRITE_OldCoot63:
+			sprites_anim[index2] = OldCoot63;
+			break;		
+		case SPRITE_GlassesRight33:
+			sprites_anim[index2] = GlassesRight33;
+			break;
+		case SPRITE_HairRight28:
+			sprites_anim[index2] = HairRight28;
+			break;		
+		case SPRITE_SideLadyRight87:
+			sprites_anim[index2] = SideLadyRight87;
+			break;
+		case SPRITE_DressGirl61:
+			sprites_anim[index2] = DressGirl61;
+			break;
+		case SPRITE_MuscleMan0:
+			sprites_anim[index2] = MuscleMan0;
+			break;
+		case SPRITE_MuscleMan1:
+			sprites_anim[index2] = MuscleMan1;
+			break;
+		case SPRITE_MuscleMan2:
+			sprites_anim[index2] = MuscleMan2;
+			break;
 		default:
 			break;
 		}

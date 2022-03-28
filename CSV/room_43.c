@@ -15,3 +15,11 @@ const unsigned char room_43[]={
 7,4,4,4,4,4,4,0,0,4,4,7,4,4,4,8,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
+
+const unsigned char room_43_sprites[]={
+	32, 128, SPRITE_SideLadyRight87,
+	32, 144, SPRITE_HairRight27,
+	160, 112, SPRITE_DressGirl61,
+	TURN_OFF
+};
+

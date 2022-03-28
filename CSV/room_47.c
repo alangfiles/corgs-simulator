@@ -15,3 +15,9 @@ const unsigned char room_47[]={
 36,37,36,37,37,37,34,37,34,37,36,37,37,34,37,37,
 13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,
 };
+
+const unsigned char room_47_sprites[]={
+	80, 112, SPRITE_MuscleMan0,
+	144, 112, SPRITE_MuscleMan1,
+	TURN_OFF
+};

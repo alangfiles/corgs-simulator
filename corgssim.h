@@ -114,6 +114,11 @@ unsigned char player_y = 0x80;
 unsigned char items_collected = 0x06; //debug, start with some items
 unsigned char item_found = 0;
 
+unsigned char song;
+#define MAX_SONGS 2
+enum {SONG_GAME, SONG_PAUSE};
+enum {SFX_JUMP, SFX_DING, SFX_NOISE};
+
 struct Base {
 	unsigned char x;
 	unsigned char y;
