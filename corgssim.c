@@ -193,6 +193,14 @@ void main(void)
 				case CHOICE_PLAY_GAME:
 					if (text_decision == 0) // yes
 					{
+						text_rendered = 0;
+						text_row = 0;
+						text_col = 0;
+						bg_display_hud = 1; // draw the hud
+						bg_fade_out = 1;				 // turn back on room fading
+						display_hud_sprites = 1; // turn back on hud sprites
+						item_found = 0;					 // reset item found (in case we were in the item found mode)
+						
 						temp1 = 1;
 						game_mode = MODE_TITLE;
 						initialize_title_screen();
@@ -212,9 +220,11 @@ void main(void)
 					text_rendered = 0;
 					text_row = 0;
 					text_col = 0;
+					bg_display_hud = 1; // draw the hud
+
 					game_mode = MODE_GAME;
 
-					bg_display_hud = 1; // draw the hud
+					
 					draw_bg();
 					bg_fade_out = 1;				 // turn back on room fading
 					display_hud_sprites = 1; // turn back on hud sprites
