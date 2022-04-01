@@ -52,7 +52,7 @@ const unsigned char code[]={
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 10
+#define STARTING_ROOM 47
 
 // HUD stuff
 #define A_LOC 16

@@ -196,11 +196,11 @@ void main(void)
 						text_rendered = 0;
 						text_row = 0;
 						text_col = 0;
-						bg_display_hud = 0; // draw the hud
+						bg_display_hud = 0;			 // draw the hud
 						bg_fade_out = 1;				 // turn back on room fading
 						display_hud_sprites = 1; // turn back on hud sprites
 						item_found = 0;					 // reset item found (in case we were in the item found mode)
-						
+
 						temp1 = 1;
 						game_mode = MODE_TITLE;
 						initialize_title_screen();
@@ -224,7 +224,6 @@ void main(void)
 
 					game_mode = MODE_GAME;
 
-					
 					draw_bg();
 					bg_fade_out = 1;				 // turn back on room fading
 					display_hud_sprites = 1; // turn back on hud sprites
@@ -684,34 +683,34 @@ void draw_sprites(void)
 			break;
 		case SPRITE_GlassesLeft31:
 			sprites_anim[index2] = GlassesLeft31;
-			break;	
+			break;
 		case SPRITE_BaldForward13:
 			sprites_anim[index2] = BaldForward13;
-			break;	
+			break;
 		case SPRITE_GirlKid47:
 			sprites_anim[index2] = GirlKid47;
-			break;	
+			break;
 		case SPRITE_BlueBeard74:
 			sprites_anim[index2] = BlueBeard74;
-			break;	
+			break;
 		case SPRITE_King75:
 			sprites_anim[index2] = King75;
-			break;	
+			break;
 		case SPRITE_BigNoseRight83:
 			sprites_anim[index2] = BigNoseRight83;
-			break;	
+			break;
 		case SPRITE_BaldTankBehind121:
 			sprites_anim[index2] = BaldTankBehind121;
-			break;	
+			break;
 		case SPRITE_OldCoot63:
 			sprites_anim[index2] = OldCoot63;
-			break;		
+			break;
 		case SPRITE_GlassesRight33:
 			sprites_anim[index2] = GlassesRight33;
 			break;
 		case SPRITE_HairRight28:
 			sprites_anim[index2] = HairRight28;
-			break;		
+			break;
 		case SPRITE_SideLadyRight87:
 			sprites_anim[index2] = SideLadyRight87;
 			break;
@@ -768,22 +767,22 @@ void draw_sprites(void)
 			break;
 		case SPRITE_HairBehind11:
 			sprites_anim[index2] = HairBehind11;
-			break;	
+			break;
 		case SPRITE_DressGirl60:
 			sprites_anim[index2] = DressGirl60;
-			break;		
+			break;
 		case SPRITE_GlassesRight35:
 			sprites_anim[index2] = GlassesRight35;
-			break;			
+			break;
 		case SPRITE_SkirtLady40:
 			sprites_anim[index2] = SkirtLady40;
-			break;	
+			break;
 		case SPRITE_LunchLady37:
 			sprites_anim[index2] = LunchLady37;
-			break;	
+			break;
 		case SPRITE_HairFront129:
 			sprites_anim[index2] = HairFront129;
-			break;	
+			break;
 		default:
 			break;
 		}
@@ -796,7 +795,6 @@ void draw_sprites(void)
 	{
 		oam_meta_spr(0x68, 0x1D, Question128);
 		oam_meta_spr(0x88, 0x1D, Dollars127);
-		
 
 		if (items_collected & ITEM_DUNGEON_GAME)
 		{
@@ -1306,6 +1304,12 @@ void change_room_right()
 	player_x = PLAYER_LEFT_EDGE;
 	++which_bg;
 
+	if (which_bg == 46) // exit-cliffs
+	{
+		bg_display_hud = 1;
+		display_hud_sprites = 1;
+	}
+
 	draw_bg();
 }
 
@@ -1313,6 +1317,13 @@ void change_room_left()
 {
 	player_x = PLAYER_RIGHT_EDGE;
 	--which_bg;
+
+	if (which_bg == 45) // cliffs
+	{
+		// maybe these 2 vars do the same thing?
+		bg_display_hud = 0;
+		display_hud_sprites = 0;
+	}
 
 	draw_bg();
 }
@@ -1384,12 +1395,15 @@ void countdown_timer(void)
 
 void draw_timer(void)
 {
-	if (game_mode == MODE_GAME)
+	if (game_mode == MODE_GAME) // todo: probably don't need this check?
 	{
-		one_vram_buffer(48 + minutes_left, NTADR_A(23, 3));
-		one_vram_buffer(':', NTADR_A(24, 3));
-		one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 3));
-		one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 3));
+		if (display_hud_sprites == 1)
+		{
+			one_vram_buffer(48 + minutes_left, NTADR_A(23, 3));
+			one_vram_buffer(':', NTADR_A(24, 3));
+			one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 3));
+			one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 3));
+		}
 	}
 }
 
@@ -1402,13 +1416,13 @@ void draw_hud(void)
 	one_vram_buffer(0xef, NTADR_A(B_LOC + 2, 2));
 
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 3));
-	//one_vram_buffer(' ', NTADR_A(B_LOC + 1, 3));
+	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 4));
-	//one_vram_buffer(' ', NTADR_A(B_LOC + 1, 4));
+	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 4));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 4));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 5));
-	//one_vram_buffer(' ', NTADR_A(B_LOC + 1, 5));
+	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 5));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 5));
 	one_vram_buffer(0xfe, NTADR_A(B_LOC, 6));
 	one_vram_buffer(0xed, NTADR_A(B_LOC + 1, 6));
