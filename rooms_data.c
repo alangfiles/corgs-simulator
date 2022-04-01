@@ -7,6 +7,7 @@
 #include "CSV/room_8.c"
 #include "CSV/room_9.c"
 #include "CSV/room_10.c"
+#include "CSV/room_11.c"
 #include "CSV/room_12.c"
 #include "CSV/room_13.c"
 #include "CSV/room_14.c"
@@ -332,7 +333,7 @@ const unsigned char title_collision[] = {
 const unsigned char * const collision_list[]={
   title_collision,0,outside_collision,outside_collision,outside_collision,
   trans_collision,title_collision,outside_collision,outside_collision,outside_collision,
-  0,outside_collision,outside_collision,trans_collision,outside_collision,
+  trans_collision,outside_collision,outside_collision,trans_collision,outside_collision,
   0,0,inside_collision,inside_collision,inside_collision,
   0,0,inside_collision,inside_collision,inside_collision,
   0,0,inside_collision,0,0,
@@ -345,7 +346,7 @@ const unsigned char * const collision_list[]={
 const unsigned char * const room_list[]={
 	room_1,blank,room_3,room_4,room_5,
   room_6,room_1,room_8,room_9,room_10,
-  blank,room_12,room_13,room_14,room_15,
+  room_11,room_12,room_13,room_14,room_15,
   blank,blank,room_18,room_19,room_20,
   blank,blank,room_23,room_24,room_25,
   blank,blank,room_28,blank,blank,
@@ -398,7 +399,7 @@ const unsigned char * const room_palette_list[]={
 const unsigned char * const room_metatile_list[]={
   title_metatiles,0,outside_metatiles,outside_metatiles,outside_metatiles,
   trans_metatiles,title_metatiles,outside_metatiles,outside_metatiles,outside_metatiles,
-  0,outside_metatiles,outside_metatiles,trans_metatiles,outside_metatiles,
+  trans_metatiles,outside_metatiles,outside_metatiles,trans_metatiles,outside_metatiles,
   0,0,inside_metatiles,inside_metatiles,inside_metatiles,
   0,0,inside_metatiles,inside_metatiles,inside_metatiles,
   0,0,inside_metatiles,0,0,
