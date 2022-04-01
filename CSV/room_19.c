@@ -20,9 +20,11 @@ const unsigned char room_19_sprites[]={
 	176, 80,  SPRITE_HatForward17,
 	80, 80, SPRITE_SideLadyRight86,
 	64, 80, SPRITE_SkinnyHatMan49,
-	48, 190, SPRITE_WideBoyBehind120,
-	80, 190, SPRITE_SleepyGuyBehind123,
-	176, 190, SPRITE_BaldBehind7,
+	48, 184, SPRITE_WideBoyBehind120,
+	80, 184, SPRITE_SleepyGuyBehind123,
+	176, 184, SPRITE_BaldBehind7,
+	32, 112, SPRITE_DressGirl60,
+	160, 160, SPRITE_HairFront129,
 	
 	TURN_OFF
 };

@@ -634,8 +634,8 @@ void draw_sprites(void)
 		case SPRITE_Banner99:
 			sprites_anim[index2] = Banner99;
 			break;
-		case SPRITE_BoyKid42:
-			sprites_anim[index2] = BoyKid42;
+		case SPRITE_BoyKid44:
+			sprites_anim[index2] = BoyKid44;
 			break;
 		case SPRITE_BaldBehind7:
 			sprites_anim[index2] = BaldBehind7;
@@ -727,10 +727,66 @@ void draw_sprites(void)
 		case SPRITE_MuscleMan2:
 			sprites_anim[index2] = MuscleMan2;
 			break;
+		case SPRITE_Girl4:
+			sprites_anim[index2] = Girl4;
+			break;
+		case SPRITE_FroGuy55:
+			sprites_anim[index2] = FroGuy55;
+			break;
+		case SPRITE_WideBoy69:
+			sprites_anim[index2] = WideBoy69;
+			break;
+		case SPRITE_HatBehind117:
+			sprites_anim[index2] = HatBehind117;
+			break;
+		case SPRITE_Ghost65:
+			sprites_anim[index2] = Ghost65;
+			break;
+		case SPRITE_CostumeMan58:
+			sprites_anim[index2] = CostumeMan58;
+			break;
+		case SPRITE_Wizard52:
+			sprites_anim[index2] = Wizard52;
+			break;
+		case SPRITE_SideLadyLeft90:
+			sprites_anim[index2] = SideLadyLeft90;
+			break;
+		case SPRITE_BeardSideManLeft79:
+			sprites_anim[index2] = BeardSideManLeft79;
+			break;
+		case SPRITE_HairBehind9:
+			sprites_anim[index2] = HairBehind9;
+			break;
+		case SPRITE_BaldBehind6:
+			sprites_anim[index2] = BaldBehind6;
+			break;
+		case SPRITE_HairLeft24:
+			sprites_anim[index2] = HairLeft24;
+			break;
+		case SPRITE_Ghost66:
+			sprites_anim[index2] = Ghost66;
+			break;
+		case SPRITE_HairBehind11:
+			sprites_anim[index2] = HairBehind11;
+			break;	
+		case SPRITE_DressGirl60:
+			sprites_anim[index2] = DressGirl60;
+			break;		
+		case SPRITE_GlassesRight35:
+			sprites_anim[index2] = GlassesRight35;
+			break;			
+		case SPRITE_SkirtLady40:
+			sprites_anim[index2] = SkirtLady40;
+			break;	
+		case SPRITE_LunchLady37:
+			sprites_anim[index2] = LunchLady37;
+			break;	
+		case SPRITE_HairFront129:
+			sprites_anim[index2] = HairFront129;
+			break;	
 		default:
 			break;
 		}
-
 		oam_meta_spr(temp1, temp2, sprites_anim[index2]);
 	}
 #pragma endregion room_sprites
@@ -738,6 +794,10 @@ void draw_sprites(void)
 #pragma region hud_sprites
 	if (display_hud_sprites)
 	{
+		oam_meta_spr(0x68, 0x1D, Question128);
+		oam_meta_spr(0x88, 0x1D, Dollars127);
+		
+
 		if (items_collected & ITEM_DUNGEON_GAME)
 		{
 			oam_meta_spr(0x10, 0x10, FloppyDisk125);
@@ -1342,13 +1402,13 @@ void draw_hud(void)
 	one_vram_buffer(0xef, NTADR_A(B_LOC + 2, 2));
 
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 3));
-	one_vram_buffer(' ', NTADR_A(B_LOC + 1, 3));
+	//one_vram_buffer(' ', NTADR_A(B_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 3));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 4));
-	one_vram_buffer('?', NTADR_A(B_LOC + 1, 4));
+	//one_vram_buffer(' ', NTADR_A(B_LOC + 1, 4));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 4));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC, 5));
-	one_vram_buffer(' ', NTADR_A(B_LOC + 1, 5));
+	//one_vram_buffer(' ', NTADR_A(B_LOC + 1, 5));
 	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 5));
 	one_vram_buffer(0xfe, NTADR_A(B_LOC, 6));
 	one_vram_buffer(0xed, NTADR_A(B_LOC + 1, 6));
@@ -1362,7 +1422,7 @@ void draw_hud(void)
 	one_vram_buffer(' ', NTADR_A(A_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 3));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 4));
-	one_vram_buffer('$', NTADR_A(A_LOC + 1, 4));
+	one_vram_buffer(' ', NTADR_A(A_LOC + 1, 4));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 4));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 5));
 	one_vram_buffer(' ', NTADR_A(A_LOC + 1, 5));

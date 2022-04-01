@@ -18,5 +18,14 @@ const unsigned char room_48[]={
 
 const unsigned char room_48_sprites[]={
 	84, 80, SPRITE_BlueBeard74,
+	224, 80, SPRITE_LunchLady37,
+	TURN_OFF
+};
+
+const unsigned char room_48_talk[]={
+	84, 0x78, TALK_ALAN,
+	0x88, 0x78, TALK_BRIAN,
+	0x68, 0x88, TALK_GUY,
+	0x98, 0x78, TALK_PLAY_GAME,
 	TURN_OFF
 };

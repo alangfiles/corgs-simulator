@@ -365,7 +365,7 @@ const unsigned char * const talk_list[]={
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,room_48_talk,blank_talk,blank_talk,
 };
 
 const unsigned char * const sprite_list[]={
@@ -373,7 +373,7 @@ const unsigned char * const sprite_list[]={
   blank_sprites,blank_sprites,blank_sprites,room_9_sprites,blank_sprites,
   blank_sprites,blank_sprites,blank_sprites,room_14_sprites,blank_sprites,
   blank_sprites,blank_sprites,room_18_sprites,room_19_sprites,room_20_sprites,
-  blank_sprites,blank_sprites,room_23_sprites,room_24_sprites,blank_sprites,
+  blank_sprites,blank_sprites,room_23_sprites,room_24_sprites,room_25_sprites,
   blank_sprites,blank_sprites,room_28_sprites,blank_sprites,blank_sprites,
   blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
   blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,

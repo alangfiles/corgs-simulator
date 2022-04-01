@@ -15,3 +15,17 @@ const unsigned char room_25[]={
 7,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
+
+const unsigned char room_25_sprites[]={
+	32, 112, SPRITE_Ghost65, 
+	64, 96, SPRITE_Ghost66,
+	80, 112, SPRITE_CostumeMan58,
+	48, 96, SPRITE_Wizard52,
+	224, 112, SPRITE_SideLadyLeft90,
+	224, 160, SPRITE_BeardSideManLeft79,
+	144, 184, SPRITE_HairBehind9,
+	96, 184, SPRITE_BaldBehind6,
+	56, 144, SPRITE_HairBehind11,
+	
+	TURN_OFF
+};

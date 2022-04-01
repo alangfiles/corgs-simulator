@@ -21,5 +21,6 @@ const unsigned char room_14_sprites[]={
 	48,80, SPRITE_Car95,
 	160, 80, SPRITE_Car96,
 	192, 80, SPRITE_Car95,
+	68, 123, SPRITE_BoyKid44,
 	TURN_OFF
 };
