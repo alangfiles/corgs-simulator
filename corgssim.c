@@ -1,7 +1,12 @@
 /*
 todo list:
-[] add in sounds and music (space concerns)
-[] yes/no for talking time prompt
+[x] add in sounds and music (space concerns)
+[x] yes/no for talking time prompt
+[] clean up vars
+[] error bounds for cliff walking into water?
+[] add talking
+[] add pipe level / jumping
+[] switch cd for atari cart? add robineete message and . on screen?
 [] add run out of time ending
 */
 
