@@ -1,14 +1,40 @@
 /*
-todo list:
-[] clean up vars
-[] error bounds for cliff walking into water? 
-[] add talking
-[] add pipe level / jumping
-[] switch cd for atari cart? add robineete message and . on screen?
+need for launch:
+[] bug:character clipping left and right oddly, maybe make him smaller vertically too
+[] add more talking, lots of talking
 [] add run out of time ending
-[] character clipping left and right oddly, maybe make him smaller vertically too
-[] remove money sprite when changing rooms
+[] warp toliets (make sprite walkable + changeroom code)
+[] add dungeon pushblock
+[x] special overlay sprites that you walk behind
+[] actual music and sfx
 
+
+music:
+[] main game music
+[] title tune
+
+sfx:
+[] contra theme
+[] jump sound
+[] money hitting things
+[] zelda block
+[] mario 
+
+mini games:
+[] do reps with the brahs
+[] add robineete message and . on screen?
+[] add pipe level / jumping
+[] rpg battle
+[] battle with game jobbies
+
+fun list:
+[] add guys to title screen
+[] more yes/no actions
+[] money sprite explodes on things
+[] add intro screen (in the year 20XX)
+[] clean up vars
+[] clean up sprites
+[x] bug: remove money sprite when changing rooms
 */ 
  
 #include "LIB/neslib.h"
@@ -44,6 +70,7 @@ void main(void)
 		while (game_mode == MODE_TITLE)
 		{
 			ppu_wait_nmi();
+			
 
 			// rotate colors
 			temp1 = get_frame_count();
@@ -57,10 +84,13 @@ void main(void)
 
 			if (pad1_new & PAD_START)
 			{
+				song = SONG_GAME;
+				music_play(song);
 
 				if (code_active == 1)
 				{
 					// play sound
+					
 				}
 				// initialize game mode:
 				pal_fade_to(4, 0); // fade to black
@@ -98,10 +128,12 @@ void main(void)
 			{
 				code_active = 1;
 				// maybe flash the screen?
+				sfx_play(SFX_JUMP, 0);
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
 		{
+			set_music_speed(8);
 			ppu_wait_nmi();		 // wait till beginning of the frame
 			countdown_timer(); // keep ticking the timer
 
@@ -262,6 +294,10 @@ void draw_bg(void)
 
 	ppu_off();	 // screen off
 	oam_clear(); // clear all sprites
+	//remove money sprite
+	shot_x = -4;
+	shot_y = -4;
+	
 
 	set_mt_pointer(room_metatile_list[which_bg]);
 	pal_bg(room_palette_list[which_bg]);
@@ -400,6 +436,14 @@ void draw_sprites(void)
 	}
 	// clear all sprites from sprite buffer
 	oam_clear();
+
+//draw one time srpites
+#pragma region foregroundSprites
+if (which_bg==13)
+{
+	oam_meta_spr(108, 160, Banner99);
+}
+#pragma endregion
 
 #pragma region drawplayer
 	if (item_found) // special player sprite used if item found
