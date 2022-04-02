@@ -1,15 +1,16 @@
 /*
 todo list:
-[x] add in sounds and music (space concerns)
-[x] yes/no for talking time prompt
 [] clean up vars
-[] error bounds for cliff walking into water?
+[] error bounds for cliff walking into water? 
 [] add talking
 [] add pipe level / jumping
 [] switch cd for atari cart? add robineete message and . on screen?
 [] add run out of time ending
-*/
+[] character clipping left and right oddly, maybe make him smaller vertically too
+[] remove money sprite when changing rooms
 
+*/ 
+ 
 #include "LIB/neslib.h"
 #include "LIB/nesdoug.h"
 #include "Sprites.h" // holds our metasprite data
@@ -1516,6 +1517,10 @@ void draw_talking(void)
 	case TALK_ITEM_1:
 		pointer = item_1;
 		text_length = sizeof(item_1);
+		break;
+	case TALK_KING:
+		pointer = talk_king;
+		text_length = sizeof(talk_king);
 		break;
 	default:
 		pointer = blank_1;

@@ -366,7 +366,7 @@ const unsigned char * const talk_list[]={
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,room_48_talk,blank_talk,blank_talk,
+  room_46_talk,blank_talk,room_48_talk,blank_talk,blank_talk,
 };
 
 const unsigned char * const sprite_list[]={

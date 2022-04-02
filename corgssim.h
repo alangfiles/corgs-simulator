@@ -34,7 +34,7 @@
 
 #define PLAYER_HEIGHT 12
 #define PLAYER_WIDTH 12
-#define PLAYER_OFFSET 2 //offset the player sprite so it's not aligned with the left side
+#define PLAYER_OFFSET 4 //offset the player sprite so it's not aligned with the left side
 
 
 /* special locations for special things */

@@ -8,6 +8,7 @@ enum
   TALK_PLAY_GAME,
   TALK_LOCKED_DOORS,
   TALK_ITEM_1,
+  TALK_KING
 };
 
 // we only have limited space to display, so here's the template for strings:
@@ -22,8 +23,9 @@ const unsigned char brian_1[] = "Alan's to blame for the    programming";
 const unsigned char guy_1[] =   "This game's better than the real thing";
 const unsigned char game_1[] =  "You found an old, dusty    game.";
 const unsigned char locked_doors[] =  "You hear the doors click   behind you, they're locked.";
-const unsigned char play_game_text[] = 
-                                "A corgs emulator game,     looks fun, do you want to  play?";
+const unsigned char play_game_text[] = "A corgs emulator game,     looks fun, do you want to  play?";
+const unsigned char talk_king[] = "I'm the king of video games, but I enjoy nature too.";
+
 
 
 //some texts I might want
