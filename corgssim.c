@@ -8,19 +8,8 @@ need for launch:
 [x] special overlay sprites that you walk behind
 [] actual music and sfx
 
-
-music:
-[] main game music
-[] title tune
-
-sfx:
-[] contra theme
-[] jump sound
-[] money hitting things
-[] zelda block
-[] mario 
-
 mini games:
+[] fetch quest
 [] do reps with the brahs
 [] add robineete message and . on screen?
 [] add pipe level / jumping
@@ -29,12 +18,28 @@ mini games:
 
 fun list:
 [] add guys to title screen
+[] infinite hallway
 [] more yes/no actions
 [] money sprite explodes on things
 [] add intro screen (in the year 20XX)
 [] clean up vars
 [] clean up sprites
 [x] bug: remove money sprite when changing rooms
+
+music:
+[] main game music
+[] title tune
+[] king of video games tune
+
+sfx:
+[] contra theme
+[] jump sound
+[] money hitting things
+[] zelda block
+[] mario 
+[] warp noise
+[] coin noise
+
 */ 
  
 #include "LIB/neslib.h"
@@ -85,7 +90,7 @@ void main(void)
 			if (pad1_new & PAD_START)
 			{
 				song = SONG_GAME;
-				music_play(song);
+				//music_play(song);
 
 				if (code_active == 1)
 				{
