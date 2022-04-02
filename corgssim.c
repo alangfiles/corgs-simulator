@@ -163,7 +163,7 @@ void main(void)
 			// temp1 = (temp1 >> 3);
 
 			// draw text
-			if (text_rendered != text_length && text_row < 3)
+			if (text_rendered != text_length-1 && text_row < 3)
 			{
 				one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
 				++text_col;
