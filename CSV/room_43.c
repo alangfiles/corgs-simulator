@@ -23,3 +23,10 @@ const unsigned char room_43_sprites[]={
 	TURN_OFF
 };
 
+const unsigned char room_43_talk[]={
+	32, 128, TALK_LOCATION,
+	32, 144, TALK_EBAY,
+	32, 144, TALK_PLUMBER,
+	TURN_OFF
+};
+

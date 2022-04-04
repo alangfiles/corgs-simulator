@@ -6,7 +6,8 @@ SPRITE_HairForward114, SPRITE_Banner99, SPRITE_BoyKid44, SPRITE_BaldBehind7, SPR
  SPRITE_King75, SPRITE_BigNoseRight83, SPRITE_BaldTankBehind121, SPRITE_OldCoot63, SPRITE_GlassesRight33, SPRITE_HairRight28, SPRITE_SideLadyRight87,  
  SPRITE_DressGirl61, SPRITE_MuscleMan0, SPRITE_MuscleMan1, SPRITE_MuscleMan2, SPRITE_Girl4, SPRITE_FroGuy55, SPRITE_WideBoy69, SPRITE_HatBehind117,
  SPRITE_Ghost65, SPRITE_CostumeMan58, SPRITE_Wizard52, SPRITE_SideLadyLeft90, SPRITE_BeardSideManLeft79, SPRITE_HairBehind9, SPRITE_BaldBehind6, SPRITE_HairLeft24,
- SPRITE_Ghost66, SPRITE_HairBehind11, SPRITE_DressGirl60, SPRITE_GlassesRight35, SPRITE_SkirtLady40, SPRITE_LunchLady37, SPRITE_HairFront129};
+ SPRITE_Ghost66, SPRITE_HairBehind11, SPRITE_DressGirl60, SPRITE_GlassesRight35, SPRITE_SkirtLady40, SPRITE_LunchLady37, SPRITE_HairFront129, SPRITE_Girl3, 
+ SPRITE_BaldBehind8, SRPITE_BaldLeft18, SPRITE_BaldLeft18, SPRITE_BaldTank73};
  
 #define TURN_OFF 0xff
 

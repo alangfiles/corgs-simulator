@@ -838,12 +838,24 @@ if (which_bg==13)
 		case SPRITE_HairFront129:
 			sprites_anim[index2] = HairFront129;
 			break;
+		case SPRITE_Girl3:
+			sprites_anim[index2] = Girl3;
+			break;
+		case SPRITE_BaldBehind8:
+			sprites_anim[index2] = BaldBehind8;
+			break;
+		case SPRITE_BaldLeft18:
+			sprites_anim[index2] = BaldLeft18;
+			break;
+		case SPRITE_BaldTank73:
+			sprites_anim[index2] = BaldTank73;
+			break;	
 		default:
 			break;
 		}
 		oam_meta_spr(temp1, temp2, sprites_anim[index2]);
 	}
-#pragma endregion room_sprites
+#pragma endregion room_sprites  
 
 #pragma region hud_sprites
 	if (display_hud_sprites)
@@ -1571,6 +1583,50 @@ void draw_talking(void)
 		pointer = talk_king;
 		text_length = sizeof(talk_king);
 		break;
+	case TALK_SMOKE:
+		pointer = talk_smoke;
+		text_length = sizeof(talk_smoke);
+		break;
+	case TALK_BATHROOM:
+		pointer = talk_bathroom;
+		text_length = sizeof(talk_bathroom);
+		break;	
+	case TALK_HOTDOG:
+		pointer = talk_hotdog;
+		text_length = sizeof(talk_hotdog);
+		break;
+	case TALK_FOOD:
+		pointer = talk_food;
+		text_length = sizeof(talk_food);
+		break;
+	case TALK_BUSH:
+		pointer = talk_bush;
+		text_length = sizeof(talk_bush);
+		break;	
+	case TALK_NINTENDO:
+		pointer = talk_nintendo;
+		text_length = sizeof(talk_nintendo);
+		break;
+	case TALK_BUY:
+		pointer = talk_buy;
+		text_length = sizeof(talk_buy);
+		break;				
+	case TALK_PRINCESS:
+		pointer = talk_princess;
+		text_length = sizeof(talk_princess);
+		break;	
+	case TALK_PLUMBER:
+		pointer = talk_plumber;
+		text_length = sizeof(talk_plumber);
+		break;			
+	case TALK_LOCATION:
+		pointer = talk_location;
+		text_length = sizeof(talk_location);
+		break;	
+	case TALK_EBAY:
+		pointer = talk_ebay;
+		text_length = sizeof(talk_ebay);
+		break;		
 	default:
 		pointer = blank_1;
 		text_length = sizeof(blank_1);

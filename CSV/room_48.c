@@ -23,9 +23,7 @@ const unsigned char room_48_sprites[]={
 };
 
 const unsigned char room_48_talk[]={
-	84, 0x78, TALK_ALAN,
-	0x88, 0x78, TALK_BRIAN,
-	0x68, 0x88, TALK_GUY,
-	0x98, 0x78, TALK_PLAY_GAME,
+	84, 80, TALK_SMOKE,
+	
 	TURN_OFF
 };

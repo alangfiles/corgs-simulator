@@ -357,15 +357,15 @@ const unsigned char * const room_list[]={
 };
 
 const unsigned char * const talk_list[]={
-	blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+	blank_talk,blank_talk,blank_talk,blank_talk,room_5_talk,
+  blank_talk,blank_talk,blank_talk,room_9_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,room_18_talk,room_19_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,room_18_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,room_43_talk,blank_talk,blank_talk,
   room_46_talk,blank_talk,room_48_talk,blank_talk,blank_talk,
 };
 

@@ -26,6 +26,8 @@ const unsigned char room_25_sprites[]={
 	144, 184, SPRITE_HairBehind9,
 	96, 184, SPRITE_BaldBehind6,
 	56, 144, SPRITE_HairBehind11,
+	192, 144, SPRITE_GlassesRight33,
+	128,160, SPRITE_Girl3,
 	
 	TURN_OFF
 };

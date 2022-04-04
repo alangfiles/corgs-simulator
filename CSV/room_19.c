@@ -25,6 +25,16 @@ const unsigned char room_19_sprites[]={
 	176, 184, SPRITE_BaldBehind7,
 	32, 112, SPRITE_DressGirl60,
 	160, 160, SPRITE_HairFront129,
+	64, 160, SPRITE_BaldTank73,
+	
+	TURN_OFF
+};
+
+const unsigned char room_19_talk[]={
+	176, 80,  TALK_BUY,
+	
+	32, 112, TALK_BUSH,
+	
 	
 	TURN_OFF
 };

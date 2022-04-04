@@ -27,5 +27,12 @@ const unsigned char room_9_sprites[]={
 };
 
 const unsigned char room_9_talk[]={
+	
+	
+	
+	160, 112, TALK_PRINCESS,
+	37, 90, TALK_NINTENDO,
+	137,95, TALK_HOTDOG,
+	144, 128, TALK_FOOD,
 	TURN_OFF
 };
