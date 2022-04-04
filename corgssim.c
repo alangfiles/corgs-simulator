@@ -224,10 +224,8 @@ void main(void)
 				text_decision = 0;
 			}
 
-			if ((pad1_new & PAD_B) && (text_rendered == text_length))
+			if ((pad1_new & PAD_B) && (text_rendered == text_length-1))
 			{
-				ppu_off();
-
 				temp1 = 0; // using this to help handle actions
 
 				// handle talking actions
