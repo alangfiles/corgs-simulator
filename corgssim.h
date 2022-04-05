@@ -220,6 +220,8 @@ enum{
 
 unsigned char c_map[240];// collision map
 
+unsigned char tile_map[240]; //map where tile data lives
+
 // PROTOTYPES
 void draw_bg(void);
 void draw_sprites(void);

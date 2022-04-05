@@ -1,4 +1,3 @@
-#include "CSV/a_arcade.c"
 #include "CSV/room_1.c"
 #include "CSV/room_3.c"
 #include "CSV/room_4.c"
@@ -355,6 +354,11 @@ const unsigned char * const room_list[]={
   blank,blank,room_43,blank,blank,
   room_46,room_47,room_48,blank,blank,
 };
+
+const unsigned char inside_hud = 0;
+const unsigned char outside_hud = 13;
+const unsigned char trans_hud = 0;
+const unsigned char title_hud = 0;
 
 const unsigned char * const talk_list[]={
 	blank_talk,blank_talk,blank_talk,blank_talk,room_5_talk,

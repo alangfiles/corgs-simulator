@@ -36,12 +36,12 @@ sfx:
 [] jump sound
 [] money hitting things
 [] zelda block
-[] mario 
+[] mario
 [] warp noise
 [] coin noise
 
-*/ 
- 
+*/
+
 #include "LIB/neslib.h"
 #include "LIB/nesdoug.h"
 #include "Sprites.h" // holds our metasprite data
@@ -75,7 +75,6 @@ void main(void)
 		while (game_mode == MODE_TITLE)
 		{
 			ppu_wait_nmi();
-			
 
 			// rotate colors
 			temp1 = get_frame_count();
@@ -90,12 +89,11 @@ void main(void)
 			if (pad1_new & PAD_START)
 			{
 				song = SONG_GAME;
-				//music_play(song);
+				// music_play(song);
 
 				if (code_active == 1)
 				{
 					// play sound
-					
 				}
 				// initialize game mode:
 				pal_fade_to(4, 0); // fade to black
@@ -163,7 +161,7 @@ void main(void)
 			// temp1 = (temp1 >> 3);
 
 			// draw text
-			if (text_rendered != text_length-1 && text_row < 3)
+			if (text_rendered != text_length - 1 && text_row < 3)
 			{
 				one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
 				++text_col;
@@ -224,7 +222,7 @@ void main(void)
 				text_decision = 0;
 			}
 
-			if ((pad1_new & PAD_B) && (text_rendered == text_length-1))
+			if ((pad1_new & PAD_B) && (text_rendered == text_length - 1))
 			{
 				temp1 = 0; // using this to help handle actions
 
@@ -297,15 +295,12 @@ void draw_bg(void)
 
 	ppu_off();	 // screen off
 	oam_clear(); // clear all sprites
-	//remove money sprite
+	// remove money sprite
 	shot_x = -4;
 	shot_y = -4;
-	
 
 	set_mt_pointer(room_metatile_list[which_bg]);
 	pal_bg(room_palette_list[which_bg]);
-	set_data_pointer(room_list[which_bg]);
-	memcpy(c_map, room_list[which_bg], 240);
 
 	// dungeon only
 	if (which_bg == DUNGEON_GAME_ROOM)
@@ -319,6 +314,50 @@ void draw_bg(void)
 		pal_col(6, 0x30);
 		pal_col(7, 0x20);
 	}
+
+	// to save space, the room files just have the room data, not the hud or bottom line
+	// so we memcopy those in now to cost more rendering time in draw_bg, but save
+	// some bites in the rom.
+	if (which_bg == 0 || which_bg == 45) //title screen and cliff
+	{
+		set_data_pointer(room_list[which_bg]);
+	}
+	else
+	{
+		for (index = 0; index < 240; ++index)
+		{
+			if (index < 64)
+			{
+				if (room_metatile_list[which_bg] == outside_metatiles)
+				{
+					tile_map[index] = 13;
+				}
+				else
+				{
+					tile_map[index] = 0;
+				}
+			}
+			else if (index < 224)
+			{
+				tile_map[index] = room_list[which_bg][index - 64];
+			}
+			else
+			{
+				if (room_metatile_list[which_bg] == outside_metatiles)
+				{
+					tile_map[index] = 13;
+				}
+				else
+				{
+					tile_map[index] = 0;
+				}
+			}
+		}
+		set_data_pointer(tile_map);
+	}
+	memcpy(c_map, tile_map, 240);
+
+	
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
@@ -440,12 +479,12 @@ void draw_sprites(void)
 	// clear all sprites from sprite buffer
 	oam_clear();
 
-//draw one time srpites
+// draw one time srpites
 #pragma region foregroundSprites
-if (which_bg==13)
-{
-	oam_meta_spr(108, 160, Banner99);
-}
+	if (which_bg == 13)
+	{
+		oam_meta_spr(108, 160, Banner99);
+	}
 #pragma endregion
 
 #pragma region drawplayer
@@ -847,13 +886,13 @@ if (which_bg==13)
 			break;
 		case SPRITE_BaldTank73:
 			sprites_anim[index2] = BaldTank73;
-			break;	
+			break;
 		default:
 			break;
 		}
 		oam_meta_spr(temp1, temp2, sprites_anim[index2]);
 	}
-#pragma endregion room_sprites  
+#pragma endregion room_sprites
 
 #pragma region hud_sprites
 	if (display_hud_sprites)
@@ -1588,7 +1627,7 @@ void draw_talking(void)
 	case TALK_BATHROOM:
 		pointer = talk_bathroom;
 		text_length = sizeof(talk_bathroom);
-		break;	
+		break;
 	case TALK_HOTDOG:
 		pointer = talk_hotdog;
 		text_length = sizeof(talk_hotdog);
@@ -1600,7 +1639,7 @@ void draw_talking(void)
 	case TALK_BUSH:
 		pointer = talk_bush;
 		text_length = sizeof(talk_bush);
-		break;	
+		break;
 	case TALK_NINTENDO:
 		pointer = talk_nintendo;
 		text_length = sizeof(talk_nintendo);
@@ -1608,23 +1647,23 @@ void draw_talking(void)
 	case TALK_BUY:
 		pointer = talk_buy;
 		text_length = sizeof(talk_buy);
-		break;				
+		break;
 	case TALK_PRINCESS:
 		pointer = talk_princess;
 		text_length = sizeof(talk_princess);
-		break;	
+		break;
 	case TALK_PLUMBER:
 		pointer = talk_plumber;
 		text_length = sizeof(talk_plumber);
-		break;			
+		break;
 	case TALK_LOCATION:
 		pointer = talk_location;
 		text_length = sizeof(talk_location);
-		break;	
+		break;
 	case TALK_EBAY:
 		pointer = talk_ebay;
 		text_length = sizeof(talk_ebay);
-		break;		
+		break;
 	default:
 		pointer = blank_1;
 		text_length = sizeof(blank_1);
