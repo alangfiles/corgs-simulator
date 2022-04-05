@@ -1304,7 +1304,7 @@ void bg_collision(void)
 	if (player_y >= 0xf0)
 		return;
 
-	temp6 = temp5 = player_x + PLAYER_OFFSET; // upper left (temp6 = save for reuse)
+	temp6 = temp5 = player_x; // upper left (temp6 = save for reuse)
 	temp1 = temp5 & 0xff;											// low byte x
 	temp2 = temp5 >> 8;												// high byte x
 
@@ -1325,7 +1325,7 @@ void bg_collision(void)
 	}
 
 	// upper right
-	temp5 += PLAYER_WIDTH - PLAYER_OFFSET;
+	temp5 += PLAYER_WIDTH;
 	temp1 = temp5 & 0xff; // low byte x
 	temp2 = temp5 >> 8;		// high byte x
 
@@ -1344,7 +1344,7 @@ void bg_collision(void)
 
 	// bottom right, x hasn't changed
 
-	temp3 = player_y + PLAYER_HEIGHT + PLAYER_OFFSET; // y bottom
+	temp3 = player_y + PLAYER_HEIGHT; // y bottom
 	// if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
 	eject_D = (temp3 + 1) & 0x0f;
 	if (temp3 >= 0xf0)
