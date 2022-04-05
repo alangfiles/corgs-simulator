@@ -163,14 +163,24 @@ void main(void)
 			// draw text
 			if (text_rendered != text_length - 1 && text_row < 3)
 			{
-				one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
-				++text_col;
-
-				if (text_col == 27) // wrap to next row
+				if (pointer[text_rendered] == '\n')
 				{
+					//auto-wrap to next row
 					++text_row;
 					text_col = 0;
 				}
+				else
+				{
+					one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					++text_col;
+
+					if (text_col == 27) // wrap to next row
+					{
+						++text_row;
+						text_col = 0;
+					}
+				}
+
 				++text_rendered;
 			}
 			if (text_row == 3) // if there's more than 1 page of
@@ -318,7 +328,7 @@ void draw_bg(void)
 	// to save space, the room files just have the room data, not the hud or bottom line
 	// so we memcopy those in now to cost more rendering time in draw_bg, but save
 	// some bites in the rom.
-	if (which_bg == 0 || which_bg == 45) //title screen and cliff
+	if (which_bg == 0 || which_bg == 45) // title screen and cliff
 	{
 		set_data_pointer(room_list[which_bg]);
 	}
@@ -356,8 +366,6 @@ void draw_bg(void)
 		set_data_pointer(tile_map);
 	}
 	memcpy(c_map, tile_map, 240);
-
-	
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
@@ -1305,8 +1313,8 @@ void bg_collision(void)
 		return;
 
 	temp6 = temp5 = player_x; // upper left (temp6 = save for reuse)
-	temp1 = temp5 & 0xff;											// low byte x
-	temp2 = temp5 >> 8;												// high byte x
+	temp1 = temp5 & 0xff;			// low byte x
+	temp2 = temp5 >> 8;				// high byte x
 
 	eject_L = temp1 | 0xf0;
 
