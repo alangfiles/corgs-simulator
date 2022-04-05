@@ -61,7 +61,7 @@ const unsigned char talk_6[] = "I wonder if this game has any game genie codes."
 
 
 
-const unsigned char talk_8[] = "I AM ERROR.                    ...I mean, Eric.";
+const unsigned char talk_8[] = "I AM ERROR.\n\n...I mean, Eric.";
 
 
 const unsigned char talk_11[] = "I FEEL ASLEEP!!";
@@ -90,7 +90,7 @@ const unsigned char talk_32[] = "I'm a very important youtuber, don't you recogn
 const unsigned char talk_34[] = "I'm working on a really cool game, wanna see my kickstarter?";
 const unsigned char talk_35[] = "I hear they're making new games for old hardware, I don't get it.";
 const unsigned char talk_36[] = "I hear this event has good door prizes.";
-const unsigned char talk_37[] =  "* You feel like someone *  *     is behind you     *";
+const unsigned char talk_37[] =  "* You feel like someone *\n*     is behind you     *";
 const unsigned char talk_38[] = "A lot of people think I'm Blinky, but I'm Cylde";
 const unsigned char talk_39[] = "";
 const unsigned char talk_40[] = "";
@@ -98,9 +98,9 @@ const unsigned char talk_41[] = "";
 
 // some texts I might want
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
-const unsigned char item_1[] =   "You found a Famicom Disk   System copy of...             The Legend of Zelda";
-const unsigned char item_2[] =   "You found an Atari 2600    copy of Warren Robinett's   Adventure.";
-const unsigned char item_3[] =   "You found a Nintendo       Entertainment System copy   of...   Super Mario Bros.";
+const unsigned char item_1[] =   "You found a Famicom Disk\nSystem copy of...\nThe Legend of Zelda";
+const unsigned char item_2[] =   "You found an Atari 2600\ncopy of Warren Robinett's\nAdventure.";
+const unsigned char item_3[] =   "You found a Nintendo\nEntertainment System copy\nof...   Super Mario Bros.";
 
 
 // keeping track of KB left. 1KB for each 4 lorems

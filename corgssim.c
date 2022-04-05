@@ -156,7 +156,7 @@ void main(void)
 		{
 			//todo: we can definitely clean up this `text_decision` code.
 			// into it's own logical blocks
-			
+
 			ppu_wait_nmi();
 			countdown_timer(); // keep ticking the game timer
 
@@ -340,6 +340,7 @@ void draw_bg(void)
 	if (which_bg == 0 || which_bg == 45) // title screen and cliff
 	{
 		set_data_pointer(room_list[which_bg]);
+		memcpy(c_map, room_list[which_bg], 240);
 	}
 	else
 	{
@@ -373,8 +374,9 @@ void draw_bg(void)
 			}
 		}
 		set_data_pointer(tile_map);
+		memcpy(c_map, tile_map, 240);
 	}
-	memcpy(c_map, tile_map, 240);
+	
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
