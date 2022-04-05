@@ -154,6 +154,9 @@ void main(void)
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
+			//todo: we can definitely clean up this `text_decision` code.
+			// into it's own logical blocks
+			
 			ppu_wait_nmi();
 			countdown_timer(); // keep ticking the game timer
 
@@ -165,7 +168,7 @@ void main(void)
 			{
 				if (pointer[text_rendered] == '\n')
 				{
-					//auto-wrap to next row
+					// auto-wrap to next row
 					++text_row;
 					text_col = 0;
 				}
@@ -223,42 +226,48 @@ void main(void)
 				one_vram_buffer('O', NTADR_A(20, 6));
 			}
 
-			if (pad1_new & PAD_RIGHT)
+			if (text_decision != TURN_OFF)
 			{
-				text_decision = 1;
-			}
-			if (pad1_new & PAD_LEFT)
-			{
-				text_decision = 0;
+				if (pad1_new & PAD_RIGHT)
+				{
+					text_decision = 1;
+				}
+				if (pad1_new & PAD_LEFT)
+				{
+					text_decision = 0;
+				}
 			}
 
 			if ((pad1_new & PAD_B) && (text_rendered == text_length - 1))
 			{
 				temp1 = 0; // using this to help handle actions
 
-				// handle talking actions
-				switch (text_action)
+				if (text_decision != TURN_OFF)
 				{
-				case CHOICE_PLAY_GAME:
-					if (text_decision == 0) // yes
+					// handle talking actions
+					switch (text_action)
 					{
-						text_rendered = 0;
-						text_row = 0;
-						text_col = 0;
-						bg_display_hud = 0;			 // draw the hud
-						bg_fade_out = 1;				 // turn back on room fading
-						display_hud_sprites = 1; // turn back on hud sprites
-						item_found = 0;					 // reset item found (in case we were in the item found mode)
+					case CHOICE_PLAY_GAME:
+						if (text_decision == 0) // yes
+						{
+							text_rendered = 0;
+							text_row = 0;
+							text_col = 0;
+							bg_display_hud = 0;			 // draw the hud
+							bg_fade_out = 1;				 // turn back on room fading
+							display_hud_sprites = 1; // turn back on hud sprites
+							item_found = 0;					 // reset item found (in case we were in the item found mode)
 
-						temp1 = 1;
-						game_mode = MODE_TITLE;
-						initialize_title_screen();
-						ppu_on_all(); // turn on screen
+							temp1 = 1;
+							game_mode = MODE_TITLE;
+							initialize_title_screen();
+							ppu_on_all(); // turn on screen
+						}
+						// if no, we just exit talking
+						break;
+					default:
+						break;
 					}
-					// if no, we just exit talking
-					break;
-				default:
-					break;
 				}
 
 				// text finished, go back to game
