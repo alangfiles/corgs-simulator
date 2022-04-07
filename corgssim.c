@@ -154,8 +154,8 @@ void main(void)
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
-			//todo: we can definitely clean up this `text_decision` code.
-			// into it's own logical blocks
+			// todo: we can definitely clean up this `text_decision` code.
+			//  into it's own logical blocks
 
 			ppu_wait_nmi();
 			countdown_timer(); // keep ticking the game timer
@@ -376,7 +376,6 @@ void draw_bg(void)
 		set_data_pointer(tile_map);
 		memcpy(c_map, tile_map, 240);
 	}
-	
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
@@ -561,37 +560,44 @@ void draw_sprites(void)
 		case LEFT_MOVE:
 			if (pad1 & PAD_LEFT) // only animate if the button is pressed
 			{
-				if (move_frames >= 56)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeft);
-				}
-				else if (move_frames >= 48 & move_frames < 56)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-				}
-				else if (move_frames >= 40 & move_frames < 48)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
-				}
-				else if (move_frames >= 32 & move_frames < 40)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-				}
-				else if (move_frames >= 24 & move_frames < 32)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeft);
-				}
-				else if (move_frames >= 16 & move_frames < 24)
+				if (player_jump > 0)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 				}
-				else if (move_frames >= 8 & move_frames < 16)
+				else
 				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
-				}
-				else if (move_frames < 8)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+					if (move_frames >= 56)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprLeft);
+					}
+					else if (move_frames >= 48 & move_frames < 56)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+					}
+					else if (move_frames >= 40 & move_frames < 48)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
+					}
+					else if (move_frames >= 32 & move_frames < 40)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+					}
+					else if (move_frames >= 24 & move_frames < 32)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprLeft);
+					}
+					else if (move_frames >= 16 & move_frames < 24)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+					}
+					else if (move_frames >= 8 & move_frames < 16)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
+					}
+					else if (move_frames < 8)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+					}
 				}
 			}
 			else // this is the idle non-moving sprite
@@ -644,37 +650,44 @@ void draw_sprites(void)
 		case RIGHT_MOVE:
 			if (pad1 & PAD_RIGHT) // only animate if the button is pressed
 			{
-				if (move_frames >= 56)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRight);
-				}
-				else if (move_frames >= 48 & move_frames < 56)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-				}
-				else if (move_frames >= 40 & move_frames < 48)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightFive);
-				}
-				else if (move_frames >= 32 & move_frames < 40)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-				}
-				else if (move_frames >= 24 & move_frames < 32)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRight);
-				}
-				else if (move_frames >= 16 & move_frames < 24)
+				if (player_jump > 0)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 				}
-				else if (move_frames >= 8 & move_frames < 16)
+				else
 				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightThree);
-				}
-				else if (move_frames < 8)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+					if (move_frames >= 56)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprRight);
+					}
+					else if (move_frames >= 48 & move_frames < 56)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+					}
+					else if (move_frames >= 40 & move_frames < 48)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprRightFive);
+					}
+					else if (move_frames >= 32 & move_frames < 40)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+					}
+					else if (move_frames >= 24 & move_frames < 32)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprRight);
+					}
+					else if (move_frames >= 16 & move_frames < 24)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+					}
+					else if (move_frames >= 8 & move_frames < 16)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprRightThree);
+					}
+					else if (move_frames < 8)
+					{
+						oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+					}
 				}
 			}
 			else // this is the idle non-moving sprite
@@ -906,6 +919,8 @@ void draw_sprites(void)
 		case SPRITE_BaldTank73:
 			sprites_anim[index2] = BaldTank73;
 			break;
+		case SPRITE_COIN:
+			sprites_anim[index2] = Coin;
 		default:
 			break;
 		}
@@ -923,7 +938,7 @@ void draw_sprites(void)
 		{
 			oam_meta_spr(0x10, 0x10, FloppyDisk125);
 		}
-		if (items_collected & ITEM_SECOND_GAME)
+		if (items_collected & ITEM_COIN_GAME)
 		{
 			oam_meta_spr(0x22, 0x10, GamePrize97);
 		}
@@ -953,6 +968,14 @@ void draw_sprites(void)
 		}
 	}
 
+	if(which_bg == COIN_GAME_ROOM){
+		if(!(items_collected & ITEM_COIN_GAME) && player_coins == MAX_COINS)
+		{
+			oam_meta_spr(COIN_GAME_X, COIN_GAME_Y, GamePrize97);
+		}
+	}
+
+
 	// display holding item status
 	if (item_found)
 	{
@@ -960,6 +983,10 @@ void draw_sprites(void)
 		{
 			// draw the sprite above the players head
 			oam_meta_spr(player_x, player_y - 16, FloppyDisk125);
+		}
+		if (item_found == ITEM_COIN_GAME)
+		{
+			oam_meta_spr(player_x, player_y - 16, GamePrize97);
 		}
 	}
 
@@ -1046,6 +1073,35 @@ void movement(void)
 	if (collision_L)
 	{
 		player_x += 1;
+	}
+
+	if (which_bg == COIN_GAME_ROOM)
+	{
+		// add to player 'velocity' if they're in jump mode
+		if (player_jump > 0)
+		{
+			player_y -= 4;
+			player_jump -= 4;
+		}
+
+		// check for jumps
+		if (pad1_new & PAD_B)
+		{
+			if (player_jump == 0) // don't allow double jumps
+			{
+				player_jump = PLAYER_MAX_JUMP;
+			}
+			// sfx_play(SFX_JUMP, 0);
+		}
+		// gravity
+		player_y += 2;
+
+		// check collision and eject
+		bg_collision();
+		if (collision_D)
+		{
+			player_y -= 2;
+		}
 	}
 
 	// move up/down
@@ -1170,6 +1226,21 @@ void movement(void)
 		}
 	}
 
+	if (which_bg == COIN_GAME_ROOM && (!(items_collected & ITEM_COIN_GAME)) && player_coins == MAX_COINS)
+	{
+		Generic2.x = COIN_GAME_X + 7;
+		Generic2.y = COIN_GAME_Y + 7;
+		Generic2.width = 1;
+		Generic2.height = 1;
+		if (check_collision(&Generic, &Generic2))
+		{
+			items_collected = items_collected | ITEM_COIN_GAME; // pick up the item
+			item_found = ITEM_COIN_GAME;
+			collision_action = TALK_ITEM_2;
+			draw_talking();
+		}
+	}
+
 	// index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4);
 	// temp1 = (player_y & 0xf0 + player_x >> 4);
 	// if (which_bg == DUNGEON_BLOCK_ROOM && temp1 == index)
@@ -1184,6 +1255,25 @@ void movement(void)
 void sprite_collisions(void)
 {
 
+	if (which_bg == COIN_GAME_ROOM)
+	{
+		for (index = 0; index < MAX_COINS; ++index)
+		{
+
+			Generic2.width = 8;
+			Generic2.height = 8;
+ 
+			Generic2.x = sprites_x[index];
+			Generic2.y = sprites_y[index];
+			if (check_collision(&Generic, &Generic2))
+			{
+				sprites_y[index] = TURN_OFF;
+				// sfx_play(SFX_DING, 0);
+				++player_coins;
+			}
+		}
+	}
+ 
 	// set the first Generic to the players attributes
 	Generic.x = player_x;
 	Generic.y = player_y;
@@ -1634,6 +1724,10 @@ void draw_talking(void)
 	case TALK_ITEM_1:
 		pointer = item_1;
 		text_length = sizeof(item_1);
+		break;
+	case TALK_ITEM_2:
+		pointer = item_2;
+		text_length = sizeof(item_2);
 		break;
 	case TALK_KING:
 		pointer = talk_king;

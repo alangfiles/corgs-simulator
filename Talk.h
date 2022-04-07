@@ -8,6 +8,7 @@ enum
   TALK_PLAY_GAME,
   TALK_LOCKED_DOORS,
   TALK_ITEM_1,
+  TALK_ITEM_2,
   TALK_KING,
   TALK_SMOKE,
   TALK_BATHROOM,
@@ -99,8 +100,8 @@ const unsigned char talk_41[] = "";
 // some texts I might want
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
 const unsigned char item_1[] =   "You found a Famicom Disk\nSystem copy of...\nThe Legend of Zelda";
-const unsigned char item_2[] =   "You found an Atari 2600\ncopy of Warren Robinett's\nAdventure.";
-const unsigned char item_3[] =   "You found a Nintendo\nEntertainment System copy\nof...   Super Mario Bros.";
+const unsigned char item_2[] =   "You found a Nintendo\nEntertainment System copy\nof...   Super Mario Bros.";
+const unsigned char item_3[] =   "You found an Atari 2600\ncopy of Warren Robinett's\nAdventure.";
 
 
 // keeping track of KB left. 1KB for each 4 lorems
@@ -115,7 +116,7 @@ const unsigned char lorem6[] = "orem ipsum dolor sit amet, consectetuer adipisci
 const unsigned char lorem7[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, asdfsdfs asdf";
 const unsigned char lorem8[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, asdfsdfs asdf";
 
-const unsigned char lorem9[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, asdfsdfs asdf";
-const unsigned char lorem10[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, asdfsdfs asdf";
+//const unsigned char lorem9[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, asdfsdfs asdf";
+//const unsigned char lorem10[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, asdfsdfs asdf";
 // const unsigned char lorem11[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, asdfsdfs asdf";
 // const unsigned char lorem12[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, asdfsdfs asdf";

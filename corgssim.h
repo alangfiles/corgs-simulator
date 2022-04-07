@@ -45,13 +45,17 @@
 #define DUNGEON_GAME_X 0x80
 #define DUNGEON_GAME_Y 0x90
 
+#define COIN_GAME_ROOM 10
+#define COIN_GAME_X 0x70
+#define COIN_GAME_Y 0xA0
+
 const unsigned char code[]={
 	PAD_UP, PAD_UP, PAD_DOWN, PAD_DOWN,
 	 PAD_LEFT, PAD_RIGHT, PAD_LEFT, PAD_RIGHT, 
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 9
+#define STARTING_ROOM 10
 
 // HUD stuff
 #define A_LOC 16
@@ -101,6 +105,10 @@ unsigned char player_direction = DOWN;
 unsigned char last_player_direction = DOWN;
 unsigned char player_x = 0x80;
 unsigned char player_y = 0x80;
+unsigned char player_jump = 0;
+unsigned char player_coins = 0;
+#define MAX_COINS 6 //how many coins the player has to collect
+#define PLAYER_MAX_JUMP 88 //needs to be divisible by 4
 
 // items collected like:
 // 0000 0CBA
@@ -108,9 +116,9 @@ unsigned char player_y = 0x80;
 // b = other game
 // c = other game
 #define ITEM_DUNGEON_GAME 0x01
-#define ITEM_SECOND_GAME 0x02
+#define ITEM_COIN_GAME 0x02
 #define ITEM_THIRD_GAME 0x04
-unsigned char items_collected = 0x06; //debug, start with some items
+unsigned char items_collected = 0x00;
 unsigned char item_found = 0;
 
 unsigned char song;
