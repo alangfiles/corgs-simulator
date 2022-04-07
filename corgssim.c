@@ -884,6 +884,9 @@ void draw_sprites(void)
 			break;
 		case SPRITE_COIN:
 			sprites_anim[index2] = Coin;
+			break;
+		case SPRITE_DungeonBlock:
+			sprites_anim[index2] = DungeonBlock;
 		default:
 			break;
 		}
@@ -921,6 +924,7 @@ void draw_sprites(void)
 #pragma endregion
 
 #pragma region special_sprites
+
 	if (which_bg == DUNGEON_GAME_ROOM)
 	{
 
@@ -967,27 +971,6 @@ void action(void)
 		shot_direction = player_direction;
 	}
 
-	// dungeon push block
-	//  if (push_timer > 100)
-	//  {
-	//  	action_collision();
-	//  	if (collision_action == 2)
-	//  	{
-	//  		// block is at x112, y160
-	//  		index = (160 & 0xf0) + (112 >> 4); // hardcoded block location
-	//  		// replace block and fix c_map
-	//  		c_map[index] = 0; // set it to 0
-	//  		address = get_ppu_addr(0, 112, 160);
-	//  		buffer_1_mt(address, 49);
-	//  		push_timer = 0;
-	//  		block_moved = 1;
-	//  	}
-
-	// 	// if(collision_action == 2){ // push block
-	// 	// 	buffer_1_mt(NTADR_A(8,11),0);
-	// 	// }
-	// }
-
 	// check for interactable
 	if (pad1_new & PAD_B)
 	{
@@ -1003,6 +986,31 @@ void action(void)
 
 void movement(void)
 {
+		// dungeon push block
+	if (which_bg == DUNGEON_BLOCK_ROOM && push_timer > 100 && block_moved == 0)
+	{
+		if (player_direction == LEFT)
+		{
+			if (sprites_x[0] > (DUNGEON_BLOCK_X - 0x10))
+			{
+				--sprites_x[0];
+			} else {
+				block_moved = 1; //done moving
+			}
+			return;
+		}
+
+		if (player_direction == RIGHT)
+		{
+			if (sprites_x[0] < (DUNGEON_BLOCK_X + 0x10))
+			{
+				++sprites_x[0];
+			} else {
+				block_moved = 1;
+			}
+			return;
+		}
+	}
 #pragma region playerMovement
 	has_moved = 0;
 
@@ -1104,15 +1112,6 @@ void movement(void)
 		push_timer = 0;
 	}
 
-	// if (block_moved &&
-	// 		player_x > 104 && player_x < 120 && player_y > 144 && player_y < 160)
-	// {
-	// 	which_bg = 6; // underground
-	// 	player_x = 48;
-	// 	player_y = 64;
-	// 	block_moved = 0;
-	// 	draw_bg();
-	// }
 
 #pragma endregion playerMovement
 
@@ -1577,6 +1576,10 @@ void change_room_up()
 		which_bg = 11; // teleport to the top outdoors
 	}
 
+	if(which_bg == DUNGEON_BLOCK_ROOM){
+		block_moved = 0;
+	}
+
 	if (which_bg == 0)
 	{ // going up from the dungeon
 		which_bg = DUNGEON_BLOCK_ROOM;
@@ -1593,6 +1596,10 @@ void change_room_down()
 	player_y = PLAYER_TOP_EDGE;
 	which_bg = which_bg + 5;
 	draw_bg();
+
+	if(which_bg == DUNGEON_BLOCK_ROOM){
+		block_moved = 0;
+	}
 
 	if (which_bg == 47) // the back door
 	{

@@ -13,13 +13,15 @@ const unsigned char room_23[]={
 
 };
 
+// it's important that the dungeon block is 0 in this list
+// so we can move it.
 const unsigned char room_23_sprites[]={
+	DUNGEON_BLOCK_X, DUNGEON_BLOCK_Y, SPRITE_DungeonBlock,
 	184, 87, SPRITE_LunchLadyHead36,
 	64, 112, SPRITE_BaldRight22,
 	//32, 128, SPRITE_HairForward114,
 	160, 96, SPRITE_FroGuy55,
 	32, 176, SPRITE_GlassesRight35,
-	
 	TURN_OFF
 };
 
@@ -29,6 +31,5 @@ const unsigned char room_23_talk[]={
 	//32, 128, SPRITE_HairForward114,
 	168, 104, TALK_KING2,
 	40, 184, TALK_SPACE,
-	
 	TURN_OFF
 };
