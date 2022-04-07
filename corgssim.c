@@ -1,7 +1,7 @@
 /*
 need for launch:
 [] bug:character clipping left and right oddly, maybe make him smaller vertically too
-[] add more talking, lots of talking
+[x] add more talking, lots of talking
 [] add run out of time ending
 [] warp toliets (make sprite walkable + changeroom code)
 [] add dungeon pushblock
@@ -12,7 +12,7 @@ mini games:
 [] fetch quest
 [] do reps with the brahs
 [] add robineete message and . on screen?
-[] add pipe level / jumping
+[x] add pipe level / jumping
 [] rpg battle
 [] battle with game jobbies
 
@@ -34,11 +34,11 @@ music:
 sfx:
 [] contra theme
 [] jump sound
-[] money hitting things
 [] zelda block
-[] mario
-[] warp noise
+[] mario noise
+[] toliet warp noise
 [] coin noise
+[] money hitting things
 
 */
 
@@ -154,8 +154,8 @@ void main(void)
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
-			//todo: we can definitely clean up this `text_decision` code.
-			// into it's own logical blocks
+			// todo: we can definitely clean up this `text_decision` code.
+			//  into it's own logical blocks
 
 			ppu_wait_nmi();
 			countdown_timer(); // keep ticking the game timer
@@ -376,7 +376,6 @@ void draw_bg(void)
 		set_data_pointer(tile_map);
 		memcpy(c_map, tile_map, 240);
 	}
-	
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
@@ -495,6 +494,12 @@ void draw_sprites(void)
 	{
 		move_frames = 0;
 	}
+
+	// if the player is jumping, we use the first move frame for the jump duration
+	if (player_jump > 0)
+	{
+		move_frames = 0;
+	}
 	// clear all sprites from sprite buffer
 	oam_clear();
 
@@ -519,37 +524,25 @@ void draw_sprites(void)
 
 			if (pad1 & PAD_DOWN) // only animate if the button is pressed
 			{
-				if (move_frames >= 56)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDown);
-				}
-				else if (move_frames >= 48 & move_frames < 56)
+				if (move_frames >= 48 && move_frames < 56)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
 				}
-				else if (move_frames >= 40 & move_frames < 48)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDown);
-				}
-				else if (move_frames >= 32 & move_frames < 40)
+				else if (move_frames >= 32 && move_frames < 40)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
 				}
-				else if (move_frames >= 24 & move_frames < 32)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDown);
-				}
-				else if (move_frames >= 16 & move_frames < 24)
+				else if (move_frames >= 16 && move_frames < 24)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
-				}
-				else if (move_frames >= 8 & move_frames < 16)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDown);
 				}
 				else if (move_frames < 8)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
+				}
+				else
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDown);
 				}
 			}
 			else // this is the idle non-moving sprite
@@ -561,37 +554,24 @@ void draw_sprites(void)
 		case LEFT_MOVE:
 			if (pad1 & PAD_LEFT) // only animate if the button is pressed
 			{
-					if (player_jump > 0)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-				}
-				else
-				{
-				if (move_frames >= 56)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeft);
-				}
-				else if (move_frames >= 48 & move_frames < 56)
+
+				if (move_frames >= 48 && move_frames < 56)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
 				}
-				else if (move_frames >= 40 & move_frames < 48)
+				else if (move_frames >= 40 && move_frames < 48)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
 				}
-				else if (move_frames >= 32 & move_frames < 40)
+				else if (move_frames >= 32 && move_frames < 40)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
 				}
-				else if (move_frames >= 24 & move_frames < 32)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeft);
-				}
-				else if (move_frames >= 16 & move_frames < 24)
+				else if (move_frames >= 16 && move_frames < 24)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 				}
-				else if (move_frames >= 8 & move_frames < 16)
+				else if (move_frames >= 8 && move_frames < 16)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
 				}
@@ -599,7 +579,10 @@ void draw_sprites(void)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 				}
-			}
+				else
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeft);
+				}
 			}
 			else // this is the idle non-moving sprite
 			{
@@ -610,37 +593,25 @@ void draw_sprites(void)
 		case UP_MOVE:
 			if (pad1 & PAD_UP) // only animate if the button is pressed
 			{
-				if (move_frames >= 56)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUp);
-				}
-				else if (move_frames >= 48 & move_frames < 56)
+				if (move_frames >= 48 && move_frames < 56)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
 				}
-				else if (move_frames >= 40 & move_frames < 48)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUp);
-				}
-				else if (move_frames >= 32 & move_frames < 40)
+				else if (move_frames >= 32 && move_frames < 40)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
 				}
-				else if (move_frames >= 24 & move_frames < 32)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUp);
-				}
-				else if (move_frames >= 16 & move_frames < 24)
+				else if (move_frames >= 16 && move_frames < 24)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
-				}
-				else if (move_frames >= 8 & move_frames < 16)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUp);
 				}
 				else if (move_frames < 8)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
+				}
+				else
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUp);
 				}
 			}
 			else // this is the idle non-moving sprite
@@ -651,37 +622,24 @@ void draw_sprites(void)
 		case RIGHT_MOVE:
 			if (pad1 & PAD_RIGHT) // only animate if the button is pressed
 			{
-				if (player_jump > 0)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-				}
-				else
-				{
-				if (move_frames >= 56)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRight);
-				}
-				else if (move_frames >= 48 & move_frames < 56)
+
+				if (move_frames >= 48 && move_frames < 56)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
 				}
-				else if (move_frames >= 40 & move_frames < 48)
+				else if (move_frames >= 40 && move_frames < 48)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightFive);
 				}
-				else if (move_frames >= 32 & move_frames < 40)
+				else if (move_frames >= 32 && move_frames < 40)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
 				}
-				else if (move_frames >= 24 & move_frames < 32)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRight);
-				}
-				else if (move_frames >= 16 & move_frames < 24)
+				else if (move_frames >= 16 && move_frames < 24)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 				}
-				else if (move_frames >= 8 & move_frames < 16)
+				else if (move_frames >= 8 && move_frames < 16)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightThree);
 				}
@@ -689,7 +647,10 @@ void draw_sprites(void)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 				}
-			}
+				else
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRight);
+				}
 			}
 			else // this is the idle non-moving sprite
 			{
@@ -920,7 +881,7 @@ void draw_sprites(void)
 		case SPRITE_BaldTank73:
 			sprites_anim[index2] = BaldTank73;
 			break;
-			case SPRITE_COIN:
+		case SPRITE_COIN:
 			sprites_anim[index2] = Coin;
 		default:
 			break;
@@ -969,8 +930,9 @@ void draw_sprites(void)
 		}
 	}
 
-if(which_bg == COIN_GAME_ROOM){
-		if(!(items_collected & ITEM_COIN_GAME) && player_coins == MAX_COINS)
+	if (which_bg == COIN_GAME_ROOM)
+	{
+		if (!(items_collected & ITEM_COIN_GAME) && player_coins == MAX_COINS)
 		{
 			oam_meta_spr(COIN_GAME_X, COIN_GAME_Y, GamePrize97);
 		}
@@ -1225,7 +1187,7 @@ void movement(void)
 		}
 	}
 
-if (which_bg == COIN_GAME_ROOM && (!(items_collected & ITEM_COIN_GAME)) && player_coins == MAX_COINS)
+	if (which_bg == COIN_GAME_ROOM && (!(items_collected & ITEM_COIN_GAME)) && player_coins == MAX_COINS)
 	{
 		Generic2.x = COIN_GAME_X + 7;
 		Generic2.y = COIN_GAME_Y + 7;
@@ -1252,14 +1214,14 @@ if (which_bg == COIN_GAME_ROOM && (!(items_collected & ITEM_COIN_GAME)) && playe
 
 void sprite_collisions(void)
 {
-if (which_bg == COIN_GAME_ROOM)
+	if (which_bg == COIN_GAME_ROOM)
 	{
 		for (index = 0; index < MAX_COINS; ++index)
 		{
 
 			Generic2.width = 8;
 			Generic2.height = 8;
- 
+
 			Generic2.x = sprites_x[index];
 			Generic2.y = sprites_y[index];
 			if (check_collision(&Generic, &Generic2))
@@ -1721,7 +1683,7 @@ void draw_talking(void)
 		pointer = item_1;
 		text_length = sizeof(item_1);
 		break;
-		case TALK_ITEM_2:
+	case TALK_ITEM_2:
 		pointer = item_2;
 		text_length = sizeof(item_2);
 		break;
@@ -1780,11 +1742,11 @@ void draw_talking(void)
 	case TALK_DOORPRIZE:
 		pointer = talk_doorprize;
 		text_length = sizeof(talk_doorprize);
-		break;	
+		break;
 	case TALK_GUYNEXT1:
 		pointer = talk_guynext1;
 		text_length = sizeof(talk_guynext1);
-		break;		
+		break;
 	case TALK_GUYNEXT2:
 		pointer = talk_guynext2;
 		text_length = sizeof(talk_guynext2);
@@ -1792,11 +1754,11 @@ void draw_talking(void)
 	case TALK_THINGYOUWANT:
 		pointer = talk_thingyouwant;
 		text_length = sizeof(talk_thingyouwant);
-		break;		
+		break;
 	case TALK_GRADED:
 		pointer = talk_graded;
 		text_length = sizeof(talk_graded);
-		break;		
+		break;
 	case TALK_MYWIFE:
 		pointer = talk_mywife;
 		text_length = sizeof(talk_mywife);
@@ -1804,7 +1766,7 @@ void draw_talking(void)
 	case TALK_MUSCLE1:
 		pointer = talk_muscle1;
 		text_length = sizeof(talk_muscle1);
-		break;			
+		break;
 	case TALK_MUSCLE2:
 		pointer = talk_muscle2;
 		text_length = sizeof(talk_muscle2);
@@ -1828,11 +1790,11 @@ void draw_talking(void)
 	case TALK_DRUGS:
 		pointer = talk_drugs;
 		text_length = sizeof(talk_drugs);
-		break;	
+		break;
 	case TALK_SPEAKER:
 		pointer = talk_speaker;
 		text_length = sizeof(talk_speaker);
-		break;	
+		break;
 	case TALK_CROWD:
 		pointer = talk_crowd;
 		text_length = sizeof(talk_crowd);
@@ -1852,7 +1814,7 @@ void draw_talking(void)
 	case TALK_KINGCHAT:
 		pointer = talk_kingchat;
 		text_length = sizeof(talk_kingchat);
-		break;	
+		break;
 	case TALK_OUTSIDE:
 		pointer = talk_outside;
 		text_length = sizeof(talk_outside);
@@ -1864,15 +1826,15 @@ void draw_talking(void)
 	case TALK_JEALOUS:
 		pointer = talk_jealous;
 		text_length = sizeof(talk_jealous);
-		break;	
+		break;
 	case TALK_JUDGE:
 		pointer = talk_judge;
 		text_length = sizeof(talk_judge);
-		break;	
+		break;
 	case TALK_CHARACTER:
 		pointer = talk_character;
 		text_length = sizeof(talk_character);
-		break;	
+		break;
 	case TALK_PACMAN:
 		pointer = talk_pacman;
 		text_length = sizeof(talk_pacman);
@@ -1880,7 +1842,7 @@ void draw_talking(void)
 	case TALK_PACMAN2:
 		pointer = talk_pacman2;
 		text_length = sizeof(talk_pacman2);
-		break;			
+		break;
 	case TALK_WIZARD:
 		pointer = talk_wizard;
 		text_length = sizeof(talk_wizard);
@@ -1892,19 +1854,19 @@ void draw_talking(void)
 	case TALK_SPRITES:
 		pointer = talk_sprites;
 		text_length = sizeof(talk_sprites);
-		break;	
+		break;
 	case TALK_GARY:
 		pointer = talk_gary;
 		text_length = sizeof(talk_gary);
-		break;	
+		break;
 	case TALK_FLIP:
 		pointer = talk_flip;
 		text_length = sizeof(talk_flip);
-		break;	
+		break;
 	case TALK_INYOURWAY:
 		pointer = talk_inyourway;
 		text_length = sizeof(talk_inyourway);
-		break;	
+		break;
 	case TALK_CLEVER:
 		pointer = talk_clever;
 		text_length = sizeof(talk_clever);
@@ -1912,7 +1874,7 @@ void draw_talking(void)
 	case TALK_ERIC:
 		pointer = talk_eric;
 		text_length = sizeof(talk_eric);
-		break;		
+		break;
 	case TALK_COMPLAIN:
 		pointer = talk_complain;
 		text_length = sizeof(talk_complain);
@@ -1920,7 +1882,7 @@ void draw_talking(void)
 	case TALK_TABLE:
 		pointer = talk_table;
 		text_length = sizeof(talk_table);
-		break;		
+		break;
 	case TALK_HAMBURGER:
 		pointer = talk_hamburger;
 		text_length = sizeof(talk_hamburger);
@@ -1928,11 +1890,11 @@ void draw_talking(void)
 	case TALK_KING2:
 		pointer = talk_king2;
 		text_length = sizeof(talk_king2);
-		break;	
+		break;
 	case TALK_SPACE:
 		pointer = talk_space;
 		text_length = sizeof(talk_space);
-		break;			
+		break;
 	default:
 		pointer = blank_1;
 		text_length = sizeof(blank_1);
