@@ -26,3 +26,19 @@ const unsigned char room_24_sprites[]={
 	
 	TURN_OFF
 };
+
+const unsigned char room_24_talk[]={
+	120, 152, TALK_KINGCHAT,
+	152, 152, TALK_YOUTUBE,
+	168, 104, TALK_NEWGAMES, 
+	160, 80, TALK_NEWGAMES, 
+	88, 104, TALK_KICK,
+	80, 80, TALK_KICK, 	
+	72, 168, TALK_JEALOUS, 
+	64, 184, TALK_JEALOUS,
+	136, 136, TALK_OUTSIDE,
+	72, 112, TALK_COPIES,
+	
+	TURN_OFF
+};
+

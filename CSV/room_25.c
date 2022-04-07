@@ -28,3 +28,19 @@ const unsigned char room_25_sprites[]={
 	
 	TURN_OFF
 };
+
+const unsigned char room_25_talk[]={
+	40, 120, TALK_PACMAN2, 
+	72, 104, TALK_PACMAN,
+	88, 120, TALK_CHARACTER,
+	56, 104, TALK_WIZARD,
+	200, 120, TALK_SPRITES,
+	200, 168, TALK_CLEVER,
+	152, 168, TALK_GARY,
+	104, 168, TALK_FLIP,
+	64, 152, TALK_JUDGE,
+	200, 152, TALK_INYOURWAY,
+	136, 168, TALK_GENIE,
+	
+	TURN_OFF
+};

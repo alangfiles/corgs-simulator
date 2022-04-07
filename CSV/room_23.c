@@ -16,9 +16,19 @@ const unsigned char room_23[]={
 const unsigned char room_23_sprites[]={
 	184, 87, SPRITE_LunchLadyHead36,
 	64, 112, SPRITE_BaldRight22,
-	32, 128, SPRITE_HairForward114,
+	//32, 128, SPRITE_HairForward114,
 	160, 96, SPRITE_FroGuy55,
 	32, 176, SPRITE_GlassesRight35,
+	
+	TURN_OFF
+};
+
+const unsigned char room_23_talk[]={
+	192, 97, TALK_HAMBURGER,
+	88, 120, TALK_TABLE,
+	//32, 128, SPRITE_HairForward114,
+	168, 104, TALK_KING2,
+	40, 184, TALK_SPACE,
 	
 	TURN_OFF
 };

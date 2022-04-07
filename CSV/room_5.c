@@ -17,6 +17,6 @@ const unsigned char room_5_sprites[]={
 };
 
 const unsigned char room_5_talk[]={
-	160, 176, TALK_BATHROOM,
+	168, 184, TALK_BATHROOM,
 	TURN_OFF
 };

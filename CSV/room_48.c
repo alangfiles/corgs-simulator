@@ -19,7 +19,8 @@ const unsigned char room_48_sprites[]={
 };
 
 const unsigned char room_48_talk[]={
-	84, 80, TALK_SMOKE,
+	92, 88, TALK_SMOKE,
+	232, 88, TALK_LADYONBREAK,
 	
 	TURN_OFF
 };

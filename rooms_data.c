@@ -363,14 +363,14 @@ const unsigned char title_hud = 0;
 const unsigned char * const talk_list[]={
 	blank_talk,blank_talk,blank_talk,blank_talk,room_5_talk,
   blank_talk,blank_talk,blank_talk,room_9_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,room_18_talk,room_19_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
+  blank_talk,blank_talk,blank_talk,room_14_talk,blank_talk,
+  blank_talk,blank_talk,room_18_talk,room_19_talk,room_20_talk,
+  blank_talk,blank_talk,room_23_talk,room_24_talk,room_25_talk,
+  blank_talk,blank_talk,room_28_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
   blank_talk,blank_talk,room_43_talk,blank_talk,blank_talk,
-  room_46_talk,blank_talk,room_48_talk,blank_talk,blank_talk,
+  room_46_talk,room_47_talk,room_48_talk,blank_talk,blank_talk,
 };
 
 const unsigned char * const sprite_list[]={

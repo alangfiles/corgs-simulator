@@ -154,8 +154,8 @@ void main(void)
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
-			// todo: we can definitely clean up this `text_decision` code.
-			//  into it's own logical blocks
+			//todo: we can definitely clean up this `text_decision` code.
+			// into it's own logical blocks
 
 			ppu_wait_nmi();
 			countdown_timer(); // keep ticking the game timer
@@ -376,6 +376,7 @@ void draw_bg(void)
 		set_data_pointer(tile_map);
 		memcpy(c_map, tile_map, 240);
 	}
+	
 
 	// draw the tiles
 	for (y = 0;; y += 0x20)
@@ -560,45 +561,45 @@ void draw_sprites(void)
 		case LEFT_MOVE:
 			if (pad1 & PAD_LEFT) // only animate if the button is pressed
 			{
-				if (player_jump > 0)
+					if (player_jump > 0)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 				}
 				else
 				{
-					if (move_frames >= 56)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprLeft);
-					}
-					else if (move_frames >= 48 & move_frames < 56)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-					}
-					else if (move_frames >= 40 & move_frames < 48)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
-					}
-					else if (move_frames >= 32 & move_frames < 40)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-					}
-					else if (move_frames >= 24 & move_frames < 32)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprLeft);
-					}
-					else if (move_frames >= 16 & move_frames < 24)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-					}
-					else if (move_frames >= 8 & move_frames < 16)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
-					}
-					else if (move_frames < 8)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-					}
+				if (move_frames >= 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeft);
 				}
+				else if (move_frames >= 48 & move_frames < 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+				}
+				else if (move_frames >= 40 & move_frames < 48)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
+				}
+				else if (move_frames >= 32 & move_frames < 40)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+				}
+				else if (move_frames >= 24 & move_frames < 32)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeft);
+				}
+				else if (move_frames >= 16 & move_frames < 24)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+				}
+				else if (move_frames >= 8 & move_frames < 16)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
+				}
+				else if (move_frames < 8)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+				}
+			}
 			}
 			else // this is the idle non-moving sprite
 			{
@@ -656,39 +657,39 @@ void draw_sprites(void)
 				}
 				else
 				{
-					if (move_frames >= 56)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprRight);
-					}
-					else if (move_frames >= 48 & move_frames < 56)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-					}
-					else if (move_frames >= 40 & move_frames < 48)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprRightFive);
-					}
-					else if (move_frames >= 32 & move_frames < 40)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-					}
-					else if (move_frames >= 24 & move_frames < 32)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprRight);
-					}
-					else if (move_frames >= 16 & move_frames < 24)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-					}
-					else if (move_frames >= 8 & move_frames < 16)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprRightThree);
-					}
-					else if (move_frames < 8)
-					{
-						oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-					}
+				if (move_frames >= 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRight);
 				}
+				else if (move_frames >= 48 & move_frames < 56)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+				}
+				else if (move_frames >= 40 & move_frames < 48)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFive);
+				}
+				else if (move_frames >= 32 & move_frames < 40)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+				}
+				else if (move_frames >= 24 & move_frames < 32)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRight);
+				}
+				else if (move_frames >= 16 & move_frames < 24)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+				}
+				else if (move_frames >= 8 & move_frames < 16)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightThree);
+				}
+				else if (move_frames < 8)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+				}
+			}
 			}
 			else // this is the idle non-moving sprite
 			{
@@ -919,7 +920,7 @@ void draw_sprites(void)
 		case SPRITE_BaldTank73:
 			sprites_anim[index2] = BaldTank73;
 			break;
-		case SPRITE_COIN:
+			case SPRITE_COIN:
 			sprites_anim[index2] = Coin;
 		default:
 			break;
@@ -968,14 +969,12 @@ void draw_sprites(void)
 		}
 	}
 
-	if(which_bg == COIN_GAME_ROOM){
+if(which_bg == COIN_GAME_ROOM){
 		if(!(items_collected & ITEM_COIN_GAME) && player_coins == MAX_COINS)
 		{
 			oam_meta_spr(COIN_GAME_X, COIN_GAME_Y, GamePrize97);
 		}
 	}
-
-
 	// display holding item status
 	if (item_found)
 	{
@@ -1226,7 +1225,7 @@ void movement(void)
 		}
 	}
 
-	if (which_bg == COIN_GAME_ROOM && (!(items_collected & ITEM_COIN_GAME)) && player_coins == MAX_COINS)
+if (which_bg == COIN_GAME_ROOM && (!(items_collected & ITEM_COIN_GAME)) && player_coins == MAX_COINS)
 	{
 		Generic2.x = COIN_GAME_X + 7;
 		Generic2.y = COIN_GAME_Y + 7;
@@ -1240,7 +1239,6 @@ void movement(void)
 			draw_talking();
 		}
 	}
-
 	// index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4);
 	// temp1 = (player_y & 0xf0 + player_x >> 4);
 	// if (which_bg == DUNGEON_BLOCK_ROOM && temp1 == index)
@@ -1254,8 +1252,7 @@ void movement(void)
 
 void sprite_collisions(void)
 {
-
-	if (which_bg == COIN_GAME_ROOM)
+if (which_bg == COIN_GAME_ROOM)
 	{
 		for (index = 0; index < MAX_COINS; ++index)
 		{
@@ -1273,7 +1270,6 @@ void sprite_collisions(void)
 			}
 		}
 	}
- 
 	// set the first Generic to the players attributes
 	Generic.x = player_x;
 	Generic.y = player_y;
@@ -1725,7 +1721,7 @@ void draw_talking(void)
 		pointer = item_1;
 		text_length = sizeof(item_1);
 		break;
-	case TALK_ITEM_2:
+		case TALK_ITEM_2:
 		pointer = item_2;
 		text_length = sizeof(item_2);
 		break;
@@ -1777,6 +1773,166 @@ void draw_talking(void)
 		pointer = talk_ebay;
 		text_length = sizeof(talk_ebay);
 		break;
+	case TALK_ADMISSION:
+		pointer = talk_admission;
+		text_length = sizeof(talk_admission);
+		break;
+	case TALK_DOORPRIZE:
+		pointer = talk_doorprize;
+		text_length = sizeof(talk_doorprize);
+		break;	
+	case TALK_GUYNEXT1:
+		pointer = talk_guynext1;
+		text_length = sizeof(talk_guynext1);
+		break;		
+	case TALK_GUYNEXT2:
+		pointer = talk_guynext2;
+		text_length = sizeof(talk_guynext2);
+		break;
+	case TALK_THINGYOUWANT:
+		pointer = talk_thingyouwant;
+		text_length = sizeof(talk_thingyouwant);
+		break;		
+	case TALK_GRADED:
+		pointer = talk_graded;
+		text_length = sizeof(talk_graded);
+		break;		
+	case TALK_MYWIFE:
+		pointer = talk_mywife;
+		text_length = sizeof(talk_mywife);
+		break;
+	case TALK_MUSCLE1:
+		pointer = talk_muscle1;
+		text_length = sizeof(talk_muscle1);
+		break;			
+	case TALK_MUSCLE2:
+		pointer = talk_muscle2;
+		text_length = sizeof(talk_muscle2);
+		break;
+	case TALK_LADYONBREAK:
+		pointer = talk_ladyonbreak;
+		text_length = sizeof(talk_ladyonbreak);
+		break;
+	case TALK_STICK:
+		pointer = talk_stick;
+		text_length = sizeof(talk_stick);
+		break;
+	case TALK_ARCADE:
+		pointer = talk_arcade;
+		text_length = sizeof(talk_arcade);
+		break;
+	case TALK_PINBALL:
+		pointer = talk_pinball;
+		text_length = sizeof(talk_pinball);
+		break;
+	case TALK_DRUGS:
+		pointer = talk_drugs;
+		text_length = sizeof(talk_drugs);
+		break;	
+	case TALK_SPEAKER:
+		pointer = talk_speaker;
+		text_length = sizeof(talk_speaker);
+		break;	
+	case TALK_CROWD:
+		pointer = talk_crowd;
+		text_length = sizeof(talk_crowd);
+		break;
+	case TALK_KICK:
+		pointer = talk_kick;
+		text_length = sizeof(talk_kick);
+		break;
+	case TALK_COPIES:
+		pointer = talk_copies;
+		text_length = sizeof(talk_copies);
+		break;
+	case TALK_YOUTUBE:
+		pointer = talk_youtube;
+		text_length = sizeof(talk_youtube);
+		break;
+	case TALK_KINGCHAT:
+		pointer = talk_kingchat;
+		text_length = sizeof(talk_kingchat);
+		break;	
+	case TALK_OUTSIDE:
+		pointer = talk_outside;
+		text_length = sizeof(talk_outside);
+		break;
+	case TALK_NEWGAMES:
+		pointer = talk_newgames;
+		text_length = sizeof(talk_newgames);
+		break;
+	case TALK_JEALOUS:
+		pointer = talk_jealous;
+		text_length = sizeof(talk_jealous);
+		break;	
+	case TALK_JUDGE:
+		pointer = talk_judge;
+		text_length = sizeof(talk_judge);
+		break;	
+	case TALK_CHARACTER:
+		pointer = talk_character;
+		text_length = sizeof(talk_character);
+		break;	
+	case TALK_PACMAN:
+		pointer = talk_pacman;
+		text_length = sizeof(talk_pacman);
+		break;
+	case TALK_PACMAN2:
+		pointer = talk_pacman2;
+		text_length = sizeof(talk_pacman2);
+		break;			
+	case TALK_WIZARD:
+		pointer = talk_wizard;
+		text_length = sizeof(talk_wizard);
+		break;
+	case TALK_GENIE:
+		pointer = talk_genie;
+		text_length = sizeof(talk_genie);
+		break;
+	case TALK_SPRITES:
+		pointer = talk_sprites;
+		text_length = sizeof(talk_sprites);
+		break;	
+	case TALK_GARY:
+		pointer = talk_gary;
+		text_length = sizeof(talk_gary);
+		break;	
+	case TALK_FLIP:
+		pointer = talk_flip;
+		text_length = sizeof(talk_flip);
+		break;	
+	case TALK_INYOURWAY:
+		pointer = talk_inyourway;
+		text_length = sizeof(talk_inyourway);
+		break;	
+	case TALK_CLEVER:
+		pointer = talk_clever;
+		text_length = sizeof(talk_clever);
+		break;
+	case TALK_ERIC:
+		pointer = talk_eric;
+		text_length = sizeof(talk_eric);
+		break;		
+	case TALK_COMPLAIN:
+		pointer = talk_complain;
+		text_length = sizeof(talk_complain);
+		break;
+	case TALK_TABLE:
+		pointer = talk_table;
+		text_length = sizeof(talk_table);
+		break;		
+	case TALK_HAMBURGER:
+		pointer = talk_hamburger;
+		text_length = sizeof(talk_hamburger);
+		break;
+	case TALK_KING2:
+		pointer = talk_king2;
+		text_length = sizeof(talk_king2);
+		break;	
+	case TALK_SPACE:
+		pointer = talk_space;
+		text_length = sizeof(talk_space);
+		break;			
 	default:
 		pointer = blank_1;
 		text_length = sizeof(blank_1);

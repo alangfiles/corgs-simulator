@@ -17,3 +17,10 @@ const unsigned char room_47_sprites[]={
 	144, 112, SPRITE_MuscleMan1,
 	TURN_OFF
 };
+
+const unsigned char room_47_talk[]={
+	88, 120, TALK_MUSCLE1,
+	152, 120, TALK_MUSCLE2,
+
+	TURN_OFF
+};

@@ -19,3 +19,9 @@ const unsigned char room_20_sprites[]={
 	
 	TURN_OFF
 };
+
+const unsigned char room_20_talk[]={
+	190, 135, TALK_SPEAKER,
+	40, 96, TALK_CROWD,	
+	48, 120, TALK_CROWD,	
+};

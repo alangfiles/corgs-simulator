@@ -13,7 +13,7 @@ const unsigned char room_19[]={
 };
 
 const unsigned char room_19_sprites[]={
-	176, 80,  SPRITE_HatForward17,
+	176, 80, SPRITE_HatForward17,
 	80, 80, SPRITE_SideLadyRight86,
 	64, 80, SPRITE_SkinnyHatMan49,
 	48, 184, SPRITE_WideBoyBehind120,
@@ -22,15 +22,18 @@ const unsigned char room_19_sprites[]={
 	32, 112, SPRITE_DressGirl60,
 	160, 160, SPRITE_HairFront129,
 	64, 160, SPRITE_BaldTank73,
-	
 	TURN_OFF
 };
 
 const unsigned char room_19_talk[]={
-	176, 80,  TALK_BUY,
-	
-	32, 112, TALK_BUSH,
-	
-	
+	184, 104, TALK_BUY,
+	104, 88, TALK_ADMISSION,
+	68, 104, TALK_DOORPRIZE,
+	56, 176, TALK_GUYNEXT1,
+	88, 176, TALK_GUYNEXT2,
+	176, 184, TALK_THINGYOUWANT,
+	40, 120, TALK_BUSH,
+	160, 160, TALK_GRADED,
+	72, 168, TALK_MYWIFE,
 	TURN_OFF
 };

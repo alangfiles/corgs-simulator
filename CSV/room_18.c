@@ -28,6 +28,7 @@ const unsigned char room_18_talk[]={
 	0x88, 0x78, TALK_BRIAN,
 	0x68, 0x88, TALK_GUY,
 	0x98, 0x78, TALK_PLAY_GAME,
+	200, 104, TALK_COMPLAIN,
 	TURN_OFF
 };
 

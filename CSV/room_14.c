@@ -19,3 +19,8 @@ const unsigned char room_14_sprites[]={
 	68, 123, SPRITE_BoyKid44,
 	TURN_OFF
 };
+
+const unsigned char room_14_talk[]={
+	76, 131, TALK_ERIC,
+	TURN_OFF
+};

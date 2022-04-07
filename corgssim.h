@@ -55,7 +55,7 @@ const unsigned char code[]={
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 10
+#define STARTING_ROOM 23
 
 // HUD stuff
 #define A_LOC 16
@@ -155,7 +155,7 @@ const unsigned char shuffle_array[]={
 15,13,11,9,7,5,3,1,14,12,10,8,6,4,2,0	
 };
 
-#define MAX_ROOM_TALKING 8
+#define MAX_ROOM_TALKING 16
 unsigned char talk_x[MAX_ROOM_TALKING];
 unsigned char talk_y[MAX_ROOM_TALKING];
 unsigned char talk_type[MAX_ROOM_TALKING];
