@@ -1165,9 +1165,75 @@ void movement(void)
 				check_collision(&Generic, &Generic2))
 		{
 			which_bg = DUNGEON_GAME_ROOM;
-			player_x = 48;
-			player_y = 64;
+			player_x = 0x30;
+			player_y = 0x41;
 			block_moved = 0;
+			draw_bg();
+		}
+	}
+
+	if (which_bg == TOLIET_WARP_1_ROOM)
+	{
+		// make the block a little smaller before activating
+		Generic2.x = TOLIET_WARP_1_X + 7;
+		Generic2.y = TOLIET_WARP_1_Y + 7;
+		Generic2.width = 4;
+		Generic2.height = 4;
+		if ( // block_moved &&
+				check_collision(&Generic, &Generic2))
+		{
+			which_bg = TOLIET_WARP_2_ROOM;
+			player_x = TOLIET_WARP_2_X - 0x10;
+			player_y = TOLIET_WARP_2_Y;
+			draw_bg();
+		}
+	}
+
+	if (which_bg == TOLIET_WARP_2_ROOM)
+	{
+		// make the block a little smaller before activating
+		Generic2.x = TOLIET_WARP_2_X + 7;
+		Generic2.y = TOLIET_WARP_2_Y + 7;
+		Generic2.width = 4;
+		Generic2.height = 4;
+		if ( // block_moved &&
+				check_collision(&Generic, &Generic2))
+		{
+			which_bg = TOLIET_WARP_1_ROOM;
+			player_x = TOLIET_WARP_1_X - 0x10;
+			player_y = TOLIET_WARP_1_Y;
+			draw_bg();
+		}
+		else
+		{ // check other toliet warp
+			Generic2.x = TOLIET_WARP_3_X + 7;
+			Generic2.y = TOLIET_WARP_3_Y + 7;
+			if ( // block_moved &&
+					check_collision(&Generic, &Generic2))
+			{
+				which_bg = COIN_GAME_ROOM;
+				player_x = 0x20;
+				player_y = 0x50;
+				Generic.x = 0x20;
+				Generic.y = 0x50;
+				draw_bg();
+			}
+		}
+	}
+
+	if (which_bg == COIN_GAME_ROOM)
+	{
+		// make the block a little smaller before activating
+		Generic2.x = COIN_ROOM_WARP_X + 7;
+		Generic2.y = COIN_ROOM_WARP_Y + 7;
+		Generic2.width = 4;
+		Generic2.height = 4;
+		if ( // block_moved &&
+				check_collision(&Generic, &Generic2))
+		{
+			which_bg = TOLIET_WARP_2_ROOM;
+			player_x = TOLIET_WARP_3_X - 0x10;
+			player_y = TOLIET_WARP_3_Y;
 			draw_bg();
 		}
 	}
@@ -1201,6 +1267,7 @@ void movement(void)
 			draw_talking();
 		}
 	}
+
 	// index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4);
 	// temp1 = (player_y & 0xf0 + player_x >> 4);
 	// if (which_bg == DUNGEON_BLOCK_ROOM && temp1 == index)

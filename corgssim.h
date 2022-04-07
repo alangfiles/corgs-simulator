@@ -49,13 +49,30 @@
 #define COIN_GAME_X 0x70
 #define COIN_GAME_Y 0xA0
 
+# define TOLIET_WARP_1_ROOM 4
+# define TOLIET_WARP_1_Y 0x90
+# define TOLIET_WARP_1_X 0xC0
+
+# define TOLIET_WARP_2_ROOM 42
+# define TOLIET_WARP_2_Y 0x60
+# define TOLIET_WARP_2_X 0xE0
+
+# define TOLIET_WARP_3_ROOM 42
+# define TOLIET_WARP_3_Y 0xC0
+# define TOLIET_WARP_3_X 0xE0
+
+# define COIN_ROOM_WARP_Y 0xC0
+# define COIN_ROOM_WARP_X 0xE0
+
+
+
 const unsigned char code[]={
 	PAD_UP, PAD_UP, PAD_DOWN, PAD_DOWN,
 	 PAD_LEFT, PAD_RIGHT, PAD_LEFT, PAD_RIGHT, 
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 9
+#define STARTING_ROOM 42
 
 // HUD stuff
 #define A_LOC 16
