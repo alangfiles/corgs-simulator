@@ -3,7 +3,7 @@ need for launch:
 [] bug:character clipping left and right oddly, maybe make him smaller vertically too
 [x] add more talking, lots of talking
 [] add run out of time ending
-[] warp toliets (make sprite walkable + changeroom code)
+[x] warp toliets (make sprite walkable + changeroom code)
 [] add dungeon pushblock
 [x] special overlay sprites that you walk behind
 [] actual music and sfx
@@ -17,6 +17,7 @@ mini games:
 [] battle with game jobbies
 
 fun list:
+[] king of video games says somethign if you've collected everything?
 [] add guys to title screen
 [] infinite hallway
 [] more yes/no actions
