@@ -22,6 +22,6 @@ const unsigned char room_46_sprites[]={
 };
 
 const unsigned char room_46_talk[]={
-	72, 104, TALK_KING,
+	65, 108, TALK_KING,
 	TURN_OFF
 };
