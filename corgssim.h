@@ -32,8 +32,9 @@
 #define TEXT_BOX_LENGTH 18
 #define TEXT_BOX_HEIGHT 8
 
-#define PLAYER_HEIGHT 12
-#define PLAYER_WIDTH 12
+#define PLAYER_HEIGHT 16
+#define PLAYER_WIDTH 16
+#define PLAYER_PIXELS 8
 
 
 const unsigned char code[]={

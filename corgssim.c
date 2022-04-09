@@ -1040,7 +1040,6 @@ void movement(void)
 	{
 		player_x -= 1;
 	}
-
 	if (collision_L)
 	{
 		player_x += 1;
@@ -1097,14 +1096,14 @@ void movement(void)
 	{
 		player_y -= 1;
 	}
-
 	if (collision_U)
 	{
 		player_y += 1;
 	}
 
 	if (player_direction == last_player_direction // player direction hasn't changed
-			&& (pad1 & PAD_ALL_DIRECTIONS))						// one of the direction buttons is held down
+			&& (pad1 & PAD_ALL_DIRECTIONS)	// one of the direction buttons is held down
+			&& has_moved == 1)					//and the player hasn't moved
 	{
 		++push_timer;
 	}
@@ -1507,14 +1506,11 @@ void bg_collision(void)
 	if (collision & COL_ALL)
 	{ // find a corner in the collision map
 		++collision_L;
-	}
-	if (collision & COL_ALL)
-	{ // find a corner in the collision map
 		++collision_D;
 	}
 
-	if ((temp3 & 0x0f) > 3)
-		collision_D = 0; // for platforms, only collide with the top 3 pixels
+	// if ((temp3 & 0x0f) > 3)
+	// 	collision_D = 0; // for platforms, only collide with the top 3 pixels
 }
 
 void bg_collision_sub(void)
