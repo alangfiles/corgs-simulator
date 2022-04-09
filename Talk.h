@@ -9,6 +9,7 @@ enum
   TALK_LOCKED_DOORS,
   TALK_ITEM_1,
   TALK_ITEM_2,
+  TALK_ITEM_3,
   TALK_KING,
   TALK_SMOKE,
   TALK_BATHROOM,
@@ -152,8 +153,8 @@ const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipisci
 const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
-const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem6[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem6[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem7[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem8[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 

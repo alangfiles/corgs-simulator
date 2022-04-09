@@ -909,7 +909,7 @@ void draw_sprites(void)
 		{
 			oam_meta_spr(0x22, 0x10, GamePrize97);
 		}
-		if (items_collected & ITEM_THIRD_GAME)
+		if (items_collected & ITEM_ADVENTURE_GAME)
 		{
 			oam_meta_spr(0x34, 0x10, CD126);
 		}
@@ -928,7 +928,6 @@ void draw_sprites(void)
 
 	if (which_bg == DUNGEON_GAME_ROOM)
 	{
-
 		// if the dungeon game isn't collected
 		if (!(items_collected & ITEM_DUNGEON_GAME))
 		{
@@ -943,6 +942,16 @@ void draw_sprites(void)
 			oam_meta_spr(COIN_GAME_X, COIN_GAME_Y, GamePrize97);
 		}
 	}
+
+	if(which_bg == ADVENTURE_GAME_ROOM)
+	{
+		
+		if(!(items_collected & ITEM_ADVENTURE_GAME))
+		{
+			oam_meta_spr(ADVENTURE_GAME_X, ADVENTURE_GAME_Y, AdventureGame);
+		}
+	}
+
 	// display holding item status
 	if (item_found)
 	{
@@ -954,6 +963,10 @@ void draw_sprites(void)
 		if (item_found == ITEM_COIN_GAME)
 		{
 			oam_meta_spr(player_x, player_y - 16, GamePrize97);
+		}
+		if (item_found == ITEM_ADVENTURE_GAME)
+		{ 
+			oam_meta_spr(player_x, player_y - 16, GamePrize97); //todo fix sprite
 		}
 	}
 
@@ -981,6 +994,21 @@ void action(void)
 		{
 			// draw the talking dialog
 			draw_talking();
+		}
+
+		if (which_bg == ADVENTURE_GAME_ROOM && (!(items_collected & ITEM_ADVENTURE_GAME)))
+		{
+			Generic2.x = ADVENTURE_GAME_X;
+			Generic2.y = ADVENTURE_GAME_Y;
+			Generic2.width = 8;
+			Generic2.height = 8;
+			if (check_collision(&Generic, &Generic2))
+			{
+				items_collected = items_collected | ITEM_ADVENTURE_GAME; // pick up the item
+				item_found = ITEM_ADVENTURE_GAME;
+				collision_action = TALK_ITEM_3;
+				draw_talking();
+			}
 		}
 	}
 }
@@ -1753,6 +1781,10 @@ void draw_talking(void)
 	case TALK_ITEM_2:
 		pointer = item_2;
 		text_length = sizeof(item_2);
+		break;
+	case TALK_ITEM_3:
+		pointer = item_3;
+		text_length = sizeof(item_3);
 		break;
 	case TALK_KING:
 		pointer = talk_king;

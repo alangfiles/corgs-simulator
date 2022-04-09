@@ -5,7 +5,10 @@
 // c = other game
 #define ITEM_DUNGEON_GAME 0x01
 #define ITEM_COIN_GAME 0x02
-#define ITEM_THIRD_GAME 0x04
+#define ITEM_ADVENTURE_GAME 0x04
+#define ITEM_1_GAME 0x08
+#define ITEM_2_GAME 0x10
+#define ITEM_3_GAME 0x20
 unsigned char items_collected = 0x00;
 unsigned char item_found = 0;
 
@@ -53,6 +56,14 @@ unsigned char player_coins = 0;
 #define PLAYER_MAX_JUMP 88 //needs to be divisible by 4
 
 #pragma endregion COIN_ROOM
+
+
+#pragma region ADVENTURE_ROOM
+#define ADVENTURE_GAME_ROOM 19
+#define ADVENTURE_GAME_X 0xD0
+#define ADVENTURE_GAME_Y 0x60
+
+#pragma endregion ADVENTURE_ROOM
 
 
 

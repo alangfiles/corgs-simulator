@@ -1467,3 +1467,8 @@ const unsigned char Coin[]={
 	  0, 0,0x09,0,
 	128
 };
+
+const unsigned char AdventureGame[]={ //todo fix this
+	  0, 0,0x09,0,
+	128
+};
