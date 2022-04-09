@@ -48,6 +48,7 @@ sfx:
 #include "Sprites.h" // holds our metasprite data
 #include "Talk.h"		 // holds our talking data
 #include "corgssim.h"
+#include "special_rooms.h"
 #include "rooms_data.c"
 
 void main(void)
