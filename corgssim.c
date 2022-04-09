@@ -1444,7 +1444,7 @@ void bg_collision(void)
 
 	eject_L = temp1 | 0xf0;
 
-	temp3 = player_y; // y top
+	temp3 = player_y+PLAYER_PIXELS; // y top
 
 	eject_U = temp3 | 0xf0;
 
@@ -1478,7 +1478,7 @@ void bg_collision(void)
 
 	// bottom right, x hasn't changed
 
-	temp3 = player_y + PLAYER_HEIGHT; // y bottom
+	temp3 = player_y + PLAYER_HEIGHT + PLAYER_PIXELS; // y bottom
 	// if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
 	eject_D = (temp3 + 1) & 0x0f;
 	if (temp3 >= 0xf0)
@@ -1489,9 +1489,6 @@ void bg_collision(void)
 	if (collision & COL_ALL)
 	{ // find a corner in the collision map
 		++collision_R;
-	}
-	if (collision & COL_ALL)
-	{ // find a corner in the collision map
 		++collision_D;
 	}
 
@@ -1509,8 +1506,6 @@ void bg_collision(void)
 		++collision_D;
 	}
 
-	// if ((temp3 & 0x0f) > 3)
-	// 	collision_D = 0; // for platforms, only collide with the top 3 pixels
 }
 
 void bg_collision_sub(void)
