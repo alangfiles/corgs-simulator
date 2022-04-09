@@ -1468,7 +1468,16 @@ const unsigned char Coin[]={
 	128
 };
 
-const unsigned char AdventureGame[]={ //todo fix this
-	  0, 0,0x09,0,
+const unsigned char AdventureGame[]={ //todo fix this to just be a dot.
+	  0, 0,0x79,0,
 	128
 };
+
+const unsigned char AdventureGameBig[]={ //todo fix this to point at the atari game
+	  0,  0,0x6a,3,
+	  8,  0,0x6b,3,
+	  0,  8,0x7a,3,
+	  8,  8,0x7b,3,
+	128
+};
+

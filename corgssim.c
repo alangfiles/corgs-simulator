@@ -911,7 +911,7 @@ void draw_sprites(void)
 		}
 		if (items_collected & ITEM_ADVENTURE_GAME)
 		{
-			oam_meta_spr(0x34, 0x10, CD126);
+			oam_meta_spr(0x34, 0x10, AdventureGameBig);
 		}
 
 		if (code_active == 1)
@@ -966,7 +966,7 @@ void draw_sprites(void)
 		}
 		if (item_found == ITEM_ADVENTURE_GAME)
 		{ 
-			oam_meta_spr(player_x, player_y - 16, GamePrize97); //todo fix sprite
+			oam_meta_spr(player_x, player_y - 16, AdventureGameBig);
 		}
 	}
 
