@@ -91,6 +91,7 @@ void main(void)
 			if (pad1_new & PAD_START)
 			{
 				song = SONG_GAME;
+				set_music_speed(5);
 				music_play(song);
 
 				if (code_active == 1)
@@ -138,7 +139,7 @@ void main(void)
 		}
 		while (game_mode == MODE_GAME) // gameloop
 		{
-			set_music_speed(5);
+
 			ppu_wait_nmi();		 // wait till beginning of the frame
 			countdown_timer(); // keep ticking the timer
 
@@ -156,14 +157,8 @@ void main(void)
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
-			// todo: we can definitely clean up this `text_decision` code.
-			//  into it's own logical blocks
-
 			ppu_wait_nmi();
 			countdown_timer(); // keep ticking the game timer
-
-			// temp1 = get_frame_count();
-			// temp1 = (temp1 >> 3);
 
 			// draw text
 			if (text_rendered != text_length && text_row < 3)
@@ -185,9 +180,9 @@ void main(void)
 						text_col = 0;
 					}
 				}
-
 				++text_rendered;
 			}
+
 			if (text_row == 3) // if there's more than 1 page of
 			{
 				one_vram_buffer('&', NTADR_A(15, 6)); //& = down caret
@@ -204,114 +199,115 @@ void main(void)
 				text_row = 0;
 			}
 
-			if ((text_rendered == text_length) && text_decision != TURN_OFF) // if there's a text decision
+			// section that deals with the text being fully rendered.
+			if (text_rendered == text_length)
 			{
-				// draw the last row as yes/no
-				// 0xed is bottom bar
-				// 0x60 is arrow
-				if (text_decision == 0)
-				{
-					one_vram_buffer(0x60, NTADR_A(10, 6));
-					one_vram_buffer(0xed, NTADR_A(17, 6));
-				}
-				else
-				{
-					one_vram_buffer(0xed, NTADR_A(10, 6));
-					one_vram_buffer(0x60, NTADR_A(17, 6));
-				}
 
-				one_vram_buffer('N', NTADR_A(11, 6));
-				one_vram_buffer('O', NTADR_A(12, 6));
-
-				one_vram_buffer('Y', NTADR_A(18, 6));
-				one_vram_buffer('E', NTADR_A(19, 6));
-				one_vram_buffer('S', NTADR_A(20, 6));
-			}
-
-			if (text_decision != TURN_OFF)
-			{
-				if (pad1_new & PAD_RIGHT)
+				if (text_decision != TURN_OFF) // if there's a text decision
 				{
-					text_decision = 1;
-				}
-				if (pad1_new & PAD_LEFT)
-				{
-					text_decision = 0;
-				}
-			}
-
-			if ((pad1_new & PAD_B) && (text_rendered == text_length))
-			{
-				temp1 = 0; // using this to help handle actions
-				reset_text_values();
-
-				if (text_decision == 1) // if the text_decision was yes
-				{
-					// handle talking actions
-					switch (text_action)
+					// draw the last row as yes/no
+					// 0xed is bottom bar
+					// 0x60 is arrow
+					if (text_decision == 0)
 					{
-					case CHOICE_PLAY_GAME:
-						bg_display_hud = 0;			 // draw the hud
-						bg_fade_out = 1;				 // turn back on room fading
-						display_hud_sprites = 1; // turn back on hud sprites
-						item_found = 0;					 // reset item found (in case we were in the item found mode)
-						temp1 = 1;
-						game_mode = MODE_TITLE;
-						initialize_title_screen();
-						ppu_on_all(); // turn on screen
-						break;
-					case CHOICE_FETCH_QUEST:
-						on_fetchquest = 1;
-						items_collected = items_collected | ITEM_BURGER_GAME;
-						item_found = ITEM_BURGER_GAME;
-						collision_action = TALK_FETCHQUEST_1;
-						draw_talking();
-						break;
-					case CHOICE_BUY_FOOD:
-						on_fetchquest = 2;
-						item_found = ITEM_BURGER_GAME;
-						collision_action = TALK_FETCHTWO;
-						draw_talking();
-						break;
-					case CHOICE_DO_REPS_1:
-						collision_action = TALK_DO_REPS;
-						draw_talking();
-						break;
-					case CHOICE_DO_REPS_2:
-						player_x = 0x70;
-						player_y = 0x70;
-						set_music_speed(2);
-						rep_count = 0;
-						rep_timer = REP_TIMER_MAX; // this is all based off rep_timer being set
-						break;
-					default:
-						break;
+						one_vram_buffer(0x60, NTADR_A(10, 6));
+						one_vram_buffer(0xed, NTADR_A(17, 6));
+					}
+					else
+					{
+						one_vram_buffer(0xed, NTADR_A(10, 6));
+						one_vram_buffer(0x60, NTADR_A(17, 6));
+					}
+
+					one_vram_buffer('N', NTADR_A(11, 6));
+					one_vram_buffer('O', NTADR_A(12, 6));
+
+					one_vram_buffer('Y', NTADR_A(18, 6));
+					one_vram_buffer('E', NTADR_A(19, 6));
+					one_vram_buffer('S', NTADR_A(20, 6));
+
+					if (pad1_new & PAD_RIGHT)
+					{
+						text_decision = 1;
+					}
+					if (pad1_new & PAD_LEFT)
+					{
+						text_decision = 0;
 					}
 				}
-
-				// if the guy just gave us the game, play the text for it
-				if ((text_rendered == text_length) && on_fetchquest == 3)
+				if (pad1_new & PAD_B)
 				{
-					on_fetchquest = 4;
-					item_found = ITEM_BURGER_GAME;
-					collision_action = TALK_ITEM_4;
-					draw_talking();
+					temp1 = 0; // using this to help handle actions
+					reset_text_values();
+
+					if (text_decision == 1) // if the text_decision was yes
+					{
+						// handle talking actions
+						switch (text_action)
+						{
+						case CHOICE_PLAY_GAME:
+							bg_display_hud = 0;			 // draw the hud
+							bg_fade_out = 1;				 // turn back on room fading
+							display_hud_sprites = 1; // turn back on hud sprites
+							item_found = 0;					 // reset item found (in case we were in the item found mode)
+							temp1 = 1;
+							game_mode = MODE_TITLE;
+							initialize_title_screen();
+							ppu_on_all(); // turn on screen
+							break;
+						case CHOICE_FETCH_QUEST:
+							on_fetchquest = 1;
+							items_collected = items_collected | ITEM_BURGER_GAME;
+							item_found = ITEM_BURGER_GAME;
+							collision_action = TALK_FETCHQUEST_1;
+							draw_talking();
+							break;
+						case CHOICE_BUY_FOOD:
+							on_fetchquest = 2;
+							item_found = ITEM_BURGER_GAME;
+							collision_action = TALK_FETCHTWO;
+							draw_talking();
+							break;
+						case CHOICE_DO_REPS_1:
+							collision_action = TALK_DO_REPS;
+							draw_talking();
+							break;
+						case CHOICE_DO_REPS_2:
+							player_x = 0x70;
+							player_y = 0x70;
+							set_music_speed(2);
+							rep_count = 0;
+							rep_timer = REP_TIMER_MAX; // this is all based off rep_timer being set
+							break;
+						default:
+							break;
+						}
+					}
 				}
+			}
 
-				// text finished, go back to game
+			// text finished, go back to game
+			if (temp1 == 0) // we didn't exit before
+			{
 
-				if (temp1 == 0) // we didn't exit before
-				{
-					bg_display_hud = 1; // draw the hud
+				bg_display_hud = 1; // draw the hud
 
-					game_mode = MODE_GAME;
+				game_mode = MODE_GAME;
 
-					draw_bg();
-					bg_fade_out = 1;				 // turn back on room fading
-					display_hud_sprites = 1; // turn back on hud sprites
-					item_found = 0;					 // reset item found (in case we were in the item found mode)
-					ppu_on_all();
-				}
+				draw_bg();
+				bg_fade_out = 1;				 // turn back on room fading
+				display_hud_sprites = 1; // turn back on hud sprites
+				item_found = 0;					 // reset item found (in case we were in the item found mode)
+				ppu_on_all();
+			}
+			// if the guy just gave us the game, play the text for it
+			if ((text_rendered == text_length) && on_fetchquest == 3)
+			{
+				reset_text_values();
+				on_fetchquest = 4;
+				item_found = ITEM_BURGER_GAME;
+				collision_action = TALK_ITEM_4;
+				draw_talking();
 			}
 			// if the yoked bro just gave us the prize, play the text for it
 			if ((text_rendered == text_length) && collision_action == TALK_REPS_FINISHED)
@@ -1071,39 +1067,46 @@ void action(void)
 	// check for shots
 	if (pad1_new & PAD_A)
 	{
-		// the shot starts where the player is and moves in the direction
-		// the player was facing when they shot.
-		shot_x = player_x;
-		shot_y = player_y;
-		shot_direction = player_direction;
-		sfx_play(SFX_SHOT, 0);
+		if (rep_timer > 0)
+		{
+			++rep_count;
+			// todo sound effect for reps?
+			//  if((rep_count & 1) == 0){
+			//  	sfx_play(SFX_COIN, 0);
+			//  }
+		}
+		else
+		{
+			// the shot starts where the player is and moves in the direction
+			// the player was facing when they shot.
+			shot_x = player_x;
+			shot_y = player_y;
+			shot_direction = player_direction;
+			sfx_play(SFX_SHOT, 0);
+		}
+	}
+	if (rep_timer == 0 && rep_count > 0)
+	{
+		if (rep_count > MAX_REPS)
+		{
+			rep_count = 0;
+			collision_action = TALK_REPS_FINISHED;
+			draw_talking();
+			return;
+		}
+		else
+		{
+			rep_count = 0;
+			collision_action = TALK_MORE_REPS;
+			draw_talking();
+			return;
+		}
 	}
 
 	// check for interactable
 	if (pad1_new & PAD_B)
 	{
-		if (rep_timer > 0)
-		{
-			++rep_count;
-		}
 
-		if (rep_timer == 0 && rep_count > 0)
-		{
-			if (rep_count > MAX_REPS)
-			{
-				rep_count = 0;
-				collision_action = TALK_REPS_FINISHED;
-				draw_talking();
-				return;
-			}
-			else
-			{
-				rep_count = 0;
-				collision_action = TALK_MORE_REPS;
-				draw_talking();
-				return;
-			}
-		}
 		action_collision();
 
 		if (collision_action != TURN_OFF)
@@ -1717,7 +1720,12 @@ void change_room_up()
 {
 	player_y = PLAYER_BOTTOM_EDGE;
 
-	if (which_bg < 25)
+	if (which_bg == 21)
+	{
+		// going up from the back door area
+		which_bg = 11; // teleport to the top outdoors
+	}
+	else if (which_bg < 25)
 	{
 		which_bg = which_bg - 5;
 	}
@@ -1725,11 +1733,7 @@ void change_room_up()
 	{
 		which_bg = 22;
 	}
-	else if (which_bg == 21)
-	{
-		// going up from the back door area
-		which_bg = 11; // teleport to the top outdoors
-	}
+
 	else
 	{
 		--which_bg;
@@ -2221,10 +2225,12 @@ void draw_talking(void)
 		text_length = sizeof(fetch_2);
 		break;
 	case TALK_REPS_FINISHED:
+		set_music_speed(5);
 		pointer = talk_reps_finished;
 		text_length = sizeof(talk_reps_finished);
 		break;
 	case TALK_MORE_REPS:
+		set_music_speed(5);
 		pointer = talk_more_reps;
 		text_length = sizeof(talk_more_reps);
 		break;

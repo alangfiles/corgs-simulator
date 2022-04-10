@@ -9,7 +9,7 @@
 #define ITEM_BURGER_GAME 0x08
 #define ITEM_KETTLEBELL_GAME 0x10
 #define ITEM_3_GAME 0x20
-unsigned char items_collected = 0x00;
+unsigned char items_collected = 0x01;
 unsigned char item_found = 0;
 
 
@@ -77,8 +77,9 @@ unsigned char on_fetchquest = 0; //0 - not started, 1 - money, 2 - food, 3 - bur
 
 
 #pragma region REPS
-#define MAX_REPS  2 //how many reps to get the prize
-#define REP_TIMER_MAX 2 //how much time to do the reps
+#define REPS_ROOM 21
+#define MAX_REPS  20 //how many reps to get the prize
+#define REP_TIMER_MAX 5 //how much time to do the reps
 unsigned char rep_count = 0;
 unsigned char rep_timer = 0;
 #pragma endregion REPS
