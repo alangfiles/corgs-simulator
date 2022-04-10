@@ -188,7 +188,8 @@ enum
 };
 
 enum{
-	CHOICE_PLAY_GAME
+	CHOICE_PLAY_GAME,
+	CHOICE_FETCH_QUEST
 };
 
 #pragma bss-name(push, "BSS")

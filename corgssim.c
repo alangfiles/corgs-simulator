@@ -204,7 +204,7 @@ void main(void)
 				text_row = 0;
 			}
 
-			if ((text_rendered == text_length) && text_decision != TURN_OFF) // if there's a text decision
+			if ((text_rendered == text_length-1) && text_decision != TURN_OFF) // if there's a text decision
 			{
 				// draw the last row as yes/no
 				// 0xed is bottom bar
@@ -212,20 +212,21 @@ void main(void)
 				if (text_decision == 0)
 				{
 					one_vram_buffer(0x60, NTADR_A(10, 6));
-					one_vram_buffer(0xed, NTADR_A(18, 6));
+					one_vram_buffer(0xed, NTADR_A(17, 6));
 				}
 				else
 				{
 					one_vram_buffer(0xed, NTADR_A(10, 6));
-					one_vram_buffer(0x60, NTADR_A(18, 6));
+					one_vram_buffer(0x60, NTADR_A(17, 6));
 				}
 
-				one_vram_buffer('Y', NTADR_A(11, 6));
-				one_vram_buffer('E', NTADR_A(12, 6));
-				one_vram_buffer('S', NTADR_A(13, 6));
+				one_vram_buffer('N', NTADR_A(11, 6));
+				one_vram_buffer('O', NTADR_A(12, 6));
 
-				one_vram_buffer('N', NTADR_A(19, 6));
-				one_vram_buffer('O', NTADR_A(20, 6));
+				one_vram_buffer('Y', NTADR_A(18, 6));
+				one_vram_buffer('E', NTADR_A(19, 6));
+				one_vram_buffer('S', NTADR_A(20, 6));
+				
 			}
 
 			if (text_decision != TURN_OFF)
@@ -250,11 +251,8 @@ void main(void)
 					switch (text_action)
 					{
 					case CHOICE_PLAY_GAME:
-						if (text_decision == 0) // yes
+						if (text_decision == 1) // yes
 						{
-							text_rendered = 0;
-							text_row = 0;
-							text_col = 0;
 							bg_display_hud = 0;			 // draw the hud
 							bg_fade_out = 1;				 // turn back on room fading
 							display_hud_sprites = 1; // turn back on hud sprites
@@ -267,6 +265,13 @@ void main(void)
 						}
 						// if no, we just exit talking
 						break;
+					case CHOICE_FETCH_QUEST:
+						if(text_decision == 1)
+						{
+							collision_action = TALK_FETCHQUEST_2;
+							draw_talking();
+						}
+						break;
 					default:
 						break;
 					}
@@ -276,10 +281,6 @@ void main(void)
 
 				if (temp1 == 0) // we didn't exit before
 				{
-					// reset values
-					text_rendered = 0;
-					text_row = 0;
-					text_col = 0;
 					bg_display_hud = 1; // draw the hud
 
 					game_mode = MODE_GAME;
@@ -1725,6 +1726,11 @@ void draw_talking(void)
 	// writes to the HUD area, then starts the talking mode
 	// which writes 1 char a frame.
 	ppu_off();
+	//reset talking variables
+	text_rendered = 0;
+	text_row = 0;
+	text_col = 0;
+	
 	game_mode = MODE_TALKING_TIME;
 
 	text_decision = TURN_OFF; // no text decisions
@@ -1982,9 +1988,9 @@ void draw_talking(void)
 		pointer = talk_table;
 		text_length = sizeof(talk_table);
 		break;
-	case TALK_HAMBURGER:
-		pointer = talk_hamburger;
-		text_length = sizeof(talk_hamburger);
+	case TALK_FOODTRUCK:
+		pointer = talk_foodtruck;
+		text_length = sizeof(talk_foodtruck);
 		break;
 	case TALK_KING2:
 		pointer = talk_king2;

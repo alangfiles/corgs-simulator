@@ -59,11 +59,13 @@ enum
   TALK_ERIC,
   TALK_COMPLAIN,
   TALK_TABLE,
-  TALK_HAMBURGER,
+  TALK_FOODTRUCK,
   TALK_KING2,
   TALK_SPACE,
-  
-  
+  TALK_FETCHQUEST_1,
+  TALK_FETCHQUEST_2,
+  TALK_FETCHQUEST_3,
+  TALK_FETCHQUEST_4,
 };
 
 // we only have limited space to display, so here's the template for strings:
@@ -129,32 +131,32 @@ const unsigned char talk_clever[] = "Man, why does everyone havet say something 
 const unsigned char talk_eric[] = "I AM ERROR.\n\n...I mean, Eric.";
 const unsigned char talk_complain[] = "I hate these guys, they\nnever sell anything.";
 const unsigned char talk_table[] = "That food smells good, but I can't leave my table.";
-const unsigned char talk_hamburger[] = "IT'S DANGEROUS TO GO\nALONE!  TAKE THIS.\n\n(It's a hamburger).";
+const unsigned char talk_foodtruck[] = "Back of the line!\nUnless you've got cash";
 const unsigned char talk_king2[] = "The KING OF VIDEO GAMES?\nI'm gonna try and get his\nautograph.";
 const unsigned char talk_space[] = "OK, I admit it.\nI'm just here to fill this space.";
 
 const unsigned char talk_27[] = "You're not allowed back here, you might accidentally clip across the map.";
 
+const unsigned char fetch_quest_1[] = "I'm hungry, but\nI can't leave my booth\nGRUMBLE GRUMBLE. \n Can you help?";
+const unsigned char fetch_quest_2[] = "Here's $10, get me something good.";
+const unsigned char fetch_quest_3[] = "IT'S DANGEROUS TO GO\nALONE!  TAKE THIS.\n\n(It's a hamburger).";
+const unsigned char fetch_quest_4[] = "Thank you! Once good burger deserves another.";
 
-
-
-
-// some texts I might want
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
 const unsigned char item_1[] =   "You found a Famicom Disk\nSystem copy of...\nThe Legend of Zelda";
-const unsigned char item_3[] =   "You found an Atari 2600\ncopy of Warren Robinett's\nAdventure.";
 const unsigned char item_2[] =   "You found a Nintendo\nEntertainment System copy\nof...   Super Mario Bros.";
+const unsigned char item_3[] =   "You found an Atari 2600\ncopy of Warren Robinett's\nAdventure.";
+const unsigned char item_4[] =   "You found an Bally Midway\nArcade board of...\n Burger Time";
 
 
-// keeping track of KB left. 256Bytes for each 4 lorems
-
+// keeping track of space left. each line is 64bytes
 const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
-const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem6[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem6[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem7[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem8[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 

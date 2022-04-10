@@ -65,5 +65,11 @@ unsigned char player_coins = 0;
 
 #pragma endregion ADVENTURE_ROOM
 
+#pragma region FETCH_QUEST
+#define FETCH_QUEST_ROOM 23
+#define FETCH_QUEST_X 0xD0
+#define FETCH_QUEST_Y 0x60
+
+#pragma endregion FETCH_QUEST
 
 
