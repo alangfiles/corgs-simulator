@@ -59,10 +59,10 @@ unsigned char collision_L;
 unsigned char collision_R;
 unsigned char collision_U;
 unsigned char collision_D;
-unsigned char eject_L; // from the left
-unsigned char eject_R; // remember these from the collision sub routine
-unsigned char eject_D; // from below
-unsigned char eject_U; // from up
+// unsigned char eject_L; // from the left
+// unsigned char eject_R; // remember these from the collision sub routine
+// unsigned char eject_D; // from below
+// unsigned char eject_U; // from up
 
 unsigned char collision_action;
 unsigned char which_bg = 0;
