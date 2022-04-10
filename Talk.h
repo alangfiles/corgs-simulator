@@ -65,6 +65,10 @@ enum
   TALK_FETCHQUEST_1,
   TALK_FETCHTWO,
   TALK_ITEM_4,
+  TALK_DO_REPS,
+  TALK_REPS_FINISHED,
+  TALK_MORE_REPS,
+  TALK_ITEM_5,
 };
 
 // we only have limited space to display, so here's the template for strings:
@@ -100,6 +104,10 @@ const unsigned char talk_thingyouwant[] = "Thingyoureallywant?  Yeah, I just sol
 const unsigned char talk_graded[] = "I'm going to buy this and\nhave it graded.";
 const unsigned char talk_mywife[] = "If I buy this, my wife willkill me.";
 const unsigned char talk_muscle1[] = "Bro, you look jacked. Wannado some reps?";
+const unsigned char talk_do_reps[] = "Ready to press B\nas fast as you can?";
+const unsigned char talk_reps_done[] = "Legit";
+const unsigned char talk_reps_finished[] = "Rise from your grave!\n You're a beast!";
+const unsigned char talk_more_reps[] = "You need more practice!";
 const unsigned char talk_muscle2[] = "Brah, my bro is yoked. He \ndoes his reps at 61 frames per second.";
 const unsigned char talk_ladyonbreak[] = "I the run the food trucks.\n\n\nBet you thought I didn't \nhave a lower body.\n\nBut I do.\n\n\nSo there."; 
 const unsigned char talk_stick[] = "These buttons are really\nsticky.\n\nSo is the stick.";
@@ -144,7 +152,8 @@ const unsigned char fetch_quest_2[] = "Thank you! One good burger deserves anoth
 const unsigned char item_1[] =   "You found a Famicom Disk\nSystem copy of...\nThe Legend of Zelda";
 const unsigned char item_2[] =   "You found a Nintendo\nEntertainment System copy\nof...   Super Mario Bros.";
 const unsigned char item_3[] =   "You found an Atari 2600\ncopy of Warren Robinett's\nAdventure.";
-const unsigned char item_4[] =   "You found an Bally Midway\nArcade board of...\n Burger Time";
+const unsigned char item_4[] =   "You got a Bally Midway\nArcade board of...\n Burger Time";
+const unsigned char item_5[] =   "Those ripped bros gave you\na 20lb kettlebell!";
 
 const unsigned char fetch_1[] =   "\nYou got a stack of money!";
 const unsigned char fetch_2[] =   "\nYou got a jumbo burger!";
@@ -153,8 +162,8 @@ const unsigned char fetch_2[] =   "\nYou got a jumbo burger!";
 // big space holders
 const unsigned char lorem256_1[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 const unsigned char lorem256_2[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem256_3[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem256_4[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem256_3[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem256_4[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
 
 // keeping track of space left. each line is 64bytes 4=256kb

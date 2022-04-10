@@ -1506,3 +1506,11 @@ const unsigned char BurgerGame[]={
 	  8,  8,0xab,3,
 	128
 };
+
+const unsigned char KettleBell[]={
+	  0,  0,0xaa,3,
+	  8,  0,0xaa,3,
+	  0,  8,0x1a,3,
+	  8,  8,0xdd,3,
+	128
+};

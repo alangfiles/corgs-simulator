@@ -243,49 +243,46 @@ void main(void)
 			if ((pad1_new & PAD_B) && (text_rendered == text_length))
 			{
 				temp1 = 0; // using this to help handle actions
+				reset_text_values();
 
-				if (text_decision != TURN_OFF)
+				if (text_decision == 1) // if the text_decision was yes
 				{
 					// handle talking actions
 					switch (text_action)
 					{
 					case CHOICE_PLAY_GAME:
-						if (text_decision == 1) // yes
-						{
-							// reset talking variables
-							reset_text_values();
-							bg_display_hud = 0;			 // draw the hud
-							bg_fade_out = 1;				 // turn back on room fading
-							display_hud_sprites = 1; // turn back on hud sprites
-							item_found = 0;					 // reset item found (in case we were in the item found mode)
-							temp1 = 1;
-							game_mode = MODE_TITLE;
-							initialize_title_screen();
-							ppu_on_all(); // turn on screen
-						}
+						bg_display_hud = 0;			 // draw the hud
+						bg_fade_out = 1;				 // turn back on room fading
+						display_hud_sprites = 1; // turn back on hud sprites
+						item_found = 0;					 // reset item found (in case we were in the item found mode)
+						temp1 = 1;
+						game_mode = MODE_TITLE;
+						initialize_title_screen();
+						ppu_on_all(); // turn on screen
 						break;
 					case CHOICE_FETCH_QUEST:
-						if (text_decision == 1)
-						{
-							reset_text_values();
-							on_fetchquest = 1;
-							items_collected = items_collected | ITEM_BURGER_GAME;
-							item_found = ITEM_BURGER_GAME;
-							collision_action = TALK_FETCHQUEST_1;
-							draw_talking();
-						}
+						on_fetchquest = 1;
+						items_collected = items_collected | ITEM_BURGER_GAME;
+						item_found = ITEM_BURGER_GAME;
+						collision_action = TALK_FETCHQUEST_1;
+						draw_talking();
 						break;
 					case CHOICE_BUY_FOOD:
-						ppu_off();
-						if (text_decision == 1)
-						{
-							reset_text_values();
-							ppu_off();
-							on_fetchquest = 2;
-							item_found = ITEM_BURGER_GAME;
-							collision_action = TALK_FETCHTWO;
-							draw_talking();
-						}
+						on_fetchquest = 2;
+						item_found = ITEM_BURGER_GAME;
+						collision_action = TALK_FETCHTWO;
+						draw_talking();
+						break;
+					case CHOICE_DO_REPS_1:
+						collision_action = TALK_DO_REPS;
+						draw_talking();
+						break;
+					case CHOICE_DO_REPS_2:
+						player_x = 0x70;
+						player_y = 0x70;
+						set_music_speed(2);
+						rep_count = 0;
+						rep_timer = REP_TIMER_MAX; // this is all based off rep_timer being set
 						break;
 					default:
 						break;
@@ -295,7 +292,6 @@ void main(void)
 				// if the guy just gave us the game, play the text for it
 				if ((text_rendered == text_length) && on_fetchquest == 3)
 				{
-					reset_text_values();
 					on_fetchquest = 4;
 					item_found = ITEM_BURGER_GAME;
 					collision_action = TALK_ITEM_4;
@@ -306,8 +302,6 @@ void main(void)
 
 				if (temp1 == 0) // we didn't exit before
 				{
-					// reset talking variables
-					reset_text_values();
 					bg_display_hud = 1; // draw the hud
 
 					game_mode = MODE_GAME;
@@ -318,6 +312,15 @@ void main(void)
 					item_found = 0;					 // reset item found (in case we were in the item found mode)
 					ppu_on_all();
 				}
+			}
+			// if the yoked bro just gave us the prize, play the text for it
+			if ((text_rendered == text_length) && collision_action == TALK_REPS_FINISHED)
+			{
+				reset_text_values();
+				items_collected = items_collected | ITEM_KETTLEBELL_GAME;
+				item_found = ITEM_KETTLEBELL_GAME;
+				collision_action = TALK_ITEM_5;
+				draw_talking();
 			}
 		}
 		while (game_mode == MODE_END)
@@ -553,6 +556,17 @@ void draw_sprites(void)
 	if (item_found) // special player sprite used if item found
 	{
 		oam_meta_spr(player_x, player_y, PrizeGuy94);
+	}
+	else if (rep_timer > 0)
+	{
+		if ((rep_count & 1) == 0)
+		{ // this should be like %2
+			oam_meta_spr(player_x, player_y, PlayerSprDown);
+		}
+		else
+		{
+			oam_meta_spr(player_x, player_y, PrizeGuy94);
+		}
 	}
 	else
 	{
@@ -966,6 +980,10 @@ void draw_sprites(void)
 				break;
 			}
 		}
+		if (items_collected & ITEM_KETTLEBELL_GAME)
+		{
+			oam_meta_spr(0x34, 0x20, KettleBell);
+		}
 
 		if (code_active == 1)
 		{
@@ -1039,6 +1057,10 @@ void draw_sprites(void)
 				break;
 			}
 		}
+		if (item_found == ITEM_KETTLEBELL_GAME)
+		{
+			oam_meta_spr(player_x, player_y - 16, KettleBell);
+		}
 	}
 
 #pragma endregion
@@ -1060,6 +1082,28 @@ void action(void)
 	// check for interactable
 	if (pad1_new & PAD_B)
 	{
+		if (rep_timer > 0)
+		{
+			++rep_count;
+		}
+
+		if (rep_timer == 0 && rep_count > 0)
+		{
+			if (rep_count > MAX_REPS)
+			{
+				rep_count = 0;
+				collision_action = TALK_REPS_FINISHED;
+				draw_talking();
+				return;
+			}
+			else
+			{
+				rep_count = 0;
+				collision_action = TALK_MORE_REPS;
+				draw_talking();
+				return;
+			}
+		}
 		action_collision();
 
 		if (collision_action != TURN_OFF)
@@ -1644,7 +1688,7 @@ void change_room_right()
 	{
 		which_bg = 29;
 	}
- 
+
 	draw_bg();
 }
 
@@ -1677,11 +1721,11 @@ void change_room_up()
 	{
 		which_bg = which_bg - 5;
 	}
-	else if (which_bg == 25) //space saving hax
+	else if (which_bg == 25) // space saving hax
 	{
 		which_bg = 22;
 	}
-	else if(which_bg == 21)
+	else if (which_bg == 21)
 	{
 		// going up from the back door area
 		which_bg = 11; // teleport to the top outdoors
@@ -1745,6 +1789,11 @@ void countdown_timer(void)
 
 	if (frame == 60)
 	{
+		if (rep_timer > 0)
+		{
+			--rep_timer;
+		}
+
 		frame = 0;
 		// nes is bad at mul and div math, so just doing counting for clock.
 		if (seconds_left_ones == 0)
@@ -1984,8 +2033,18 @@ void draw_talking(void)
 		text_length = sizeof(talk_mywife);
 		break;
 	case TALK_MUSCLE1:
-		pointer = talk_muscle1;
-		text_length = sizeof(talk_muscle1);
+		if (!(items_collected & ITEM_KETTLEBELL_GAME))
+		{
+			pointer = talk_muscle1;
+			text_length = sizeof(talk_muscle1);
+			text_decision = 0;
+			text_action = CHOICE_DO_REPS_1;
+		}
+		else
+		{
+			pointer = talk_reps_done;
+			text_length = sizeof(talk_reps_done);
+		}
 		break;
 	case TALK_MUSCLE2:
 		pointer = talk_muscle2;
@@ -2099,6 +2158,12 @@ void draw_talking(void)
 		pointer = talk_complain;
 		text_length = sizeof(talk_complain);
 		break;
+	case TALK_DO_REPS:
+		pointer = talk_do_reps;
+		text_length = sizeof(talk_do_reps);
+		text_decision = 0;
+		text_action = CHOICE_DO_REPS_2;
+		break;
 	case TALK_FETCHQUEST:
 		// this is the guy who starts you on the quest
 		switch (on_fetchquest)
@@ -2154,6 +2219,18 @@ void draw_talking(void)
 	case TALK_FETCHTWO:
 		pointer = fetch_2;
 		text_length = sizeof(fetch_2);
+		break;
+	case TALK_REPS_FINISHED:
+		pointer = talk_reps_finished;
+		text_length = sizeof(talk_reps_finished);
+		break;
+	case TALK_MORE_REPS:
+		pointer = talk_more_reps;
+		text_length = sizeof(talk_more_reps);
+		break;
+	case TALK_ITEM_5:
+		pointer = item_5;
+		text_length = sizeof(item_5);
 		break;
 	default:
 		pointer = blank_1;
