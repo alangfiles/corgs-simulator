@@ -43,7 +43,7 @@ const unsigned char code[]={
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 42
+#define STARTING_ROOM 23
 
 // HUD stuff
 #define A_LOC 16
@@ -86,8 +86,8 @@ unsigned char temp6;
 
 unsigned char player_direction = DOWN;
 unsigned char last_player_direction = DOWN;
-unsigned char player_x = 0x80;
-unsigned char player_y = 0x80;
+unsigned char player_x = 0xA0;
+unsigned char player_y = 0xA0;
 
 unsigned char song;
 #define MAX_SONGS 2

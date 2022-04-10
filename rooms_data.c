@@ -333,12 +333,8 @@ const unsigned char * const collision_list[]={
   trans_collision,title_collision,outside_collision,outside_collision,outside_collision,
   trans_collision,outside_collision,outside_collision,trans_collision,outside_collision,
   0,0,inside_collision,inside_collision,inside_collision,
-  0,0,inside_collision,inside_collision,inside_collision,
-  0,0,inside_collision,0,0,
-  0,0,outside_collision,0,0,
-  0,0,outside_collision,0,0,
-  0,0,inside_collision,0,0,
-  cliff_collision,outside_collision,outside_collision,0,0,
+  cliff_collision,outside_collision,inside_collision,inside_collision,inside_collision,
+  inside_collision,outside_collision,outside_collision,inside_collision,outside_collision,
 };
 
 const unsigned char * const room_list[]={
@@ -346,12 +342,8 @@ const unsigned char * const room_list[]={
   room_6,room_1,room_8,room_9,room_10,
   room_11,room_12,room_13,room_14,room_15,
   blank,blank,room_18,room_19,room_20,
-  blank,blank,room_23,room_24,room_25,
-  blank,blank,room_28,blank,blank,
-  blank,blank,room_33,blank,blank,
-  blank,blank,room_38,blank,blank,
-  blank,blank,room_43,blank,blank,
-  room_46,room_47,room_48,blank,blank,
+  room_46,room_47,room_23,room_24,room_25,
+  room_28,room_33,room_38,room_43,room_48,
 };
 
 const unsigned char inside_hud = 0;
@@ -364,12 +356,8 @@ const unsigned char * const talk_list[]={
   blank_talk,blank_talk,blank_talk,room_9_talk,blank_talk,
   blank_talk,blank_talk,blank_talk,room_14_talk,blank_talk,
   blank_talk,blank_talk,room_18_talk,room_19_talk,room_20_talk,
-  blank_talk,blank_talk,room_23_talk,room_24_talk,room_25_talk,
-  blank_talk,blank_talk,room_28_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,blank_talk,blank_talk,
-  blank_talk,blank_talk,room_43_talk,blank_talk,blank_talk,
-  room_46_talk,room_47_talk,room_48_talk,blank_talk,blank_talk,
+  room_46_talk,room_47_talk,room_23_talk,room_24_talk,room_25_talk,
+  room_28_talk,blank_talk,blank_talk,room_43_talk,room_48_talk,
 };
 
 const unsigned char * const sprite_list[]={
@@ -377,12 +365,8 @@ const unsigned char * const sprite_list[]={
   blank_sprites,blank_sprites,blank_sprites,room_9_sprites,blank_sprites,
   room_11_sprites,blank_sprites,blank_sprites,room_14_sprites,blank_sprites,
   blank_sprites,blank_sprites,room_18_sprites,room_19_sprites,room_20_sprites,
-  blank_sprites,blank_sprites,room_23_sprites,room_24_sprites,room_25_sprites,
-  blank_sprites,blank_sprites,room_28_sprites,blank_sprites,blank_sprites,
-  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
-  blank_sprites,blank_sprites,blank_sprites,blank_sprites,blank_sprites,
-  blank_sprites,blank_sprites,room_43_sprites,blank_sprites,blank_sprites,
-  room_46_sprites,room_47_sprites,room_48_sprites,blank_sprites,blank_sprites,
+  room_46_sprites,room_47_sprites,room_23_sprites,room_24_sprites,room_25_sprites,
+  room_28_sprites,blank_sprites,blank_sprites,room_43_sprites,room_48_sprites,
 };
 
 
@@ -391,12 +375,8 @@ const unsigned char * const room_palette_list[]={
   trans_palette,title_palette,outside_palette,outside_palette,outside_palette,
   trans_palette,outside_palette,outside_palette,trans_palette,outside_palette,
   0,0,inside_palette,inside_palette,inside_palette,
-  0,0,inside_palette,inside_palette,inside_palette,
-  0,0,inside_palette,0,0,
-  0,0,outside_palette,0,0,
-  0,0,outside_palette,0,0,
-  0,0,inside_palette,0,0,
-  cliff_palette,outside_palette,outside_palette,0,0,
+  cliff_palette,outside_palette,inside_palette,inside_palette,inside_palette,
+  inside_palette,outside_palette,outside_palette,inside_palette,outside_palette,
 };
 
 const unsigned char * const room_metatile_list[]={
@@ -404,10 +384,6 @@ const unsigned char * const room_metatile_list[]={
   trans_metatiles,title_metatiles,outside_metatiles,outside_metatiles,outside_metatiles,
   trans_metatiles,outside_metatiles,outside_metatiles,trans_metatiles,outside_metatiles,
   0,0,inside_metatiles,inside_metatiles,inside_metatiles,
-  0,0,inside_metatiles,inside_metatiles,inside_metatiles,
-  0,0,inside_metatiles,0,0,
-  0,0,outside_metatiles,0,0,
-  0,0,outside_metatiles,0,0,
-  0,0,inside_metatiles,0,0,
-  cliff_metatiles,outside_metatiles,outside_metatiles,0,0,
+  cliff_metatiles,outside_metatiles,inside_metatiles,inside_metatiles,inside_metatiles,
+  inside_metatiles,outside_metatiles,outside_metatiles,inside_metatiles,outside_metatiles,
 };

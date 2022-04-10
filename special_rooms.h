@@ -28,17 +28,19 @@ unsigned char block_moved = 0;
 unsigned char has_moved = 0;
 
 
+#define CLIFF_ROOM 20
+
 #pragma endregion DUNGEON_ROOM
 
 #define TOLIET_WARP_1_ROOM 4
 #define TOLIET_WARP_1_Y 0x90
 #define TOLIET_WARP_1_X 0xC0
 
-#define TOLIET_WARP_2_ROOM 42
+#define TOLIET_WARP_2_ROOM 28
 #define TOLIET_WARP_2_Y 0x60
 #define TOLIET_WARP_2_X 0xE0
 
-#define TOLIET_WARP_3_ROOM 42
+#define TOLIET_WARP_3_ROOM 28
 #define TOLIET_WARP_3_Y 0xC0
 #define TOLIET_WARP_3_X 0xE0
 

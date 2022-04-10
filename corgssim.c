@@ -103,8 +103,8 @@ void main(void)
 
 				// set defaults
 				game_mode = MODE_GAME;
-				player_x = 64;
-				player_y = 120;
+				player_x = 0x80;
+				player_y = 0x80;
 
 				minutes_left = 4;
 				seconds_left_tens = 0;
@@ -292,15 +292,14 @@ void main(void)
 					}
 				}
 
-				//if the guy just gave us the game, play the text for it
-				if((text_rendered == text_length) && on_fetchquest==3)
+				// if the guy just gave us the game, play the text for it
+				if ((text_rendered == text_length) && on_fetchquest == 3)
 				{
 					reset_text_values();
 					on_fetchquest = 4;
 					item_found = ITEM_BURGER_GAME;
 					collision_action = TALK_ITEM_4;
 					draw_talking();
-					
 				}
 
 				// text finished, go back to game
@@ -375,14 +374,14 @@ void draw_bg(void)
 	// to save space, the room files just have the room data, not the hud or bottom line
 	// so we memcopy those in now to cost more rendering time in draw_bg, but save
 	// some bites in the rom.
-	if (which_bg == 0 || which_bg == 45) // title screen and cliff
+	if (which_bg == 0 || which_bg == CLIFF_ROOM) // title screen and cliff
 	{
 		set_data_pointer(room_list[which_bg]);
 		memcpy(c_map, room_list[which_bg], 240);
 	}
 	else
 	{
-		//shortcut drawing the HUD spaces and the bottom line with this code
+		// shortcut drawing the HUD spaces and the bottom line with this code
 		for (index = 0; index < 240; ++index)
 		{
 			if (index < 64)
@@ -1286,13 +1285,12 @@ void movement(void)
 		if ( // block_moved &&
 				check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET,0);
+			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_2_ROOM;
 			player_x = TOLIET_WARP_2_X - 0x10;
 			player_y = TOLIET_WARP_2_Y;
 			draw_bg();
 		}
-		
 	}
 
 	if (which_bg == TOLIET_WARP_2_ROOM)
@@ -1305,7 +1303,7 @@ void movement(void)
 		if ( // block_moved &&
 				check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET,0);
+			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_1_ROOM;
 			player_x = TOLIET_WARP_1_X - 0x10;
 			player_y = TOLIET_WARP_1_Y;
@@ -1318,7 +1316,7 @@ void movement(void)
 			if ( // block_moved &&
 					check_collision(&Generic, &Generic2))
 			{
-				sfx_play(SFX_WARP_TOLIET,0);
+				sfx_play(SFX_WARP_TOLIET, 0);
 				which_bg = COIN_GAME_ROOM;
 				player_x = 0x20;
 				player_y = 0x50;
@@ -1339,7 +1337,7 @@ void movement(void)
 		if ( // block_moved &&
 				check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET,0);
+			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_2_ROOM;
 			player_x = TOLIET_WARP_3_X - 0x10;
 			player_y = TOLIET_WARP_3_Y;
@@ -1485,25 +1483,25 @@ void action_collision()
 		break;
 	}
 
-	//we shouldn't need this code cause it can wrap around and that's fine
-	//but if we see oddities we can bring this back
-	// // did out action box push too far out
-	// if (temp1 > temp2)
-	// {
-	// 	temp1 = SCREEN_LEFT_EDGE;
-	// }
-	// if (temp2 < temp1)
-	// {
-	// 	temp2 = SCREEN_RIGHT_EDGE;
-	// }
-	// if (temp3 > temp4)
-	// {
-	// 	temp3 = SCREEN_TOP_EDGE;
-	// }
-	// if (temp4 < temp3)
-	// {
-	// 	temp4 = SCREEN_BOTTOM_EDGE;
-	// }
+	// we shouldn't need this code cause it can wrap around and that's fine
+	// but if we see oddities we can bring this back
+	//  // did out action box push too far out
+	//  if (temp1 > temp2)
+	//  {
+	//  	temp1 = SCREEN_LEFT_EDGE;
+	//  }
+	//  if (temp2 < temp1)
+	//  {
+	//  	temp2 = SCREEN_RIGHT_EDGE;
+	//  }
+	//  if (temp3 > temp4)
+	//  {
+	//  	temp3 = SCREEN_TOP_EDGE;
+	//  }
+	//  if (temp4 < temp3)
+	//  {
+	//  	temp4 = SCREEN_BOTTOM_EDGE;
+	//  }
 
 	// now we've got a big action box (temp1-4)
 	// lets see if any of the talking map points are
@@ -1545,11 +1543,11 @@ void bg_collision(void)
 	temp1 = temp5 & 0xff;			// low byte x
 	temp2 = temp5 >> 8;				// high byte x
 
-	//eject_L = temp1 | 0xf0;
+	// eject_L = temp1 | 0xf0;
 
 	temp3 = player_y + PLAYER_PIXELS; // y top
 
-	//eject_U = temp3 | 0xf0;
+	// eject_U = temp3 | 0xf0;
 
 	// if(L_R_switch) temp3 += 2; // fix bug, walking through walls
 
@@ -1566,7 +1564,7 @@ void bg_collision(void)
 	temp1 = temp5 & 0xff; // low byte x
 	temp2 = temp5 >> 8;		// high byte x
 
-	//eject_R = (temp1 + 1) & 0x0f;
+	// eject_R = (temp1 + 1) & 0x0f;
 
 	// temp3 is unchanged
 	bg_collision_sub();
@@ -1583,7 +1581,7 @@ void bg_collision(void)
 
 	temp3 = player_y + PLAYER_HEIGHT + PLAYER_PIXELS; // y bottom
 	// if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
-	//eject_D = (temp3 + 1) & 0x0f;
+	// eject_D = (temp3 + 1) & 0x0f;
 	if (temp3 >= 0xf0)
 		return;
 
@@ -1636,12 +1634,17 @@ void change_room_right()
 	player_x = PLAYER_LEFT_EDGE;
 	++which_bg;
 
-	if (which_bg == 46) // exit-cliffs
-	{
+	// space saving hacks, ignoring the 5x10 grid for bigger numbers
+	if (which_bg == 21)
+	{ // exit cliffs right
 		bg_display_hud = 1;
 		display_hud_sprites = 1;
 	}
-
+	if (which_bg == 22)
+	{
+		which_bg = 29;
+	}
+ 
 	draw_bg();
 }
 
@@ -1650,9 +1653,15 @@ void change_room_left()
 	player_x = PLAYER_RIGHT_EDGE;
 	--which_bg;
 
-	if (which_bg == 45) // cliffs
+	// if youre in room 29, go to room 22. if 22 got to 21 and turn off stuff
+	// also, number is already decremented
+	// space saving hacks, ignoring the 5x10 grid for bigger numbers
+	if (which_bg == 28)
 	{
-		// maybe these 2 vars do the same thing?
+		which_bg = 21;
+	}
+	if (which_bg == 20)
+	{
 		bg_display_hud = 0;
 		display_hud_sprites = 0;
 	}
@@ -1663,11 +1672,23 @@ void change_room_left()
 void change_room_up()
 {
 	player_y = PLAYER_BOTTOM_EDGE;
-	which_bg = which_bg - 5;
 
-	if (which_bg == 41)
-	{								 // going up from the back door area
+	if (which_bg < 20)
+	{
+		which_bg = which_bg - 5;
+	}
+	else if (which_bg == 25) //space saving hax
+	{
+		which_bg = 22;
+	}
+	else if(which_bg == 21)
+	{
+		// going up from the back door area
 		which_bg = 11; // teleport to the top outdoors
+	}
+	else
+	{
+		--which_bg;
 	}
 
 	if (which_bg == DUNGEON_BLOCK_ROOM)
@@ -1689,19 +1710,33 @@ void change_room_up()
 void change_room_down()
 {
 	player_y = PLAYER_TOP_EDGE;
-	which_bg = which_bg + 5;
-	draw_bg();
+
+	if (which_bg < 20)
+	{
+		which_bg = which_bg + 5;
+	} // space saving map hax
+	else if (which_bg == 22)
+	{
+		which_bg = 25;
+	}
+	else
+	{
+		++which_bg;
+	}
 
 	if (which_bg == DUNGEON_BLOCK_ROOM)
 	{
 		block_moved = 0;
 	}
 
-	if (which_bg == 47) // the back door
+	if (which_bg == 29) // the back door
 	{
 		collision_action = TALK_LOCKED_DOORS;
 		draw_talking();
+		return;
 	}
+
+	draw_bg();
 }
 
 void countdown_timer(void)
@@ -1775,13 +1810,13 @@ void draw_hud(void)
 	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
 	one_vram_buffer(0xef, NTADR_A(A_LOC + 2, 2));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 3));
-	//one_vram_buffer(' ', NTADR_A(A_LOC + 1, 3));
+	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 3));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 4));
-	//one_vram_buffer(' ', NTADR_A(A_LOC + 1, 4));
+	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 4));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 4));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 5));
-	//one_vram_buffer(' ', NTADR_A(A_LOC + 1, 5));
+	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 5));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 5));
 	one_vram_buffer(0xfe, NTADR_A(A_LOC, 6));
 	one_vram_buffer(0xed, NTADR_A(A_LOC + 1, 6));
@@ -1809,11 +1844,11 @@ void draw_talking(void)
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
 	multi_vram_buffer_horz(bottomBar, sizeof(bottomBar), NTADR_A(1, 6));
 
-	//side bar of talking box
+	// side bar of talking box
 	one_vram_buffer(0xfd, NTADR_A(1, 3));
 	one_vram_buffer(0xfd, NTADR_A(1, 4));
 	one_vram_buffer(0xfd, NTADR_A(1, 5));
-	//other size bar of talking box
+	// other size bar of talking box
 	one_vram_buffer(0xfd, NTADR_A(30, 3));
 	one_vram_buffer(0xfd, NTADR_A(30, 4));
 	one_vram_buffer(0xfd, NTADR_A(30, 5));
@@ -2065,7 +2100,7 @@ void draw_talking(void)
 		text_length = sizeof(talk_complain);
 		break;
 	case TALK_FETCHQUEST:
-		//this is the guy who starts you on the quest
+		// this is the guy who starts you on the quest
 		switch (on_fetchquest)
 		{
 		case 0:

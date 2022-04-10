@@ -121,10 +121,10 @@ const unsigned char talk_character[] = "It's me! That character\nfrom that game 
 const unsigned char talk_pacman[] = "I ran my Blinky costume\nthrough the washer one too many times.\nNow i'm Pinky.";
 const unsigned char talk_pacman2[] = "I can't believe that guy\nstole my costume idea.";//\nI'd say something, but I'm a bit bashful.";
 const unsigned char talk_wizard[] = "My costume?\n\n\n(W)izard\n\n\n(H)uman\n\n\n(M)ale\n\n\n(N)eutral.";
-const unsigned char talk_genie[] = "";//I wonder if this game has\nany Game Genie codes. Like,GXXZZLVI or something.";
+const unsigned char talk_genie[] = "I wonder if this game has\nany Game Genie codes. Like,GXXZZLVI or something.";
 const unsigned char talk_sprites[] = "I think we'd have a better crowd here if not for the\nsprite limitations.";
 const unsigned char talk_gary[] = "Be sure to thank a Gary\nbefore you leave the show.\nThey put a lot of work into this.";
-const unsigned char talk_inyourway[] = "";//Am I in your way? Sorry.\nI just need to browse\nthrough everything here\nfour or five more times.";
+const unsigned char talk_inyourway[] = "I just need to browse\nthrough everything here\nfour or five more times.";
 const unsigned char talk_flip[] = "I flip video games on the\nside.";
 const unsigned char talk_clever[] = "";//"Man, why does everyone havet say something clever?\nIt's exhausting.";
 const unsigned char talk_eric[] = "I AM ERROR.\n\n...I mean, Eric.";
@@ -138,7 +138,7 @@ const unsigned char talk_space[] = "OK, I admit it.\nI'm just here to fill this 
 //const unsigned char talk_27[] = "You're not allowed back here, you might accidentally clip across the map.";
 
 const unsigned char fetch_quest_1[] = "GRUMBLE GRUMBLE\nI'm hungry, but I\ncan't leave my booth\n\nCan you help?";
-const unsigned char fetch_quest_2[] = "Thank you! Once good burger deserves another.";
+const unsigned char fetch_quest_2[] = "Thank you! One good burger deserves another";
 
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
 const unsigned char item_1[] =   "You found a Famicom Disk\nSystem copy of...\nThe Legend of Zelda";
