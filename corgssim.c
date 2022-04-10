@@ -4,14 +4,14 @@ need for launch:
 [x] add more talking, lots of talking
 [] add run out of time ending
 [x] warp toliets (make sprite walkable + changeroom code)
-[] add dungeon pushblock
+[x] add dungeon pushblock
 [x] special overlay sprites that you walk behind
 [] actual music and sfx
 
 mini games:
-[] fetch quest
+[x] fetch quest
 [] do reps with the brahs
-[] add robineete message and . on screen?
+[x] add robineete message and . on screen?
 [x] add pipe level / jumping
 [] rpg battle
 [] battle with game jobbies
@@ -1370,14 +1370,6 @@ void movement(void)
 		}
 	}
 
-	// index = (DUNGEON_BLOCK_Y & 0xf0) + (DUNGEON_BLOCK_X >> 4);
-	// temp1 = (player_y & 0xf0 + player_x >> 4);
-	// if (which_bg == DUNGEON_BLOCK_ROOM && temp1 == index)
-	// {
-	// 	// dungeon block
-	// 	which_bg = 5;
-	// 	draw_bg();
-	// }
 #pragma endregion
 }
 
@@ -1486,23 +1478,25 @@ void action_collision()
 		break;
 	}
 
-	// did out action box push too far out
-	if (temp1 > temp2)
-	{
-		temp1 = SCREEN_LEFT_EDGE;
-	}
-	if (temp2 < temp1)
-	{
-		temp2 = SCREEN_RIGHT_EDGE;
-	}
-	if (temp3 > temp4)
-	{
-		temp3 = SCREEN_TOP_EDGE;
-	}
-	if (temp4 < temp3)
-	{
-		temp4 = SCREEN_BOTTOM_EDGE;
-	}
+	//we shouldn't need this code cause it can wrap around and that's fine
+	//but if we see oddities we can bring this back
+	// // did out action box push too far out
+	// if (temp1 > temp2)
+	// {
+	// 	temp1 = SCREEN_LEFT_EDGE;
+	// }
+	// if (temp2 < temp1)
+	// {
+	// 	temp2 = SCREEN_RIGHT_EDGE;
+	// }
+	// if (temp3 > temp4)
+	// {
+	// 	temp3 = SCREEN_TOP_EDGE;
+	// }
+	// if (temp4 < temp3)
+	// {
+	// 	temp4 = SCREEN_BOTTOM_EDGE;
+	// }
 
 	// now we've got a big action box (temp1-4)
 	// lets see if any of the talking map points are
@@ -1774,25 +1768,23 @@ void draw_hud(void)
 	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
 	one_vram_buffer(0xef, NTADR_A(A_LOC + 2, 2));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 3));
-	one_vram_buffer(' ', NTADR_A(A_LOC + 1, 3));
+	//one_vram_buffer(' ', NTADR_A(A_LOC + 1, 3));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 3));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 4));
-	one_vram_buffer(' ', NTADR_A(A_LOC + 1, 4));
+	//one_vram_buffer(' ', NTADR_A(A_LOC + 1, 4));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 4));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC, 5));
-	one_vram_buffer(' ', NTADR_A(A_LOC + 1, 5));
+	//one_vram_buffer(' ', NTADR_A(A_LOC + 1, 5));
 	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 5));
 	one_vram_buffer(0xfe, NTADR_A(A_LOC, 6));
 	one_vram_buffer(0xed, NTADR_A(A_LOC + 1, 6));
 	one_vram_buffer(0xff, NTADR_A(A_LOC + 2, 6));
 
 	// draw timer
-	one_vram_buffer('*', NTADR_A(22, 2));
 	one_vram_buffer('T', NTADR_A(23, 2));
 	one_vram_buffer('I', NTADR_A(24, 2));
 	one_vram_buffer('M', NTADR_A(25, 2));
 	one_vram_buffer('E', NTADR_A(26, 2));
-	one_vram_buffer('*', NTADR_A(27, 2));
 }
 
 void draw_talking(void)
@@ -1810,9 +1802,11 @@ void draw_talking(void)
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
 	multi_vram_buffer_horz(bottomBar, sizeof(bottomBar), NTADR_A(1, 6));
 
+	//side bar of talking box
 	one_vram_buffer(0xfd, NTADR_A(1, 3));
 	one_vram_buffer(0xfd, NTADR_A(1, 4));
 	one_vram_buffer(0xfd, NTADR_A(1, 5));
+	//other size bar of talking box
 	one_vram_buffer(0xfd, NTADR_A(30, 3));
 	one_vram_buffer(0xfd, NTADR_A(30, 4));
 	one_vram_buffer(0xfd, NTADR_A(30, 5));
@@ -2148,24 +2142,24 @@ void initialize_title_screen(void)
 	ppu_on_all();
 }
 
-void initialize_end_screen(void)
-{
-	pal_fade_to(4, 0); // fade to black
-	ppu_off();
-	oam_clear();
-	oam_hide_rest();
-	// move player off screen
-	player_x = -4;
-	player_y = -4;
-	shot_x = -4;
-	shot_y = -4;
-	game_mode = MODE_END;
+// void initialize_end_screen(void)
+// {
+// 	pal_fade_to(4, 0); // fade to black
+// 	ppu_off();
+// 	oam_clear();
+// 	oam_hide_rest();
+// 	// move player off screen
+// 	player_x = -4;
+// 	player_y = -4;
+// 	shot_x = -4;
+// 	shot_y = -4;
+// 	game_mode = MODE_END;
 
-	which_bg = 4; // set background to black
-	draw_bg();
+// 	which_bg = 4; // set background to black
+// 	draw_bg();
 
-	multi_vram_buffer_horz(end_text2, sizeof(end_text2) - 1, NTADR_A(3, 20));
+// 	multi_vram_buffer_horz(end_text2, sizeof(end_text2) - 1, NTADR_A(3, 20));
 
-	ppu_on_all();
-	pal_bright(4); // back to normal brighness
-}
+// 	ppu_on_all();
+// 	pal_bright(4); // back to normal brighness
+// }
