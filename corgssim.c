@@ -528,7 +528,7 @@ void draw_sprites(void)
 {
 
 	++move_frames;
-	if (move_frames > 64)
+	if (move_frames > 32)
 	{
 		move_frames = 0;
 	}
@@ -562,19 +562,19 @@ void draw_sprites(void)
 
 			if (pad1 & PAD_DOWN) // only animate if the button is pressed
 			{
-				if (move_frames >= 48 && move_frames < 56)
+				if (move_frames >= 24 && move_frames < 28)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
 				}
-				else if (move_frames >= 32 && move_frames < 40)
+				else if (move_frames >= 16 && move_frames < 20)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
 				}
-				else if (move_frames >= 16 && move_frames < 24)
+				else if (move_frames >= 8 && move_frames < 12)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
 				}
-				else if (move_frames < 8)
+				else if (move_frames < 4)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
 				}
@@ -593,27 +593,27 @@ void draw_sprites(void)
 			if (pad1 & PAD_LEFT) // only animate if the button is pressed
 			{
 
-				if (move_frames >= 48 && move_frames < 56)
+				if (move_frames >= 24 && move_frames < 28)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
 				}
-				else if (move_frames >= 40 && move_frames < 48)
+				else if (move_frames >= 20 && move_frames < 24)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
 				}
-				else if (move_frames >= 32 && move_frames < 40)
+				else if (move_frames >= 16 && move_frames < 20)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
 				}
-				else if (move_frames >= 16 && move_frames < 24)
+				else if (move_frames >= 8 && move_frames < 12)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 				}
-				else if (move_frames >= 8 && move_frames < 16)
+				else if (move_frames >= 4 && move_frames < 8)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
 				}
-				else if (move_frames < 8)
+				else if (move_frames < 4)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 				}
@@ -631,19 +631,19 @@ void draw_sprites(void)
 		case UP_MOVE:
 			if (pad1 & PAD_UP) // only animate if the button is pressed
 			{
-				if (move_frames >= 48 && move_frames < 56)
+				if (move_frames >= 24 && move_frames < 28)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
 				}
-				else if (move_frames >= 32 && move_frames < 40)
+				else if (move_frames >= 16 && move_frames < 20)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
 				}
-				else if (move_frames >= 16 && move_frames < 24)
+				else if (move_frames >= 8 && move_frames < 12)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
 				}
-				else if (move_frames < 8)
+				else if (move_frames < 4)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
 				}
@@ -661,27 +661,27 @@ void draw_sprites(void)
 			if (pad1 & PAD_RIGHT) // only animate if the button is pressed
 			{
 
-				if (move_frames >= 48 && move_frames < 56)
+				if (move_frames >= 24 && move_frames < 28)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
 				}
-				else if (move_frames >= 40 && move_frames < 48)
+				else if (move_frames >= 20 && move_frames < 24)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightFive);
 				}
-				else if (move_frames >= 32 && move_frames < 40)
+				else if (move_frames >= 16 && move_frames < 20)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
 				}
-				else if (move_frames >= 16 && move_frames < 24)
+				else if (move_frames >= 8 && move_frames < 12)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 				}
-				else if (move_frames >= 8 && move_frames < 16)
+				else if (move_frames >= 4 && move_frames < 8)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightThree);
 				}
-				else if (move_frames < 8)
+				else if (move_frames < 4)
 				{
 					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 				}
