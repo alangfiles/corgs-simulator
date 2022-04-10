@@ -1857,6 +1857,10 @@ void draw_talking(void)
 		pointer = item_3;
 		text_length = sizeof(item_3);
 		break;
+	case TALK_ITEM_4:
+		pointer = item_4;
+		text_length = sizeof(item_4);
+		break;
 	case TALK_KING:
 		pointer = talk_king;
 		text_length = sizeof(talk_king);

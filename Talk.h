@@ -74,7 +74,7 @@ enum
 //"You hear the doors click  behind you, they're locked.";
 //"XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
-const unsigned char blank_1[] = "...";
+const unsigned char blank_1[] = "";
 const unsigned char alan_1[] = "Brian's to blame for the\ngraphics.";
 const unsigned char brian_1[] = "Alan's to blame for the\nprogramming.";
 const unsigned char guy_1[] = "\n**You feel like someone\nis right behind you.**";
