@@ -138,7 +138,7 @@ void main(void)
 		}
 		while (game_mode == MODE_GAME) // gameloop
 		{
-			set_music_speed(8);
+			set_music_speed(5);
 			ppu_wait_nmi();		 // wait till beginning of the frame
 			countdown_timer(); // keep ticking the timer
 
