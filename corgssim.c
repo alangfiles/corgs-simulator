@@ -382,6 +382,7 @@ void draw_bg(void)
 	}
 	else
 	{
+		//shortcut drawing the HUD spaces and the bottom line with this code
 		for (index = 0; index < 240; ++index)
 		{
 			if (index < 64)
