@@ -133,7 +133,7 @@ void main(void)
 			{
 				code_active = 1;
 				// maybe flash the screen?
-				sfx_play(SFX_JUMP, 0);
+				sfx_play(SFX_MYSTERY, 0);
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -1055,6 +1055,7 @@ void action(void)
 		shot_x = player_x;
 		shot_y = player_y;
 		shot_direction = player_direction;
+		sfx_play(SFX_SHOT, 0);
 	}
 
 	// check for interactable
@@ -1165,7 +1166,7 @@ void movement(void)
 			{
 				player_jump = PLAYER_MAX_JUMP;
 			}
-			// sfx_play(SFX_JUMP, 0);
+			sfx_play(SFX_JUMP, 0);
 		}
 		// gravity
 		player_y += 2;
@@ -1285,11 +1286,13 @@ void movement(void)
 		if ( // block_moved &&
 				check_collision(&Generic, &Generic2))
 		{
+			sfx_play(SFX_WARP_TOLIET,0);
 			which_bg = TOLIET_WARP_2_ROOM;
 			player_x = TOLIET_WARP_2_X - 0x10;
 			player_y = TOLIET_WARP_2_Y;
 			draw_bg();
 		}
+		
 	}
 
 	if (which_bg == TOLIET_WARP_2_ROOM)
@@ -1302,6 +1305,7 @@ void movement(void)
 		if ( // block_moved &&
 				check_collision(&Generic, &Generic2))
 		{
+			sfx_play(SFX_WARP_TOLIET,0);
 			which_bg = TOLIET_WARP_1_ROOM;
 			player_x = TOLIET_WARP_1_X - 0x10;
 			player_y = TOLIET_WARP_1_Y;
@@ -1314,6 +1318,7 @@ void movement(void)
 			if ( // block_moved &&
 					check_collision(&Generic, &Generic2))
 			{
+				sfx_play(SFX_WARP_TOLIET,0);
 				which_bg = COIN_GAME_ROOM;
 				player_x = 0x20;
 				player_y = 0x50;
@@ -1334,6 +1339,7 @@ void movement(void)
 		if ( // block_moved &&
 				check_collision(&Generic, &Generic2))
 		{
+			sfx_play(SFX_WARP_TOLIET,0);
 			which_bg = TOLIET_WARP_2_ROOM;
 			player_x = TOLIET_WARP_3_X - 0x10;
 			player_y = TOLIET_WARP_3_Y;
@@ -1389,7 +1395,7 @@ void sprite_collisions(void)
 			if (check_collision(&Generic, &Generic2))
 			{
 				sprites_y[index] = TURN_OFF;
-				// sfx_play(SFX_DING, 0);
+				sfx_play(SFX_COIN, 0);
 				++player_coins;
 			}
 		}

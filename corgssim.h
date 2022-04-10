@@ -43,7 +43,7 @@ const unsigned char code[]={
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 17
+#define STARTING_ROOM 42
 
 // HUD stuff
 #define A_LOC 16
@@ -92,7 +92,7 @@ unsigned char player_y = 0x80;
 unsigned char song;
 #define MAX_SONGS 2
 enum {SONG_GAME, SONG_PAUSE};
-enum {SFX_JUMP, SFX_DING, SFX_NOISE};
+enum {SFX_WARP_TOLIET, SFX_JUMP, SFX_SHOT, SFX_MYSTERY, SFX_COIN};
 
 struct Base {
 	unsigned char x;
