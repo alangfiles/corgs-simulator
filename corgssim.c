@@ -1673,7 +1673,7 @@ void change_room_up()
 {
 	player_y = PLAYER_BOTTOM_EDGE;
 
-	if (which_bg < 20)
+	if (which_bg < 25)
 	{
 		which_bg = which_bg - 5;
 	}
