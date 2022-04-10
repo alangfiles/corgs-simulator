@@ -1481,3 +1481,28 @@ const unsigned char AdventureGameBig[]={
 	128
 };
 
+//todo, fill in fetch graphics
+
+const unsigned char FetchMoney[]={
+	  0,  0,0x2a,3,
+	  8,  0,0x6b,3,
+	  0,  8,0x75,3,
+	  8,  8,0x1b,3,
+	128
+};
+
+const unsigned char FetchFood[]={
+	  0,  0,0xaa,3,
+	  8,  0,0xab,3,
+	  0,  8,0x15,3,
+	  8,  8,0x0b,3,
+	128
+};
+
+const unsigned char BurgerGame[]={
+	  0,  0,0x0a,3,
+	  8,  0,0xa2,3,
+	  0,  8,0x1a,3,
+	  8,  8,0xab,3,
+	128
+};

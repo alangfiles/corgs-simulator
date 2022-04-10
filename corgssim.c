@@ -166,7 +166,7 @@ void main(void)
 			// temp1 = (temp1 >> 3);
 
 			// draw text
-			if (text_rendered != text_length - 1 && text_row < 3)
+			if (text_rendered != text_length && text_row < 3)
 			{
 				if (pointer[text_rendered] == '\n')
 				{
@@ -204,7 +204,7 @@ void main(void)
 				text_row = 0;
 			}
 
-			if ((text_rendered == text_length-1) && text_decision != TURN_OFF) // if there's a text decision
+			if ((text_rendered == text_length) && text_decision != TURN_OFF) // if there's a text decision
 			{
 				// draw the last row as yes/no
 				// 0xed is bottom bar
@@ -226,7 +226,6 @@ void main(void)
 				one_vram_buffer('Y', NTADR_A(18, 6));
 				one_vram_buffer('E', NTADR_A(19, 6));
 				one_vram_buffer('S', NTADR_A(20, 6));
-				
 			}
 
 			if (text_decision != TURN_OFF)
@@ -241,7 +240,7 @@ void main(void)
 				}
 			}
 
-			if ((pad1_new & PAD_B) && (text_rendered == text_length - 1))
+			if ((pad1_new & PAD_B) && (text_rendered == text_length))
 			{
 				temp1 = 0; // using this to help handle actions
 
@@ -253,22 +252,38 @@ void main(void)
 					case CHOICE_PLAY_GAME:
 						if (text_decision == 1) // yes
 						{
+							// reset talking variables
+							reset_text_values();
 							bg_display_hud = 0;			 // draw the hud
 							bg_fade_out = 1;				 // turn back on room fading
 							display_hud_sprites = 1; // turn back on hud sprites
 							item_found = 0;					 // reset item found (in case we were in the item found mode)
-
 							temp1 = 1;
 							game_mode = MODE_TITLE;
 							initialize_title_screen();
 							ppu_on_all(); // turn on screen
 						}
-						// if no, we just exit talking
 						break;
 					case CHOICE_FETCH_QUEST:
-						if(text_decision == 1)
+						if (text_decision == 1)
 						{
-							collision_action = TALK_FETCHQUEST_2;
+							reset_text_values();
+							on_fetchquest = 1;
+							items_collected = items_collected | ITEM_BURGER_GAME;
+							item_found = ITEM_BURGER_GAME;
+							collision_action = TALK_FETCHQUEST_1;
+							draw_talking();
+						}
+						break;
+					case CHOICE_BUY_FOOD:
+						ppu_off();
+						if (text_decision == 1)
+						{
+							reset_text_values();
+							ppu_off();
+							on_fetchquest = 2;
+							item_found = ITEM_BURGER_GAME;
+							collision_action = TALK_FETCHTWO;
 							draw_talking();
 						}
 						break;
@@ -277,10 +292,23 @@ void main(void)
 					}
 				}
 
+				//if the guy just gave us the game, play the text for it
+				if((text_rendered == text_length) && on_fetchquest==3)
+				{
+					reset_text_values();
+					on_fetchquest = 4;
+					item_found = ITEM_BURGER_GAME;
+					collision_action = TALK_ITEM_4;
+					draw_talking();
+					
+				}
+
 				// text finished, go back to game
 
 				if (temp1 == 0) // we didn't exit before
 				{
+					// reset talking variables
+					reset_text_values();
 					bg_display_hud = 1; // draw the hud
 
 					game_mode = MODE_GAME;
@@ -306,6 +334,13 @@ void main(void)
 			}
 		}
 	}
+}
+
+void reset_text_values(void)
+{
+	text_rendered = 0;
+	text_row = 0;
+	text_col = 0;
 }
 
 void draw_bg(void)
@@ -914,6 +949,23 @@ void draw_sprites(void)
 		{
 			oam_meta_spr(0x34, 0x10, AdventureGameBig);
 		}
+		if (items_collected & ITEM_BURGER_GAME)
+		{
+			switch (on_fetchquest)
+			{
+			case 1:
+				oam_meta_spr(0x24, 0x20, FetchMoney);
+				break;
+			case 2:
+				oam_meta_spr(0x24, 0x20, FetchFood);
+				break;
+			case 4:
+				oam_meta_spr(0x24, 0x20, BurgerGame);
+				break;
+			default:
+				break;
+			}
+		}
 
 		if (code_active == 1)
 		{
@@ -944,10 +996,10 @@ void draw_sprites(void)
 		}
 	}
 
-	if(which_bg == ADVENTURE_GAME_ROOM)
+	if (which_bg == ADVENTURE_GAME_ROOM)
 	{
-		
-		if(!(items_collected & ITEM_ADVENTURE_GAME))
+
+		if (!(items_collected & ITEM_ADVENTURE_GAME))
 		{
 			oam_meta_spr(ADVENTURE_GAME_X, ADVENTURE_GAME_Y, AdventureGame);
 		}
@@ -966,8 +1018,26 @@ void draw_sprites(void)
 			oam_meta_spr(player_x, player_y - 16, GamePrize97);
 		}
 		if (item_found == ITEM_ADVENTURE_GAME)
-		{ 
+		{
 			oam_meta_spr(player_x, player_y - 16, AdventureGameBig);
+		}
+
+		if (item_found == ITEM_BURGER_GAME)
+		{
+			switch (on_fetchquest)
+			{
+			case 1:
+				oam_meta_spr(player_x, player_y - 16, FetchMoney);
+				break;
+			case 2:
+				oam_meta_spr(player_x, player_y - 16, FetchFood);
+				break;
+			case 4:
+				oam_meta_spr(player_x, player_y - 16, BurgerGame);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -1016,7 +1086,7 @@ void action(void)
 
 void movement(void)
 {
-		// dungeon push block
+	// dungeon push block
 	if (which_bg == DUNGEON_BLOCK_ROOM && push_timer > 100 && block_moved == 0)
 	{
 		if (player_direction == LEFT)
@@ -1024,8 +1094,10 @@ void movement(void)
 			if (sprites_x[0] > (DUNGEON_BLOCK_X - 0x10))
 			{
 				--sprites_x[0];
-			} else {
-				block_moved = 1; //done moving
+			}
+			else
+			{
+				block_moved = 1; // done moving
 			}
 			return;
 		}
@@ -1035,7 +1107,9 @@ void movement(void)
 			if (sprites_x[0] < (DUNGEON_BLOCK_X + 0x10))
 			{
 				++sprites_x[0];
-			} else {
+			}
+			else
+			{
 				block_moved = 1;
 			}
 			return;
@@ -1131,8 +1205,8 @@ void movement(void)
 	}
 
 	if (player_direction == last_player_direction // player direction hasn't changed
-			&& (pad1 & PAD_ALL_DIRECTIONS)	// one of the direction buttons is held down
-			&& has_moved == 1)					//and the player hasn't moved
+			&& (pad1 & PAD_ALL_DIRECTIONS)						// one of the direction buttons is held down
+			&& has_moved == 1)												// and the player hasn't moved
 	{
 		++push_timer;
 	}
@@ -1140,7 +1214,6 @@ void movement(void)
 	{
 		push_timer = 0;
 	}
-
 
 #pragma endregion playerMovement
 
@@ -1473,7 +1546,7 @@ void bg_collision(void)
 
 	eject_L = temp1 | 0xf0;
 
-	temp3 = player_y+PLAYER_PIXELS; // y top
+	temp3 = player_y + PLAYER_PIXELS; // y top
 
 	eject_U = temp3 | 0xf0;
 
@@ -1534,7 +1607,6 @@ void bg_collision(void)
 		++collision_L;
 		++collision_D;
 	}
-
 }
 
 void bg_collision_sub(void)
@@ -1597,7 +1669,8 @@ void change_room_up()
 		which_bg = 11; // teleport to the top outdoors
 	}
 
-	if(which_bg == DUNGEON_BLOCK_ROOM){
+	if (which_bg == DUNGEON_BLOCK_ROOM)
+	{
 		block_moved = 0;
 	}
 
@@ -1618,7 +1691,8 @@ void change_room_down()
 	which_bg = which_bg + 5;
 	draw_bg();
 
-	if(which_bg == DUNGEON_BLOCK_ROOM){
+	if (which_bg == DUNGEON_BLOCK_ROOM)
+	{
 		block_moved = 0;
 	}
 
@@ -1726,16 +1800,11 @@ void draw_talking(void)
 	// writes to the HUD area, then starts the talking mode
 	// which writes 1 char a frame.
 	ppu_off();
-	//reset talking variables
-	text_rendered = 0;
-	text_row = 0;
-	text_col = 0;
-	
 	game_mode = MODE_TALKING_TIME;
-
 	text_decision = TURN_OFF; // no text decisions
-	bg_fade_out = 0;					// don't fade bg for draw_bg for talking
-	bg_display_hud = 0;				// don't draw hud for draw_bg for talking
+
+	bg_fade_out = 0;		// don't fade bg for draw_bg for talking
+	bg_display_hud = 0; // don't draw hud for draw_bg for talking
 	draw_bg();
 
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
@@ -1772,10 +1841,6 @@ void draw_talking(void)
 		text_decision = 0;
 		text_action = CHOICE_PLAY_GAME;
 		break;
-	case TALK_GAME:
-		pointer = game_1;
-		text_length = sizeof(game_1);
-		break;
 	case TALK_LOCKED_DOORS:
 		pointer = locked_doors;
 		text_length = sizeof(locked_doors);
@@ -1805,8 +1870,18 @@ void draw_talking(void)
 		text_length = sizeof(talk_bathroom);
 		break;
 	case TALK_HOTDOG:
-		pointer = talk_hotdog;
-		text_length = sizeof(talk_hotdog);
+		if (on_fetchquest == 1)
+		{
+			pointer = talk_hotdog2;
+			text_length = sizeof(talk_hotdog2);
+			text_action = CHOICE_BUY_FOOD;
+			text_decision = 0;
+		}
+		else
+		{
+			pointer = talk_hotdog;
+			text_length = sizeof(talk_hotdog);
+		}
 		break;
 	case TALK_FOOD:
 		pointer = talk_food;
@@ -1984,13 +2059,45 @@ void draw_talking(void)
 		pointer = talk_complain;
 		text_length = sizeof(talk_complain);
 		break;
-	case TALK_TABLE:
-		pointer = talk_table;
-		text_length = sizeof(talk_table);
+	case TALK_FETCHQUEST:
+		//this is the guy who starts you on the quest
+		switch (on_fetchquest)
+		{
+		case 0:
+			pointer = fetch_quest_1;
+			text_length = sizeof(fetch_quest_1);
+			text_decision = 0;
+			text_action = CHOICE_FETCH_QUEST;
+			break;
+		// case 1:
+		// 	// grumble
+		// 	break;
+		case 2:
+			pointer = fetch_quest_2;
+			text_length = sizeof(fetch_quest_2);
+			on_fetchquest = 3;
+			break;
+		// case 3:
+		// 	// munch munch
+		// 	break;
+		default:
+			pointer = blank_1;
+			text_length = sizeof(blank_1);
+			break;
+		}
+
 		break;
 	case TALK_FOODTRUCK:
-		pointer = talk_foodtruck;
-		text_length = sizeof(talk_foodtruck);
+		if (on_fetchquest > 0)
+		{
+			pointer = talk_foodtruck2;
+			text_length = sizeof(talk_foodtruck2);
+		}
+		else
+		{
+			pointer = talk_foodtruck;
+			text_length = sizeof(talk_foodtruck);
+		}
 		break;
 	case TALK_KING2:
 		pointer = talk_king2;
@@ -2000,11 +2107,21 @@ void draw_talking(void)
 		pointer = talk_space;
 		text_length = sizeof(talk_space);
 		break;
+	case TALK_FETCHQUEST_1:
+		pointer = fetch_1;
+		text_length = sizeof(fetch_1);
+		break;
+	case TALK_FETCHTWO:
+		pointer = fetch_2;
+		text_length = sizeof(fetch_2);
+		break;
 	default:
 		pointer = blank_1;
 		text_length = sizeof(blank_1);
 		break;
 	}
+
+	--text_length;
 
 	ppu_on_all();
 }

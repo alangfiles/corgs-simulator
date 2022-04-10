@@ -6,7 +6,7 @@
 #define ITEM_DUNGEON_GAME 0x01
 #define ITEM_COIN_GAME 0x02
 #define ITEM_ADVENTURE_GAME 0x04
-#define ITEM_1_GAME 0x08
+#define ITEM_BURGER_GAME 0x08
 #define ITEM_2_GAME 0x10
 #define ITEM_3_GAME 0x20
 unsigned char items_collected = 0x00;
@@ -69,6 +69,7 @@ unsigned char player_coins = 0;
 #define FETCH_QUEST_ROOM 23
 #define FETCH_QUEST_X 0xD0
 #define FETCH_QUEST_Y 0x60
+unsigned char on_fetchquest = 0; //0 - not started, 1 - money, 2 - food, 3 - burgertime, 4 - complete
 
 #pragma endregion FETCH_QUEST
 

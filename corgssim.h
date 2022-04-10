@@ -189,7 +189,9 @@ enum
 
 enum{
 	CHOICE_PLAY_GAME,
-	CHOICE_FETCH_QUEST
+	CHOICE_FETCH_QUEST,
+	CHOICE_BUY_FOOD,
+	CHOICE_GIVE_FOOD
 };
 
 #pragma bss-name(push, "BSS")
@@ -221,5 +223,6 @@ void initialize_end_screen(void);
 void initialize_talking_time(void);
 void initialize_sprites(void);
 void initialize_talk_map(void);
+void reset_text_values(void);
 
 
