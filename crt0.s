@@ -261,7 +261,7 @@ detectNTSC:
 .segment "RODATA"
 
 music_data:
-	.include "MUSIC/TestMusic3.s"
+	.include "MUSIC/Songs.s"
 
 
 

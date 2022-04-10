@@ -91,7 +91,7 @@ void main(void)
 			if (pad1_new & PAD_START)
 			{
 				song = SONG_GAME;
-				// music_play(song);
+				music_play(song);
 
 				if (code_active == 1)
 				{

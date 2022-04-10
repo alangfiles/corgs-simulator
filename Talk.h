@@ -92,7 +92,7 @@ const unsigned char talk_buy[] = "BUY SOMETHIN' WILL YA!";
 const unsigned char talk_plumber[] = "A plumber came to fix\nthe toliet, but he's been\nin there for an hour. I\nhope he didn't fall in.";
 const unsigned char talk_location[] = "This is the location you\nget when you register for\nthe show last.";
 const unsigned char talk_ebay[] = "Hold on while I discretely check the price on ebay...";
-const unsigned char talk_admission[] = "Kids admitted free.\nChildren at heart, full charge.";
+const unsigned char talk_admission[] = "Kids admitted free.\nChild at heart? Full charge";
 const unsigned char talk_doorprize[] = "I hear this event has good door prizes.";
 const unsigned char talk_guynext1[] = "The guy next to me hassome really good stuff!";
 const unsigned char talk_guynext2[] = "I've got the same stuff as the guy next to me.";
@@ -148,6 +148,11 @@ const unsigned char item_4[] =   "You found an Bally Midway\nArcade board of...\
 
 const unsigned char fetch_1[] =   "\nYou got a stack of money!";
 const unsigned char fetch_2[] =   "\nYou got a jumbo burger!";
+
+
+// big space holders
+const unsigned char lorem256_1[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem256_2[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
 
 // keeping track of space left. each line is 64bytes 4=256kb
