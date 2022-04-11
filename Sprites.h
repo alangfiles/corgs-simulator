@@ -1469,7 +1469,7 @@ const unsigned char Coin[]={
 };
 
 const unsigned char AdventureGame[]={ //todo fix this to just be a dot.
-	  0, 0,0x79,0,
+	  0, 0,0x0a,1,
 	128
 };
 
@@ -1481,8 +1481,6 @@ const unsigned char AdventureGameBig[]={
 	128
 };
 
-//todo, fill in fetch graphics
-
 const unsigned char FetchMoney[]={
 	  0,  0,0x2a,3,
 	  8,  0,0x6b,3,
@@ -1492,25 +1490,25 @@ const unsigned char FetchMoney[]={
 };
 
 const unsigned char FetchFood[]={
-	  0,  0,0xaa,3,
-	  8,  0,0xab,3,
-	  0,  8,0x15,3,
-	  8,  8,0x0b,3,
+	  0,  0,0x4a,1,
+	  8,  0,0x4b,1,
+	  0,  8,0x5a,1,
+	  8,  8,0x5b,1,
 	128
 };
 
 const unsigned char BurgerGame[]={
-	  0,  0,0x0a,3,
-	  8,  0,0xa2,3,
-	  0,  8,0x1a,3,
-	  8,  8,0xab,3,
+	  0,  0,0x3c,3,
+	  8,  0,0x3d,3,
+	  0,  8,0x4c,3,
+	  8,  8,0x4d,3,
 	128
 };
 
 const unsigned char KettleBell[]={
-	  0,  0,0xaa,3,
-	  8,  0,0xaa,3,
-	  0,  8,0x1a,3,
-	  8,  8,0xdd,3,
+	  0,  0,0x48,3,
+	  8,  0,0x48,3|OAM_FLIP_H,
+	  0,  8,0x58,3,
+	  8,  8,0x59,3,
 	128
 };

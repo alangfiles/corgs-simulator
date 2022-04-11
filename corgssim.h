@@ -90,9 +90,9 @@ unsigned char player_x = 0xA0;
 unsigned char player_y = 0xA0;
 
 unsigned char song;
-#define MAX_SONGS 2
-enum {SONG_GAME, SONG_PAUSE};
-enum {SFX_WARP_TOLIET, SFX_JUMP, SFX_SHOT, SFX_MYSTERY, SFX_COIN};
+#define MAX_SONGS 4
+enum {SONG_TITLE, SONG_INSIDE, SONG_OUTSIDE, SONG_KING};
+enum {SFX_WARP_TOLIET, SFX_JUMP, SFX_SHOT, SFX_MYSTERY, SFX_COIN, SFX_CONTRA, SFX_VICTORY};
 
 struct Base {
 	unsigned char x;

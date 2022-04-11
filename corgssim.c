@@ -10,7 +10,7 @@ need for launch:
 
 mini games:
 [x] fetch quest
-[] do reps with the brahs
+[x] do reps with the brahs
 [x] add robineete message and . on screen?
 [x] add pipe level / jumping
 [] rpg battle
@@ -20,16 +20,14 @@ fun list:
 [] king of video games says somethign if you've collected everything?
 [] add guys to title screen
 [] infinite hallway
-[] more yes/no actions
+[x] more yes/no actions
 [] money sprite explodes on things
 [] add intro screen (in the year 20XX)
-[] clean up vars
-[] clean up sprites
 [x] bug: remove money sprite when changing rooms
 
 music:
-[] main game music
 [] title tune
+[] indoor/outdoor music
 [] king of video games tune
 
 sfx:
@@ -40,6 +38,11 @@ sfx:
 [] toliet warp noise
 [] coin noise
 [] money hitting things
+
+cleanup:
+[] lots of ppu_off misused
+[] clean up vars
+[x] clean up sprites
 
 */
 
@@ -53,27 +56,17 @@ sfx:
 
 void main(void)
 {
-	ppu_off(); // screen off
-
-	// load the palettes
+	ppu_off();
 	pal_bg(title_palette);
 	pal_spr(palette_sp);
-
 	set_vram_buffer(); // do at least once, sets a pointer to a buffer
-	// use the second set of tiles for sprites
-	// both bg and sprites are set to 0 by default
-	bank_spr(1);
+	bank_spr(1); // use the second set of tiles for sprites
 	set_scroll_y(0xff); // shift the bg down 1 pixel
 
-	// setup title
-	game_mode = MODE_TITLE;
 	initialize_title_screen();
-	ppu_on_all(); // turn on screen
-
-	// game loop
-	while (1)
+	
+	while (1)// game loop
 	{
-		// title screen
 		while (game_mode == MODE_TITLE)
 		{
 			ppu_wait_nmi();
@@ -90,42 +83,34 @@ void main(void)
 
 			if (pad1_new & PAD_START)
 			{
-				song = SONG_GAME;
+				song = SONG_INSIDE;
 				set_music_speed(5);
 				music_play(song);
 
-				if (code_active == 1)
-				{
-					// play sound
-				}
-				// initialize game mode:
-				pal_fade_to(4, 0); // fade to black
-				ppu_off();
-
 				// set defaults
 				game_mode = MODE_GAME;
+				which_bg = STARTING_ROOM;
 				player_x = 0x80;
 				player_y = 0x80;
 
 				minutes_left = 4;
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
-				bg_display_hud = 1;
-				which_bg = STARTING_ROOM;
 
+				bg_display_hud = 1;
+				bg_fade_out = 1;
+			
 				draw_bg();
 				draw_hud();
-				ppu_on_all();
-				pal_bright(4); // back to normal brighness
 			}
 
 			if (pad1_new & (PAD_ALL_DIRECTIONS + PAD_A + PAD_B))
 			{
 				if (pad1_new & code[index])
-				{ // the next item in the code is pressed
-					++index;
+				{ 
+					++index; // the next item in the code is pressed
 				}
-				else
+				else 
 				{
 					index = 0; // reset the code
 				}
@@ -133,8 +118,7 @@ void main(void)
 			if (index == 10) // 10 correct inputs
 			{
 				code_active = 1;
-				// maybe flash the screen?
-				sfx_play(SFX_MYSTERY, 0);
+				sfx_play(SFX_CONTRA, 0);
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -246,14 +230,8 @@ void main(void)
 						switch (text_action)
 						{
 						case CHOICE_PLAY_GAME:
-							bg_display_hud = 0;			 // draw the hud
-							bg_fade_out = 1;				 // turn back on room fading
-							display_hud_sprites = 1; // turn back on hud sprites
-							item_found = 0;					 // reset item found (in case we were in the item found mode)
 							temp1 = 1;
-							game_mode = MODE_TITLE;
-							initialize_title_screen();
-							ppu_on_all(); // turn on screen
+							initialize_title_screen(); //turns on screen at end
 							break;
 						case CHOICE_FETCH_QUEST:
 							on_fetchquest = 1;
@@ -2251,6 +2229,14 @@ void draw_talking(void)
 
 void initialize_title_screen(void)
 {
+	bg_display_hud = 0;			 // draw the hud
+	bg_fade_out = 1;				 // turn back on room fading
+	display_hud_sprites = 1; // turn back on hud sprites
+	item_found = 0;					 // reset item found (in case we were in the item found mode)
+	
+	song = SONG_TITLE;
+	set_music_speed(5);
+	music_play(song);
 	game_mode = MODE_TITLE;
 	which_bg = 0;
 	index = 0;
