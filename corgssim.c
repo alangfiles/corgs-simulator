@@ -59,13 +59,13 @@ void main(void)
 	ppu_off();
 	pal_bg(title_palette);
 	pal_spr(palette_sp);
-	set_vram_buffer(); // do at least once, sets a pointer to a buffer
-	bank_spr(1); // use the second set of tiles for sprites
+	set_vram_buffer();	// do at least once, sets a pointer to a buffer
+	bank_spr(1);				// use the second set of tiles for sprites
 	set_scroll_y(0xff); // shift the bg down 1 pixel
 
 	initialize_title_screen();
-	
-	while (1)// game loop
+
+	while (1) // game loop
 	{
 		while (game_mode == MODE_TITLE)
 		{
@@ -99,7 +99,7 @@ void main(void)
 
 				bg_display_hud = 1;
 				bg_fade_out = 1;
-			
+
 				draw_bg();
 				draw_hud();
 			}
@@ -107,10 +107,10 @@ void main(void)
 			if (pad1_new & (PAD_ALL_DIRECTIONS + PAD_A + PAD_B))
 			{
 				if (pad1_new & code[index])
-				{ 
+				{
 					++index; // the next item in the code is pressed
 				}
-				else 
+				else
 				{
 					index = 0; // reset the code
 				}
@@ -137,7 +137,7 @@ void main(void)
 			draw_sprites();
 
 			// for debugging, the lower the line, the less processing we have
-			//gray_line();
+			// gray_line();
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
@@ -187,7 +187,7 @@ void main(void)
 			if (text_rendered == text_length)
 			{
 
-				if (text_decision != TURN_OFF) // if there's a text decision
+				if (text_decision != TURN_OFF && text_action != CHOICE_FINISH_REPS && text_action != CHOICE_FINISH_FETCH) // if there's a text decision
 				{
 					// draw the last row as yes/no
 					// 0xed is bottom bar
@@ -219,9 +219,11 @@ void main(void)
 						text_decision = 0;
 					}
 				}
+
 				if (pad1_new & PAD_B)
 				{
-					temp1 = 0; // using this to help handle actions
+					temp1 = 0;
+					// the user presses B at the completed screen to move on.
 					reset_text_values();
 
 					if (text_decision == 1) // if the text_decision was yes
@@ -231,7 +233,7 @@ void main(void)
 						{
 						case CHOICE_PLAY_GAME:
 							temp1 = 1;
-							initialize_title_screen(); //turns on screen at end
+							initialize_title_screen(); // turns on screen at end
 							break;
 						case CHOICE_FETCH_QUEST:
 							on_fetchquest = 1;
@@ -257,6 +259,18 @@ void main(void)
 							rep_count = 0;
 							rep_timer = REP_TIMER_MAX; // this is all based off rep_timer being set
 							break;
+						case CHOICE_FINISH_REPS:
+							items_collected = items_collected | ITEM_KETTLEBELL_GAME;
+							item_found = ITEM_KETTLEBELL_GAME;
+							collision_action = TALK_ITEM_5;
+							draw_talking();
+							break;
+						case CHOICE_FINISH_FETCH:
+							on_fetchquest = 4;
+							item_found = ITEM_BURGER_GAME;
+							collision_action = TALK_ITEM_4;
+							draw_talking();
+							break;
 						default:
 							break;
 						}
@@ -264,37 +278,16 @@ void main(void)
 				}
 			}
 
-			// text finished, go back to game
-			if (temp1 == 0) // we didn't exit before
+			if (temp1 == 0)
 			{
-
+				// text finished, go back to game
 				bg_display_hud = 1; // draw the hud
-
 				game_mode = MODE_GAME;
 
 				draw_bg();
 				bg_fade_out = 1;				 // turn back on room fading
 				display_hud_sprites = 1; // turn back on hud sprites
 				item_found = 0;					 // reset item found (in case we were in the item found mode)
-				ppu_on_all();
-			}
-			// if the guy just gave us the game, play the text for it
-			if ((text_rendered == text_length) && on_fetchquest == 3)
-			{
-				reset_text_values();
-				on_fetchquest = 4;
-				item_found = ITEM_BURGER_GAME;
-				collision_action = TALK_ITEM_4;
-				draw_talking();
-			}
-			// if the yoked bro just gave us the prize, play the text for it
-			if ((text_rendered == text_length) && collision_action == TALK_REPS_FINISHED)
-			{
-				reset_text_values();
-				items_collected = items_collected | ITEM_KETTLEBELL_GAME;
-				item_found = ITEM_KETTLEBELL_GAME;
-				collision_action = TALK_ITEM_5;
-				draw_talking();
 			}
 		}
 		while (game_mode == MODE_END)
@@ -2163,6 +2156,8 @@ void draw_talking(void)
 			pointer = fetch_quest_2;
 			text_length = sizeof(fetch_quest_2);
 			on_fetchquest = 3;
+			text_action = CHOICE_FINISH_FETCH;
+			text_decision = 1;
 			break;
 		// case 3:
 		// 	// munch munch
@@ -2206,6 +2201,8 @@ void draw_talking(void)
 		set_music_speed(5);
 		pointer = talk_reps_finished;
 		text_length = sizeof(talk_reps_finished);
+		text_action = CHOICE_FINISH_REPS;
+		text_decision = 1;
 		break;
 	case TALK_MORE_REPS:
 		set_music_speed(5);
@@ -2233,7 +2230,7 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
-	
+
 	song = SONG_TITLE;
 	set_music_speed(5);
 	music_play(song);
@@ -2241,8 +2238,8 @@ void initialize_title_screen(void)
 	which_bg = 0;
 	index = 0;
 
-	ppu_off();
-	oam_clear();
+	// ppu_off();
+	// oam_clear();
 	draw_bg();
 	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 19));
 
@@ -2250,7 +2247,7 @@ void initialize_title_screen(void)
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
 
-	ppu_on_all();
+	//ppu_on_all();
 }
 
 // void initialize_end_screen(void)

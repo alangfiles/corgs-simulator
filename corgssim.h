@@ -43,7 +43,7 @@ const unsigned char code[]={
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 21
+#define STARTING_ROOM 14
 
 // HUD stuff
 #define A_LOC 16
@@ -194,6 +194,8 @@ enum{
 	CHOICE_GIVE_FOOD,
 	CHOICE_DO_REPS_1,
 	CHOICE_DO_REPS_2,
+	CHOICE_FINISH_FETCH,
+	CHOICE_FINISH_REPS,
 };
 
 #pragma bss-name(push, "BSS")
