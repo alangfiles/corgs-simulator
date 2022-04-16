@@ -1,12 +1,15 @@
 /*
 need for launch:
-[] bug:character clipping left and right oddly, maybe make him smaller vertically too
+[x] bug:character clipping left and right oddly, maybe make him smaller vertically too
 [x] add more talking, lots of talking
-[] add run out of time ending
+[] add run out of time ending 
 [x] warp toliets (make sprite walkable + changeroom code)
 [x] add dungeon pushblock
 [x] special overlay sprites that you walk behind
 [] actual music and sfx
+
+space saving:
+[] clean up collision lists (just explicity add it in bg_collision_sub)
 
 mini games:
 [x] fetch quest
@@ -17,7 +20,7 @@ mini games:
 [] battle with game jobbies
 
 fun list:
-[] king of video games says somethign if you've collected everything?
+[x] king of video games says somethign if you've collected everything?
 [] add guys to title screen
 [] infinite hallway
 [x] more yes/no actions
@@ -1263,7 +1266,7 @@ void movement(void)
 
 		// if it's offscreen, get rid of it.
 		if (shot_x > 250 || shot_x < 1 ||
-				shot_y > 255 || shot_y < 32)
+				shot_y > 216 || shot_y < 64)
 		{
 			shot_x = -4;
 			shot_y = -4;
