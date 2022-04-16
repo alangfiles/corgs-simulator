@@ -9,6 +9,7 @@
 #define ITEM_BURGER_GAME 0x08
 #define ITEM_KETTLEBELL_GAME 0x10
 #define ITEM_3_GAME 0x20
+#define ALL_ITEMS_COLLECTED 0x3F
 unsigned char items_collected = 0;
 unsigned char item_found = 0;
 

@@ -1,4 +1,5 @@
 #include "CSV/room_1.c"
+#include "CSV/room_2.c"
 #include "CSV/room_3.c"
 #include "CSV/room_4.c"
 #include "CSV/room_5.c"
@@ -338,7 +339,7 @@ const unsigned char * const collision_list[]={
 };
 
 const unsigned char * const room_list[]={
-	room_1,blank,room_3,room_4,room_5,
+	room_1,room_2,room_3,room_4,room_5,
   room_6,room_1,room_8,room_9,room_10,
   room_11,room_12,room_13,room_14,room_15,
   blank,blank,room_18,room_19,room_20,
@@ -371,7 +372,7 @@ const unsigned char * const sprite_list[]={
 
 
 const unsigned char * const room_palette_list[]={
-  title_palette,0,outside_palette,outside_palette,outside_palette,
+  title_palette,title_palette,outside_palette,outside_palette,outside_palette,
   trans_palette,title_palette,outside_palette,outside_palette,outside_palette,
   trans_palette,outside_palette,outside_palette,trans_palette,outside_palette,
   0,0,inside_palette,inside_palette,inside_palette,
@@ -380,7 +381,7 @@ const unsigned char * const room_palette_list[]={
 };
 
 const unsigned char * const room_metatile_list[]={
-  title_metatiles,0,outside_metatiles,outside_metatiles,outside_metatiles,
+  title_metatiles,title_metatiles,outside_metatiles,outside_metatiles,outside_metatiles,
   trans_metatiles,title_metatiles,outside_metatiles,outside_metatiles,outside_metatiles,
   trans_metatiles,outside_metatiles,outside_metatiles,trans_metatiles,outside_metatiles,
   0,0,inside_metatiles,inside_metatiles,inside_metatiles,

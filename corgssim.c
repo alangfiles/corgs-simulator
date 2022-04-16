@@ -496,6 +496,9 @@ void initialize_sprites(void)
 
 void draw_sprites(void)
 {
+	if(collision_action == TALK_KING){
+		return;
+	}
 
 	++move_frames;
 	if (move_frames > 32)
@@ -1855,6 +1858,11 @@ void draw_hud(void)
 
 void draw_talking(void)
 {
+	if(collision_action == TALK_KING){
+		//talking with the king ends the game
+		initialize_end_screen();
+		return;
+	}
 	// writes to the HUD area, then starts the talking mode
 	// which writes 1 char a frame.
 	ppu_off();
@@ -1920,10 +1928,6 @@ void draw_talking(void)
 	case TALK_ITEM_4:
 		pointer = item_4;
 		text_length = sizeof(item_4);
-		break;
-	case TALK_KING:
-		pointer = talk_king;
-		text_length = sizeof(talk_king);
 		break;
 	case TALK_SMOKE:
 		pointer = talk_smoke;
@@ -2226,6 +2230,7 @@ void draw_talking(void)
 
 void initialize_title_screen(void)
 {
+	collision_action = TURN_OFF;
 	bg_display_hud = 0;			 // draw the hud
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
@@ -2250,24 +2255,36 @@ void initialize_title_screen(void)
 	//ppu_on_all();
 }
 
-// void initialize_end_screen(void)
-// {
-// 	pal_fade_to(4, 0); // fade to black
-// 	ppu_off();
-// 	oam_clear();
-// 	oam_hide_rest();
-// 	// move player off screen
-// 	player_x = -4;
-// 	player_y = -4;
-// 	shot_x = -4;
-// 	shot_y = -4;
-// 	game_mode = MODE_END;
+void initialize_end_screen(void)
+{
+	// move player off screen
+	//just doing everything here manually
+	// drawing sprites, text, etc.
 
-// 	which_bg = 4; // set background to black
-// 	draw_bg();
+	game_mode = MODE_END;
 
-// 	multi_vram_buffer_horz(end_text2, sizeof(end_text2) - 1, NTADR_A(3, 20));
+	which_bg = 1;
+	display_hud_sprites = 0;
+	bg_display_hud = 0;
+	draw_bg();
 
-// 	ppu_on_all();
-// 	pal_bright(4); // back to normal brighness
-// }
+	//multiple endings! ;)
+
+	if(items_collected == ALL_ITEMS_COLLECTED)
+	{
+		multi_vram_buffer_horz(ending_2_1, sizeof(ending_2_1) - 1, NTADR_A(8, 4));
+		multi_vram_buffer_horz(ending_2_2, sizeof(ending_2_2) - 1, NTADR_A(7, 5));
+	}
+	else {
+			multi_vram_buffer_horz(ending_1, sizeof(ending_1) - 1, NTADR_A(3, 4));
+	}
+	
+	oam_meta_spr(0x70, 0x50, King75);
+	oam_meta_spr(0x70, 0x80, PlayerSprUp);
+	oam_meta_spr(0x20, 0x40, FloppyDisk125);
+	oam_meta_spr(0x20, 0x90, GamePrize97);
+	oam_meta_spr(0x70, 0xC0, AdventureGameBig);
+	oam_meta_spr(0xD0, 0x90, BurgerGame);
+	oam_meta_spr(0xD0, 0x40, KettleBell);
+
+}
