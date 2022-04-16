@@ -1423,9 +1423,9 @@ void sprite_collisions(void)
 	}
 	// set the first Generic to the players attributes
 	Generic.x = player_x;
-	Generic.y = player_y;
+	Generic.y = player_y+(PLAYER_HEIGHT/2); //player y is halfway down their body
 	Generic.width = PLAYER_WIDTH;
-	Generic.height = PLAYER_HEIGHT;
+	Generic.height = PLAYER_HEIGHT/2; //player height is just the lower half of the body
 
 	// go through all the sprites in the room
 	// all other sprites are 16x16 (not always true)
