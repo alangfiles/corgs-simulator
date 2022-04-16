@@ -1161,6 +1161,7 @@ void movement(void)
 
 	// check left/right collisions
 	bg_collision();
+	//ejection
 	if (collision_R)
 	{
 		player_x -= 1;
@@ -1217,6 +1218,7 @@ void movement(void)
 
 	// check collision up/down
 	bg_collision();
+	//ejection
 	if (collision_D)
 	{
 		player_y -= 1;
@@ -1560,22 +1562,15 @@ void bg_collision(void)
 	if (player_y >= 0xf0)
 		return;
 
-	temp6 = temp5 = player_x; // upper left (temp6 = save for reuse)
-	temp1 = temp5 & 0xff;			// low byte x
+	temp6 = temp5 = player_x+2; // upper left (temp6 = save for reuse)
+
+	//upper left
+	temp1 = (temp5) & 0xff;			// low byte x
 	temp2 = temp5 >> 8;				// high byte x
-
-	// eject_L = temp1 | 0xf0;
-
 	temp3 = player_y + PLAYER_PIXELS; // y top
-
-	// eject_U = temp3 | 0xf0;
-
-	// if(L_R_switch) temp3 += 2; // fix bug, walking through walls
-
 	bg_collision_sub();
-
 	if (collision & COL_ALL)
-	{ // find a corner in the collision map
+	{ 
 		++collision_L;
 		++collision_U;
 	}
@@ -1584,23 +1579,18 @@ void bg_collision(void)
 	temp5 += PLAYER_WIDTH;
 	temp1 = temp5 & 0xff; // low byte x
 	temp2 = temp5 >> 8;		// high byte x
-
-	// eject_R = (temp1 + 1) & 0x0f;
-
-	// temp3 is unchanged
+	// temp3 (y) is unchanged
 	bg_collision_sub();
-
 	if (collision & COL_ALL)
-	{ // find a corner in the collision map
+	{
 		++collision_R;
 		++collision_U;
 	}
 
-	// again, lower
 
-	// bottom right, x hasn't changed
-
-	temp3 = player_y + PLAYER_HEIGHT + PLAYER_PIXELS; // y bottom
+	// bottom right,temp1(x low byte) hasn't changed
+	// y bottom is temp3
+	temp3 += 8;  //this is a huge hack, it should be somehting like temp3 += PLAYER_HEIGHT
 	// if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
 	// eject_D = (temp3 + 1) & 0x0f;
 	if (temp3 >= 0xf0)
@@ -2236,9 +2226,9 @@ void initialize_title_screen(void)
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
 
-	song = SONG_TITLE;
+	song = SONG_TITLE; 
 	set_music_speed(5);
-	music_play(song);
+	music_play(song); 
 	game_mode = MODE_TITLE;
 	which_bg = 0;
 	index = 0;

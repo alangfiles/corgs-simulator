@@ -32,8 +32,8 @@
 #define TEXT_BOX_LENGTH 18
 #define TEXT_BOX_HEIGHT 8
 
-#define PLAYER_HEIGHT 8
-#define PLAYER_WIDTH 10
+#define PLAYER_HEIGHT 12
+#define PLAYER_WIDTH 12
 #define PLAYER_PIXELS 7
 
 
@@ -43,7 +43,7 @@ const unsigned char code[]={
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 21
+#define STARTING_ROOM 4
 
 // HUD stuff
 #define A_LOC 16
