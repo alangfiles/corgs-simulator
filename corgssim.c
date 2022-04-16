@@ -496,7 +496,8 @@ void initialize_sprites(void)
 
 void draw_sprites(void)
 {
-	if(collision_action == TALK_KING){
+	if (collision_action == TALK_KING)
+	{
 		return;
 	}
 
@@ -1161,7 +1162,7 @@ void movement(void)
 
 	// check left/right collisions
 	bg_collision();
-	//ejection
+	// ejection
 	if (collision_R)
 	{
 		player_x -= 1;
@@ -1180,15 +1181,6 @@ void movement(void)
 			player_jump -= 4;
 		}
 
-		// check for jumps
-		if (pad1_new & PAD_B)
-		{
-			if (player_jump == 0) // don't allow double jumps
-			{
-				player_jump = PLAYER_MAX_JUMP;
-			}
-			sfx_play(SFX_JUMP, 0);
-		}
 		// gravity
 		player_y += 2;
 
@@ -1196,7 +1188,15 @@ void movement(void)
 		bg_collision();
 		if (collision_D)
 		{
-			player_y -= 2;
+			player_y -= 2; // eject from down collision
+
+			// check for jumps only if down collision
+			if (pad1_new & PAD_B)
+			{
+				// don't allow double jumps
+				player_jump = PLAYER_MAX_JUMP;
+				sfx_play(SFX_JUMP, 0);
+			}
 		}
 	}
 
@@ -1218,7 +1218,7 @@ void movement(void)
 
 	// check collision up/down
 	bg_collision();
-	//ejection
+	// ejection
 	if (collision_D)
 	{
 		player_y -= 1;
@@ -1423,9 +1423,9 @@ void sprite_collisions(void)
 	}
 	// set the first Generic to the players attributes
 	Generic.x = player_x;
-	Generic.y = player_y+(PLAYER_HEIGHT/2); //player y is halfway down their body
+	Generic.y = player_y + (PLAYER_HEIGHT / 2); // player y is halfway down their body
 	Generic.width = PLAYER_WIDTH;
-	Generic.height = PLAYER_HEIGHT/2; //player height is just the lower half of the body
+	Generic.height = PLAYER_HEIGHT / 2; // player height is just the lower half of the body
 
 	// go through all the sprites in the room
 	// all other sprites are 16x16 (not always true)
@@ -1562,15 +1562,15 @@ void bg_collision(void)
 	if (player_y >= 0xf0)
 		return;
 
-	temp6 = temp5 = player_x+2; // upper left (temp6 = save for reuse)
+	temp6 = temp5 = player_x + 2; // upper left (temp6 = save for reuse)
 
-	//upper left
-	temp1 = (temp5) & 0xff;			// low byte x
-	//temp2 = temp5 >> 8;				// high byte x
+	// upper left
+	temp1 = (temp5)&0xff; // low byte x
+	// temp2 = temp5 >> 8;				// high byte x
 	temp3 = player_y + PLAYER_PIXELS; // y top
 	bg_collision_sub();
 	if (collision & COL_ALL)
-	{ 
+	{
 		++collision_L;
 		++collision_U;
 	}
@@ -1578,8 +1578,8 @@ void bg_collision(void)
 	// upper right
 	temp5 += PLAYER_WIDTH;
 	temp1 = temp5 & 0xff; // low byte x
-	//temp2 = temp5 >> 8;		// high byte x
-	// temp3 (y) is unchanged
+	// temp2 = temp5 >> 8;		// high byte x
+	//  temp3 (y) is unchanged
 	bg_collision_sub();
 	if (collision & COL_ALL)
 	{
@@ -1587,10 +1587,9 @@ void bg_collision(void)
 		++collision_U;
 	}
 
-
 	// bottom right,temp1(x low byte) hasn't changed
 	// y bottom is temp3
-	temp3 += 8;  //this is a huge hack, it should be somehting like temp3 += PLAYER_HEIGHT
+	temp3 += 8; // this is a huge hack, it should be somehting like temp3 += PLAYER_HEIGHT
 	// if(L_R_switch) temp3 -= 2; // fix bug, walking through walls
 	// eject_D = (temp3 + 1) & 0x0f;
 	if (temp3 >= 0xf0)
@@ -1606,7 +1605,7 @@ void bg_collision(void)
 
 	// bottom left
 	temp1 = temp6 & 0xff; // low byte x
-	//temp2 = temp6 >> 8;		// high byte x
+	// temp2 = temp6 >> 8;		// high byte x
 
 	// temp3, y is unchanged
 
@@ -1848,8 +1847,9 @@ void draw_hud(void)
 
 void draw_talking(void)
 {
-	if(collision_action == TALK_KING){
-		//talking with the king ends the game
+	if (collision_action == TALK_KING)
+	{
+		// talking with the king ends the game
 		initialize_end_screen();
 		return;
 	}
@@ -2226,9 +2226,9 @@ void initialize_title_screen(void)
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
 
-	song = SONG_TITLE; 
+	song = SONG_TITLE;
 	set_music_speed(5);
-	music_play(song); 
+	music_play(song);
 	game_mode = MODE_TITLE;
 	which_bg = 0;
 	index = 0;
@@ -2242,13 +2242,13 @@ void initialize_title_screen(void)
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
 
-	//ppu_on_all();
+	// ppu_on_all();
 }
 
 void initialize_end_screen(void)
 {
 	// move player off screen
-	//just doing everything here manually
+	// just doing everything here manually
 	// drawing sprites, text, etc.
 
 	game_mode = MODE_END;
@@ -2258,17 +2258,18 @@ void initialize_end_screen(void)
 	bg_display_hud = 0;
 	draw_bg();
 
-	//multiple endings! ;)
+	// multiple endings! ;)
 
-	if(items_collected == ALL_ITEMS_COLLECTED)
+	if (items_collected == ALL_ITEMS_COLLECTED)
 	{
 		multi_vram_buffer_horz(ending_2_1, sizeof(ending_2_1) - 1, NTADR_A(8, 4));
 		multi_vram_buffer_horz(ending_2_2, sizeof(ending_2_2) - 1, NTADR_A(7, 5));
 	}
-	else {
-			multi_vram_buffer_horz(ending_1, sizeof(ending_1) - 1, NTADR_A(3, 4));
+	else
+	{
+		multi_vram_buffer_horz(ending_1, sizeof(ending_1) - 1, NTADR_A(3, 4));
 	}
-	
+
 	oam_meta_spr(0x70, 0x50, King75);
 	oam_meta_spr(0x70, 0x80, PlayerSprUp);
 	oam_meta_spr(0x20, 0x40, FloppyDisk125);
@@ -2276,5 +2277,4 @@ void initialize_end_screen(void)
 	oam_meta_spr(0x70, 0xC0, AdventureGameBig);
 	oam_meta_spr(0xD0, 0x90, BurgerGame);
 	oam_meta_spr(0xD0, 0x40, KettleBell);
-
 }
