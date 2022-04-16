@@ -1566,7 +1566,7 @@ void bg_collision(void)
 
 	//upper left
 	temp1 = (temp5) & 0xff;			// low byte x
-	temp2 = temp5 >> 8;				// high byte x
+	//temp2 = temp5 >> 8;				// high byte x
 	temp3 = player_y + PLAYER_PIXELS; // y top
 	bg_collision_sub();
 	if (collision & COL_ALL)
@@ -1578,7 +1578,7 @@ void bg_collision(void)
 	// upper right
 	temp5 += PLAYER_WIDTH;
 	temp1 = temp5 & 0xff; // low byte x
-	temp2 = temp5 >> 8;		// high byte x
+	//temp2 = temp5 >> 8;		// high byte x
 	// temp3 (y) is unchanged
 	bg_collision_sub();
 	if (collision & COL_ALL)
@@ -1606,7 +1606,7 @@ void bg_collision(void)
 
 	// bottom left
 	temp1 = temp6 & 0xff; // low byte x
-	temp2 = temp6 >> 8;		// high byte x
+	//temp2 = temp6 >> 8;		// high byte x
 
 	// temp3, y is unchanged
 
