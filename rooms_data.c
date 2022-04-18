@@ -285,62 +285,21 @@ const unsigned char inside_metatiles[]={
 
 #pragma endregion metatiles
 
-#define COL_ALL 0x80
+// const unsigned char * const outside[] = {2,3,4,7,8,9,11,12,14,21,26,27,29};
+// const unsigned char * const inside[] = {17,18,19,22,23,24,25,28};
+// const unsigned char * const trans[] = {5,10,13};
+// const unsigned char * const cliff[] = {20};
 
-const unsigned char inside_collision[] = {
-	0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,0,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	0,
-};
-const unsigned char outside_collision[] = {
-	0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,
-};
-const unsigned char cliff_collision[] = {
-	0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,
-};
-const unsigned char trans_collision[] = {
-	0,0,0,COL_ALL,0,0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,0,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,
-};
+// const unsigned char * const outside_col[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,40};
+// const unsigned char * const inside_col[] = {0,37,50};
+// const unsigned char * const trans_col[] = {0,1,2,4,5,18};
+// const unsigned char * const cliff_col[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-const unsigned char title_collision[] = {
-	0,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,COL_ALL,
-	COL_ALL,
-};
 
-const unsigned char * const collision_list[]={
-  title_collision,0,outside_collision,outside_collision,outside_collision,
-  trans_collision,title_collision,outside_collision,outside_collision,outside_collision,
-  trans_collision,outside_collision,outside_collision,trans_collision,outside_collision,
-  0,0,inside_collision,inside_collision,inside_collision,
-  cliff_collision,outside_collision,inside_collision,inside_collision,inside_collision,
-  inside_collision,outside_collision,outside_collision,inside_collision,outside_collision,
-};
 
 const unsigned char * const room_list[]={
 	room_1,room_2,room_3,room_4,room_5,
-  room_6,room_1,room_8,room_9,room_10,
+  room_6,blank,room_8,room_9,room_10,
   room_11,room_12,room_13,room_14,room_15,
   blank,blank,room_18,room_19,room_20,
   room_46,room_47,room_23,room_24,room_25,

@@ -1571,7 +1571,7 @@ void bg_collision(void)
 	// temp2 = temp5 >> 8;				// high byte x
 	temp3 = player_y + PLAYER_PIXELS; // y top
 	bg_collision_sub();
-	if (collision & COL_ALL)
+	if (collision)
 	{
 		++collision_L;
 		++collision_U;
@@ -1583,7 +1583,7 @@ void bg_collision(void)
 	// temp2 = temp5 >> 8;		// high byte x
 	//  temp3 (y) is unchanged
 	bg_collision_sub();
-	if (collision & COL_ALL)
+	if (collision)
 	{
 		++collision_R;
 		++collision_U;
@@ -1599,7 +1599,7 @@ void bg_collision(void)
 
 	bg_collision_sub();
 
-	if (collision & COL_ALL)
+	if (collision)
 	{ // find a corner in the collision map
 		++collision_R;
 		++collision_D;
@@ -1613,7 +1613,7 @@ void bg_collision(void)
 
 	bg_collision_sub();
 
-	if (collision & COL_ALL)
+	if (collision)
 	{ // find a corner in the collision map
 		++collision_L;
 		++collision_D;
@@ -1626,8 +1626,47 @@ void bg_collision_sub(void)
 
 	collision = c_map[coordinates];
 
-	// look in the colision list to see if this collision colides.
-	collision = collision_list[which_bg][collision];
+	//collision = collision_list[which_bg][collision];
+
+	// const unsigned char * const outside[] = {2,3,4,7,8,9,11,12,14,21,26,27,29};
+	// const unsigned char * const inside[] = {17,18,19,22,23,24,25,28};
+	// const unsigned char * const trans[] = {5,10,13};
+	// const unsigned char * const cliff[] = {20};
+
+	if(which_bg == 17 || which_bg == 18 || which_bg == 19 ||which_bg == 22 || which_bg == 23 || which_bg == 24 || which_bg == 25 || which_bg == 28){ //inside
+		if(collision == 0 || collision == 37 || collision == 50){
+			collision = 0;
+		}
+		else {
+			collision = 1;
+		}
+	}
+	else if(which_bg == 5 ||which_bg == 10 || which_bg == 13){ //trans
+		if(collision < 3 || collision == 4 || collision ==5 || collision == 18 ){
+			collision = 0;
+		}
+		else {
+			collision = 1;
+		}
+	}else if(which_bg == 20){ //cliff
+		if(collision < 16){
+			collision= 0;
+		}
+		else {
+			collision= 1;
+		}
+	}
+	else { //outside
+
+		if(collision < 16 || collision == 30){
+			collision = 0;
+		}
+		else {
+			collision= 1;
+		}
+	}
+
+	
 }
 
 /**
