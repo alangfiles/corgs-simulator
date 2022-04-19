@@ -2,7 +2,7 @@
 need for launch:
 [x] bug:character clipping left and right oddly, maybe make him smaller vertically too
 [x] add more talking, lots of talking
-[] add run out of time ending 
+[] add run out of time ending
 [x] warp toliets (make sprite walkable + changeroom code)
 [x] add dungeon pushblock
 [x] special overlay sprites that you walk behind
@@ -525,6 +525,170 @@ void draw_sprites(void)
 	}
 #pragma endregion
 
+#pragma region drawplayer
+	if (item_found) // special player sprite used if item found
+	{
+		oam_meta_spr(player_x, player_y, PrizeGuy94);
+	}
+	else if (rep_timer > 0)
+	{
+		if ((rep_count & 1) == 0)
+		{ // this should be like %2
+			oam_meta_spr(player_x, player_y, PlayerSprDown);
+		}
+		else
+		{
+			oam_meta_spr(player_x, player_y, PrizeGuy94);
+		}
+	}
+	else
+	{
+		switch (player_direction)
+		{
+		case DOWN_MOVE:
+
+			if (pad1 & PAD_DOWN) // only animate if the button is pressed
+			{
+				if (move_frames >= 24 && move_frames < 28)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
+				}
+				else if (move_frames >= 16 && move_frames < 20)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
+				}
+				else if (move_frames >= 8 && move_frames < 12)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
+				}
+				else if (move_frames < 4)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
+				}
+				else
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprDown);
+				}
+			}
+			else // this is the idle non-moving sprite
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprDown);
+			}
+
+			break;
+		case LEFT_MOVE:
+			if (pad1 & PAD_LEFT) // only animate if the button is pressed
+			{
+
+				if (move_frames >= 24 && move_frames < 28)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+				}
+				else if (move_frames >= 20 && move_frames < 24)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
+				}
+				else if (move_frames >= 16 && move_frames < 20)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
+				}
+				else if (move_frames >= 8 && move_frames < 12)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+				}
+				else if (move_frames >= 4 && move_frames < 8)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
+				}
+				else if (move_frames < 4)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
+				}
+				else
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprLeft);
+				}
+			}
+			else // this is the idle non-moving sprite
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprLeft);
+			}
+
+			break;
+		case UP_MOVE:
+			if (pad1 & PAD_UP) // only animate if the button is pressed
+			{
+				if (move_frames >= 24 && move_frames < 28)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
+				}
+				else if (move_frames >= 16 && move_frames < 20)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
+				}
+				else if (move_frames >= 8 && move_frames < 12)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
+				}
+				else if (move_frames < 4)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
+				}
+				else
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprUp);
+				}
+			}
+			else // this is the idle non-moving sprite
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprUp);
+			}
+			break;
+		case RIGHT_MOVE:
+			if (pad1 & PAD_RIGHT) // only animate if the button is pressed
+			{
+
+				if (move_frames >= 24 && move_frames < 28)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+				}
+				else if (move_frames >= 20 && move_frames < 24)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFive);
+				}
+				else if (move_frames >= 16 && move_frames < 20)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
+				}
+				else if (move_frames >= 8 && move_frames < 12)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+				}
+				else if (move_frames >= 4 && move_frames < 8)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightThree);
+				}
+				else if (move_frames < 4)
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+				}
+				else
+				{
+					oam_meta_spr(player_x, player_y, PlayerSprRight);
+				}
+			}
+			else // this is the idle non-moving sprite
+			{
+				oam_meta_spr(player_x, player_y, PlayerSprRight);
+			}
+			break;
+		default:
+			oam_meta_spr(player_x, player_y, PlayerSprUp);
+			break;
+		}
+	}
+#pragma endregion drawplayer
+
 	if (shot_x >= 0)
 	{ // only draw the shot if it exists
 		oam_meta_spr(shot_x, shot_y, Shot);
@@ -873,170 +1037,6 @@ void draw_sprites(void)
 	}
 
 #pragma endregion
-
-#pragma region drawplayer
-	if (item_found) // special player sprite used if item found
-	{
-		oam_meta_spr(player_x, player_y, PrizeGuy94);
-	}
-	else if (rep_timer > 0)
-	{
-		if ((rep_count & 1) == 0)
-		{ // this should be like %2
-			oam_meta_spr(player_x, player_y, PlayerSprDown);
-		}
-		else
-		{
-			oam_meta_spr(player_x, player_y, PrizeGuy94);
-		}
-	}
-	else
-	{
-		switch (player_direction)
-		{
-		case DOWN_MOVE:
-
-			if (pad1 & PAD_DOWN) // only animate if the button is pressed
-			{
-				if (move_frames >= 24 && move_frames < 28)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
-				}
-				else if (move_frames >= 16 && move_frames < 20)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
-				}
-				else if (move_frames >= 8 && move_frames < 12)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDownThree);
-				}
-				else if (move_frames < 4)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
-				}
-				else
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprDown);
-				}
-			}
-			else // this is the idle non-moving sprite
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprDown);
-			}
-
-			break;
-		case LEFT_MOVE:
-			if (pad1 & PAD_LEFT) // only animate if the button is pressed
-			{
-
-				if (move_frames >= 24 && move_frames < 28)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-				}
-				else if (move_frames >= 20 && move_frames < 24)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
-				}
-				else if (move_frames >= 16 && move_frames < 20)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-				}
-				else if (move_frames >= 8 && move_frames < 12)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-				}
-				else if (move_frames >= 4 && move_frames < 8)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
-				}
-				else if (move_frames < 4)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-				}
-				else
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprLeft);
-				}
-			}
-			else // this is the idle non-moving sprite
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprLeft);
-			}
-
-			break;
-		case UP_MOVE:
-			if (pad1 & PAD_UP) // only animate if the button is pressed
-			{
-				if (move_frames >= 24 && move_frames < 28)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
-				}
-				else if (move_frames >= 16 && move_frames < 20)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
-				}
-				else if (move_frames >= 8 && move_frames < 12)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUpThree);
-				}
-				else if (move_frames < 4)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
-				}
-				else
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprUp);
-				}
-			}
-			else // this is the idle non-moving sprite
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprUp);
-			}
-			break;
-		case RIGHT_MOVE:
-			if (pad1 & PAD_RIGHT) // only animate if the button is pressed
-			{
-
-				if (move_frames >= 24 && move_frames < 28)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-				}
-				else if (move_frames >= 20 && move_frames < 24)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightFive);
-				}
-				else if (move_frames >= 16 && move_frames < 20)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-				}
-				else if (move_frames >= 8 && move_frames < 12)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-				}
-				else if (move_frames >= 4 && move_frames < 8)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightThree);
-				}
-				else if (move_frames < 4)
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-				}
-				else
-				{
-					oam_meta_spr(player_x, player_y, PlayerSprRight);
-				}
-			}
-			else // this is the idle non-moving sprite
-			{
-				oam_meta_spr(player_x, player_y, PlayerSprRight);
-			}
-			break;
-		default:
-			oam_meta_spr(player_x, player_y, PlayerSprUp);
-			break;
-		}
-	}
-#pragma endregion drawplayer
 }
 
 void action(void)
@@ -1626,47 +1626,58 @@ void bg_collision_sub(void)
 
 	collision = c_map[coordinates];
 
-	//collision = collision_list[which_bg][collision];
+	// collision = collision_list[which_bg][collision];
 
 	// const unsigned char * const outside[] = {2,3,4,7,8,9,11,12,14,21,26,27,29};
 	// const unsigned char * const inside[] = {17,18,19,22,23,24,25,28};
 	// const unsigned char * const trans[] = {5,10,13};
 	// const unsigned char * const cliff[] = {20};
 
-	if(which_bg == 17 || which_bg == 18 || which_bg == 19 ||which_bg == 22 || which_bg == 23 || which_bg == 24 || which_bg == 25 || which_bg == 28){ //inside
-		if(collision == 0 || collision == 37 || collision == 50){
+	if (which_bg == 17 || which_bg == 18 || which_bg == 19 || which_bg == 22 || which_bg == 23 || which_bg == 24 || which_bg == 25 || which_bg == 28)
+	{ // inside
+		if (collision == 0 || collision == 37 || collision == 50)
+		{
 			collision = 0;
 		}
-		else {
+		else
+		{
 			collision = 1;
 		}
 	}
-	else if(which_bg == 5 ||which_bg == 10 || which_bg == 13){ //trans
-		if(collision < 3 || collision == 4 || collision ==5 || collision == 18 ){
+	else if (which_bg == 5 || which_bg == 10 || which_bg == 13)
+	{ // trans
+		if (collision < 3 || collision == 4 || collision == 5 || collision == 18)
+		{
 			collision = 0;
 		}
-		else {
+		else
+		{
 			collision = 1;
 		}
-	}else if(which_bg == 20){ //cliff
-		if(collision < 16){
-			collision= 0;
-		}
-		else {
-			collision= 1;
-		}
 	}
-	else { //outside
-
-		if(collision < 16 || collision == 30){
+	else if (which_bg == 20)
+	{ // cliff
+		if (collision < 16)
+		{
 			collision = 0;
 		}
-		else {
-			collision= 1;
+		else
+		{
+			collision = 1;
 		}
 	}
+	else
+	{ // outside
 
-	
+		if (collision < 16 || collision == 30)
+		{
+			collision = 0;
+		}
+		else
+		{
+			collision = 1;
+		}
+	}
 }
 
 /**
@@ -2143,10 +2154,6 @@ void draw_talking(void)
 	case TALK_GARY:
 		pointer = talk_gary;
 		text_length = sizeof(talk_gary);
-		break;
-	case TALK_FLIP:
-		pointer = talk_flip;
-		text_length = sizeof(talk_flip);
 		break;
 	case TALK_INYOURWAY:
 		pointer = talk_inyourway;

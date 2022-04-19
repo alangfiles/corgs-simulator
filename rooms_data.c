@@ -327,7 +327,7 @@ const unsigned char * const sprite_list[]={
   blank_sprites,blank_sprites,room_18_sprites,room_19_sprites,room_20_sprites,
   room_46_sprites,room_47_sprites,room_23_sprites,room_24_sprites,room_25_sprites,
   room_28_sprites,blank_sprites,blank_sprites,room_43_sprites,room_48_sprites,
-};
+}; 
 
 
 const unsigned char * const room_palette_list[]={
