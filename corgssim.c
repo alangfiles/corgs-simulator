@@ -1435,7 +1435,7 @@ void movement(void)
 
 void sprite_collisions(void)
 {
-	if (which_bg == COIN_GAME_ROOM)
+	if (which_bg == COIN_GAME_ROOM && !(items_collected & ITEM_COIN_GAME))
 	{
 		for (index = 0; index < MAX_COINS; ++index)
 		{
