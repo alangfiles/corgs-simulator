@@ -13,7 +13,6 @@
 unsigned char items_collected = 0;
 unsigned char item_found = 0;
 
-
 #pragma region DUNGEON_ROOM
 #define DUNGEON_BLOCK_X 0xA0
 #define DUNGEON_BLOCK_Y 0xC0
@@ -27,7 +26,6 @@ unsigned char item_found = 0;
 unsigned char push_timer = 0;
 unsigned char block_moved = 0;
 unsigned char has_moved = 0;
-
 
 #define CLIFF_ROOM 20
 
@@ -55,11 +53,10 @@ unsigned char has_moved = 0;
 
 unsigned char player_jump = 0;
 unsigned char player_coins = 0;
-#define MAX_COINS 6 //how many coins the player has to collect
-#define PLAYER_MAX_JUMP 88 //needs to be divisible by 4
+#define MAX_COINS 6        // how many coins the player has to collect
+#define PLAYER_MAX_JUMP 88 // needs to be divisible by 4
 
 #pragma endregion COIN_ROOM
-
 
 #pragma region ADVENTURE_ROOM
 #define ADVENTURE_GAME_ROOM 19
@@ -72,16 +69,14 @@ unsigned char player_coins = 0;
 #define FETCH_QUEST_ROOM 23
 #define FETCH_QUEST_X 0xD0
 #define FETCH_QUEST_Y 0x60
-unsigned char on_fetchquest = 0; //0 - not started, 1 - money, 2 - food, 3 - burgertime, 4 - complete
+unsigned char on_fetchquest = 0; // 0 - not started, 1 - money, 2 - food, 3 - burgertime, 4 - complete
 
 #pragma endregion FETCH_QUEST
 
-
 #pragma region REPS
 #define REPS_ROOM 21
-#define MAX_REPS  20 //how many reps to get the prize
-#define REP_TIMER_MAX 5 //how much time to do the reps
+#define MAX_REPS 20     // how many reps to get the prize
+#define REP_TIMER_MAX 5 // how much time to do the reps
 unsigned char rep_count = 0;
 unsigned char rep_timer = 0;
 #pragma endregion REPS
-

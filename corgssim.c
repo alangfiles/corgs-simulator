@@ -29,17 +29,17 @@ fun list:
 [x] bug: remove money sprite when changing rooms
 
 music:
-[] title tune
-[] indoor/outdoor music
+[x] title tune
+[x] indoor/outdoor music
 [] king of video games tune
 
 sfx:
-[] contra theme
-[] jump sound
-[] zelda block
-[] mario noise
-[] toliet warp noise
-[] coin noise
+[x] contra theme
+[x] jump sound
+[x] zelda block
+[x] mario noise
+[x] toliet warp noise
+[x] coin noise
 [] money hitting things
 
 cleanup:
