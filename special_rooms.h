@@ -10,7 +10,7 @@
 #define ITEM_KETTLEBELL_GAME 0x10
 #define ITEM_3_GAME 0x20
 #define ALL_ITEMS_COLLECTED 0x3F
-unsigned char items_collected = ALL_ITEMS_COLLECTED;
+unsigned char items_collected = 0;
 unsigned char item_found = 0;
 
 
@@ -72,7 +72,7 @@ unsigned char player_coins = 0;
 #define FETCH_QUEST_ROOM 23
 #define FETCH_QUEST_X 0xD0
 #define FETCH_QUEST_Y 0x60
-unsigned char on_fetchquest = 4; //0 - not started, 1 - money, 2 - food, 3 - burgertime, 4 - complete
+unsigned char on_fetchquest = 0; //0 - not started, 1 - money, 2 - food, 3 - burgertime, 4 - complete
 
 #pragma endregion FETCH_QUEST
 

@@ -118,10 +118,14 @@ void main(void)
 					index = 0; // reset the code
 				}
 			}
-			if (index == 10) // 10 correct inputs
+			if (index == 10 && code_active != 1) // 10 correct inputs
 			{
-				code_active = 1;
+				music_pause(1);
+				delay(15);
 				sfx_play(SFX_CONTRA, 0);
+				delay(450);
+				music_pause(0);
+				code_active = 1;
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -134,7 +138,6 @@ void main(void)
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
 
 			movement();
-			sprite_collisions();
 			action();
 
 			draw_sprites();
@@ -238,6 +241,7 @@ void main(void)
 							initialize_title_screen(); // turns on screen at end
 							break;
 						case CHOICE_FETCH_QUEST:
+							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 1;
 							items_collected = items_collected | ITEM_BURGER_GAME;
 							item_found = ITEM_BURGER_GAME;
@@ -245,6 +249,7 @@ void main(void)
 							draw_talking();
 							break;
 						case CHOICE_BUY_FOOD:
+							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 2;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_FETCHTWO;
@@ -262,12 +267,14 @@ void main(void)
 							rep_timer = REP_TIMER_MAX; // this is all based off rep_timer being set
 							break;
 						case CHOICE_FINISH_REPS:
+							sfx_play(SFX_VICTORY, 0);
 							items_collected = items_collected | ITEM_KETTLEBELL_GAME;
 							item_found = ITEM_KETTLEBELL_GAME;
 							collision_action = TALK_ITEM_5;
 							draw_talking();
 							break;
 						case CHOICE_FINISH_FETCH:
+							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 4;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_ITEM_4;
@@ -341,6 +348,11 @@ void draw_bg(void)
 		pal_col(5, 0x00);
 		pal_col(6, 0x30);
 		pal_col(7, 0x20);
+	}
+	// reset block move for dungeon room
+	if (which_bg == DUNGEON_BLOCK_ROOM)
+	{
+		block_moved = 0;
 	}
 
 	// to save space, the room files just have the room data, not the hud or bottom line
@@ -1100,6 +1112,7 @@ void action(void)
 			Generic2.height = 8;
 			if (check_collision(&Generic, &Generic2))
 			{
+				sfx_play(SFX_VICTORY, 0);
 				items_collected = items_collected | ITEM_ADVENTURE_GAME; // pick up the item
 				item_found = ITEM_ADVENTURE_GAME;
 				collision_action = TALK_ITEM_3;
@@ -1122,6 +1135,7 @@ void movement(void)
 			}
 			else
 			{
+				sfx_play(SFX_MYSTERY, 0);
 				block_moved = 1; // done moving
 			}
 			return;
@@ -1135,6 +1149,7 @@ void movement(void)
 			}
 			else
 			{
+				sfx_play(SFX_MYSTERY, 0);
 				block_moved = 1;
 			}
 			return;
@@ -1164,14 +1179,17 @@ void movement(void)
 
 	// check left/right collisions
 	bg_collision();
+	sprite_collisions();
 	// ejection
 	if (collision_R)
 	{
 		player_x -= 1;
+		has_moved = 0;
 	}
 	if (collision_L)
 	{
 		player_x += 1;
+		has_moved = 0;
 	}
 
 	if (which_bg == COIN_GAME_ROOM)
@@ -1220,6 +1238,7 @@ void movement(void)
 
 	// check collision up/down
 	bg_collision();
+	sprite_collisions();
 	// ejection
 	if (collision_D)
 	{
@@ -1232,7 +1251,7 @@ void movement(void)
 
 	if (player_direction == last_player_direction // player direction hasn't changed
 			&& (pad1 & PAD_ALL_DIRECTIONS)						// one of the direction buttons is held down
-			&& has_moved == 1)												// and the player hasn't moved
+			&& has_moved == 0)												// and the player hasn't moved
 	{
 		++push_timer;
 	}
@@ -1289,13 +1308,11 @@ void movement(void)
 		Generic2.y = DUNGEON_BLOCK_Y + 7;
 		Generic2.width = 4;
 		Generic2.height = 4;
-		if ( // block_moved &&
-				check_collision(&Generic, &Generic2))
+		if (check_collision(&Generic, &Generic2))
 		{
 			which_bg = DUNGEON_GAME_ROOM;
 			player_x = 0x30;
 			player_y = 0x41;
-			block_moved = 0;
 			draw_bg();
 		}
 	}
@@ -1307,8 +1324,7 @@ void movement(void)
 		Generic2.y = TOLIET_WARP_1_Y + 7;
 		Generic2.width = 4;
 		Generic2.height = 4;
-		if ( // block_moved &&
-				check_collision(&Generic, &Generic2))
+		if (check_collision(&Generic, &Generic2))
 		{
 			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_2_ROOM;
@@ -1325,8 +1341,7 @@ void movement(void)
 		Generic2.y = TOLIET_WARP_2_Y + 7;
 		Generic2.width = 4;
 		Generic2.height = 4;
-		if ( // block_moved &&
-				check_collision(&Generic, &Generic2))
+		if (check_collision(&Generic, &Generic2))
 		{
 			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_1_ROOM;
@@ -1338,8 +1353,7 @@ void movement(void)
 		{ // check other toliet warp
 			Generic2.x = TOLIET_WARP_3_X + 7;
 			Generic2.y = TOLIET_WARP_3_Y + 7;
-			if ( // block_moved &&
-					check_collision(&Generic, &Generic2))
+			if (check_collision(&Generic, &Generic2))
 			{
 				sfx_play(SFX_WARP_TOLIET, 0);
 				which_bg = COIN_GAME_ROOM;
@@ -1359,8 +1373,7 @@ void movement(void)
 		Generic2.y = COIN_ROOM_WARP_Y + 7;
 		Generic2.width = 4;
 		Generic2.height = 4;
-		if ( // block_moved &&
-				check_collision(&Generic, &Generic2))
+		if (check_collision(&Generic, &Generic2))
 		{
 			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_2_ROOM;
@@ -1378,6 +1391,7 @@ void movement(void)
 		Generic2.height = 1;
 		if (check_collision(&Generic, &Generic2))
 		{
+			sfx_play(SFX_VICTORY, 0);
 			items_collected = items_collected | ITEM_DUNGEON_GAME; // pick up the item
 			item_found = ITEM_DUNGEON_GAME;
 			collision_action = TALK_ITEM_1;
@@ -1393,6 +1407,7 @@ void movement(void)
 		Generic2.height = 1;
 		if (check_collision(&Generic, &Generic2))
 		{
+			sfx_play(SFX_VICTORY, 0);
 			items_collected = items_collected | ITEM_COIN_GAME; // pick up the item
 			item_found = ITEM_COIN_GAME;
 			collision_action = TALK_ITEM_2;
@@ -1452,16 +1467,16 @@ void sprite_collisions(void)
 			case DOWN:
 				// they're moving down and ran into something
 				// so push them back up
-				--player_y;
+				++collision_D;
 				break;
 			case UP:
-				++player_y;
+				++collision_U;
 				break;
 			case LEFT:
-				++player_x;
+				++collision_L;
 				break;
 			case RIGHT:
-				--player_x;
+				++collision_R;
 				break;
 			default:
 				break;
@@ -1701,6 +1716,7 @@ void change_room_right()
 	{ // exit cliffs right
 		bg_display_hud = 1;
 		display_hud_sprites = 1;
+		music_play(SONG_INSIDE);
 	}
 	if (which_bg == 22)
 	{
@@ -1726,6 +1742,8 @@ void change_room_left()
 	{
 		bg_display_hud = 0;
 		display_hud_sprites = 0;
+		music_stop();
+		sfx_play(SFX_KING, 0);
 	}
 
 	draw_bg();
@@ -1754,11 +1772,6 @@ void change_room_up()
 		--which_bg;
 	}
 
-	if (which_bg == DUNGEON_BLOCK_ROOM)
-	{
-		block_moved = 0;
-	}
-
 	if (which_bg == 0)
 	{ // going up from the dungeon
 		which_bg = DUNGEON_BLOCK_ROOM;
@@ -1785,11 +1798,6 @@ void change_room_down()
 	else
 	{
 		++which_bg;
-	}
-
-	if (which_bg == DUNGEON_BLOCK_ROOM)
-	{
-		block_moved = 0;
 	}
 
 	if (which_bg == 29) // the back door
@@ -2269,6 +2277,8 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
+	code_active = 0;
+	index = 0;
 
 	song = SONG_TITLE;
 	set_music_speed(5);

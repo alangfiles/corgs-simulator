@@ -21,7 +21,7 @@ $(NAME).nes: $(NAME).o crt0.o $(CFG)
 	rm *.o
 	@echo $(NAME).nes created
 
-crt0.o: crt0.s corgssim.chr MUSIC/TestMusic3.s MUSIC/SoundFx.s
+crt0.o: crt0.s corgssim.chr MUSIC/Songs.s MUSIC/SoundFx.s
 	$(CA65) crt0.s
 
 $(NAME).o: $(NAME).s
