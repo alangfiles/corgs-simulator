@@ -480,7 +480,16 @@ void initialize_sprites(void)
 		sprites_type[index] = TURN_OFF;
 	}
 
-	pointer = sprite_list[which_bg];
+	if (which_bg == COIN_GAME_ROOM && (items_collected & ITEM_COIN_GAME))
+	{
+		// will load blank sprites if they've collected thegame
+		pointer = sprite_list[0];
+	}
+	else
+	{
+		pointer = sprite_list[which_bg];
+	}
+
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
 
