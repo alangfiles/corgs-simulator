@@ -1482,10 +1482,10 @@ const unsigned char AdventureGameBig[]={
 };
 
 const unsigned char FetchMoney[]={
-	  0,  0,0x2a,3,
-	  8,  0,0x6b,3,
-	  0,  8,0x75,3,
-	  8,  8,0x1b,3,
+	  0,  0,0x06,3,
+	  8,  0,0x07,3,
+	  0,  8,0x16,3,
+	  8,  8,0x17,3,
 	128
 };
 

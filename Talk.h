@@ -152,7 +152,7 @@ const unsigned char item_3[] = "You found an Atari 2600\ncopy of Warren Robinett
 const unsigned char item_4[] = "You got a Bally Midway\nArcade board of...\n Burger Time";
 const unsigned char item_5[] = "Those ripped bros gave you\na 20lb kettlebell!";
 
-const unsigned char fetch_1[] = "\nYou got a piece of SILVER!";
+const unsigned char fetch_1[] = "\nYou got a SILVER COIN!";
 const unsigned char fetch_2[] = "\nYou got a JUMBO BURGER!";
 
 const unsigned char ending_1[] = "Did you collect them all?";
