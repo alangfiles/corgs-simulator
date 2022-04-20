@@ -1135,7 +1135,10 @@ void movement(void)
 			}
 			else
 			{
+				music_pause(1);
 				sfx_play(SFX_MYSTERY, 0);
+				delay(100);
+				music_play(0);
 				block_moved = 1; // done moving
 			}
 			return;
@@ -1149,7 +1152,10 @@ void movement(void)
 			}
 			else
 			{
+				music_pause(1);
 				sfx_play(SFX_MYSTERY, 0);
+				delay(100);
+				music_play(0);
 				block_moved = 1;
 			}
 			return;
