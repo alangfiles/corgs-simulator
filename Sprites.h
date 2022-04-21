@@ -2,7 +2,7 @@
 enum{SPRITE_PlayerSprUp, SPRITE_ALAN92, SPRITE_BRIAN93, SPRITE_PunchoutMan112, SPRITE_PunchOutMat113, SPRITE_LunchLadyHead36, SPRITE_BaldRight22, 
 SPRITE_HairForward114, SPRITE_Banner99, SPRITE_BoyKid44, SPRITE_BaldBehind7, SPRITE_SkirtLady39, SPRITE_PrettyGirlBehindStand109, SPRITE_HairBehind10, 
  SPRITE_HatForward17, SPRITE_SideLadyRight86, SPRITE_WideBoyBehind120, SPRITE_SleepyGuyBehind123, SPRITE_BackTV101, SPRITE_HairRight27, SPRITE_BigNoseLeft84, 
- SPRITE_Wizard53, SPRITE_Car95, SPRITE_Car96, SPRITE_SkinnyHatMan49, SPRITE_GlassesLeft31, SPRITE_BaldForward13, SPRITE_GirlKid47, SPRITE_BlueBeard74, 
+ SPRITE_Wizard53, SPRITE_Car95,SPRITE_Car952, SPRITE_Car96,SPRITE_Car962, SPRITE_SkinnyHatMan49, SPRITE_GlassesLeft31, SPRITE_BaldForward13, SPRITE_GirlKid47, SPRITE_BlueBeard74, 
  SPRITE_King75, SPRITE_BigNoseRight83, SPRITE_BaldTankBehind121, SPRITE_OldCoot63, SPRITE_GlassesRight33, SPRITE_HairRight28, SPRITE_SideLadyRight87,  
  SPRITE_DressGirl61, SPRITE_MuscleMan0, SPRITE_MuscleMan1, SPRITE_MuscleMan2, SPRITE_Girl4, SPRITE_FroGuy55, SPRITE_WideBoy69, SPRITE_HatBehind117,
  SPRITE_Ghost65, SPRITE_CostumeMan58, SPRITE_Wizard52, SPRITE_SideLadyLeft90, SPRITE_BeardSideManLeft79, SPRITE_HairBehind9, SPRITE_BaldBehind6, SPRITE_HairLeft24,
@@ -1093,26 +1093,36 @@ const unsigned char Car95[]={
 
 	  8,  0,0x4f,3,
 	  8,  8,0x5f,3,
-	  0, 16,0x6f,3|OAM_FLIP_H,
-	  8, 24,0x7f,3,
-	  0,  0,0x4f,3|OAM_FLIP_H,
+		0,  0,0x4f,3|OAM_FLIP_H,
 	  0,  8,0x5f,3|OAM_FLIP_H,
-	  8, 16,0x6f,3,
-	  0, 24,0x7f,3|OAM_FLIP_H,
 	128
-
 };
+
+const unsigned char Car952[]={
+
+	  0, 0,0x6f,3|OAM_FLIP_H,
+	  8, 8,0x7f,3,
+	  8, 0,0x6f,3,
+	  0, 8,0x7f,3|OAM_FLIP_H,
+	128
+};
+
 
 const unsigned char Car96[]={
 
-	  8,  0,0x4f,2,
-	  8,  8,0x5f,2,
-	  0, 16,0x6f,2|OAM_FLIP_H,
-	  8, 24,0x7f,2,
 	  0,  0,0x4f,2|OAM_FLIP_H,
 	  0,  8,0x5f,2|OAM_FLIP_H,
-	  8, 16,0x6f,2,
-	  0, 24,0x7f,2|OAM_FLIP_H,
+		8,  0,0x4f,2,
+	  8,  8,0x5f,2,
+	128
+
+};
+const unsigned char Car962[]={
+
+		0, 0,0x6f,2|OAM_FLIP_H,
+	  8, 0,0x6f,2,
+		0, 8,0x7f,2|OAM_FLIP_H,
+		8, 8,0x7f,2,
 	128
 
 };

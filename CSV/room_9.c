@@ -13,8 +13,11 @@ const unsigned char room_9[]={
 
 const unsigned char room_9_sprites[]={
 	48, 160, SPRITE_Car96,
+	48, 176, SPRITE_Car962,
 	80, 160, SPRITE_Car96,
+	80, 176, SPRITE_Car962,
 	176, 160, SPRITE_Car95,
+	176, 176, SPRITE_Car952,
 	160, 112, SPRITE_SkirtLady39,
 	37, 90, SPRITE_GirlKid47,
 	137,87, SPRITE_LunchLadyHead36,

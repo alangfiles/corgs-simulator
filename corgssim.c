@@ -807,8 +807,14 @@ void draw_sprites(void)
 		case SPRITE_Car95:
 			sprites_anim[index2] = Car95;
 			break;
+		case SPRITE_Car952:
+			sprites_anim[index2] = Car952;
+			break;
 		case SPRITE_Car96:
 			sprites_anim[index2] = Car96;
+			break;
+		case SPRITE_Car962:
+			sprites_anim[index2] = Car962;
 			break;
 		case SPRITE_SkinnyHatMan49:
 			sprites_anim[index2] = SkinnyHatMan49;
