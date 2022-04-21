@@ -6,10 +6,10 @@ need for launch:
 [x] warp toliets (make sprite walkable + changeroom code)
 [x] add dungeon pushblock
 [x] special overlay sprites that you walk behind
-[] actual music and sfx
+[x] actual music and sfx
 
 space saving:
-[] clean up collision lists (just explicity add it in bg_collision_sub)
+[x] clean up collision lists (just explicity add it in bg_collision_sub)
 
 mini games:
 [x] fetch quest
@@ -25,13 +25,13 @@ fun list:
 [] infinite hallway
 [x] more yes/no actions
 [] money sprite explodes on things
-[] add intro screen (in the year 20XX)
+[] add intro screen (in the year 20XX, with custom names?)
 [x] bug: remove money sprite when changing rooms
 
 music:
 [x] title tune
 [x] indoor/outdoor music
-[] king of video games tune
+[x] king of video games tune
 
 sfx:
 [x] contra theme

@@ -303,7 +303,7 @@ const unsigned char * const room_list[]={
   room_11,room_12,room_13,room_14,room_15,
   blank,blank,room_18,room_19,room_20,
   room_46,room_47,room_23,room_24,room_25,
-  room_28,room_33,room_38,room_43,room_48,
+  room_28,room_33,room_38,room_43,room_48, 
 };
 
 const unsigned char inside_hud = 0;
