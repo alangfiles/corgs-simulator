@@ -44,6 +44,7 @@ const unsigned char code[]={
 unsigned char code_active = 0;
 
 #define STARTING_ROOM 22
+#define BLANK_ROOM 6
 
 // HUD stuff
 #define A_LOC 16
@@ -178,6 +179,7 @@ enum
 	MODE_TITLE,
 	MODE_GAME,
 	MODE_PAUSE,
+	MODE_INTRO,
 	MODE_SWITCH,
 	MODE_TALKING_TIME,
 	MODE_DECISION_TIME,
@@ -221,6 +223,7 @@ void change_room_up(void);
 void change_room_down(void);
 void initialize_title_screen(void);
 void initialize_game_mode(void);
+void initialize_intro_screen(void);
 void initialize_end_screen(void);
 void initialize_talking_time(void);
 void initialize_sprites(void);

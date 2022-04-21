@@ -86,25 +86,7 @@ void main(void)
 
 			if (pad1_new & PAD_START)
 			{
-				song = SONG_INSIDE;
-				set_music_speed(5);
-				music_play(song);
-
-				// set defaults
-				game_mode = MODE_GAME;
-				which_bg = STARTING_ROOM;
-				player_x = 0x80;
-				player_y = 0x80;
-
-				minutes_left = 4;
-				seconds_left_tens = 0;
-				seconds_left_ones = 0;
-
-				bg_display_hud = 1;
-				bg_fade_out = 1;
-
-				draw_bg();
-				draw_hud();
+				initialize_intro_screen();
 			}
 
 			if (pad1_new & (PAD_ALL_DIRECTIONS + PAD_A + PAD_B))
@@ -126,6 +108,36 @@ void main(void)
 				delay(450);
 				music_pause(0);
 				code_active = 1;
+			}
+		}
+		while (game_mode == MODE_INTRO)
+		{
+			ppu_wait_nmi();
+
+			pad1 = pad_poll(0);
+			pad1_new = get_pad_new(0);
+
+			if (pad1_new & PAD_START)
+			{
+				song = SONG_INSIDE;
+				set_music_speed(5);
+				music_play(song);
+
+				// set defaults
+				game_mode = MODE_GAME;
+				which_bg = STARTING_ROOM;
+				player_x = 0x80;
+				player_y = 0x80;
+
+				minutes_left = 4;
+				seconds_left_tens = 0;
+				seconds_left_ones = 0;
+
+				bg_display_hud = 1;
+				bg_fade_out = 1;
+
+				draw_bg();
+				draw_hud();
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -2352,4 +2364,17 @@ void initialize_end_screen(void)
 	oam_meta_spr(0x70, 0xC0, AdventureGameBig);
 	oam_meta_spr(0xD0, 0x90, BurgerGame);
 	oam_meta_spr(0xD0, 0x40, KettleBell);
+}
+
+void initialize_intro_screen(void)
+{
+	game_mode = MODE_INTRO;
+	which_bg = BLANK_ROOM;
+	draw_bg();
+
+	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(8, 6));
+	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(9, 8));
+	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 10));
+	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(5, 12));
+	// multi_vram_buffer_horz(intro_5, sizeof(intro_5), NTADR_A(8, 14));
 }
