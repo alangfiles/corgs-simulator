@@ -452,6 +452,16 @@ void draw_bg(void)
 	{
 		pal_fade_to(0, 4); // fade to black
 	}
+
+	if (which_bg == 20)
+	{
+		music_stop();
+		sfx_play(SFX_KING, 0);
+		delay(100);
+		song = SONG_KING;
+		set_music_speed(10);
+		music_play(song);
+	}
 }
 
 void initialize_talk_map(void)
@@ -1805,12 +1815,6 @@ void change_room_left()
 	{
 		bg_display_hud = 0;
 		display_hud_sprites = 0;
-		music_stop();
-		sfx_play(SFX_KING, 0);
-		delay(100);
-		song = SONG_KING;
-		set_music_speed(10);
-		music_play(song);
 	}
 
 	draw_bg();
