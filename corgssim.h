@@ -103,12 +103,14 @@ struct Base {
 };
 
 struct Base Generic; 
-struct Base Generic2; 
+struct Base Generic2;
+struct Base Generic3;  
 
 
 unsigned char shot_direction = DOWN;
 unsigned char shot_x = -4;
 unsigned char shot_y = -4;
+unsigned char shot_hit = 0;
 
 //offset used for shuffling sprites
 unsigned char offset;

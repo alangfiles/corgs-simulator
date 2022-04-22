@@ -724,7 +724,20 @@ void draw_sprites(void)
 
 	if (shot_x >= 0)
 	{ // only draw the shot if it exists
-		oam_meta_spr(shot_x, shot_y, Shot);
+		if (shot_hit > 0)
+		{
+			oam_meta_spr(shot_x, shot_y, ShotHit);
+			--shot_hit;
+			if (shot_hit == 0)
+			{
+				shot_x = -4;
+				shot_y = -4;
+			}
+		}
+		else
+		{
+			oam_meta_spr(shot_x, shot_y, Shot);
+		}
 	}
 
 #pragma region room_sprites
@@ -1296,7 +1309,7 @@ void movement(void)
 #pragma endregion playerMovement
 
 #pragma region shotMovement
-	if (shot_x >= 0) // if there's a shot, update it's direction
+	if (shot_x >= 0 && shot_hit == 0) // if there's a shot, update it's direction
 	{
 		switch (shot_direction)
 		{
@@ -1453,6 +1466,13 @@ void movement(void)
 
 void sprite_collisions(void)
 {
+
+	// set the first Generic to the players attributes
+	Generic.x = player_x;
+	Generic.y = player_y + (PLAYER_HEIGHT / 2); // player y is halfway down their body
+	Generic.width = PLAYER_WIDTH;
+	Generic.height = PLAYER_HEIGHT / 2; // player height is just the lower half of the body
+
 	if (which_bg == COIN_GAME_ROOM && !(items_collected & ITEM_COIN_GAME))
 	{
 		for (index = 0; index < MAX_COINS; ++index)
@@ -1471,11 +1491,6 @@ void sprite_collisions(void)
 			}
 		}
 	}
-	// set the first Generic to the players attributes
-	Generic.x = player_x;
-	Generic.y = player_y + (PLAYER_HEIGHT / 2); // player y is halfway down their body
-	Generic.width = PLAYER_WIDTH;
-	Generic.height = PLAYER_HEIGHT / 2; // player height is just the lower half of the body
 
 	// go through all the sprites in the room
 	// all other sprites are 16x16 (not always true)
@@ -1513,6 +1528,21 @@ void sprite_collisions(void)
 				break;
 			default:
 				break;
+			}
+		}
+
+		if (shot_x >= 0 && shot_hit == 0)
+		{
+			// check shot collision for each sprite
+			Generic3.x = shot_x;
+			Generic3.y = shot_y;
+			Generic3.width = 4;
+			Generic3.height = 4;
+			if (check_collision(&Generic3, &Generic2))
+			{
+				// shot hit something
+				shot_hit = 6; // 6 frames of shot hit.
+				sfx_play(SFX_SHOT, 0);
 			}
 		}
 	}
@@ -2372,9 +2402,14 @@ void initialize_intro_screen(void)
 	which_bg = BLANK_ROOM;
 	draw_bg();
 
+	ppu_wait_nmi();
 	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(8, 6));
+	ppu_wait_nmi();
 	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(9, 8));
+	ppu_wait_nmi();
 	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 10));
+	ppu_wait_nmi();
 	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(5, 12));
+	ppu_wait_nmi();
 	// multi_vram_buffer_horz(intro_5, sizeof(intro_5), NTADR_A(8, 14));
 }
