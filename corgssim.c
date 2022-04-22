@@ -1807,6 +1807,10 @@ void change_room_left()
 		display_hud_sprites = 0;
 		music_stop();
 		sfx_play(SFX_KING, 0);
+		delay(100);
+		song = SONG_KING;
+		set_music_speed(10);
+		music_play(song);
 	}
 
 	draw_bg();
@@ -2353,11 +2357,16 @@ void initialize_title_screen(void)
 	// ppu_off();
 	// oam_clear();
 	draw_bg();
-	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 19));
+	multi_vram_buffer_horz(start_text, sizeof(start_text) - 1, NTADR_A(10, 20));
 
 	multi_vram_buffer_horz(credits_1, sizeof(credits_1), NTADR_A(11, 24));
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
+
+	if (game_genie == 0xAF)
+	{
+		multi_vram_buffer_horz(game_genie_text, sizeof(game_genie_text), NTADR_A(1, 18));
+	}
 
 	// ppu_on_all();
 }

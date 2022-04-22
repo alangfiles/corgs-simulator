@@ -84,6 +84,7 @@ unsigned char temp3;
 unsigned char temp4;
 unsigned char temp5;
 unsigned char temp6;
+unsigned char game_genie = 0x00;
 
 unsigned char player_direction = DOWN;
 unsigned char last_player_direction = DOWN;
