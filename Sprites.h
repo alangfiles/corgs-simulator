@@ -152,9 +152,15 @@ const unsigned char Shot[]={
 };
 
 const unsigned char ShotHit[]={
-	  0, 0,0x21,0,
+	  0, 0,0x18,0,
 	128
 };
+
+const unsigned char ShotHitTwo[]={
+	  0, 0,0x1A,0,
+	128
+};
+
 
 
 const unsigned char MuscleMan0[]={

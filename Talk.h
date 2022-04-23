@@ -128,7 +128,7 @@ const unsigned char talk_character[] = "It's me! That character\nfrom that game 
 const unsigned char talk_pacman[] = "I ran my Blinky costume\nthrough the washer one too many times.\nNow I'm Pinky.";
 const unsigned char talk_pacman2[] = "I can't believe that guy\nstole my costume idea.\nI'd say something...\nbut I'm Bashful.";
 const unsigned char talk_wizard[] = "My costume?\n\n\n(W)izard (H)uman\n(M)ale (N)eutral.";
-const unsigned char talk_genie[] = "I wonder if this game has\nany Game Genie codes. Like,GXXZZLVI or something.";
+const unsigned char talk_genie[] = "I wonder if this game has\nany Game Genie codes. Like,UUVUZKNX or something.";
 const unsigned char talk_sprites[] = "We'd have a better crowd\nhere if not for the\nsprite limitations.";
 const unsigned char talk_gary[] = "Try to thank a Gary before\nyou leave today. They put\nlots of work into the show.";
 const unsigned char talk_inyourway[] = "I just need to browse\nthrough everything here\nfour or five more times.";
@@ -174,7 +174,7 @@ const unsigned char game_genie_text[] = "II Turbo: Championship Edition";
 //   const unsigned char lorem256_4[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
 // keeping track of space left. each line is 64bytes 4=256kb
-const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+// const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 // const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //  const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //    const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";

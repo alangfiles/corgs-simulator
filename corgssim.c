@@ -84,6 +84,11 @@ void main(void)
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
+			if (game_genie == 0xBB)
+			{
+				multi_vram_buffer_horz(game_genie_text, sizeof(game_genie_text), NTADR_A(1, 18));
+			}
+
 			if (pad1_new & PAD_START)
 			{
 				initialize_intro_screen();
@@ -736,7 +741,15 @@ void draw_sprites(void)
 	{ // only draw the shot if it exists
 		if (shot_hit > 0)
 		{
-			oam_meta_spr(shot_x, shot_y, ShotHit);
+			if (shot_hit > 3)
+			{
+				oam_meta_spr(shot_x, shot_y, ShotHit);
+			}
+			else
+			{
+				oam_meta_spr(shot_x, shot_y, ShotHitTwo);
+			}
+
 			--shot_hit;
 			if (shot_hit == 0)
 			{
@@ -2348,6 +2361,7 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
+	items_collected = 0;
 	code_active = 0;
 	index = 0;
 
@@ -2367,7 +2381,8 @@ void initialize_title_screen(void)
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
 
-	if (game_genie == 0xAF)
+	game_genie = 0xAF;
+	if (game_genie == 0xBB)
 	{
 		multi_vram_buffer_horz(game_genie_text, sizeof(game_genie_text), NTADR_A(1, 18));
 	}
