@@ -81,8 +81,7 @@ void main(void)
 			// pal_col(6, title_color_rotate[temp1]);
 			pal_col(5, title_color_rotate[temp2]);
 
-			pad1 = pad_poll(0);
-			pad1_new = get_pad_new(0);
+			read_controller();
 
 			// ALAN - space saving, I think this is duped gg code
 			//  if (game_genie == 0xBB)
@@ -122,8 +121,7 @@ void main(void)
 		{
 			ppu_wait_nmi();
 
-			pad1 = pad_poll(0);
-			pad1_new = get_pad_new(0);
+			read_controller();
 
 			if (pad1_new & PAD_START)
 			{
@@ -154,8 +152,7 @@ void main(void)
 			ppu_wait_nmi();	 // wait till beginning of the frame
 			countup_timer(); // keep ticking the timer
 
-			pad1 = pad_poll(0);				 // read the first controller
-			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
+			read_controller();
 
 			movement();
 			action();
@@ -193,8 +190,7 @@ void main(void)
 				++text_rendered;
 			}
 
-			pad1 = pad_poll(0);
-			pad1_new = get_pad_new(0);
+			read_controller();
 
 			if (text_row == 3 && text_rendered != text_length) // if there's more than 1 page of
 			{
@@ -323,8 +319,7 @@ void main(void)
 		{
 			ppu_wait_nmi(); // wait till beginning of the frame
 
-			pad1 = pad_poll(0);
-			pad1_new = get_pad_new(0);
+			read_controller();
 
 			if (pad1_new & PAD_START)
 			{
@@ -2458,4 +2453,10 @@ void initialize_intro_screen(void)
 	nmi_and_chill();
 	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(5, 12));
 	// multi_vram_buffer_horz(intro_5, sizeof(intro_5), NTADR_A(8, 14));
+}
+
+void read_controller(void)
+{
+	pad1 = pad_poll(0);				 // read the first controller
+	pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
 }
