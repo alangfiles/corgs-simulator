@@ -213,7 +213,7 @@ void draw_sprites(void);
 void draw_timer(void);
 void draw_hud(void);
 void draw_talking(void);
-void countdown_timer(void);
+void countup_timer(void);
 void movement(void);
 void action(void);
 void action_collision();

@@ -24,8 +24,8 @@ fun list:
 [] add guys to title screen
 [] infinite hallway
 [x] more yes/no actions
-[] money sprite explodes on things
-[] add intro screen (in the year 20XX, with custom names?)
+[x] money sprite explodes on things
+[x] add intro screen (in the year 20XX, with custom names?)
 [x] bug: remove money sprite when changing rooms
 
 music:
@@ -40,7 +40,7 @@ sfx:
 [x] mario noise
 [x] toliet warp noise
 [x] coin noise
-[] money hitting things
+[x] money hitting things
 
 cleanup:
 [] lots of ppu_off misused
@@ -108,6 +108,8 @@ void main(void)
 			}
 			if (index == 10 && code_active != 1) // 10 correct inputs
 			{
+				// alan, I bet we want this music_pause pattern everywhere.
+				//  probably adds to the game
 				music_pause(1);
 				delay(15);
 				sfx_play(SFX_CONTRA, 0);
@@ -135,7 +137,7 @@ void main(void)
 				player_x = 0x80;
 				player_y = 0x80;
 
-				minutes_left = 4;
+				minutes_left = 0;
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
 
@@ -149,8 +151,8 @@ void main(void)
 		while (game_mode == MODE_GAME) // gameloop
 		{
 
-			ppu_wait_nmi();		 // wait till beginning of the frame
-			countdown_timer(); // keep ticking the timer
+			ppu_wait_nmi();	 // wait till beginning of the frame
+			countup_timer(); // keep ticking the timer
 
 			pad1 = pad_poll(0);				 // read the first controller
 			pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
@@ -166,7 +168,7 @@ void main(void)
 		while (game_mode == MODE_TALKING_TIME)
 		{
 			ppu_wait_nmi();
-			countdown_timer(); // keep ticking the game timer
+			countup_timer(); // keep ticking the game timer
 
 			// draw text
 			if (text_rendered != text_length && text_row < 3)
@@ -1895,7 +1897,7 @@ void change_room_down()
 	draw_bg();
 }
 
-void countdown_timer(void)
+void countup_timer(void)
 {
 	++frame;
 
@@ -1908,22 +1910,22 @@ void countdown_timer(void)
 
 		frame = 0;
 		// nes is bad at mul and div math, so just doing counting for clock.
-		if (seconds_left_ones == 0)
+		if (seconds_left_ones == 9)
 		{
-			seconds_left_ones = 9;
-			if (seconds_left_tens == 0)
+			seconds_left_ones = 0;
+			if (seconds_left_tens == 5)
 			{
-				seconds_left_tens = 5;
-				minutes_left -= 1;
+				seconds_left_tens = 0;
+				++minutes_left;
 			}
 			else
 			{
-				seconds_left_tens -= 1;
+				++seconds_left_tens;
 			}
 		}
 		else
 		{
-			seconds_left_ones -= 1;
+			++seconds_left_ones;
 		}
 
 		// update the vram_buffer values only every 60 frames
@@ -2406,20 +2408,11 @@ void initialize_end_screen(void)
 	bg_display_hud = 0;
 	draw_bg();
 
-	// multiple endings! ;)
-
-	nmi_and_chill();
-	if (items_collected == ALL_ITEMS_COLLECTED)
-	{
-
-		multi_vram_buffer_horz(ending_2_1, sizeof(ending_2_1) - 1, NTADR_A(8, 4));
-		nmi_and_chill();
-		multi_vram_buffer_horz(ending_2_2, sizeof(ending_2_2) - 1, NTADR_A(7, 5));
-	}
-	else
-	{
-		multi_vram_buffer_horz(ending_1, sizeof(ending_1) - 1, NTADR_A(3, 4));
-	}
+	// game time:
+	one_vram_buffer(minutes_left, NTADR_A(3, 6));
+	one_vram_buffer(':', NTADR_A(4, 6));
+	one_vram_buffer(seconds_left_tens, NTADR_A(5, 6));
+	one_vram_buffer(seconds_left_ones, NTADR_A(6, 6));
 
 	oam_meta_spr(0x70, 0x50, King75);
 	oam_meta_spr(0x70, 0x80, PlayerSprUp);
@@ -2428,6 +2421,20 @@ void initialize_end_screen(void)
 	oam_meta_spr(0x70, 0xC0, AdventureGameBig);
 	oam_meta_spr(0xD0, 0x90, BurgerGame);
 	oam_meta_spr(0xD0, 0x40, KettleBell);
+
+	// multiple endings! ;)
+
+	nmi_and_chill();
+	if (items_collected == ALL_ITEMS_COLLECTED)
+	{
+		multi_vram_buffer_horz(ending_2_1, sizeof(ending_2_1) - 1, NTADR_A(8, 4));
+		nmi_and_chill();
+		multi_vram_buffer_horz(ending_2_2, sizeof(ending_2_2) - 1, NTADR_A(7, 5));
+	}
+	else
+	{
+		multi_vram_buffer_horz(ending_1, sizeof(ending_1) - 1, NTADR_A(3, 4));
+	}
 }
 
 void nmi_and_chill(void)
