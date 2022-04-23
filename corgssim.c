@@ -148,6 +148,8 @@ void main(void)
 		}
 		while (game_mode == MODE_GAME) // gameloop
 		{
+			// can we appreciate for a moment at least how tight this
+			//  game loop is? so easy to read, I'm proud of you alan
 
 			ppu_wait_nmi();	 // wait till beginning of the frame
 			countup_timer(); // keep ticking the timer
@@ -178,6 +180,8 @@ void main(void)
 				}
 				else
 				{
+					// this could be more typerwritery if we wanted to add a delay and sound
+					// todo add delay and sfx
 					one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
 					++text_col;
 
@@ -1230,7 +1234,7 @@ void movement(void)
 	if (pad1 & PAD_LEFT)
 	{
 		player_direction = LEFT_MOVE;
-		player_x -= 1;
+		--player_x;
 		has_moved = 1;
 		if (player_x == SCREEN_LEFT_EDGE)
 			change_room_left();
@@ -1238,7 +1242,7 @@ void movement(void)
 	else if (pad1 & PAD_RIGHT)
 	{
 		player_direction = RIGHT_MOVE;
-		player_x += 1;
+		++player_x;
 		has_moved = 1;
 		if (player_x == SCREEN_RIGHT_EDGE)
 			change_room_right();
@@ -1250,12 +1254,12 @@ void movement(void)
 	// ejection
 	if (collision_R)
 	{
-		player_x -= 1;
+		--player_x;
 		has_moved = 0;
 	}
 	if (collision_L)
 	{
-		player_x += 1;
+		++player_x;
 		has_moved = 0;
 	}
 
@@ -1269,13 +1273,16 @@ void movement(void)
 		}
 
 		// gravity
-		player_y += 2;
+		++player_y;
+		++player_y;
 
 		// check collision and eject
 		bg_collision();
 		if (collision_D)
 		{
-			player_y -= 2; // eject from down collision
+			// eject from down collision
+			--player_y;
+			--player_y;
 
 			// check for jumps only if down collision
 			if (pad1_new & PAD_B)
@@ -1291,14 +1298,14 @@ void movement(void)
 	if (pad1 & PAD_UP && !has_moved)
 	{
 		player_direction = UP_MOVE;
-		player_y -= 1;
+		--player_y;
 		if (player_y == SCREEN_TOP_EDGE)
 			change_room_up();
 	}
 	else if (pad1 & PAD_DOWN && !has_moved)
 	{
 		player_direction = DOWN_MOVE;
-		player_y += 1;
+		++player_y;
 		if (player_y == SCREEN_BOTTOM_EDGE)
 			change_room_down();
 	}
@@ -1309,11 +1316,11 @@ void movement(void)
 	// ejection
 	if (collision_D)
 	{
-		player_y -= 1;
+		--player_y;
 	}
 	if (collision_U)
 	{
-		player_y += 1;
+		++player_y;
 	}
 
 	if (player_direction == last_player_direction // player direction hasn't changed
@@ -1335,16 +1342,20 @@ void movement(void)
 		switch (shot_direction)
 		{
 		case 0: // down
-			shot_y += 2;
+			++shot_y;
+			++shot_y;
 			break;
 		case 1: // left
-			shot_x -= 2;
+			--shot_x;
+			--shot_x;
 			break;
 		case 2: // up
-			shot_y -= 2;
+			--shot_y;
+			--shot_y;
 			break;
 		case 3: // right
-			shot_x += 2;
+			++shot_x;
+			++shot_x;
 			break;
 		default:
 			break;
