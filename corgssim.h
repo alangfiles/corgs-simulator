@@ -232,5 +232,6 @@ void initialize_talking_time(void);
 void initialize_sprites(void);
 void initialize_talk_map(void);
 void reset_text_values(void);
+void nmi_and_chill(void);
 
 

@@ -74,7 +74,7 @@ void main(void)
 		{
 			ppu_wait_nmi();
 
-			// rotate colors
+			// rotate colors this can be cleaned up
 			temp1 = get_frame_count();
 			temp1 = (temp1 >> 3) & 3;
 			temp2 = temp1 + 1 & 3;
@@ -84,10 +84,11 @@ void main(void)
 			pad1 = pad_poll(0);
 			pad1_new = get_pad_new(0);
 
-			if (game_genie == 0xBB)
-			{
-				multi_vram_buffer_horz(game_genie_text, sizeof(game_genie_text), NTADR_A(1, 18));
-			}
+			// ALAN - space saving, I think this is duped gg code
+			//  if (game_genie == 0xBB)
+			//  {
+			//  	multi_vram_buffer_horz(game_genie_text, sizeof(game_genie_text), NTADR_A(1, 18));
+			//  }
 
 			if (pad1_new & PAD_START)
 			{
@@ -142,7 +143,7 @@ void main(void)
 				bg_fade_out = 1;
 
 				draw_bg();
-				draw_hud();
+				// draw_hud(); ALAN-removing for space, this should happen in draw_bg
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -1999,7 +2000,7 @@ void draw_talking(void)
 	}
 	// writes to the HUD area, then starts the talking mode
 	// which writes 1 char a frame.
-	ppu_off();
+	// ppu_off(); -ALAN, turned this off to save space, this should happen in draw_bg
 	game_mode = MODE_TALKING_TIME;
 	text_decision = TURN_OFF; // no text decisions
 
@@ -2384,6 +2385,8 @@ void initialize_title_screen(void)
 	game_genie = 0xAF;
 	if (game_genie == 0xBB)
 	{
+		nmi_and_chill();
+		// todo: wow, play a sound if we could fit it.
 		multi_vram_buffer_horz(game_genie_text, sizeof(game_genie_text), NTADR_A(1, 18));
 	}
 
@@ -2398,16 +2401,19 @@ void initialize_end_screen(void)
 
 	game_mode = MODE_END;
 
-	which_bg = 1;
+	which_bg = BLANK_ROOM;
 	display_hud_sprites = 0;
 	bg_display_hud = 0;
 	draw_bg();
 
 	// multiple endings! ;)
 
+	nmi_and_chill();
 	if (items_collected == ALL_ITEMS_COLLECTED)
 	{
+
 		multi_vram_buffer_horz(ending_2_1, sizeof(ending_2_1) - 1, NTADR_A(8, 4));
+		nmi_and_chill();
 		multi_vram_buffer_horz(ending_2_2, sizeof(ending_2_2) - 1, NTADR_A(7, 5));
 	}
 	else
@@ -2424,23 +2430,25 @@ void initialize_end_screen(void)
 	oam_meta_spr(0xD0, 0x40, KettleBell);
 }
 
+void nmi_and_chill(void)
+{
+	ppu_wait_nmi();
+	delay(10);
+}
+
 void initialize_intro_screen(void)
 {
 	game_mode = MODE_INTRO;
 	which_bg = BLANK_ROOM;
 	draw_bg();
 
-	ppu_wait_nmi();
-	delay(10);
+	nmi_and_chill();
 	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(8, 6));
-	ppu_wait_nmi();
-	delay(10);
+	nmi_and_chill();
 	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(9, 8));
-	ppu_wait_nmi();
-	delay(10);
+	nmi_and_chill();
 	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 10));
-	ppu_wait_nmi();
-	delay(10);
+	nmi_and_chill();
 	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(5, 12));
 	// multi_vram_buffer_horz(intro_5, sizeof(intro_5), NTADR_A(8, 14));
 }
