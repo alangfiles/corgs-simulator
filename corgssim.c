@@ -228,12 +228,14 @@ void main(void)
 						one_vram_buffer(0x60, NTADR_A(17, 6));
 					}
 
-					one_vram_buffer('N', NTADR_A(11, 6));
-					one_vram_buffer('O', NTADR_A(12, 6));
+					multi_vram_buffer_horz(no, sizeof(no), NTADR_A(11, 6));
+					// one_vram_buffer('N', NTADR_A(11, 6));
+					// one_vram_buffer('O', NTADR_A(12, 6));
 
-					one_vram_buffer('Y', NTADR_A(18, 6));
-					one_vram_buffer('E', NTADR_A(19, 6));
-					one_vram_buffer('S', NTADR_A(20, 6));
+					multi_vram_buffer_horz(yes, sizeof(yes), NTADR_A(18, 6));
+					// one_vram_buffer('Y', NTADR_A(18, 6));
+					// one_vram_buffer('E', NTADR_A(19, 6));
+					// one_vram_buffer('S', NTADR_A(20, 6));
 
 					if (pad1_new & PAD_RIGHT)
 					{
@@ -875,9 +877,7 @@ void draw_sprites(void)
 		if (code_active == 1)
 		{
 			oam_meta_spr(0xBA, 0x30, PlayerHead);
-			one_vram_buffer('x', NTADR_A(25, 6));
-			one_vram_buffer('3', NTADR_A(26, 6));
-			one_vram_buffer('0', NTADR_A(27, 6));
+			multi_vram_buffer_horz(thirty_lives, sizeof(thirty_lives), NTADR_A(25, 6));
 		}
 	}
 #pragma endregion
@@ -1882,7 +1882,7 @@ void change_room_down()
 		collision_action = TALK_LOCKED_DOORS;
 		draw_talking();
 		music_pause(1);
-		delay(40);
+		delay(20);
 		sfx_play(SFX_GUNTHUD, 0);
 		music_pause(0);
 		return;
@@ -1980,10 +1980,11 @@ void draw_hud(void)
 	one_vram_buffer(0xff, NTADR_A(A_LOC + 2, 6));
 
 	// draw timer
-	one_vram_buffer('T', NTADR_A(23, 2));
-	one_vram_buffer('I', NTADR_A(24, 2));
-	one_vram_buffer('M', NTADR_A(25, 2));
-	one_vram_buffer('E', NTADR_A(26, 2));
+	multi_vram_buffer_horz(time, sizeof(time), NTADR_A(23, 2));
+	// one_vram_buffer('T', NTADR_A(23, 2));
+	// one_vram_buffer('I', NTADR_A(24, 2));
+	// one_vram_buffer('M', NTADR_A(25, 2));
+	// one_vram_buffer('E', NTADR_A(26, 2));
 }
 
 void draw_talking(void)
@@ -2403,10 +2404,11 @@ void initialize_end_screen(void)
 	draw_bg();
 
 	// game time:
-	one_vram_buffer(minutes_left, NTADR_A(3, 6));
-	one_vram_buffer(':', NTADR_A(4, 6));
-	one_vram_buffer(seconds_left_tens, NTADR_A(5, 6));
-	one_vram_buffer(seconds_left_ones, NTADR_A(6, 6));
+	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(11, 2));
+	one_vram_buffer(48 + minutes_left, NTADR_A(16, 6));
+	one_vram_buffer(':', NTADR_A(17, 6));
+	one_vram_buffer(48 + seconds_left_tens, NTADR_A(18, 6));
+	one_vram_buffer(48 + seconds_left_ones, NTADR_A(19, 6));
 
 	oam_meta_spr(0x70, 0x50, King75);
 	oam_meta_spr(0x70, 0x80, PlayerSprUp);

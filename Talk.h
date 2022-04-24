@@ -159,6 +159,12 @@ const unsigned char intro_1[] = "In the year 20XX";
 const unsigned char intro_2[] = "BRIAN J BURKE";
 const unsigned char intro_3[] = "visited the CORGS game show";
 const unsigned char intro_4[] = "to find the best games.";
+
+// constants used to save rom space
+const unsigned char time[] = "TIME";
+const unsigned char no[] = "NO";
+const unsigned char yes[] = "YES";
+const unsigned char thirty_lives[] = "x30";
 // const unsigned char intro_5[] = "THE KING OF VIDEO GAMES";
 
 const unsigned char ending_1[] = "Did you collect them all?";
