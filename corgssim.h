@@ -210,6 +210,7 @@ unsigned char tile_map[240]; //map where tile data lives
 // PROTOTYPES
 void draw_bg(void);
 void draw_sprites(void);
+void draw_player_sprite(void);
 void draw_timer(void);
 void draw_hud(void);
 void draw_talking(void);
