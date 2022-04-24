@@ -2362,6 +2362,8 @@ void initialize_title_screen(void)
 	items_collected = 0;
 	code_active = 0;
 	index = 0;
+	player_coins = 0;
+	on_fetchquest = 0;
 
 	song = SONG_TITLE;
 	set_music_speed(5);
