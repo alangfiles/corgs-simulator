@@ -1108,10 +1108,10 @@ void action(void)
 		if (rep_timer > 0)
 		{
 			++rep_count;
-			// todo sound effect for reps?
-			//  if((rep_count & 1) == 0){
-			//  	sfx_play(SFX_COIN, 0);
-			//  }
+			if ((rep_count & 1) == 0)
+			{
+				sfx_play(SFX_REP, 0);
+			}
 		}
 		else
 		{
@@ -1558,7 +1558,7 @@ void sprite_collisions(void)
 			{
 				// shot hit something
 				shot_hit = 6; // 6 frames of shot hit.
-				sfx_play(SFX_SHOT, 0);
+				sfx_play(SFX_GUNTHUD, 0);
 			}
 		}
 	}
@@ -1881,6 +1881,10 @@ void change_room_down()
 	{
 		collision_action = TALK_LOCKED_DOORS;
 		draw_talking();
+		music_pause(1);
+		delay(40);
+		sfx_play(SFX_GUNTHUD, 0);
+		music_pause(0);
 		return;
 	}
 
