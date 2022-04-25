@@ -815,6 +815,15 @@ void draw_sprites(void)
 			break;
 		case SPRITE_DungeonBlock:
 			sprites_anim[index2] = DungeonBlock;
+			break;
+		case SPRITE_Jobbie:
+			if(seconds_left_ones & 1 == 1)
+			{
+				sprites_anim[index2] = Jobbie;
+			} else {
+				sprites_anim[index2] = JobbieTwo;
+			}
+			
 		default:
 			break;
 		}
@@ -1530,6 +1539,10 @@ void sprite_collisions(void)
 			Generic3.height = 4;
 			if (check_collision(&Generic3, &Generic2))
 			{
+				if(which_bg == JOBBIES_ROOM)
+				{
+					sprites_y[index] = TURN_OFF;
+				}
 				// shot hit something
 				shot_hit = 6; // 6 frames of shot hit.
 				sfx_play(SFX_GUNTHUD, 0);
@@ -2413,7 +2426,7 @@ void nmi_and_chill(void)
 
 void initialize_intro_screen(void)
 {
-	game_mode = MODE_INTRO;
+	game_mode = MODE_INTRO; 
 	which_bg = BLANK_ROOM;
 	draw_bg();
 

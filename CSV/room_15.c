@@ -11,3 +11,12 @@ const unsigned char room_15[]={
 1,2,1,1,2,1,1,1,2,1,11,34,36,2,34,37,
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,
 };
+
+const unsigned char room_15_sprites[]={
+	48,80, SPRITE_Jobbie,
+	48,96, SPRITE_Jobbie,
+	160, 80, SPRITE_Jobbie,
+	192, 80, SPRITE_Jobbie,
+	68, 123, SPRITE_Jobbie,
+	TURN_OFF
+};
