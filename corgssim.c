@@ -1941,9 +1941,7 @@ void draw_hud(void)
 	multi_vram_buffer_vert(sidebar, 3, NTADR_A(B_LOC, 3));
 	multi_vram_buffer_vert(sidebar, 3, NTADR_A(B_LOC + 2, 3));
 
-	one_vram_buffer(0xfe, NTADR_A(B_LOC, 6));
-	one_vram_buffer(0xed, NTADR_A(B_LOC + 1, 6));
-	one_vram_buffer(0xff, NTADR_A(B_LOC + 2, 6));
+	multi_vram_buffer_horz(bottombar,3, NTADR_A(B_LOC, 6));
 
 	// draw buttons A
 	one_vram_buffer(0xee, NTADR_A(A_LOC, 2));
@@ -1953,9 +1951,7 @@ void draw_hud(void)
 	multi_vram_buffer_vert(sidebar, 3, NTADR_A(A_LOC, 3));
 	multi_vram_buffer_vert(sidebar, 3, NTADR_A(A_LOC + 2, 3));
 
-	one_vram_buffer(0xfe, NTADR_A(A_LOC, 6));
-	one_vram_buffer(0xed, NTADR_A(A_LOC + 1, 6));
-	one_vram_buffer(0xff, NTADR_A(A_LOC + 2, 6));
+	multi_vram_buffer_horz(bottombar,3, NTADR_A(A_LOC, 6));
 
 	// draw timer
 	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(23, 2));
