@@ -75,11 +75,9 @@ void main(void)
 			ppu_wait_nmi();
 
 			// rotate colors this can be cleaned up
-			temp1 = get_frame_count();
-			temp1 = (temp1 >> 3) & 3;
-			temp2 = temp1 + 1 & 3;
+			temp1 = (get_frame_count() >> 3) & 3;
 			// pal_col(6, title_color_rotate[temp1]);
-			pal_col(5, title_color_rotate[temp2]);
+			pal_col(5, title_color_rotate[temp1]);
 
 			read_controller();
 
@@ -143,7 +141,6 @@ void main(void)
 				bg_fade_out = 1;
 
 				draw_bg();
-				// draw_hud(); ALAN-removing for space, this should happen in draw_bg
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -377,18 +374,7 @@ void draw_bg(void)
 		// shortcut drawing the HUD spaces and the bottom line with this code
 		for (index = 0; index < 240; ++index)
 		{
-			if (index < 64)
-			{
-				if (room_metatile_list[which_bg] == outside_metatiles)
-				{
-					tile_map[index] = 13;
-				}
-				else
-				{
-					tile_map[index] = 0;
-				}
-			}
-			else if (index < 224)
+			if (index > 63 && index < 224)
 			{
 				tile_map[index] = room_list[which_bg][index - 64];
 			}
