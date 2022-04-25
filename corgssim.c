@@ -217,7 +217,7 @@ void main(void)
 					// draw the last row as yes/no
 					// 0xed is bottom bar
 					// 0x60 is arrow
-		
+
 					if (text_decision == 0)
 					{
 						one_vram_buffer(0x60, NTADR_A(10, 6));
@@ -817,13 +817,15 @@ void draw_sprites(void)
 			sprites_anim[index2] = DungeonBlock;
 			break;
 		case SPRITE_Jobbie:
-			if(seconds_left_ones & 1 == 1)
+			if (seconds_left_ones & 1 == 1)
 			{
 				sprites_anim[index2] = Jobbie;
-			} else {
+			}
+			else
+			{
 				sprites_anim[index2] = JobbieTwo;
 			}
-			
+
 		default:
 			break;
 		}
@@ -1234,6 +1236,31 @@ void movement(void)
 		has_moved = 0;
 	}
 
+	// if (which_bg == JOBBIES_ROOM)
+	// {
+	// 	// randomly move a sprite.
+	// 	temp1 = rand8() & 0x0F;
+	// 	if (sprites_y[temp1] != TURN_OFF)
+	// 	{
+	// 		if ((temp5 & 1))
+	// 		{
+	// 			++sprites_x[temp1];
+	// 		}
+	// 		else
+	// 		{
+	// 			--sprites_x[temp1];
+	// 		}
+	// 		if((temp1 & 2))
+	// 		{
+	// 			++sprites_y[temp1];
+	// 		} 
+	// 		else {
+	// 			--sprites_y[temp1];
+	// 		}
+
+	// 	}
+	// }
+
 	if (which_bg == COIN_GAME_ROOM)
 	{
 		// add to player 'velocity' if they're in jump mode
@@ -1539,7 +1566,7 @@ void sprite_collisions(void)
 			Generic3.height = 4;
 			if (check_collision(&Generic3, &Generic2))
 			{
-				if(which_bg == JOBBIES_ROOM)
+				if (which_bg == JOBBIES_ROOM)
 				{
 					sprites_y[index] = TURN_OFF;
 				}
@@ -1995,10 +2022,9 @@ void draw_talking(void)
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
 	multi_vram_buffer_horz(bottomBar, sizeof(bottomBar), NTADR_A(1, 6));
 
-	//sides of the box
+	// sides of the box
 	multi_vram_buffer_vert(sidebar, sizeof(sidebar), NTADR_A(1, 3));
 	multi_vram_buffer_vert(sidebar, sizeof(sidebar), NTADR_A(30, 3));
-	
 
 	display_hud_sprites = 0;
 	draw_sprites();
@@ -2426,7 +2452,7 @@ void nmi_and_chill(void)
 
 void initialize_intro_screen(void)
 {
-	game_mode = MODE_INTRO; 
+	game_mode = MODE_INTRO;
 	which_bg = BLANK_ROOM;
 	draw_bg();
 
