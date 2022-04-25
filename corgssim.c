@@ -263,19 +263,17 @@ void main(void)
 							initialize_title_screen(); // turns on screen at end
 							break;
 						case CHOICE_FETCH_QUEST:
-							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 1;
-							items_collected = items_collected | ITEM_BURGER_GAME;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_FETCHQUEST_1;
-							draw_talking();
+							find_item();
 							break;
 						case CHOICE_BUY_FOOD:
-							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 2;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_FETCHTWO;
-							draw_talking();
+							find_item();
+
 							break;
 						case CHOICE_DO_REPS_1:
 							collision_action = TALK_DO_REPS;
@@ -289,18 +287,17 @@ void main(void)
 							rep_timer = REP_TIMER_MAX; // this is all based off rep_timer being set
 							break;
 						case CHOICE_FINISH_REPS:
-							sfx_play(SFX_VICTORY, 0);
-							items_collected = items_collected | ITEM_KETTLEBELL_GAME;
 							item_found = ITEM_KETTLEBELL_GAME;
 							collision_action = TALK_ITEM_5;
-							draw_talking();
+							find_item();
+
 							break;
 						case CHOICE_FINISH_FETCH:
-							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 4;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_ITEM_4;
-							draw_talking();
+							find_item();
+
 							break;
 						default:
 							break;
@@ -1161,11 +1158,9 @@ void action(void)
 			Generic2.height = 8;
 			if (check_collision(&Generic, &Generic2))
 			{
-				sfx_play(SFX_VICTORY, 0);
-				items_collected = items_collected | ITEM_ADVENTURE_GAME; // pick up the item
 				item_found = ITEM_ADVENTURE_GAME;
 				collision_action = TALK_ITEM_3;
-				draw_talking();
+				find_item();
 			}
 		}
 	}
@@ -1184,11 +1179,7 @@ void movement(void)
 			}
 			else
 			{
-				music_pause(1);
-				sfx_play(SFX_MYSTERY, 0);
-				delay(100);
-				music_play(0);
-				block_moved = 1; // done moving
+				move_block();
 			}
 			return;
 		}
@@ -1201,11 +1192,7 @@ void movement(void)
 			}
 			else
 			{
-				music_pause(1);
-				sfx_play(SFX_MYSTERY, 0);
-				delay(100);
-				music_play(0);
-				block_moved = 1;
+				move_block();
 			}
 			return;
 		}
@@ -1453,11 +1440,9 @@ void movement(void)
 		Generic2.height = 1;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_VICTORY, 0);
-			items_collected = items_collected | ITEM_DUNGEON_GAME; // pick up the item
 			item_found = ITEM_DUNGEON_GAME;
 			collision_action = TALK_ITEM_1;
-			draw_talking();
+			find_item();
 		}
 	}
 
@@ -1469,11 +1454,9 @@ void movement(void)
 		Generic2.height = 1;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_VICTORY, 0);
-			items_collected = items_collected | ITEM_COIN_GAME; // pick up the item
 			item_found = ITEM_COIN_GAME;
 			collision_action = TALK_ITEM_2;
-			draw_talking();
+			find_item();
 		}
 	}
 
@@ -2462,4 +2445,22 @@ void read_controller(void)
 {
 	pad1 = pad_poll(0);				 // read the first controller
 	pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
+}
+
+void find_item(void)
+{
+	// item_found is set before this code
+	// collision_action is set before this for the draw_talking
+	sfx_play(SFX_VICTORY, 0);
+	items_collected = items_collected | item_found; // pick up the item
+	draw_talking();
+}
+
+void move_block(void)
+{
+	music_pause(1);
+	sfx_play(SFX_MYSTERY, 0);
+	delay(100);
+	music_play(0);
+	block_moved = 1; // done moving
 }
