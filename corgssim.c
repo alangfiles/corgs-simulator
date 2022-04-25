@@ -410,14 +410,6 @@ void draw_bg(void)
 			break;
 	}
 
-	// draw secret game
-	// if (which_bg == 2)
-	// {
-	// 	vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
-	// 	vram_put('.');
-	// 	// player_x == 0x30 && player_y == 0xc0
-	// }
-
 	if (bg_display_hud == 1)
 	{
 		draw_hud();
@@ -1945,15 +1937,10 @@ void draw_hud(void)
 	one_vram_buffer('B', NTADR_A(B_LOC + 1, 2));
 	one_vram_buffer(0xef, NTADR_A(B_LOC + 2, 2));
 
-	one_vram_buffer(0xfd, NTADR_A(B_LOC, 3));
-	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 3));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 3));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC, 4));
-	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 4));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 4));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC, 5));
-	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 5));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 5));
+	
+	multi_vram_buffer_vert(sidebar, 3, NTADR_A(B_LOC, 3));
+	multi_vram_buffer_vert(sidebar, 3, NTADR_A(B_LOC + 2, 3));
+
 	one_vram_buffer(0xfe, NTADR_A(B_LOC, 6));
 	one_vram_buffer(0xed, NTADR_A(B_LOC + 1, 6));
 	one_vram_buffer(0xff, NTADR_A(B_LOC + 2, 6));
@@ -1962,25 +1949,17 @@ void draw_hud(void)
 	one_vram_buffer(0xee, NTADR_A(A_LOC, 2));
 	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
 	one_vram_buffer(0xef, NTADR_A(A_LOC + 2, 2));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC, 3));
-	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 3));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 3));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC, 4));
-	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 4));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 4));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC, 5));
-	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 5));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 5));
+	//sides
+	multi_vram_buffer_vert(sidebar, 3, NTADR_A(A_LOC, 3));
+	multi_vram_buffer_vert(sidebar, 3, NTADR_A(A_LOC + 2, 3));
+
 	one_vram_buffer(0xfe, NTADR_A(A_LOC, 6));
 	one_vram_buffer(0xed, NTADR_A(A_LOC + 1, 6));
 	one_vram_buffer(0xff, NTADR_A(A_LOC + 2, 6));
 
 	// draw timer
 	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(23, 2));
-	// one_vram_buffer('T', NTADR_A(23, 2));
-	// one_vram_buffer('I', NTADR_A(24, 2));
-	// one_vram_buffer('M', NTADR_A(25, 2));
-	// one_vram_buffer('E', NTADR_A(26, 2));
+
 }
 
 void draw_talking(void)
