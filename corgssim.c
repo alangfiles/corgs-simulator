@@ -795,7 +795,7 @@ void draw_sprites(void)
 			sprites_anim[index2] = DungeonBlock;
 			break;
 		case SPRITE_Jobbie:
-			if (seconds_left_ones & 1 == 1)
+			if ((get_frame_count() & 0x0f) > 0x08)
 			{
 				sprites_anim[index2] = Jobbie;
 			}
@@ -1214,30 +1214,44 @@ void movement(void)
 		has_moved = 0;
 	}
 
-	// if (which_bg == JOBBIES_ROOM)
-	// {
-	// 	// randomly move a sprite.
-	// 	temp1 = rand8() & 0x0F;
-	// 	if (sprites_y[temp1] != TURN_OFF)
-	// 	{
-	// 		if ((temp5 & 1))
-	// 		{
-	// 			++sprites_x[temp1];
-	// 		}
-	// 		else
-	// 		{
-	// 			--sprites_x[temp1];
-	// 		}
-	// 		if((temp1 & 2))
-	// 		{
-	// 			++sprites_y[temp1];
-	// 		}
-	// 		else {
-	// 			--sprites_y[temp1];
-	// 		}
-
-	// 	}
-	// }
+	if (which_bg == JOBBIES_ROOM)
+	{
+		// randomly move a sprite.
+		temp1 = rand8() & 0x0F;
+		temp2 = rand8();
+		temp3 = rand8();
+		if (sprites_y[temp1] != TURN_OFF)
+		{
+			if ((temp3 & 1))
+			{
+				if (sprites_x[temp1] < SCREEN_RIGHT_EDGE - 1)
+				{
+					++sprites_x[temp1];
+				}
+			}
+			else
+			{
+				if (sprites_x[temp1] > SCREEN_LEFT_EDGE + 1)
+				{
+					--sprites_x[temp1];
+				}
+			}
+			if ((temp2 & 2))
+			{
+				if (sprites_y[temp1] < SCREEN_BOTTOM_EDGE + 1)
+				{
+					++sprites_y[temp1];
+				}
+			}
+			else
+			{
+				if (sprites_y[temp1] > SCREEN_TOP_EDGE - 1)
+				{
+					--sprites_y[temp1];
+				}
+			}
+		}
+	}
 
 	if (which_bg == COIN_GAME_ROOM)
 	{
@@ -1931,22 +1945,23 @@ void draw_timer(void)
 
 void draw_hud(void)
 {
-	temp1=B_LOC;
-	temp2='B';
+	temp1 = B_LOC;
+	temp2 = 'B';
 	draw_hud_button();
 	// draw buttons B
-	temp1=A_LOC;
-	temp2='A';
+	temp1 = A_LOC;
+	temp2 = 'A';
 	draw_hud_button();
 }
-void draw_hud_button(void){
+void draw_hud_button(void)
+{
 	one_vram_buffer(0xee, NTADR_A(temp1, 2));
 	one_vram_buffer(temp2, NTADR_A(temp1 + 1, 2));
 	one_vram_buffer(0xef, NTADR_A(temp1 + 2, 2));
 
 	multi_vram_buffer_vert(sidebar, 3, NTADR_A(temp1, 3));
 	multi_vram_buffer_vert(sidebar, 3, NTADR_A(temp1 + 2, 3));
-	multi_vram_buffer_horz(bottombar,3, NTADR_A(temp1, 6));
+	multi_vram_buffer_horz(bottombar, 3, NTADR_A(temp1, 6));
 }
 
 void draw_talking(void)
