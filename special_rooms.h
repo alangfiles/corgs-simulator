@@ -80,3 +80,6 @@ unsigned char on_fetchquest = 0; // 0 - not started, 1 - money, 2 - food, 3 - bu
 unsigned char rep_count = 0;
 unsigned char rep_timer = 0;
 #pragma endregion REPS
+
+
+#define JOBBIES_ROOM 14

@@ -323,7 +323,7 @@ const unsigned char * const talk_list[]={
 const unsigned char * const sprite_list[]={
 	blank_sprites,blank_sprites,blank_sprites,blank_sprites,room_5_sprites,
   blank_sprites,blank_sprites,blank_sprites,room_9_sprites,blank_sprites,
-  room_11_sprites,blank_sprites,blank_sprites,room_14_sprites,blank_sprites,
+  room_11_sprites,blank_sprites,blank_sprites,room_14_sprites,room_15_sprites,
   blank_sprites,blank_sprites,room_18_sprites,room_19_sprites,room_20_sprites,
   room_46_sprites,room_47_sprites,room_23_sprites,room_24_sprites,room_25_sprites,
   room_28_sprites,blank_sprites,blank_sprites,room_43_sprites,room_48_sprites,

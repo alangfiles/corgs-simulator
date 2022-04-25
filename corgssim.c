@@ -75,11 +75,9 @@ void main(void)
 			ppu_wait_nmi();
 
 			// rotate colors this can be cleaned up
-			temp1 = get_frame_count();
-			temp1 = (temp1 >> 3) & 3;
-			temp2 = temp1 + 1 & 3;
+			temp1 = (get_frame_count() >> 3) & 3;
 			// pal_col(6, title_color_rotate[temp1]);
-			pal_col(5, title_color_rotate[temp2]);
+			pal_col(5, title_color_rotate[temp1]);
 
 			read_controller();
 
@@ -143,7 +141,6 @@ void main(void)
 				bg_fade_out = 1;
 
 				draw_bg();
-				// draw_hud(); ALAN-removing for space, this should happen in draw_bg
 			}
 		}
 		while (game_mode == MODE_GAME) // gameloop
@@ -217,6 +214,7 @@ void main(void)
 					// draw the last row as yes/no
 					// 0xed is bottom bar
 					// 0x60 is arrow
+
 					if (text_decision == 0)
 					{
 						one_vram_buffer(0x60, NTADR_A(10, 6));
@@ -229,13 +227,7 @@ void main(void)
 					}
 
 					multi_vram_buffer_horz(no, sizeof(no) - 1, NTADR_A(11, 6));
-					// one_vram_buffer('N', NTADR_A(11, 6));
-					// one_vram_buffer('O', NTADR_A(12, 6));
-
 					multi_vram_buffer_horz(yes, sizeof(yes) - 1, NTADR_A(18, 6));
-					// one_vram_buffer('Y', NTADR_A(18, 6));
-					// one_vram_buffer('E', NTADR_A(19, 6));
-					// one_vram_buffer('S', NTADR_A(20, 6));
 
 					if (pad1_new & PAD_RIGHT)
 					{
@@ -263,19 +255,16 @@ void main(void)
 							initialize_title_screen(); // turns on screen at end
 							break;
 						case CHOICE_FETCH_QUEST:
-							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 1;
-							items_collected = items_collected | ITEM_BURGER_GAME;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_FETCHQUEST_1;
-							draw_talking();
+							find_item();
 							break;
 						case CHOICE_BUY_FOOD:
-							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 2;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_FETCHTWO;
-							draw_talking();
+							find_item();
 							break;
 						case CHOICE_DO_REPS_1:
 							collision_action = TALK_DO_REPS;
@@ -289,18 +278,15 @@ void main(void)
 							rep_timer = REP_TIMER_MAX; // this is all based off rep_timer being set
 							break;
 						case CHOICE_FINISH_REPS:
-							sfx_play(SFX_VICTORY, 0);
-							items_collected = items_collected | ITEM_KETTLEBELL_GAME;
 							item_found = ITEM_KETTLEBELL_GAME;
 							collision_action = TALK_ITEM_5;
-							draw_talking();
+							find_item();
 							break;
 						case CHOICE_FINISH_FETCH:
-							sfx_play(SFX_VICTORY, 0);
 							on_fetchquest = 4;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_ITEM_4;
-							draw_talking();
+							find_item();
 							break;
 						default:
 							break;
@@ -314,7 +300,6 @@ void main(void)
 				// text finished, go back to game
 				bg_display_hud = 1; // draw the hud
 				game_mode = MODE_GAME;
-
 				draw_bg();
 				bg_fade_out = 1;				 // turn back on room fading
 				display_hud_sprites = 1; // turn back on hud sprites
@@ -389,18 +374,7 @@ void draw_bg(void)
 		// shortcut drawing the HUD spaces and the bottom line with this code
 		for (index = 0; index < 240; ++index)
 		{
-			if (index < 64)
-			{
-				if (room_metatile_list[which_bg] == outside_metatiles)
-				{
-					tile_map[index] = 13;
-				}
-				else
-				{
-					tile_map[index] = 0;
-				}
-			}
-			else if (index < 224)
+			if (index > 63 && index < 224)
 			{
 				tile_map[index] = room_list[which_bg][index - 64];
 			}
@@ -435,14 +409,6 @@ void draw_bg(void)
 		if (y == 0xe0)
 			break;
 	}
-
-	// draw secret game
-	// if (which_bg == 2)
-	// {
-	// 	vram_adr(NTADR_A(8, 24)); // screen is 32 x 30 tiles
-	// 	vram_put('.');
-	// 	// player_x == 0x30 && player_y == 0xc0
-	// }
 
 	if (bg_display_hud == 1)
 	{
@@ -827,6 +793,17 @@ void draw_sprites(void)
 			break;
 		case SPRITE_DungeonBlock:
 			sprites_anim[index2] = DungeonBlock;
+			break;
+		case SPRITE_Jobbie:
+			if ((get_frame_count() & 0x0f) > 0x08)
+			{
+				sprites_anim[index2] = Jobbie;
+			}
+			else
+			{
+				sprites_anim[index2] = JobbieTwo;
+			}
+
 		default:
 			break;
 		}
@@ -1161,11 +1138,9 @@ void action(void)
 			Generic2.height = 8;
 			if (check_collision(&Generic, &Generic2))
 			{
-				sfx_play(SFX_VICTORY, 0);
-				items_collected = items_collected | ITEM_ADVENTURE_GAME; // pick up the item
 				item_found = ITEM_ADVENTURE_GAME;
 				collision_action = TALK_ITEM_3;
-				draw_talking();
+				find_item();
 			}
 		}
 	}
@@ -1184,11 +1159,7 @@ void movement(void)
 			}
 			else
 			{
-				music_pause(1);
-				sfx_play(SFX_MYSTERY, 0);
-				delay(100);
-				music_play(0);
-				block_moved = 1; // done moving
+				move_block();
 			}
 			return;
 		}
@@ -1201,11 +1172,7 @@ void movement(void)
 			}
 			else
 			{
-				music_pause(1);
-				sfx_play(SFX_MYSTERY, 0);
-				delay(100);
-				music_play(0);
-				block_moved = 1;
+				move_block();
 			}
 			return;
 		}
@@ -1245,6 +1212,45 @@ void movement(void)
 	{
 		++player_x;
 		has_moved = 0;
+	}
+
+	if (which_bg == JOBBIES_ROOM)
+	{
+		// randomly move a sprite.
+		temp1 = rand8() & 0x0F;
+		temp2 = rand8();
+		temp3 = rand8();
+		if (sprites_y[temp1] != TURN_OFF)
+		{
+			if ((temp3 & 1))
+			{
+				if (sprites_x[temp1] < SCREEN_RIGHT_EDGE - 1)
+				{
+					++sprites_x[temp1];
+				}
+			}
+			else
+			{
+				if (sprites_x[temp1] > SCREEN_LEFT_EDGE + 1)
+				{
+					--sprites_x[temp1];
+				}
+			}
+			if ((temp2 & 2))
+			{
+				if (sprites_y[temp1] < SCREEN_BOTTOM_EDGE + 1)
+				{
+					++sprites_y[temp1];
+				}
+			}
+			else
+			{
+				if (sprites_y[temp1] > SCREEN_TOP_EDGE - 1)
+				{
+					--sprites_y[temp1];
+				}
+			}
+		}
 	}
 
 	if (which_bg == COIN_GAME_ROOM)
@@ -1388,11 +1394,10 @@ void movement(void)
 		Generic2.height = 4;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_2_ROOM;
 			player_x = TOLIET_WARP_2_X - 0x10;
 			player_y = TOLIET_WARP_2_Y;
-			draw_bg();
+			toliet_warp();
 		}
 	}
 
@@ -1405,11 +1410,10 @@ void movement(void)
 		Generic2.height = 4;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_1_ROOM;
 			player_x = TOLIET_WARP_1_X - 0x10;
 			player_y = TOLIET_WARP_1_Y;
-			draw_bg();
+			toliet_warp();
 		}
 		else
 		{ // check other toliet warp
@@ -1417,13 +1421,12 @@ void movement(void)
 			Generic2.y = TOLIET_WARP_3_Y + 7;
 			if (check_collision(&Generic, &Generic2))
 			{
-				sfx_play(SFX_WARP_TOLIET, 0);
 				which_bg = COIN_GAME_ROOM;
 				player_x = 0x20;
 				player_y = 0x50;
 				Generic.x = 0x20;
 				Generic.y = 0x50;
-				draw_bg();
+				toliet_warp();
 			}
 		}
 	}
@@ -1437,11 +1440,10 @@ void movement(void)
 		Generic2.height = 4;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_2_ROOM;
 			player_x = TOLIET_WARP_3_X - 0x10;
 			player_y = TOLIET_WARP_3_Y;
-			draw_bg();
+			toliet_warp();
 		}
 	}
 
@@ -1453,11 +1455,9 @@ void movement(void)
 		Generic2.height = 1;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_VICTORY, 0);
-			items_collected = items_collected | ITEM_DUNGEON_GAME; // pick up the item
 			item_found = ITEM_DUNGEON_GAME;
 			collision_action = TALK_ITEM_1;
-			draw_talking();
+			find_item();
 		}
 	}
 
@@ -1469,11 +1469,9 @@ void movement(void)
 		Generic2.height = 1;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_VICTORY, 0);
-			items_collected = items_collected | ITEM_COIN_GAME; // pick up the item
 			item_found = ITEM_COIN_GAME;
 			collision_action = TALK_ITEM_2;
-			draw_talking();
+			find_item();
 		}
 	}
 
@@ -1556,6 +1554,10 @@ void sprite_collisions(void)
 			Generic3.height = 4;
 			if (check_collision(&Generic3, &Generic2))
 			{
+				if (which_bg == JOBBIES_ROOM)
+				{
+					sprites_y[index] = TURN_OFF;
+				}
 				// shot hit something
 				shot_hit = 6; // 6 frames of shot hit.
 				sfx_play(SFX_GUNTHUD, 0);
@@ -1943,48 +1945,23 @@ void draw_timer(void)
 
 void draw_hud(void)
 {
-
+	temp1 = B_LOC;
+	temp2 = 'B';
+	draw_hud_button();
 	// draw buttons B
-	one_vram_buffer(0xee, NTADR_A(B_LOC, 2));
-	one_vram_buffer('B', NTADR_A(B_LOC + 1, 2));
-	one_vram_buffer(0xef, NTADR_A(B_LOC + 2, 2));
+	temp1 = A_LOC;
+	temp2 = 'A';
+	draw_hud_button();
+}
+void draw_hud_button(void)
+{
+	one_vram_buffer(0xee, NTADR_A(temp1, 2));
+	one_vram_buffer(temp2, NTADR_A(temp1 + 1, 2));
+	one_vram_buffer(0xef, NTADR_A(temp1 + 2, 2));
 
-	one_vram_buffer(0xfd, NTADR_A(B_LOC, 3));
-	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 3));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 3));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC, 4));
-	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 4));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 4));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC, 5));
-	// one_vram_buffer(' ', NTADR_A(B_LOC + 1, 5));
-	one_vram_buffer(0xfd, NTADR_A(B_LOC + 2, 5));
-	one_vram_buffer(0xfe, NTADR_A(B_LOC, 6));
-	one_vram_buffer(0xed, NTADR_A(B_LOC + 1, 6));
-	one_vram_buffer(0xff, NTADR_A(B_LOC + 2, 6));
-
-	// draw buttons A
-	one_vram_buffer(0xee, NTADR_A(A_LOC, 2));
-	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
-	one_vram_buffer(0xef, NTADR_A(A_LOC + 2, 2));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC, 3));
-	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 3));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 3));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC, 4));
-	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 4));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 4));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC, 5));
-	// one_vram_buffer(' ', NTADR_A(A_LOC + 1, 5));
-	one_vram_buffer(0xfd, NTADR_A(A_LOC + 2, 5));
-	one_vram_buffer(0xfe, NTADR_A(A_LOC, 6));
-	one_vram_buffer(0xed, NTADR_A(A_LOC + 1, 6));
-	one_vram_buffer(0xff, NTADR_A(A_LOC + 2, 6));
-
-	// draw timer
-	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(23, 2));
-	// one_vram_buffer('T', NTADR_A(23, 2));
-	// one_vram_buffer('I', NTADR_A(24, 2));
-	// one_vram_buffer('M', NTADR_A(25, 2));
-	// one_vram_buffer('E', NTADR_A(26, 2));
+	multi_vram_buffer_vert(sidebar, 3, NTADR_A(temp1, 3));
+	multi_vram_buffer_vert(sidebar, 3, NTADR_A(temp1 + 2, 3));
+	multi_vram_buffer_horz(bottombar, 3, NTADR_A(temp1, 6));
 }
 
 void draw_talking(void)
@@ -2008,14 +1985,9 @@ void draw_talking(void)
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
 	multi_vram_buffer_horz(bottomBar, sizeof(bottomBar), NTADR_A(1, 6));
 
-	// side bar of talking box
-	one_vram_buffer(0xfd, NTADR_A(1, 3));
-	one_vram_buffer(0xfd, NTADR_A(1, 4));
-	one_vram_buffer(0xfd, NTADR_A(1, 5));
-	// other size bar of talking box
-	one_vram_buffer(0xfd, NTADR_A(30, 3));
-	one_vram_buffer(0xfd, NTADR_A(30, 4));
-	one_vram_buffer(0xfd, NTADR_A(30, 5));
+	// sides of the box
+	multi_vram_buffer_vert(sidebar, sizeof(sidebar), NTADR_A(1, 3));
+	multi_vram_buffer_vert(sidebar, sizeof(sidebar), NTADR_A(30, 3));
 
 	display_hud_sprites = 0;
 	draw_sprites();
@@ -2462,4 +2434,28 @@ void read_controller(void)
 {
 	pad1 = pad_poll(0);				 // read the first controller
 	pad1_new = get_pad_new(0); // newly pressed button. do pad_poll first
+}
+
+void find_item(void)
+{
+	// item_found is set before this code
+	// collision_action is set before this for the draw_talking
+	sfx_play(SFX_VICTORY, 0);
+	items_collected = items_collected | item_found; // pick up the item
+	draw_talking();
+}
+
+void move_block(void)
+{
+	music_pause(1);
+	sfx_play(SFX_MYSTERY, 0);
+	delay(100);
+	music_play(0);
+	block_moved = 1; // done moving
+}
+
+void toliet_warp(void)
+{
+	sfx_play(SFX_WARP_TOLIET, 0);
+	draw_bg();
 }

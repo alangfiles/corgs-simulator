@@ -7,7 +7,7 @@ SPRITE_HairForward114, SPRITE_Banner99, SPRITE_BoyKid44, SPRITE_BaldBehind7, SPR
  SPRITE_DressGirl61, SPRITE_MuscleMan0, SPRITE_MuscleMan1, SPRITE_MuscleMan2, SPRITE_Girl4, SPRITE_FroGuy55, SPRITE_WideBoy69, SPRITE_HatBehind117,
  SPRITE_Ghost65, SPRITE_CostumeMan58, SPRITE_Wizard52, SPRITE_SideLadyLeft90, SPRITE_BeardSideManLeft79, SPRITE_HairBehind9, SPRITE_BaldBehind6, SPRITE_HairLeft24,
  SPRITE_Ghost66, SPRITE_HairBehind11, SPRITE_DressGirl60, SPRITE_GlassesRight35, SPRITE_SkirtLady40, SPRITE_LunchLady37, SPRITE_HairFront129, SPRITE_Girl3, 
- SPRITE_BaldBehind8, SPRITE_BaldLeft18, SPRITE_BaldTank73, SPRITE_COIN, SPRITE_DungeonBlock};
+ SPRITE_BaldBehind8, SPRITE_BaldLeft18, SPRITE_BaldTank73, SPRITE_COIN, SPRITE_DungeonBlock, SPRITE_Jobbie};
  
 #define TURN_OFF 0xff
 
@@ -1532,5 +1532,22 @@ const unsigned char KettleBell[]={
 	  8,  0,0x48,3|OAM_FLIP_H,
 	  0,  8,0x58,3,
 	  8,  8,0x59,3,
+	128
+};
+
+const unsigned char Jobbie[]={
+	  0,  0,0x88,	3,
+	  8,  0,0x88,3|OAM_FLIP_H,
+		0,  8,0x99,3|OAM_FLIP_H,
+	  8,  8,0x98,3|OAM_FLIP_H,
+	  
+	128
+};
+
+const unsigned char JobbieTwo[]={
+	  0,  0,0x88,	3,
+	  8,  0,0x88,3|OAM_FLIP_H,
+	  0,  8,0x98,3,
+	  8,  8,0x99,3,
 	128
 };

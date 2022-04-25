@@ -43,7 +43,7 @@ const unsigned char code[]={
 	 PAD_B, PAD_A};
 unsigned char code_active = 0;
 
-#define STARTING_ROOM 22
+#define STARTING_ROOM 13
 #define BLANK_ROOM 6
 
 // HUD stuff
@@ -235,5 +235,8 @@ void initialize_talk_map(void);
 void reset_text_values(void);
 void nmi_and_chill(void);
 void read_controller(void);
-
+void find_item(void);
+void move_block(void);
+void toliet_warp(void);
+void draw_hud_button(void);
 
