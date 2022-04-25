@@ -217,6 +217,7 @@ void main(void)
 					// draw the last row as yes/no
 					// 0xed is bottom bar
 					// 0x60 is arrow
+		
 					if (text_decision == 0)
 					{
 						one_vram_buffer(0x60, NTADR_A(10, 6));
@@ -229,13 +230,7 @@ void main(void)
 					}
 
 					multi_vram_buffer_horz(no, sizeof(no) - 1, NTADR_A(11, 6));
-					// one_vram_buffer('N', NTADR_A(11, 6));
-					// one_vram_buffer('O', NTADR_A(12, 6));
-
 					multi_vram_buffer_horz(yes, sizeof(yes) - 1, NTADR_A(18, 6));
-					// one_vram_buffer('Y', NTADR_A(18, 6));
-					// one_vram_buffer('E', NTADR_A(19, 6));
-					// one_vram_buffer('S', NTADR_A(20, 6));
 
 					if (pad1_new & PAD_RIGHT)
 					{
@@ -273,7 +268,6 @@ void main(void)
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_FETCHTWO;
 							find_item();
-
 							break;
 						case CHOICE_DO_REPS_1:
 							collision_action = TALK_DO_REPS;
@@ -290,14 +284,12 @@ void main(void)
 							item_found = ITEM_KETTLEBELL_GAME;
 							collision_action = TALK_ITEM_5;
 							find_item();
-
 							break;
 						case CHOICE_FINISH_FETCH:
 							on_fetchquest = 4;
 							item_found = ITEM_BURGER_GAME;
 							collision_action = TALK_ITEM_4;
 							find_item();
-
 							break;
 						default:
 							break;
@@ -311,7 +303,6 @@ void main(void)
 				// text finished, go back to game
 				bg_display_hud = 1; // draw the hud
 				game_mode = MODE_GAME;
-
 				draw_bg();
 				bg_fade_out = 1;				 // turn back on room fading
 				display_hud_sprites = 1; // turn back on hud sprites
@@ -1991,14 +1982,10 @@ void draw_talking(void)
 	multi_vram_buffer_horz(topBar, sizeof(topBar), NTADR_A(1, 2));
 	multi_vram_buffer_horz(bottomBar, sizeof(bottomBar), NTADR_A(1, 6));
 
-	// side bar of talking box
-	one_vram_buffer(0xfd, NTADR_A(1, 3));
-	one_vram_buffer(0xfd, NTADR_A(1, 4));
-	one_vram_buffer(0xfd, NTADR_A(1, 5));
-	// other size bar of talking box
-	one_vram_buffer(0xfd, NTADR_A(30, 3));
-	one_vram_buffer(0xfd, NTADR_A(30, 4));
-	one_vram_buffer(0xfd, NTADR_A(30, 5));
+	//sides of the box
+	multi_vram_buffer_vert(sidebar, sizeof(sidebar), NTADR_A(1, 3));
+	multi_vram_buffer_vert(sidebar, sizeof(sidebar), NTADR_A(30, 3));
+	
 
 	display_hud_sprites = 0;
 	draw_sprites();

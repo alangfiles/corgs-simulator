@@ -105,7 +105,7 @@ const unsigned char talk_mywife[] = "If I buy this, my wife willkill me.";
 const unsigned char talk_muscle1[] = "Bro, you look jacked. Wannado some reps?";
 const unsigned char talk_do_reps[] = "Ready to press A\nas fast as you can?";
 const unsigned char talk_reps_done[] = "Legit";
-const unsigned char talk_reps_finished[] = "Rise from your grave!\n Cause you're a BEAST!";
+const unsigned char talk_reps_finished[] = "Rise from your grave!\n\nCause you're a BEAST!";
 const unsigned char talk_more_reps[] = "You need more practice!";
 const unsigned char talk_muscle2[] = "Brah, my bro is yoked. He \ndoes his reps at 61 FPS.";
 const unsigned char talk_ladyonbreak[] = ""; // I the run the food trucks.\n\n\nBet you thought I didn't \nhave a lower body.\n\nBut I do.\n\n\nSo there.";
@@ -172,6 +172,8 @@ const unsigned char ending_2_1[] = "Truly, you are a";
 const unsigned char ending_2_2[] = "KING OF VIDEO GAMES";
 
 const unsigned char game_genie_text[] = "II Turbo: Championship Edition";
+
+const unsigned char sidebar[] = {0xfd,0xfd,0xfd};
 
 // big space holders
 // const unsigned char lorem256_1[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
