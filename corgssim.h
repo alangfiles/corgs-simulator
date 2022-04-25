@@ -237,5 +237,5 @@ void nmi_and_chill(void);
 void read_controller(void);
 void find_item(void);
 void move_block(void);
-
+void toliet_warp(void);
 

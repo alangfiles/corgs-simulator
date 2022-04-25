@@ -1253,7 +1253,7 @@ void movement(void)
 	// 		if((temp1 & 2))
 	// 		{
 	// 			++sprites_y[temp1];
-	// 		} 
+	// 		}
 	// 		else {
 	// 			--sprites_y[temp1];
 	// 		}
@@ -1402,11 +1402,10 @@ void movement(void)
 		Generic2.height = 4;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_2_ROOM;
 			player_x = TOLIET_WARP_2_X - 0x10;
 			player_y = TOLIET_WARP_2_Y;
-			draw_bg();
+			toliet_warp();
 		}
 	}
 
@@ -1419,11 +1418,10 @@ void movement(void)
 		Generic2.height = 4;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_1_ROOM;
 			player_x = TOLIET_WARP_1_X - 0x10;
 			player_y = TOLIET_WARP_1_Y;
-			draw_bg();
+			toliet_warp();
 		}
 		else
 		{ // check other toliet warp
@@ -1431,13 +1429,12 @@ void movement(void)
 			Generic2.y = TOLIET_WARP_3_Y + 7;
 			if (check_collision(&Generic, &Generic2))
 			{
-				sfx_play(SFX_WARP_TOLIET, 0);
 				which_bg = COIN_GAME_ROOM;
 				player_x = 0x20;
 				player_y = 0x50;
 				Generic.x = 0x20;
 				Generic.y = 0x50;
-				draw_bg();
+				toliet_warp();
 			}
 		}
 	}
@@ -1451,11 +1448,10 @@ void movement(void)
 		Generic2.height = 4;
 		if (check_collision(&Generic, &Generic2))
 		{
-			sfx_play(SFX_WARP_TOLIET, 0);
 			which_bg = TOLIET_WARP_2_ROOM;
 			player_x = TOLIET_WARP_3_X - 0x10;
 			player_y = TOLIET_WARP_3_Y;
-			draw_bg();
+			toliet_warp();
 		}
 	}
 
@@ -2489,4 +2485,10 @@ void move_block(void)
 	delay(100);
 	music_play(0);
 	block_moved = 1; // done moving
+}
+
+void toliet_warp(void)
+{
+	sfx_play(SFX_WARP_TOLIET, 0);
+	draw_bg();
 }
