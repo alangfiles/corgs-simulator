@@ -1931,31 +1931,22 @@ void draw_timer(void)
 
 void draw_hud(void)
 {
-
+	temp1=B_LOC;
+	temp2='B';
+	draw_hud_button();
 	// draw buttons B
-	one_vram_buffer(0xee, NTADR_A(B_LOC, 2));
-	one_vram_buffer('B', NTADR_A(B_LOC + 1, 2));
-	one_vram_buffer(0xef, NTADR_A(B_LOC + 2, 2));
+	temp1=A_LOC;
+	temp2='A';
+	draw_hud_button();
+}
+void draw_hud_button(void){
+	one_vram_buffer(0xee, NTADR_A(temp1, 2));
+	one_vram_buffer(temp2, NTADR_A(temp1 + 1, 2));
+	one_vram_buffer(0xef, NTADR_A(temp1 + 2, 2));
 
-	
-	multi_vram_buffer_vert(sidebar, 3, NTADR_A(B_LOC, 3));
-	multi_vram_buffer_vert(sidebar, 3, NTADR_A(B_LOC + 2, 3));
-
-	multi_vram_buffer_horz(bottombar,3, NTADR_A(B_LOC, 6));
-
-	// draw buttons A
-	one_vram_buffer(0xee, NTADR_A(A_LOC, 2));
-	one_vram_buffer('A', NTADR_A(A_LOC + 1, 2));
-	one_vram_buffer(0xef, NTADR_A(A_LOC + 2, 2));
-	//sides
-	multi_vram_buffer_vert(sidebar, 3, NTADR_A(A_LOC, 3));
-	multi_vram_buffer_vert(sidebar, 3, NTADR_A(A_LOC + 2, 3));
-
-	multi_vram_buffer_horz(bottombar,3, NTADR_A(A_LOC, 6));
-
-	// draw timer
-	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(23, 2));
-
+	multi_vram_buffer_vert(sidebar, 3, NTADR_A(temp1, 3));
+	multi_vram_buffer_vert(sidebar, 3, NTADR_A(temp1 + 2, 3));
+	multi_vram_buffer_horz(bottombar,3, NTADR_A(temp1, 6));
 }
 
 void draw_talking(void)
