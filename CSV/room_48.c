@@ -14,13 +14,13 @@ const unsigned char room_48[]={
 
 const unsigned char room_48_sprites[]={
 	84, 80, SPRITE_BlueBeard74,
-	224, 80, SPRITE_LunchLady37,
+	// 224, 80, SPRITE_LunchLady37,
 	TURN_OFF
 };
 
 const unsigned char room_48_talk[]={
 	92, 88, TALK_SMOKE,
-	232, 88, TALK_LADYONBREAK,
+	// 232, 88, TALK_LADYONBREAK,
 	
 	TURN_OFF
 };

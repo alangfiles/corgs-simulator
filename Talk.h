@@ -32,7 +32,6 @@ enum
   TALK_MYWIFE,
   TALK_MUSCLE1,
   TALK_MUSCLE2,
-  TALK_LADYONBREAK,
   TALK_STICK,
   TALK_ARCADE,
   TALK_PINBALL,
@@ -109,7 +108,6 @@ const unsigned char talk_reps_done[] = "Legit";
 const unsigned char talk_reps_finished[] = "Rise from your grave!\n\nCause you're a BEAST!";
 const unsigned char talk_more_reps[] = "You need more practice!";
 const unsigned char talk_muscle2[] = "Brah, my bro is yoked. He \ndoes his reps at 61 FPS.";
-const unsigned char talk_ladyonbreak[] = ""; // I the run the food trucks.\n\n\nBet you thought I didn't \nhave a lower body.\n\nBut I do.\n\n\nSo there.";
 const unsigned char talk_stick[] = "These buttons are really\nsticky.\n\nSo is the stick.";
 const unsigned char talk_king[] = "I'm the king of video\ngames, but that place is a \nbit much.";
 const unsigned char talk_arcade[] = "Arcade games are the best.\nThey're like normal games, but standing up.";

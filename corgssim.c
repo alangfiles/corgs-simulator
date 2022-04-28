@@ -125,11 +125,11 @@ void main(void)
 			{
 				song = SONG_INSIDE;
 				set_music_speed(5);
-				music_play(song); 
+				music_play(song);
 
 				// set defaults
 				game_mode = MODE_GAME;
-				which_bg = 25;//STARTING_ROOM;
+				which_bg = 29;//STARTING_ROOM;
 				player_x = 0x80;
 				player_y = 0x80; 
 
@@ -769,9 +769,6 @@ void draw_sprites(void)
 			break;
 		case SPRITE_SkirtLady40:
 			sprites_anim[index2] = SkirtLady40;
-			break;
-		case SPRITE_LunchLady37:
-			sprites_anim[index2] = LunchLady37;
 			break;
 		case SPRITE_HairFront129:
 			sprites_anim[index2] = HairFront129;
