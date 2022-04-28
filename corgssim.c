@@ -125,13 +125,13 @@ void main(void)
 			{
 				song = SONG_INSIDE;
 				set_music_speed(5);
-				music_play(song);
+				music_play(song); 
 
 				// set defaults
 				game_mode = MODE_GAME;
-				which_bg = STARTING_ROOM;
+				which_bg = 25;//STARTING_ROOM;
 				player_x = 0x80;
-				player_y = 0x80;
+				player_y = 0x80; 
 
 				minutes_left = 0;
 				seconds_left_tens = 0;
@@ -2302,9 +2302,9 @@ void draw_talking(void)
 		break;
 	case TALK_MORE_REPS:
 		set_music_speed(5);
-		pointer = talk_more_reps;
+		pointer = talk_more_reps; 
 		text_length = sizeof(talk_more_reps);
-		break;
+		break; 
 	case TALK_ITEM_5:
 		pointer = item_5;
 		text_length = sizeof(item_5);
@@ -2313,7 +2313,7 @@ void draw_talking(void)
 		pointer = talk_dlc;
 		text_length = sizeof(talk_dlc);
 		break;
-	case TALK_CLIP:
+	case TALK_CLIP: 
 		pointer = talk_clip;
 		text_length = sizeof(talk_clip);
 		break;
@@ -2323,7 +2323,7 @@ void draw_talking(void)
 		break;
 	}
 
-	--text_length;
+	--text_length; 
 
 	ppu_on_all();
 }

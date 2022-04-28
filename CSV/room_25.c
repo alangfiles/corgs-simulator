@@ -14,15 +14,10 @@ const unsigned char room_25[]={
 };
 
 const unsigned char room_25_sprites[]={
-	32, 112, SPRITE_Ghost65, 
-	64, 96, SPRITE_Ghost66,
-	80, 112, SPRITE_CostumeMan58,
-	48, 96, SPRITE_Wizard52,
 	224, 112, SPRITE_SideLadyLeft90,
 	224, 160, SPRITE_BeardSideManLeft79,
 	144, 184, SPRITE_HairBehind9,
-	//96, 184, SPRITE_BaldBehind6,
-	56, 144, SPRITE_HairBehind11,
+	96, 184, SPRITE_BaldBehind6,
 	192, 144, SPRITE_GlassesRight33,
 	128,160, SPRITE_Girl3,
 	
@@ -30,14 +25,14 @@ const unsigned char room_25_sprites[]={
 };
 
 const unsigned char room_25_talk[]={
-	40, 120, TALK_PACMAN2, 
-	72, 104, TALK_PACMAN,
-	88, 120, TALK_CHARACTER,
-	56, 104, TALK_WIZARD,
+	// 40, 120, TALK_PACMAN2, 
+	// 72, 104, TALK_PACMAN,
+	// 88, 120, TALK_CHARACTER,
+	// 56, 104, TALK_WIZARD,
+	// 64, 152, TALK_JUDGE,
 	200, 120, TALK_SPRITES,
 	200, 168, TALK_CLEVER,
 	152, 168, TALK_GARY,
-	64, 152, TALK_JUDGE,
 	200, 152, TALK_INYOURWAY,
 	136, 168, TALK_GENIE,
 	
