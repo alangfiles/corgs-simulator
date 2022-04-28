@@ -129,7 +129,7 @@ void main(void)
 
 				// set defaults
 				game_mode = MODE_GAME;
-				which_bg = 29;//STARTING_ROOM;
+				which_bg = 28;//STARTING_ROOM;
 				player_x = 0x80;
 				player_y = 0x80; 
 

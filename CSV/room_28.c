@@ -15,7 +15,7 @@ const unsigned char room_28[]={
 
 const unsigned char room_28_sprites[]={
 	193, 120, SPRITE_HairBehind10,
-	161, 88, SPRITE_BaldTankBehind121,
+	161, 88, SPRITE_SleepyGuyBehind123,
 	178, 152, SPRITE_BaldBehind7,
 	224, 80, SPRITE_OldCoot63,
 	32, 112, SPRITE_Ghost65, 
