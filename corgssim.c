@@ -2313,6 +2313,10 @@ void draw_talking(void)
 		pointer = talk_dlc;
 		text_length = sizeof(talk_dlc);
 		break;
+	case TALK_CLIP:
+		pointer = talk_clip;
+		text_length = sizeof(talk_clip);
+		break;
 	default:
 		pointer = blank_1; 
 		text_length = sizeof(blank_1);

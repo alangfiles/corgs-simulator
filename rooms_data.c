@@ -314,7 +314,7 @@ const unsigned char title_hud = 0;
 const unsigned char * const talk_list[]={
 	blank_talk,blank_talk,room_3_talk,blank_talk,room_5_talk,
   blank_talk,blank_talk,blank_talk,room_9_talk,blank_talk,
-  blank_talk,blank_talk,blank_talk,room_14_talk,blank_talk,
+  blank_talk,room_12_talk,blank_talk,room_14_talk,blank_talk,
   blank_talk,blank_talk,room_18_talk,room_19_talk,room_20_talk,
   room_46_talk,room_47_talk,room_23_talk,room_24_talk,room_25_talk,
   room_28_talk,blank_talk,blank_talk,room_43_talk,room_48_talk,
@@ -323,7 +323,7 @@ const unsigned char * const talk_list[]={
 const unsigned char * const sprite_list[]={
 	blank_sprites,blank_sprites,room_3_sprites,blank_sprites,room_5_sprites,
   blank_sprites,blank_sprites,blank_sprites,room_9_sprites,blank_sprites,
-  room_11_sprites,blank_sprites,blank_sprites,room_14_sprites,room_15_sprites,
+  room_11_sprites,room_12_sprites,blank_sprites,room_14_sprites,room_15_sprites,
   blank_sprites,blank_sprites,room_18_sprites,room_19_sprites,room_20_sprites,
   room_46_sprites,room_47_sprites,room_23_sprites,room_24_sprites,room_25_sprites,
   room_28_sprites,blank_sprites,blank_sprites,room_43_sprites,room_48_sprites,

@@ -19,6 +19,7 @@ enum
   TALK_NINTENDO,
   TALK_BUY,
   TALK_PLUMBER,
+  TALK_CLIP,
   TALK_LOCATION,
   TALK_EBAY,
   TALK_ADMISSION,
@@ -85,9 +86,10 @@ const unsigned char guy_1[] = "\n**You feel like someone\nis right behind you.**
 const unsigned char locked_doors[] = "You hear the doors click\nbehind you, they're locked.";
 const unsigned char play_game_text[] = "A CORGS emulator game\nDo you want to play?";
 const unsigned char talk_smoke[] = "This is a good\nplace to smoke, but I can'tin an NES game.";
-const unsigned char talk_bathroom[] = "There's a surprise for you in there, it's a secret to everybody.";
+//                                    "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
+const unsigned char talk_bathroom[] = "I made a surprise in there\n\nIT'S A SECRET TO EVERYBODY";
 const unsigned char talk_hotdog[] = "Back of the line!\n\nUnless you got cash.";
-const unsigned char talk_hotdog2[] = "IT'S DANGEROUS TO GO\nALONE!  TAKE THIS.\n\n(It's a hamburger).";
+const unsigned char talk_hotdog2[] = "IT'S DANGEROUS TO GO\nALONE!  TAKE THIS.\n\n(It's a burger).";
 const unsigned char talk_food[] = "I can't decide. Greasy\nburger or greasy salad?";
 const unsigned char talk_bush[] = "These are nice bushes, but I don't think they'd make\ngood clouds.";
 const unsigned char talk_nintendo[] = "I know all the cool games\ncoming out. My dad works\nat Nintendo.";
@@ -97,7 +99,7 @@ const unsigned char talk_location[] = "This is the location you\nget when you re
 const unsigned char talk_ebay[] = "Hold on while I check the price on ebay...";
 const unsigned char talk_admission[] = "Kids admitted free.\nChild at heart? Full charge";
 const unsigned char talk_doorprize[] = "I hear this event has good door prizes.";
-const unsigned char talk_guynext1[] = "The guy next to me hassome really good stuff!";
+const unsigned char talk_guynext1[] = "The guy next to me has\nsome really good stuff!";
 const unsigned char talk_guynext2[] = "I've got the same stuff as that guy.";
 const unsigned char talk_thingyouwant[] = "Thingyoureallywant?  Yeah, I just sold one of those!";
 const unsigned char talk_graded[] = "I'm going to buy this and\nhave it graded.";
@@ -113,14 +115,14 @@ const unsigned char talk_stick[] = "These buttons are really\nsticky.\n\nSo is t
 const unsigned char talk_king[] = "I'm the king of video\ngames, but that place is a \nbit much.";
 const unsigned char talk_arcade[] = "Arcade games are the best.\nThey're like normal games, but standing up.";
 const unsigned char talk_pinball[] = "MMMMMULTIBALL!!";
-const unsigned char talk_drugs[] = "Hey, psst. Wanna buy some drugs?\n\nHa! Gotcha!\n\nWinners Don't Use Drugs."; // todo add choice
+const unsigned char talk_drugs[] = "Hey, psst. Want some drugs?\n\nHa! Gotcha!\n\nWinners Don't Use Drugs.\nWho am I?\n\nWilliam S Sessions, FBI."; // todo add choice
 const unsigned char talk_speaker[] = "...and that's why COLECO\nAdam is the definitive\nvideo game machine.";
 const unsigned char talk_crowd[] = "I know the speaker isn't\nvery lively, but that wouldtake up a lot of ROM space.";
 const unsigned char talk_kick[] = "HEY! HEY! Wanna see my\nkickstarter?";
 const unsigned char talk_copies[] = "I have a copy of\nthis, but I don't have two.";
-const unsigned char talk_youtube[] = "I'm a VERY important\nYoutuber, don't you\nrecognize me?";
+const unsigned char talk_youtube[] = "The KING OF VIDEO GAMES?\nI think he's just a myth.";
 const unsigned char talk_kingchat[] = "I hear the KING OF VIDEO\nGAMES is here today.";
-const unsigned char talk_outside[] = "Why would anyone walk around outside whenthere's a video game show\ngoing on."; // cleanup?
+const unsigned char talk_outside[] = "Why walk around outside\nwhen there's a video game\nshow going on.";
 const unsigned char talk_newgames[] = "I hear they're making new\ngames for old hardware.\n\nI don't get it.";
 const unsigned char talk_jealous[] = "Those CORGS simulator guys are stealing my thunder.";
 const unsigned char talk_judge[] = "I'm judging this cosplay\ncontest.";
@@ -138,8 +140,10 @@ const unsigned char talk_complain[] = "I hate these guys, they\nnever sell anyth
 const unsigned char talk_foodtruck[] = "What'll you have!?";
 const unsigned char talk_foodtruck2[] = "Sorry, this is really\njust a foodtruck simulator.";
 const unsigned char talk_king2[] = "The KING OF VIDEO GAMES?\nI'm gonna try and get his\nautograph.";
-const unsigned char talk_space[] = "OK, I admit it.\nI'm just here to fill this space.";
+const unsigned char talk_space[] = "I'm taking up 98 Bytes in\nthe game rom, but I'm too\nimportant to cut.";
 const unsigned char talk_dlc[] = "CORGS Sim DLC down this path, $20 please.";
+const unsigned char talk_clip[] = "BE CAREFUL\nLooks like you could clip\nthrough these walls.";
+
 
 // const unsigned char talk_27[] = "You're not allowed back here, you might accidentally clip across the map.";
 
@@ -185,7 +189,7 @@ const unsigned char bottombar[] = {0xfe,0xed,0xff};
 //   const unsigned char lorem256_4[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
 // keeping track of space left. each line is 64bytes 4=256kb
-const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";

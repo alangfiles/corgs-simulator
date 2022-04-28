@@ -11,3 +11,13 @@ const unsigned char room_12[]={
 37,34,35,2,2,2,1,1,1,1,2,2,11,35,37,34,
 37,37,36,33,37,41,41,41,41,41,41,41,35,36,37,37,
 };
+
+const unsigned char room_12_sprites[]={
+	0x50,0x90, SPRITE_SkirtLady39,
+	TURN_OFF
+};
+
+const unsigned char room_12_talk[]={
+	0x58, 0x98, TALK_CLIP,
+	TURN_OFF
+};
