@@ -27,6 +27,7 @@ enum
   TALK_GUYNEXT1,
   TALK_GUYNEXT2,
   TALK_THINGYOUWANT,
+  TALK_DLC,
   TALK_GRADED,
   TALK_MYWIFE,
   TALK_MUSCLE1,
@@ -139,6 +140,7 @@ const unsigned char talk_foodtruck[] = "What'll you have!?";
 const unsigned char talk_foodtruck2[] = "Sorry, this is really\njust a foodtruck simulator.";
 const unsigned char talk_king2[] = "The KING OF VIDEO GAMES?\nI'm gonna try and get his\nautograph.";
 const unsigned char talk_space[] = "OK, I admit it.\nI'm just here to fill this space.";
+const unsigned char talk_dlc[] = "CORGS Sim DLC down this path, $20 please.";
 
 // const unsigned char talk_27[] = "You're not allowed back here, you might accidentally clip across the map.";
 
@@ -185,7 +187,7 @@ const unsigned char bottombar[] = {0xfe,0xed,0xff};
 
 // keeping track of space left. each line is 64bytes 4=256kb
 const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 

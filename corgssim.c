@@ -518,7 +518,7 @@ void draw_sprites(void)
 {
 	if (collision_action == TALK_KING)
 	{
-		return;
+		return; 
 	}
 
 	++move_frames;
@@ -2313,8 +2313,12 @@ void draw_talking(void)
 		pointer = item_5;
 		text_length = sizeof(item_5);
 		break;
+	case TALK_DLC:
+		pointer = talk_dlc;
+		text_length = sizeof(talk_dlc);
+		break;
 	default:
-		pointer = blank_1;
+		pointer = blank_1; 
 		text_length = sizeof(blank_1);
 		break;
 	}
