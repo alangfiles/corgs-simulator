@@ -18,7 +18,6 @@ enum
   TALK_BUSH,
   TALK_NINTENDO,
   TALK_BUY,
-  TALK_PRINCESS,
   TALK_PLUMBER,
   TALK_LOCATION,
   TALK_EBAY,
@@ -76,7 +75,8 @@ enum
 // X is a character and \ is when the line break happens
 
 //"You hear the doors click  behind you, they're locked.";
-//"XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
+//                                    "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
+
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
 const unsigned char blank_1[] = "";
 const unsigned char alan_1[] = "Brian's to blame for the\ngraphics.";
@@ -88,10 +88,9 @@ const unsigned char talk_smoke[] = "This is a good\nplace to smoke, but I can'ti
 const unsigned char talk_bathroom[] = "There's a surprise for you in there, it's a secret to everybody.";
 const unsigned char talk_hotdog[] = "Back of the line!\nUnless you've got cash.";
 const unsigned char talk_hotdog2[] = "IT'S DANGEROUS TO GO\nALONE!  TAKE THIS.\n\n(It's a hamburger).";
-const unsigned char talk_food[] = "I can't decide. Greasy\nexpensive burger or greasy expensive salad?";
+const unsigned char talk_food[] = "I can't decide. Greasy\nburger or greasy salad?";
 const unsigned char talk_bush[] = "These are nice bushes, but I don't think they'd make\ngood clouds.";
-const unsigned char talk_nintendo[] = "I know all the cool new games coming out. My dad works at Nintendo.";
-const unsigned char talk_princess[] = "Buzz off."; // Your princess is in another castle.";
+const unsigned char talk_nintendo[] = "I know all the cool games\ncoming out. My dad works\nat Nintendo.";
 const unsigned char talk_buy[] = "BUY SOMETHIN' WILL YA!";
 const unsigned char talk_plumber[] = "A plumber came to fix\nthe toliet, but he's been\nin there for an hour. I\nhope he didn't fall in.";
 const unsigned char talk_location[] = "This is the location you\nget when you register for\nthe show last.";
@@ -180,7 +179,7 @@ const unsigned char bottombar[] = {0xfe,0xed,0xff};
 
 
 // big space holders
-//const unsigned char lorem256_1[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+// const unsigned char lorem256_1[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 // const unsigned char lorem256_2[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //  const unsigned char lorem256_3[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //   const unsigned char lorem256_4[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";

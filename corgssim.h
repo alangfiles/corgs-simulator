@@ -44,7 +44,7 @@ const unsigned char code[]={
 unsigned char code_active = 0;
 
 //starting location should be 13
-#define STARTING_ROOM 2
+#define STARTING_ROOM 8
 #define BLANK_ROOM 6
 
 // HUD stuff

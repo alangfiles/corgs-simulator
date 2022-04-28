@@ -2071,10 +2071,6 @@ void draw_talking(void)
 		pointer = talk_buy;
 		text_length = sizeof(talk_buy);
 		break;
-	case TALK_PRINCESS:
-		pointer = talk_princess;
-		text_length = sizeof(talk_princess);
-		break;
 	case TALK_PLUMBER:
 		pointer = talk_plumber;
 		text_length = sizeof(talk_plumber);
@@ -2313,7 +2309,7 @@ void draw_talking(void)
 		pointer = item_5;
 		text_length = sizeof(item_5);
 		break;
-	case TALK_DLC:
+	case TALK_DLC: 
 		pointer = talk_dlc;
 		text_length = sizeof(talk_dlc);
 		break;
@@ -2335,11 +2331,11 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
-	items_collected = 0;
+	items_collected = ALL_ITEMS_COLLECTED; //debug, this should be to start 0;
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
-	on_fetchquest = 0;
+	on_fetchquest = 4; //debug 
 
 	song = SONG_TITLE;
 	set_music_speed(5);
