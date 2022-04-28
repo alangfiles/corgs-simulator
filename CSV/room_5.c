@@ -12,11 +12,11 @@ const unsigned char room_5[]={
 };
 
 const unsigned char room_5_sprites[]={
-	160, 176, SPRITE_Wizard53,
+	158, 176, SPRITE_Wizard53,
 	TURN_OFF
 };
 
 const unsigned char room_5_talk[]={
-	168, 184, TALK_BATHROOM,
+	166, 184, TALK_BATHROOM,
 	TURN_OFF
 };
