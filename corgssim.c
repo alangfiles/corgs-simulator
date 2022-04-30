@@ -653,214 +653,213 @@ void draw_sprites(void)
 			// we could do somethign here like:
 			//  if frame 1 - 8 use AlanAnim1
 			//  else use AlanAnim2
-			sprites_anim[index2] = Alan92;
+			oam_meta_spr(temp1, temp2, Alan92);
 			break;
 		case SPRITE_BRIAN93:
-			sprites_anim[index2] = Brian93;
+			oam_meta_spr(temp1, temp2, Brian93);
 			break;
 		case SPRITE_PlayerSprUp:
-			sprites_anim[index2] = PlayerSprUp;
+			oam_meta_spr(temp1, temp2, PlayerSprUp);
 			break;
 		case SPRITE_PunchoutMan112:
-			sprites_anim[index2] = PunchoutMan112;
+			oam_meta_spr(temp1, temp2, PunchoutMan112);
 			break;
 		case SPRITE_PunchOutMat113:
-			sprites_anim[index2] = PunchOutMat113;
+			oam_meta_spr(temp1, temp2, PunchOutMat113);
 			break;
 		case SPRITE_LunchLadyHead36:
-			sprites_anim[index2] = LunchLadyHead36;
+			oam_meta_spr(temp1, temp2, LunchLadyHead36);
 			break;
 		case SPRITE_BaldRight22:
-			sprites_anim[index2] = BaldRight22;
+			oam_meta_spr(temp1, temp2, BaldRight22);
 			break;
 		case SPRITE_HairForward114:
-			sprites_anim[index2] = HairForward114;
+			oam_meta_spr(temp1, temp2, HairForward114);
 			break;
 		case SPRITE_Banner99:
-			sprites_anim[index2] = Banner99;
+			oam_meta_spr(temp1, temp2, Banner99);
 			break;
 		case SPRITE_BoyKid44:
-			sprites_anim[index2] = BoyKid44;
+			oam_meta_spr(temp1, temp2, BoyKid44);
 			break;
 		case SPRITE_BaldBehind7:
-			sprites_anim[index2] = BaldBehind7;
+			oam_meta_spr(temp1, temp2, BaldBehind7);
 			break;
 		case SPRITE_SkirtLady39:
-			sprites_anim[index2] = SkirtLady39;
+			oam_meta_spr(temp1, temp2, SkirtLady39);
 			break;
 		case SPRITE_HairBehind10:
-			sprites_anim[index2] = HairBehind10;
+			oam_meta_spr(temp1, temp2, HairBehind10);
 			break;
 		case SPRITE_HatForward17:
-			sprites_anim[index2] = HatForward17;
+			oam_meta_spr(temp1, temp2, HatForward17);
 			break;
 		case SPRITE_PrettyGirlBehindStand109:
-			sprites_anim[index2] = PrettyGirlBehindStand109;
+			oam_meta_spr(temp1, temp2, PrettyGirlBehindStand109);
 			break;
 		case SPRITE_SideLadyRight86:
-			sprites_anim[index2] = SideLadyRight86;
+			oam_meta_spr(temp1, temp2, SideLadyRight86);
 			break;
 		case SPRITE_WideBoyBehind120:
-			sprites_anim[index2] = WideBoyBehind120;
+			oam_meta_spr(temp1, temp2, WideBoyBehind120);
 			break;
 		case SPRITE_SleepyGuyBehind123:
-			sprites_anim[index2] = SleepyGuyBehind123;
+			oam_meta_spr(temp1, temp2, SleepyGuyBehind123);
 			break;
 		case SPRITE_HairRight27:
-			sprites_anim[index2] = HairRight27;
+			oam_meta_spr(temp1, temp2, HairRight27);
 			break;
 		case SPRITE_BigNoseLeft84:
-			sprites_anim[index2] = BigNoseLeft84;
+			oam_meta_spr(temp1, temp2, BigNoseLeft84);
 			break;
 		case SPRITE_Wizard53:
-			sprites_anim[index2] = Wizard53;
+			oam_meta_spr(temp1, temp2, Wizard53);
 			break;
 		case SPRITE_Car95:
-			sprites_anim[index2] = Car95;
+			oam_meta_spr(temp1, temp2, Car95);
 			break;
 		case SPRITE_Car952:
-			sprites_anim[index2] = Car952;
+			oam_meta_spr(temp1, temp2, Car952);
 			break;
 		case SPRITE_Car96:
-			sprites_anim[index2] = Car96;
+			oam_meta_spr(temp1, temp2, Car96);
 			break;
 		case SPRITE_Car962:
-			sprites_anim[index2] = Car962;
+			oam_meta_spr(temp1, temp2, Car962);
 			break;
 		case SPRITE_SkinnyHatMan49:
-			sprites_anim[index2] = SkinnyHatMan49;
+			oam_meta_spr(temp1, temp2, SkinnyHatMan49);
 			break;
 		case SPRITE_GlassesLeft31:
-			sprites_anim[index2] = GlassesLeft31;
+			oam_meta_spr(temp1, temp2, GlassesLeft31);
 			break;
 		case SPRITE_BaldForward13:
-			sprites_anim[index2] = BaldForward13;
+			oam_meta_spr(temp1, temp2, BaldForward13);
 			break;
 		case SPRITE_GirlKid47:
-			sprites_anim[index2] = GirlKid47;
+			oam_meta_spr(temp1, temp2, GirlKid47);
 			break;
 		case SPRITE_BlueBeard74:
-			sprites_anim[index2] = BlueBeard74;
+			oam_meta_spr(temp1, temp2, BlueBeard74);
 			break;
 		case SPRITE_King75:
-			sprites_anim[index2] = King75;
+			oam_meta_spr(temp1, temp2, King75);
 			break;
 		case SPRITE_BigNoseRight83:
-			sprites_anim[index2] = BigNoseRight83;
+			oam_meta_spr(temp1, temp2, BigNoseRight83);
 			break;
 		case SPRITE_BaldTankBehind121:
-			sprites_anim[index2] = BaldTankBehind121;
+			oam_meta_spr(temp1, temp2, BaldTankBehind121);
 			break;
 		case SPRITE_OldCoot63:
-			sprites_anim[index2] = OldCoot63;
+			oam_meta_spr(temp1, temp2, OldCoot63);
 			break;
 		case SPRITE_GlassesRight33:
-			sprites_anim[index2] = GlassesRight33;
+			oam_meta_spr(temp1, temp2, GlassesRight33);
 			break;
 		case SPRITE_HairRight28:
-			sprites_anim[index2] = HairRight28;
+			oam_meta_spr(temp1, temp2, HairRight28);
 			break;
 		case SPRITE_SideLadyRight87:
-			sprites_anim[index2] = SideLadyRight87;
+			oam_meta_spr(temp1, temp2, SideLadyRight87);
 			break;
 		case SPRITE_DressGirl61:
-			sprites_anim[index2] = DressGirl61;
+			oam_meta_spr(temp1, temp2, DressGirl61);
 			break;
 		case SPRITE_MuscleMan0:
-			sprites_anim[index2] = MuscleMan0;
+			oam_meta_spr(temp1, temp2, MuscleMan0);
 			break;
 		case SPRITE_MuscleMan1:
-			sprites_anim[index2] = MuscleMan1;
+			oam_meta_spr(temp1, temp2, MuscleMan1);
 			break;
 		case SPRITE_MuscleMan2:
-			sprites_anim[index2] = MuscleMan2;
+			oam_meta_spr(temp1, temp2, MuscleMan2);
 			break;
 		case SPRITE_Girl4:
-			sprites_anim[index2] = Girl4;
+			oam_meta_spr(temp1, temp2, Girl4);
 			break;
 		case SPRITE_FroGuy55:
-			sprites_anim[index2] = FroGuy55;
+			oam_meta_spr(temp1, temp2, FroGuy55);
 			break;
 		case SPRITE_WideBoy69:
-			sprites_anim[index2] = WideBoy69;
+			oam_meta_spr(temp1, temp2, WideBoy69);
 			break;
 		case SPRITE_HatBehind117:
-			sprites_anim[index2] = HatBehind117;
+			oam_meta_spr(temp1, temp2, HatBehind117);
 			break;
 		case SPRITE_Ghost65:
-			sprites_anim[index2] = Ghost65;
+			oam_meta_spr(temp1, temp2, Ghost65);
 			break;
 		case SPRITE_CostumeMan58:
-			sprites_anim[index2] = CostumeMan58;
+			oam_meta_spr(temp1, temp2, CostumeMan58);
 			break;
 		case SPRITE_Wizard52:
-			sprites_anim[index2] = Wizard52;
+			oam_meta_spr(temp1, temp2, Wizard52);
 			break;
 		case SPRITE_SideLadyLeft90:
-			sprites_anim[index2] = SideLadyLeft90;
+			oam_meta_spr(temp1, temp2, SideLadyLeft90);
 			break;
 		case SPRITE_BeardSideManLeft79:
-			sprites_anim[index2] = BeardSideManLeft79;
+			oam_meta_spr(temp1, temp2, BeardSideManLeft79);
 			break;
 		case SPRITE_HairBehind9:
-			sprites_anim[index2] = HairBehind9;
+			oam_meta_spr(temp1, temp2, HairBehind9);
 			break;
 		case SPRITE_BaldBehind6:
-			sprites_anim[index2] = BaldBehind6;
+			oam_meta_spr(temp1, temp2, BaldBehind6);
 			break;
 		case SPRITE_HairLeft24:
-			sprites_anim[index2] = HairLeft24;
+			oam_meta_spr(temp1, temp2, HairLeft24);
 			break;
 		case SPRITE_Ghost66:
-			sprites_anim[index2] = Ghost66;
+			oam_meta_spr(temp1, temp2, Ghost66);
 			break;
 		case SPRITE_HairBehind11:
-			sprites_anim[index2] = HairBehind11;
+			oam_meta_spr(temp1, temp2, HairBehind11);
 			break;
 		case SPRITE_DressGirl60:
-			sprites_anim[index2] = DressGirl60;
+			oam_meta_spr(temp1, temp2, DressGirl60);
 			break;
 		case SPRITE_GlassesRight35:
-			sprites_anim[index2] = GlassesRight35;
+			oam_meta_spr(temp1, temp2, GlassesRight35);
 			break;
 		case SPRITE_SkirtLady40:
-			sprites_anim[index2] = SkirtLady40;
+			oam_meta_spr(temp1, temp2, SkirtLady40);
 			break;
 		case SPRITE_HairFront129:
-			sprites_anim[index2] = HairFront129;
+			oam_meta_spr(temp1, temp2, HairFront129);
 			break;
 		case SPRITE_Girl3:
-			sprites_anim[index2] = Girl3;
+			oam_meta_spr(temp1, temp2, Girl3);
 			break;
 		case SPRITE_BaldBehind8:
-			sprites_anim[index2] = BaldBehind8;
+			oam_meta_spr(temp1, temp2, BaldBehind8);
 			break;
 		case SPRITE_BaldLeft18:
-			sprites_anim[index2] = BaldLeft18;
+			oam_meta_spr(temp1, temp2, BaldLeft18);
 			break;
 		case SPRITE_BaldTank73:
-			sprites_anim[index2] = BaldTank73;
+			oam_meta_spr(temp1, temp2, BaldTank73);
 			break;
 		case SPRITE_COIN:
-			sprites_anim[index2] = Coin;
+			oam_meta_spr(temp1, temp2, Coin);
 			break;
 		case SPRITE_DungeonBlock:
-			sprites_anim[index2] = DungeonBlock;
+			oam_meta_spr(temp1, temp2, DungeonBlock);
 			break;
 		case SPRITE_Jobbie:
 			if ((get_frame_count() & 0x0f) > 0x08)
 			{
-				sprites_anim[index2] = Jobbie;
+				oam_meta_spr(temp1, temp2, Jobbie);
 			}
 			else
 			{
-				sprites_anim[index2] = JobbieTwo;
+				oam_meta_spr(temp1, temp2, JobbieTwo);
 			}
 
 		default:
 			break;
 		}
-		oam_meta_spr(temp1, temp2, sprites_anim[index2]);
 	}
 #pragma endregion room_sprites
 
@@ -1992,10 +1991,11 @@ void countup_timer(void)
 
 void draw_timer(void)
 {
-	if (game_mode == MODE_GAME) // todo: probably don't need this check?
+	if (game_mode == MODE_GAME)
 	{
 		if (display_hud_sprites == 1)
 		{
+			// multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(10, 6));
 			one_vram_buffer(48 + minutes_left_tens, NTADR_A(22, 3));
 			one_vram_buffer(48 + minutes_left_ones, NTADR_A(23, 3));
 			one_vram_buffer(':', NTADR_A(24, 3));

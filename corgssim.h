@@ -141,7 +141,6 @@ unsigned char sprites_y[MAX_ROOM_SPRITES];
 //unsigned char sprites_room[MAX_ROOM_SPRITES];
 //unsigned char sprites_actual_x[MAX_ROOM_SPRITES];
 unsigned char sprites_type[MAX_ROOM_SPRITES];
-const unsigned char * sprites_anim[MAX_ROOM_SPRITES];
 
 //timer stuff
 unsigned char minutes_left_tens = 0;
