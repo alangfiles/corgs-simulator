@@ -160,7 +160,7 @@ void main(void)
 			draw_sprites();
 
 			// for debugging, the lower the line, the less processing we have
-			// gray_line();
+			gray_line();
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
@@ -527,7 +527,20 @@ void initialize_sprites(void)
 	//  we'll check this in our rendering loop to figure it we want to display a sprite
 	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
-		sprites_type[index] = TURN_OFF;
+		// if room hasn't been cleared of jobbies use jobbie, else use TURN_OFF
+		sprites_type[index] = TURN_OFF; //;SPRITE_Jobbie;
+
+		temp1 = rand8();
+		temp2 = rand8();
+		while (temp2 < 0x40 || temp2 > 0xd0)
+		{
+			temp2 = rand8();
+		}
+
+		sprites_x[index] = temp1;
+		sprites_y[index] = temp2;
+
+		// //x 0-255 and y 0-239;
 	}
 
 	if (which_bg == COIN_GAME_ROOM && (items_collected & ITEM_COIN_GAME))
@@ -1267,40 +1280,47 @@ void movement(void)
 	}
 
 	// sprite movement
-	//  if (which_bg == JOBBIES_ROOM)
-	//  {
-	//  randomly move a sprite.
-	temp1 = rand8() & 0x0F;
-	temp2 = rand8();
-	temp3 = rand8();
-	if (sprites_type[temp1] == SPRITE_Jobbie)
+	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
-		if ((temp3 & 1))
+		if (sprites_type[index] == SPRITE_Jobbie)
 		{
-			if (sprites_x[temp1] < SCREEN_RIGHT_EDGE - 1)
+
+			//  randomly move a sprite.
+
+			temp1 = rand8(); // 0 - 255
+			if (temp1 < 64)	 // only move 1/4th(ish)
 			{
-				++sprites_x[temp1];
-			}
-		}
-		else
-		{
-			if (sprites_x[temp1] > SCREEN_LEFT_EDGE + 1)
-			{
-				--sprites_x[temp1];
-			}
-		}
-		if ((temp2 & 2))
-		{
-			if (sprites_y[temp1] < SCREEN_BOTTOM_EDGE + 1)
-			{
-				++sprites_y[temp1];
-			}
-		}
-		else
-		{
-			if (sprites_y[temp1] > SCREEN_TOP_EDGE - 1)
-			{
-				--sprites_y[temp1];
+
+				// x movement for numbers like 0bXXXX XXX1
+				if ((temp1 & 1) == 1)
+				{
+					if (sprites_x[index] < SCREEN_RIGHT_EDGE - 1)
+					{
+						++sprites_x[index];
+					}
+				}
+				else
+				{
+					if (sprites_x[index] > SCREEN_LEFT_EDGE + 1)
+					{
+						--sprites_x[index];
+					}
+				}
+				// y movement for numbers like 0bXXXX XX1X
+				if ((temp1 & 2) >= 2)
+				{
+					if (sprites_y[index] < SCREEN_BOTTOM_EDGE + 1)
+					{
+						++sprites_y[index];
+					}
+				}
+				else
+				{
+					if (sprites_y[index] > SCREEN_TOP_EDGE - 1)
+					{
+						--sprites_y[index];
+					}
+				}
 			}
 		}
 	}
