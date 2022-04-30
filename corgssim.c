@@ -2386,7 +2386,7 @@ void initialize_title_screen(void)
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
-	on_fetchquest = 4; // debug
+	on_fetchquest = 0; // debug
 
 	song = SONG_TITLE;
 	set_music_speed(5);
