@@ -325,12 +325,15 @@ void main(void)
 					// temp6 = 0 // this counts the ending steps.
 					temp3 = items_collected & temp1;
 
-					draw_ending_special(); // special player and game
-					draw_ending_sprites(); // draw games where they go
-					temp1 = temp1 << 1;		 // shift the item up for the next time.
-					temp2 += temp3;				 // if we got that item, add it to the displayed list
-					++temp6;							 // add one more step.
-					delay(45);
+					if (temp3)
+					{
+						draw_ending_special(); // special player and game
+						draw_ending_sprites(); // draw games where they go
+						temp2 += temp3;				 // if we got that item, add it to the displayed list
+						delay(45);
+					}
+					temp1 = temp1 << 1; // shift the item up for the next time.
+					++temp6;						// add one more step.
 				}
 				else
 				{
@@ -645,8 +648,8 @@ void draw_sprites(void)
 
 #pragma region room_sprites
 	// offset code is for shuffling sprites if we have more than 8
-	offset = get_frame_count() & 3;  // returns 0,1,2,3
-	offset = offset << 4; // * 16, the size of the shuffle array
+	offset = get_frame_count() & 3; // returns 0,1,2,3
+	offset = offset << 4;						// * 16, the size of the shuffle array
 	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
 		index2 = shuffle_array[offset];
@@ -2483,39 +2486,36 @@ void initialize_end_screen(void)
 void draw_ending_special(void)
 {
 
-	if (temp3)
+	sfx_play(SFX_VICTORY, 0);
+	oam_meta_spr(0x78, 0xB0, PrizeGuy94);
+	switch (temp3)
 	{
-		sfx_play(SFX_VICTORY, 0);
-		oam_meta_spr(0x78, 0xB0, PrizeGuy94);
-		switch (temp3)
-		{
-		case ITEM_ADVENTURE_GAME:
-			oam_meta_spr(0x78, 0xA0, AdventureGameBig);
-			break;
-		case ITEM_COIN_GAME:
-			oam_meta_spr(0x78, 0xA0, GamePrize97);
-			break;
-		case ITEM_DUNGEON_GAME:
-			oam_meta_spr(0x78, 0xA0, FloppyDisk125);
-			break;
-		case ITEM_BURGER_GAME:
-			oam_meta_spr(0x78, 0xA0, BurgerGame);
-			break;
-		case ITEM_KETTLEBELL_GAME:
-			oam_meta_spr(0x78, 0xA0, KettleBell);
-			break;
-		default:
-			break;
-		}
-		++temp4; // add to items collected
+	case ITEM_ADVENTURE_GAME:
+		oam_meta_spr(0x78, 0xA0, AdventureGameBig);
+		break;
+	case ITEM_COIN_GAME:
+		oam_meta_spr(0x78, 0xA0, GamePrize97);
+		break;
+	case ITEM_DUNGEON_GAME:
+		oam_meta_spr(0x78, 0xA0, FloppyDisk125);
+		break;
+	case ITEM_BURGER_GAME:
+		oam_meta_spr(0x78, 0xA0, BurgerGame);
+		break;
+	case ITEM_KETTLEBELL_GAME:
+		oam_meta_spr(0x78, 0xA0, KettleBell);
+		break;
+	default:
+		break;
 	}
+	++temp4; // add to items collected
 }
 
 void draw_ending_text(void)
 {
 	if (temp4 == 0)
 	{
-		multi_vram_buffer_horz(ending_0, sizeof(ending_0), NTADR_A(1, 4));
+		multi_vram_buffer_horz(ending_0, sizeof(ending_0), NTADR_A(6, 4));
 	}
 	else
 	{
