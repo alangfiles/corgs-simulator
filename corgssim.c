@@ -2445,7 +2445,7 @@ void initialize_end_screen(void)
 	draw_bg();
 
 	// game time:
-	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(11, 6));
+	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(10, 6));
 	one_vram_buffer(48 + minutes_left_tens, NTADR_A(15, 6));
 	one_vram_buffer(48 + minutes_left_ones, NTADR_A(16, 6));
 	one_vram_buffer(':', NTADR_A(17, 6));
