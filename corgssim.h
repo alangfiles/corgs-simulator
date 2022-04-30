@@ -45,7 +45,8 @@ unsigned char code_active = 0;
 
 //starting location should be 13
 #define STARTING_ROOM 8
-#define BLANK_ROOM 6
+#define KING_ROOM 6
+#define INTRO_ROOM 1
 
 // HUD stuff
 #define A_LOC 16

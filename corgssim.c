@@ -441,6 +441,7 @@ void draw_bg(void)
 	}
 
 	// draw the tiles
+	
 	for (y = 0;; y += 0x20)
 	{
 		for (x = 0;; x += 0x20)
@@ -454,6 +455,11 @@ void draw_bg(void)
 		}
 		if (y == 0xe0)
 			break;
+	}
+
+	if(which_bg == INTRO_ROOM)
+	{
+		ppu_mask(0x16);
 	}
 
 	if (bg_display_hud == 1)
@@ -2382,11 +2388,11 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;											 // turn back on room fading
 	display_hud_sprites = 1;							 // turn back on hud sprites
 	item_found = 0;												 // reset item found (in case we were in the item found mode)
-	items_collected = 0; // debug, this should be to start 0;
+	items_collected = 0; 	
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
-	on_fetchquest = 0; // debug
+	on_fetchquest = 0;
 
 	song = SONG_TITLE;
 	set_music_speed(5);
@@ -2424,7 +2430,7 @@ void initialize_end_screen(void)
 
 	game_mode = MODE_END;
 
-	which_bg = BLANK_ROOM;
+	which_bg = KING_ROOM;
 	display_hud_sprites = 0;
 	bg_display_hud = 0;
 	draw_bg();
@@ -2546,13 +2552,14 @@ void draw_ending_sprites(void)
 void initialize_intro_screen(void)
 {
 	game_mode = MODE_INTRO;
-	which_bg = BLANK_ROOM;
+	which_bg = INTRO_ROOM;
 	draw_bg();
 
-	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(7, 17));
-	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(6, 19));
-	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 21));
-	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(4, 23));
+	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(7, 10));
+	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(6, 12));
+	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 14));
+	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(4, 16));
+
 }
 
 void read_controller(void)
