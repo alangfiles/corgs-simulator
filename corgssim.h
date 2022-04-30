@@ -144,9 +144,10 @@ unsigned char sprites_type[MAX_ROOM_SPRITES];
 const unsigned char * sprites_anim[MAX_ROOM_SPRITES];
 
 //timer stuff
-unsigned int minutes_left = 4;
-unsigned int seconds_left_tens = 0;
-unsigned int seconds_left_ones = 1;
+unsigned char minutes_left_tens = 0;
+unsigned char minutes_left_ones = 0;
+unsigned char seconds_left_tens = 0;
+unsigned char seconds_left_ones = 0;
 
 // room loader code
 int address;

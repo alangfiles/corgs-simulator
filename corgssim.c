@@ -133,7 +133,8 @@ void main(void)
 				player_x = 0x80;
 				player_y = 0x80;
 
-				minutes_left = 0;
+				minutes_left_tens = 0;
+				minutes_left_ones = 0;
 				seconds_left_tens = 0;
 				seconds_left_ones = 0;
 
@@ -441,7 +442,7 @@ void draw_bg(void)
 	}
 
 	// draw the tiles
-	
+
 	for (y = 0;; y += 0x20)
 	{
 		for (x = 0;; x += 0x20)
@@ -457,7 +458,7 @@ void draw_bg(void)
 			break;
 	}
 
-	if(which_bg == INTRO_ROOM)
+	if (which_bg == INTRO_ROOM)
 	{
 		ppu_mask(0x16);
 	}
@@ -1965,7 +1966,14 @@ void countup_timer(void)
 			if (seconds_left_tens == 5)
 			{
 				seconds_left_tens = 0;
-				++minutes_left;
+				if (minutes_left_ones == 9)
+				{
+					++minutes_left_tens;
+				}
+				else
+				{
+					++minutes_left_ones;
+				}
 			}
 			else
 			{
@@ -1988,7 +1996,8 @@ void draw_timer(void)
 	{
 		if (display_hud_sprites == 1)
 		{
-			one_vram_buffer(48 + minutes_left, NTADR_A(23, 3));
+			one_vram_buffer(48 + minutes_left_tens, NTADR_A(22, 3));
+			one_vram_buffer(48 + minutes_left_ones, NTADR_A(23, 3));
 			one_vram_buffer(':', NTADR_A(24, 3));
 			one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 3));
 			one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 3));
@@ -2384,11 +2393,11 @@ void draw_talking(void)
 void initialize_title_screen(void)
 {
 	collision_action = TURN_OFF;
-	bg_display_hud = 0;										 // draw the hud
-	bg_fade_out = 1;											 // turn back on room fading
-	display_hud_sprites = 1;							 // turn back on hud sprites
-	item_found = 0;												 // reset item found (in case we were in the item found mode)
-	items_collected = 0; 	
+	bg_display_hud = 0;			 // draw the hud
+	bg_fade_out = 1;				 // turn back on room fading
+	display_hud_sprites = 1; // turn back on hud sprites
+	item_found = 0;					 // reset item found (in case we were in the item found mode)
+	items_collected = 0;
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
@@ -2437,7 +2446,7 @@ void initialize_end_screen(void)
 
 	// game time:
 	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(11, 6));
-	one_vram_buffer(48 + minutes_left, NTADR_A(16, 6));
+	one_vram_buffer(48 + minutes_left_ones, NTADR_A(16, 6));
 	one_vram_buffer(':', NTADR_A(17, 6));
 	one_vram_buffer(48 + seconds_left_tens, NTADR_A(18, 6));
 	one_vram_buffer(48 + seconds_left_ones, NTADR_A(19, 6));
@@ -2559,7 +2568,6 @@ void initialize_intro_screen(void)
 	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(6, 12));
 	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 14));
 	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(4, 16));
-
 }
 
 void read_controller(void)
