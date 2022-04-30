@@ -60,7 +60,7 @@ unsigned char player_coins = 0;
 
 #pragma region ADVENTURE_ROOM
 #define ADVENTURE_GAME_ROOM 19
-#define ADVENTURE_GAME_X 0xD0
+#define ADVENTURE_GAME_X 0xB0
 #define ADVENTURE_GAME_Y 0x60
 
 #pragma endregion ADVENTURE_ROOM

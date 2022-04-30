@@ -14,7 +14,6 @@ const unsigned char room_24[]={
 };
 
 const unsigned char room_24_sprites[]={
-	80, 160, SPRITE_BackTV101,
 	112, 144, SPRITE_HairRight27,
 	144, 144, SPRITE_BigNoseLeft84,
 	160, 80, SPRITE_Girl4, 

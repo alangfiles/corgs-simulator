@@ -129,7 +129,7 @@ void main(void)
 
 				// set defaults
 				game_mode = MODE_GAME;
-				which_bg = 20; // STARTING_ROOM;
+				which_bg = STARTING_ROOM;
 				player_x = 0x80;
 				player_y = 0x80;
 
@@ -180,6 +180,7 @@ void main(void)
 					// this could be more typerwritery if we wanted to add a delay and sound
 					// todo add delay and sfx
 					one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+					delay(1);
 					++text_col;
 
 					if (text_col == 27) // wrap to next row
@@ -586,6 +587,12 @@ void draw_sprites(void)
 	{
 		oam_meta_spr(108, 160, Banner99);
 	}
+	if (which_bg == 23)
+	{
+		// forgroundtv
+		// 80, 160, SPRITE_BackTV101,
+		oam_meta_spr(80, 160, BackTV101);
+	}
 #pragma endregion
 
 	draw_player_sprite();
@@ -691,9 +698,6 @@ void draw_sprites(void)
 			break;
 		case SPRITE_SleepyGuyBehind123:
 			sprites_anim[index2] = SleepyGuyBehind123;
-			break;
-		case SPRITE_BackTV101:
-			sprites_anim[index2] = BackTV101;
 			break;
 		case SPRITE_HairRight27:
 			sprites_anim[index2] = HairRight27;
@@ -1256,41 +1260,41 @@ void movement(void)
 		has_moved = 0;
 	}
 
-	if (which_bg == JOBBIES_ROOM)
+	// sprite movement
+	//  if (which_bg == JOBBIES_ROOM)
+	//  {
+	//  randomly move a sprite.
+	temp1 = rand8() & 0x0F;
+	temp2 = rand8();
+	temp3 = rand8();
+	if (sprites_type[temp1] == SPRITE_Jobbie)
 	{
-		// randomly move a sprite.
-		temp1 = rand8() & 0x0F;
-		temp2 = rand8();
-		temp3 = rand8();
-		if (sprites_y[temp1] != TURN_OFF)
+		if ((temp3 & 1))
 		{
-			if ((temp3 & 1))
+			if (sprites_x[temp1] < SCREEN_RIGHT_EDGE - 1)
 			{
-				if (sprites_x[temp1] < SCREEN_RIGHT_EDGE - 1)
-				{
-					++sprites_x[temp1];
-				}
+				++sprites_x[temp1];
 			}
-			else
+		}
+		else
+		{
+			if (sprites_x[temp1] > SCREEN_LEFT_EDGE + 1)
 			{
-				if (sprites_x[temp1] > SCREEN_LEFT_EDGE + 1)
-				{
-					--sprites_x[temp1];
-				}
+				--sprites_x[temp1];
 			}
-			if ((temp2 & 2))
+		}
+		if ((temp2 & 2))
+		{
+			if (sprites_y[temp1] < SCREEN_BOTTOM_EDGE + 1)
 			{
-				if (sprites_y[temp1] < SCREEN_BOTTOM_EDGE + 1)
-				{
-					++sprites_y[temp1];
-				}
+				++sprites_y[temp1];
 			}
-			else
+		}
+		else
+		{
+			if (sprites_y[temp1] > SCREEN_TOP_EDGE - 1)
 			{
-				if (sprites_y[temp1] > SCREEN_TOP_EDGE - 1)
-				{
-					--sprites_y[temp1];
-				}
+				--sprites_y[temp1];
 			}
 		}
 	}
@@ -1557,7 +1561,7 @@ void sprite_collisions(void)
 	{
 		if (sprites_type[index] == TURN_OFF)
 		{
-			break; // run out of sprites, stop checking collisions
+			continue; // run out of sprites, stop checking collisions
 		}
 
 		Generic2.x = sprites_x[index];
@@ -1590,15 +1594,16 @@ void sprite_collisions(void)
 		if (shot_x >= 0 && shot_hit == 0)
 		{
 			// check shot collision for each sprite
+			// index is the sprite
 			Generic3.x = shot_x;
 			Generic3.y = shot_y;
 			Generic3.width = 4;
 			Generic3.height = 4;
 			if (check_collision(&Generic3, &Generic2))
 			{
-				if (which_bg == JOBBIES_ROOM)
+				if (sprites_type[index] == SPRITE_Jobbie)
 				{
-					sprites_y[index] = TURN_OFF;
+					sprites_type[index] = TURN_OFF;
 				}
 				// shot hit something
 				shot_hit = 6; // 6 frames of shot hit.
@@ -2403,7 +2408,7 @@ void initialize_title_screen(void)
 	if (game_genie == 0xBB)
 	{
 		ppu_wait_nmi();
-		delay(30);
+		delay(60);
 		// todo: wow, play a sound if we could fit it.
 		multi_vram_buffer_horz(game_genie_text, sizeof(game_genie_text), NTADR_A(1, 18));
 	}
@@ -2434,6 +2439,7 @@ void initialize_end_screen(void)
 	temp1 = 1; // temp1 is the item number, gets shifted
 	temp2 = 0; // temp2 is the items displayed in the ending so far
 	temp3 = 0; // temp3 is the current item, from temp1&itemscollected
+	temp4 = 0; // num items collected
 	temp6 = 0; // this is if the ending is done, counting the steps
 }
 
@@ -2464,19 +2470,45 @@ void draw_ending_special(void)
 		default:
 			break;
 		}
+		++temp4; // add to items collected
 	}
 }
 
 void draw_ending_text(void)
 {
-	if (items_collected == ALL_ITEMS_COLLECTED)
+	if (temp4 == 0)
 	{
-		multi_vram_buffer_horz(ending_2_1, sizeof(ending_2_1) - 1, NTADR_A(8, 3));
-		multi_vram_buffer_horz(ending_2_2, sizeof(ending_2_2) - 1, NTADR_A(7, 4));
+		multi_vram_buffer_horz(ending_0, sizeof(ending_0), NTADR_A(1, 4));
 	}
 	else
 	{
-		multi_vram_buffer_horz(ending_1, sizeof(ending_1) - 1, NTADR_A(3, 3));
+		if (temp5 == 5)
+		{
+			multi_vram_buffer_horz(ending_5, sizeof(ending_5), NTADR_A(1, 3));
+		}
+		multi_vram_buffer_horz(ending_X, sizeof(ending_X), NTADR_A(1, 4));
+
+		// specific name
+		switch (temp4)
+		{
+		case 1:
+			multi_vram_buffer_horz(serf, 4, NTADR_A(13, 4));
+			break;
+		case 2:
+			multi_vram_buffer_horz(vassal, 6, NTADR_A(12, 4));
+			break;
+		case 3:
+			multi_vram_buffer_horz(knight, 6, NTADR_A(12, 4));
+			break;
+		case 4:
+			multi_vram_buffer_horz(duke, 4, NTADR_A(13, 4));
+			break;
+		case 5:
+			multi_vram_buffer_horz(king, 4, NTADR_A(13, 4));
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -2517,15 +2549,10 @@ void initialize_intro_screen(void)
 	which_bg = BLANK_ROOM;
 	draw_bg();
 
-	// nmi_and_chill();
-	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(8, 6));
-	// nmi_and_chill();
-	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(9, 8));
-	// nmi_and_chill();
-	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 10));
-	// nmi_and_chill();
-	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(5, 12));
-	// multi_vram_buffer_horz(intro_5, sizeof(intro_5), NTADR_A(8, 14));
+	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(7, 17));
+	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(6, 19));
+	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 21));
+	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(4, 23));
 }
 
 void read_controller(void)

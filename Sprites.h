@@ -1,7 +1,7 @@
 //these enums are used in the room_{X}_sprites values
 enum{SPRITE_PlayerSprUp, SPRITE_ALAN92, SPRITE_BRIAN93, SPRITE_PunchoutMan112, SPRITE_PunchOutMat113, SPRITE_LunchLadyHead36, SPRITE_BaldRight22, 
 SPRITE_HairForward114, SPRITE_Banner99, SPRITE_BoyKid44, SPRITE_BaldBehind7, SPRITE_SkirtLady39, SPRITE_PrettyGirlBehindStand109, SPRITE_HairBehind10, 
- SPRITE_HatForward17, SPRITE_SideLadyRight86, SPRITE_WideBoyBehind120, SPRITE_SleepyGuyBehind123, SPRITE_BackTV101, SPRITE_HairRight27, SPRITE_BigNoseLeft84, 
+ SPRITE_HatForward17, SPRITE_SideLadyRight86, SPRITE_WideBoyBehind120, SPRITE_SleepyGuyBehind123, SPRITE_HairRight27, SPRITE_BigNoseLeft84, 
  SPRITE_Wizard53, SPRITE_Car95,SPRITE_Car952, SPRITE_Car96,SPRITE_Car962, SPRITE_SkinnyHatMan49, SPRITE_GlassesLeft31, SPRITE_BaldForward13, SPRITE_GirlKid47, SPRITE_BlueBeard74, 
  SPRITE_King75, SPRITE_BigNoseRight83, SPRITE_BaldTankBehind121, SPRITE_OldCoot63, SPRITE_GlassesRight33, SPRITE_HairRight28, SPRITE_SideLadyRight87,  
  SPRITE_DressGirl61, SPRITE_MuscleMan0, SPRITE_MuscleMan1, SPRITE_MuscleMan2, SPRITE_Girl4, SPRITE_FroGuy55, SPRITE_WideBoy69, SPRITE_HatBehind117,
@@ -1490,7 +1490,7 @@ const unsigned char Coin[]={
 	128
 };
 
-const unsigned char AdventureGame[]={ //todo fix this to just be a dot.
+const unsigned char AdventureGame[]={ 
 	  0, 0,0x0a,1,
 	128
 };
