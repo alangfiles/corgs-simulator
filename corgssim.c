@@ -528,17 +528,18 @@ void initialize_sprites(void)
 	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
 		// if room hasn't been cleared of jobbies use jobbie, else use TURN_OFF
-		sprites_type[index] = TURN_OFF; //;SPRITE_Jobbie;
+		sprites_type[index] = TURN_OFF;
+		// sprites_type[index] = SPRITE_Jobbie;
 
-		temp1 = rand8();
-		temp2 = rand8();
-		while (temp2 < 0x40 || temp2 > 0xd0)
-		{
-			temp2 = rand8();
-		}
+		// temp1 = rand8();
+		// temp2 = rand8();
+		// while (temp2 < 0x40 || temp2 > 0xd0)
+		// {
+		// 	temp2 = rand8();
+		// }
 
-		sprites_x[index] = temp1;
-		sprites_y[index] = temp2;
+		// sprites_x[index] = temp1;
+		// sprites_y[index] = temp2;
 
 		// //x 0-255 and y 0-239;
 	}
@@ -644,7 +645,7 @@ void draw_sprites(void)
 
 #pragma region room_sprites
 	// offset code is for shuffling sprites if we have more than 8
-	offset = get_frame_count() & 3;
+	offset = get_frame_count() & 3;  // returns 0,1,2,3
 	offset = offset << 4; // * 16, the size of the shuffle array
 	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
 	{

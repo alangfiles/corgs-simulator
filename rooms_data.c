@@ -295,7 +295,15 @@ const unsigned char inside_metatiles[]={
 // const unsigned char * const trans_col[] = {0,1,2,4,5,18};
 // const unsigned char * const cliff_col[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-
+//number jobbies in a room
+const unsigned char * const jobbies_list[]={
+	0,0,0,0,0,
+	0,0,0,0,0,
+	0,0,0,0,0,
+	0,0,0,0,0,
+	0,0,0,0,0,
+	0,0,0,0,0,
+};
 
 const unsigned char * const room_list[]={
 	room_1,room_2,room_3,room_4,room_5,
