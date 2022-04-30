@@ -2382,7 +2382,7 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;											 // turn back on room fading
 	display_hud_sprites = 1;							 // turn back on hud sprites
 	item_found = 0;												 // reset item found (in case we were in the item found mode)
-	items_collected = ALL_ITEMS_COLLECTED; // debug, this should be to start 0;
+	items_collected = 0; // debug, this should be to start 0;
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
