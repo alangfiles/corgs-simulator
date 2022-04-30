@@ -332,7 +332,7 @@ const unsigned char * const sprite_list[]={
 
 const unsigned char * const room_palette_list[]={
   title_palette,title_palette,outside_palette,outside_palette,outside_palette,
-  trans_palette,title_palette,outside_palette,outside_palette,outside_palette,
+  trans_palette,inside_palette,outside_palette,outside_palette,outside_palette,
   trans_palette,outside_palette,outside_palette,trans_palette,outside_palette,
   title_palette,title_palette,inside_palette,inside_palette,inside_palette,
   cliff_palette,outside_palette,inside_palette,inside_palette,inside_palette,
@@ -341,7 +341,7 @@ const unsigned char * const room_palette_list[]={
 
 const unsigned char * const room_metatile_list[]={
   title_metatiles,title_metatiles,outside_metatiles,outside_metatiles,outside_metatiles,
-  trans_metatiles,title_metatiles,outside_metatiles,outside_metatiles,outside_metatiles,
+  trans_metatiles,inside_metatiles,outside_metatiles,outside_metatiles,outside_metatiles,
   trans_metatiles,outside_metatiles,outside_metatiles,trans_metatiles,outside_metatiles,
   title_metatiles,title_metatiles,inside_metatiles,inside_metatiles,inside_metatiles,
   cliff_metatiles,outside_metatiles,inside_metatiles,inside_metatiles,inside_metatiles,

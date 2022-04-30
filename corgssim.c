@@ -129,9 +129,9 @@ void main(void)
 
 				// set defaults
 				game_mode = MODE_GAME;
-				which_bg = 28;//STARTING_ROOM;
+				which_bg = 20; // STARTING_ROOM;
 				player_x = 0x80;
-				player_y = 0x80; 
+				player_y = 0x80;
 
 				minutes_left = 0;
 				seconds_left_tens = 0;
@@ -308,13 +308,58 @@ void main(void)
 		}
 		while (game_mode == MODE_END)
 		{
-			ppu_wait_nmi(); // wait till beginning of the frame
 
-			read_controller();
-
-			if (pad1_new & PAD_START)
+			if (temp6 < 5)
 			{
-				initialize_title_screen(); // initial title load
+				temp5 = get_frame_count();
+				if ((temp5 & 100) == 100)
+				{
+					ppu_wait_nmi(); // wait till beginning of the frame
+					oam_clear();		// clear the sprites
+					// every 40 frames draw the next item
+					// temp1 = 1; 							 // temp1 is the item number, gets shifted
+					// temp2 = 0;							 // temp2 is the items displayed in the ending so far
+					// temp3 = 0;							 // temp3 is the current item, from temp1&itemscollected
+					// temp6 = 0 // this counts the ending steps.
+					temp3 = items_collected & temp1;
+
+					draw_ending_special(); // special player and game
+					draw_ending_sprites(); // draw games where they go
+					temp1 = temp1 << 1;		 // shift the item up for the next time.
+					temp2 += temp3;				 // if we got that item, add it to the displayed list
+					++temp6;							 // add one more step.
+					delay(45);
+				}
+				else
+				{
+					ppu_wait_nmi();
+					draw_ending_sprites();
+					oam_meta_spr(0x78, 0xB0, PlayerSprDown);
+				}
+			}
+
+			// draw_ending_sprites(); // these sprites are always here (king and games)
+
+			if (temp6 == 5)
+			{
+				oam_clear();
+				draw_ending_sprites();
+				oam_meta_spr(0x78, 0xB0, PlayerSprDown);
+				ppu_wait_nmi();
+				delay(40);
+				draw_ending_text();
+				ppu_wait_nmi();
+				++temp6;
+			}
+
+			if (temp6 > 5)
+			{
+				read_controller();
+
+				if (pad1_new & PAD_START)
+				{
+					initialize_title_screen(); // initial title load
+				}
 			}
 		}
 	}
@@ -518,7 +563,7 @@ void draw_sprites(void)
 {
 	if (collision_action == TALK_KING)
 	{
-		return; 
+		return;
 	}
 
 	++move_frames;
@@ -2299,28 +2344,28 @@ void draw_talking(void)
 		break;
 	case TALK_MORE_REPS:
 		set_music_speed(5);
-		pointer = talk_more_reps; 
+		pointer = talk_more_reps;
 		text_length = sizeof(talk_more_reps);
-		break; 
+		break;
 	case TALK_ITEM_5:
 		pointer = item_5;
 		text_length = sizeof(item_5);
 		break;
-	case TALK_DLC: 
+	case TALK_DLC:
 		pointer = talk_dlc;
 		text_length = sizeof(talk_dlc);
 		break;
-	case TALK_CLIP: 
+	case TALK_CLIP:
 		pointer = talk_clip;
 		text_length = sizeof(talk_clip);
 		break;
 	default:
-		pointer = blank_1; 
+		pointer = blank_1;
 		text_length = sizeof(blank_1);
 		break;
 	}
 
-	--text_length; 
+	--text_length;
 
 	ppu_on_all();
 }
@@ -2328,15 +2373,15 @@ void draw_talking(void)
 void initialize_title_screen(void)
 {
 	collision_action = TURN_OFF;
-	bg_display_hud = 0;			 // draw the hud
-	bg_fade_out = 1;				 // turn back on room fading
-	display_hud_sprites = 1; // turn back on hud sprites
-	item_found = 0;					 // reset item found (in case we were in the item found mode)
-	items_collected = ALL_ITEMS_COLLECTED; //debug, this should be to start 0;
+	bg_display_hud = 0;										 // draw the hud
+	bg_fade_out = 1;											 // turn back on room fading
+	display_hud_sprites = 1;							 // turn back on hud sprites
+	item_found = 0;												 // reset item found (in case we were in the item found mode)
+	items_collected = ALL_ITEMS_COLLECTED; // debug, this should be to start 0;
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
-	on_fetchquest = 4; //debug 
+	on_fetchquest = 4; // debug
 
 	song = SONG_TITLE;
 	set_music_speed(5);
@@ -2357,7 +2402,8 @@ void initialize_title_screen(void)
 	game_genie = 0xAF;
 	if (game_genie == 0xBB)
 	{
-		nmi_and_chill();
+		ppu_wait_nmi();
+		delay(30);
 		// todo: wow, play a sound if we could fit it.
 		multi_vram_buffer_horz(game_genie_text, sizeof(game_genie_text), NTADR_A(1, 18));
 	}
@@ -2385,33 +2431,84 @@ void initialize_end_screen(void)
 	one_vram_buffer(48 + seconds_left_tens, NTADR_A(18, 6));
 	one_vram_buffer(48 + seconds_left_ones, NTADR_A(19, 6));
 
-	oam_meta_spr(0x70, 0x50, King75);
-	oam_meta_spr(0x70, 0x80, PlayerSprUp);
-	oam_meta_spr(0x20, 0x40, FloppyDisk125);
-	oam_meta_spr(0x20, 0x90, GamePrize97);
-	oam_meta_spr(0x70, 0xC0, AdventureGameBig);
-	oam_meta_spr(0xD0, 0x90, BurgerGame);
-	oam_meta_spr(0xD0, 0x40, KettleBell);
+	temp1 = 1; // temp1 is the item number, gets shifted
+	temp2 = 0; // temp2 is the items displayed in the ending so far
+	temp3 = 0; // temp3 is the current item, from temp1&itemscollected
+	temp6 = 0; // this is if the ending is done, counting the steps
+}
 
-	// multiple endings! ;)
+void draw_ending_special(void)
+{
 
-	nmi_and_chill();
-	if (items_collected == ALL_ITEMS_COLLECTED)
+	if (temp3)
 	{
-		multi_vram_buffer_horz(ending_2_1, sizeof(ending_2_1) - 1, NTADR_A(8, 4));
-		nmi_and_chill();
-		multi_vram_buffer_horz(ending_2_2, sizeof(ending_2_2) - 1, NTADR_A(7, 5));
-	}
-	else
-	{
-		multi_vram_buffer_horz(ending_1, sizeof(ending_1) - 1, NTADR_A(3, 4));
+		sfx_play(SFX_VICTORY, 0);
+		oam_meta_spr(0x78, 0xB0, PrizeGuy94);
+		switch (temp3)
+		{
+		case ITEM_ADVENTURE_GAME:
+			oam_meta_spr(0x78, 0xA0, AdventureGameBig);
+			break;
+		case ITEM_COIN_GAME:
+			oam_meta_spr(0x78, 0xA0, GamePrize97);
+			break;
+		case ITEM_DUNGEON_GAME:
+			oam_meta_spr(0x78, 0xA0, FloppyDisk125);
+			break;
+		case ITEM_BURGER_GAME:
+			oam_meta_spr(0x78, 0xA0, BurgerGame);
+			break;
+		case ITEM_KETTLEBELL_GAME:
+			oam_meta_spr(0x78, 0xA0, KettleBell);
+			break;
+		default:
+			break;
+		}
 	}
 }
 
-void nmi_and_chill(void)
+void draw_ending_text(void)
 {
-	ppu_wait_nmi();
-	delay(10);
+	if (items_collected == ALL_ITEMS_COLLECTED)
+	{
+		multi_vram_buffer_horz(ending_2_1, sizeof(ending_2_1) - 1, NTADR_A(8, 3));
+		multi_vram_buffer_horz(ending_2_2, sizeof(ending_2_2) - 1, NTADR_A(7, 4));
+	}
+	else
+	{
+		multi_vram_buffer_horz(ending_1, sizeof(ending_1) - 1, NTADR_A(3, 3));
+	}
+}
+
+void draw_ending_sprites(void)
+{
+	// just imagine it's every frame
+	// ooooh, dont clear, just draw what's in it.
+
+	// always draw the king in the same spot.
+	oam_meta_spr(0x78, 0x60, King75);
+
+	// draw the games that are collected
+	if (temp2 & ITEM_ADVENTURE_GAME)
+	{
+		oam_meta_spr(0x20, 0x68, AdventureGameBig);
+	}
+	if (temp2 & ITEM_COIN_GAME)
+	{
+		oam_meta_spr(0x40, 0x48, GamePrize97);
+	}
+	if (temp2 & ITEM_DUNGEON_GAME)
+	{
+		oam_meta_spr(0xD0, 0x68, FloppyDisk125);
+	}
+	if (temp2 & ITEM_BURGER_GAME)
+	{
+		oam_meta_spr(0xB0, 0x48, BurgerGame);
+	}
+	if (temp2 & ITEM_KETTLEBELL_GAME)
+	{
+		oam_meta_spr(0x78, 0x38, KettleBell);
+	}
 }
 
 void initialize_intro_screen(void)
@@ -2420,13 +2517,13 @@ void initialize_intro_screen(void)
 	which_bg = BLANK_ROOM;
 	draw_bg();
 
-	nmi_and_chill();
+	// nmi_and_chill();
 	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(8, 6));
-	nmi_and_chill();
+	// nmi_and_chill();
 	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(9, 8));
-	nmi_and_chill();
+	// nmi_and_chill();
 	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 10));
-	nmi_and_chill();
+	// nmi_and_chill();
 	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(5, 12));
 	// multi_vram_buffer_horz(intro_5, sizeof(intro_5), NTADR_A(8, 14));
 }

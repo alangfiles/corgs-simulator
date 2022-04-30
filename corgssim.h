@@ -240,4 +240,6 @@ void find_item(void);
 void move_block(void);
 void toliet_warp(void);
 void draw_hud_button(void);
-
+void draw_ending_sprites(void);
+void draw_ending_text(void);
+void draw_ending_special(void);
