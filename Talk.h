@@ -152,7 +152,7 @@ const unsigned char fetch_quest_2[] = "Thank you! Take this!";
 const unsigned char item_1[] = "You got a Famicom Disk\nSystem copy of...\nThe Legend of Zelda";
 const unsigned char item_2[] = "You got an NES copy\nof... Super Mario Bros.";
 const unsigned char item_3[] = "You got an Atari 2600\ncopy of Adventure.";
-const unsigned char item_4[] = "You got an Arcade JAMMA\nboard of... Super Burger Time";
+const unsigned char item_4[] = "You got an Arcade JAMMA\nboard of...\nSuper Burger Time";
 const unsigned char item_5[] = "Those bros gave you\na 20lb kettlebell!";
 const unsigned char item_6[] = "You sure threw a lot of\nmoney at those video games!";
 
