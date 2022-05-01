@@ -1,7 +1,7 @@
 #include "CSV/room_1.c"
 #include "CSV/room_2.c"
-#include "CSV/room_3.c"
-#include "CSV/room_4.c"
+// #include "CSV/room_3.c"
+// #include "CSV/room_4.c"
 #include "CSV/room_5.c"
 #include "CSV/room_6.c"
 #include "CSV/room_8.c"
@@ -285,20 +285,17 @@ const unsigned char inside_metatiles[]={
 
 #pragma endregion metatiles
 
-// const unsigned char * const outside[] = {2,3,4,7,8,9,11,12,14,21,26,27,29};
-// const unsigned char * const inside[] = {17,18,19,22,23,24,25,28};
-// const unsigned char * const trans[] = {5,10,13};
-// const unsigned char * const cliff[] = {20};
-
-// const unsigned char * const outside_col[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,40};
-// const unsigned char * const inside_col[] = {0,37,50};
-// const unsigned char * const trans_col[] = {0,1,2,4,5,18};
-// const unsigned char * const cliff_col[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-
-
+unsigned char jobbies_map[]={
+	0, 0, 0, 0, 1,
+	0, 0, 2, 4, 2,
+	0, 1, 1, 3, 1,
+	0, 1, 1, 1, 1,
+	0, 1, 1, 1, 1,
+	1, 2, 1, 1, 0,  
+};
 
 const unsigned char * const room_list[]={
-	room_1,room_2,room_3,room_4,room_5,
+	room_1,room_2,blank,blank,room_5,
   room_6,blank,room_8,room_9,room_10,
   room_11,room_12,room_13,room_14,room_15,
   blank,blank,room_18,room_19,room_20,

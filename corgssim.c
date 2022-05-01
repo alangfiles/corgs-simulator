@@ -557,30 +557,50 @@ void initialize_sprites(void)
 		pointer = sprite_list[which_bg];
 	}
 
+	temp3 = jobbies_map[which_bg];
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
+		// first couple of sprites are jobbies
+		if (temp3 > 0)
+		{
+			sprites_type[index] = SPRITE_Jobbie;
 
-		// the bytes of data in the sprite list go:
-		//  x, y, sprite_type_enum
-		//  and the list ends with a 0xff
+			temp1 = rand8();
+			temp2 = rand8();
+			while (temp2 < 0x40 || temp2 > 0xd0)
+			{
+				temp2 = rand8();
+			}
 
-		temp1 = pointer[index2]; // get a byte of data
-		if (temp1 == TURN_OFF)
-			break; //<--- if we reached the end of list we break
+			sprites_x[index] = temp1;
+			sprites_y[index] = temp2;
+			--temp3;
+		}
+		else
+		{
 
-		// otherwise we load the 3 bytes into the correct arrays
-		sprites_x[index] = temp1;
+			// the bytes of data in the sprite list go:
+			//  x, y, sprite_type_enum
+			//  and the list ends with a 0xff
 
-		++index2;
-		temp1 = pointer[index2]; // get 2nd byte of data (y pos)
+			temp1 = pointer[index2]; // get a byte of data
+			if (temp1 == TURN_OFF)
+				break; //<--- if we reached the end of list we break
 
-		sprites_y[index] = temp1;
+			// otherwise we load the 3 bytes into the correct arrays
+			sprites_x[index] = temp1;
 
-		++index2;
-		temp1 = pointer[index2]; // get 3rd byte of data (type_enum)
-		sprites_type[index] = temp1;
+			++index2;
+			temp1 = pointer[index2]; // get 2nd byte of data (y pos)
 
-		++index2; // get the next byte (either an xpos or the TURN_OFF (0xff))
+			sprites_y[index] = temp1;
+
+			++index2;
+			temp1 = pointer[index2]; // get 3rd byte of data (type_enum)
+			sprites_type[index] = temp1;
+
+			++index2; // get the next byte (either an xpos or the TURN_OFF (0xff))
+		}
 	}
 }
 
@@ -1633,6 +1653,11 @@ void sprite_collisions(void)
 			{
 				if (sprites_type[index] == SPRITE_Jobbie)
 				{
+					// remove from map
+					if (jobbies_map[which_bg] > 0)
+					{
+						jobbies_map[which_bg] = jobbies_map[which_bg]-1;
+					}
 					sprites_type[index] = TURN_OFF;
 				}
 				// shot hit something

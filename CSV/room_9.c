@@ -22,7 +22,6 @@ const unsigned char room_9_sprites[]={
 	37, 106, SPRITE_GirlKid47,
 	137,103, SPRITE_LunchLadyHead36,
 	144, 144, SPRITE_BaldBehind7,
-	88,80, SPRITE_Jobbie,
 	TURN_OFF
 };
 

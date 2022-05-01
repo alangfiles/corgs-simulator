@@ -13,10 +13,6 @@ const unsigned char room_15[]={
 };
 
 const unsigned char room_15_sprites[]={
-	48,80, SPRITE_Jobbie,
-	48,96, SPRITE_Jobbie,
-	160, 80, SPRITE_Jobbie,
-	192, 80, SPRITE_Jobbie,
-	68, 123, SPRITE_Jobbie,
+	//add free range games guy?
 	TURN_OFF
 };
