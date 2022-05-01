@@ -2073,11 +2073,11 @@ void draw_timer(void)
 		if (display_hud_sprites == 1)
 		{
 			// multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(10, 6));
-			one_vram_buffer(48 + minutes_left_tens, NTADR_A(22, 3));
-			one_vram_buffer(48 + minutes_left_ones, NTADR_A(23, 3));
-			one_vram_buffer(':', NTADR_A(24, 3));
-			one_vram_buffer(48 + seconds_left_tens, NTADR_A(25, 3));
-			one_vram_buffer(48 + seconds_left_ones, NTADR_A(26, 3));
+			one_vram_buffer(48 + minutes_left_tens, NTADR_A(23, 3));
+			one_vram_buffer(48 + minutes_left_ones, NTADR_A(24, 3));
+			one_vram_buffer(':', NTADR_A(25, 3));
+			one_vram_buffer(48 + seconds_left_tens, NTADR_A(26, 3));
+			one_vram_buffer(48 + seconds_left_ones, NTADR_A(27, 3));
 		}
 	}
 }
