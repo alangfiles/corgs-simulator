@@ -129,7 +129,7 @@ void main(void)
 
 				// set defaults
 				game_mode = MODE_GAME;
-				which_bg = STARTING_ROOM;
+				which_bg = KING_ANTE_ROOM;
 				player_x = 0x80;
 				player_y = 0x80;
 
@@ -311,7 +311,7 @@ void main(void)
 		while (game_mode == MODE_END)
 		{
 
-			if (temp6 < 5)
+			if (temp6 < 6)
 			{
 				temp5 = get_frame_count();
 				if ((temp5 & 100) == 100)
@@ -345,7 +345,7 @@ void main(void)
 
 			// draw_ending_sprites(); // these sprites are always here (king and games)
 
-			if (temp6 == 5)
+			if (temp6 == 6)
 			{
 				oam_clear();
 				draw_ending_sprites();
@@ -357,7 +357,7 @@ void main(void)
 				++temp6;
 			}
 
-			if (temp6 > 5)
+			if (temp6 > 6)
 			{
 				read_controller();
 
@@ -530,21 +530,7 @@ void initialize_sprites(void)
 	//  we'll check this in our rendering loop to figure it we want to display a sprite
 	for (index = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
-		// if room hasn't been cleared of jobbies use jobbie, else use TURN_OFF
 		sprites_type[index] = TURN_OFF;
-		// sprites_type[index] = SPRITE_Jobbie;
-
-		// temp1 = rand8();
-		// temp2 = rand8();
-		// while (temp2 < 0x40 || temp2 > 0xd0)
-		// {
-		// 	temp2 = rand8();
-		// }
-
-		// sprites_x[index] = temp1;
-		// sprites_y[index] = temp2;
-
-		// //x 0-255 and y 0-239;
 	}
 
 	if (which_bg == COIN_GAME_ROOM && (items_collected & ITEM_COIN_GAME))
@@ -939,6 +925,18 @@ void draw_sprites(void)
 		{
 			oam_meta_spr(0x34, 0x20, KettleBell);
 		}
+		if (items_collected & ITEM_JOBBIES_GAME)
+		{
+			one_vram_buffer(5, NTADR_A(2, 4));
+			one_vram_buffer(10, NTADR_A(3, 4));
+			one_vram_buffer(8, NTADR_A(2, 5));
+			one_vram_buffer(3, NTADR_A(3, 5));
+		}
+
+		oam_meta_spr(0xC0, 0x20, JobbieSmall);
+		one_vram_buffer('x', NTADR_A(25, 4));
+		one_vram_buffer(48 + player_jobbies_tens, NTADR_A(26, 4));
+		one_vram_buffer(48 + player_jobbies_ones, NTADR_A(26, 4));
 
 		if (code_active == 1)
 		{
@@ -1013,6 +1011,10 @@ void draw_sprites(void)
 		if (item_found == ITEM_KETTLEBELL_GAME)
 		{
 			oam_meta_spr(player_x, player_y - 16, KettleBell);
+		}
+		if (item_found == ITEM_JOBBIES_GAME)
+		{
+			oam_meta_spr(player_x, player_y - 16, Jobbie);
 		}
 	}
 
@@ -1656,7 +1658,24 @@ void sprite_collisions(void)
 					// remove from map
 					if (jobbies_map[which_bg] > 0)
 					{
-						jobbies_map[which_bg] = jobbies_map[which_bg]-1;
+						jobbies_map[which_bg] = jobbies_map[which_bg] - 1;
+						++player_jobbies;
+						if (player_jobbies_ones < 10)
+						{
+							++player_jobbies_ones;
+						}
+						else
+						{
+							++player_jobbies_tens;
+							player_jobbies_ones = 0;
+						}
+						// did we just kill the last jobbie?
+						if (player_jobbies == MAX_JOBBIES)
+						{
+							collision_action = TALK_ITEM_6;
+							item_found = ITEM_JOBBIES_GAME;
+							find_item();
+						}
 					}
 					sprites_type[index] = TURN_OFF;
 				}
@@ -2144,6 +2163,10 @@ void draw_talking(void)
 		pointer = item_4;
 		text_length = sizeof(item_4);
 		break;
+	case TALK_ITEM_6:
+		pointer = item_6;
+		text_length = sizeof(item_6);
+		break;
 	case TALK_SMOKE:
 		pointer = talk_smoke;
 		text_length = sizeof(talk_smoke);
@@ -2446,11 +2469,19 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
-	items_collected = 0;
+	items_collected = 0x2e;//0;
+	on_fetchquest = 4; //0;
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
-	on_fetchquest = 0;
+	player_jobbies = 0;
+	player_jobbies_ones = 0;
+	player_jobbies_tens = 0;
+	for (temp1 = 0; temp1 < 30; ++temp1)
+	{
+		jobbies_map[temp1] = jobbies_map_init[temp1];
+	}
+	
 
 	song = SONG_TITLE;
 	set_music_speed(5);
@@ -2530,6 +2561,9 @@ void draw_ending_special(void)
 	case ITEM_KETTLEBELL_GAME:
 		oam_meta_spr(0x78, 0xA0, KettleBell);
 		break;
+	case ITEM_JOBBIES_GAME:
+		oam_meta_spr(0x78, 0xA0, Jobbie);
+		break;
 	default:
 		break;
 	}
@@ -2544,29 +2578,32 @@ void draw_ending_text(void)
 	}
 	else
 	{
-		if (temp5 == 5)
+		if (temp4 == 6)
 		{
 			multi_vram_buffer_horz(ending_5, sizeof(ending_5), NTADR_A(1, 3));
 		}
-		multi_vram_buffer_horz(ending_X, sizeof(ending_X), NTADR_A(1, 4));
+		multi_vram_buffer_horz(ending_X, sizeof(ending_X), NTADR_A(0, 4));
 
 		// specific name
 		switch (temp4)
 		{
 		case 1:
-			multi_vram_buffer_horz(serf, 4, NTADR_A(13, 4));
+			multi_vram_buffer_horz(serf, 4, NTADR_A(12, 4));
 			break;
 		case 2:
-			multi_vram_buffer_horz(vassal, 6, NTADR_A(12, 4));
+			multi_vram_buffer_horz(vassal, 6, NTADR_A(11, 4));
 			break;
 		case 3:
-			multi_vram_buffer_horz(knight, 6, NTADR_A(12, 4));
+			multi_vram_buffer_horz(squire, 6, NTADR_A(11, 4));
 			break;
 		case 4:
-			multi_vram_buffer_horz(duke, 4, NTADR_A(13, 4));
+			multi_vram_buffer_horz(knight, 6, NTADR_A(11, 4));
 			break;
 		case 5:
-			multi_vram_buffer_horz(king, 4, NTADR_A(13, 4));
+			multi_vram_buffer_horz(duke, 4, NTADR_A(12, 4));
+			break;
+		case 6:
+			multi_vram_buffer_horz(king, 4, NTADR_A(12, 4));
 			break;
 		default:
 			break;
@@ -2601,7 +2638,15 @@ void draw_ending_sprites(void)
 	}
 	if (temp2 & ITEM_KETTLEBELL_GAME)
 	{
-		oam_meta_spr(0x78, 0x38, KettleBell);
+		oam_meta_spr(0x82, 0x38, KettleBell);
+	}
+	if(temp2 & ITEM_JOBBIES_GAME)
+	{
+		// oam_meta_spr(0x72, 0x38, Jobbie);
+		one_vram_buffer(5, NTADR_A(14, 7));
+		one_vram_buffer(10, NTADR_A(14, 7));
+		one_vram_buffer(8, NTADR_A(15, 8));
+		one_vram_buffer(3, NTADR_A(15, 8));
 	}
 }
 

@@ -285,14 +285,7 @@ const unsigned char inside_metatiles[]={
 
 #pragma endregion metatiles
 
-unsigned char jobbies_map[]={
-	0, 0, 0, 0, 1,
-	0, 0, 2, 4, 2,
-	0, 1, 1, 3, 1,
-	0, 1, 1, 1, 1,
-	0, 1, 1, 1, 1,
-	1, 2, 1, 1, 0,  
-};
+
 
 const unsigned char * const room_list[]={
 	room_1,room_2,blank,blank,room_5,

@@ -8,8 +8,8 @@
 #define ITEM_ADVENTURE_GAME 0x04
 #define ITEM_BURGER_GAME 0x08
 #define ITEM_KETTLEBELL_GAME 0x10
-#define ITEM_3_GAME 0x20
-#define ALL_ITEMS_COLLECTED 0x1F
+#define ITEM_JOBBIES_GAME 0x20
+#define ALL_ITEMS_COLLECTED 0x3F
 unsigned char items_collected = 0;
 unsigned char item_found = 0;
 
@@ -57,6 +57,30 @@ unsigned char player_coins = 0;
 #define PLAYER_MAX_JUMP 88 // needs to be divisible by 4
 
 #pragma endregion COIN_ROOM
+
+
+//JOBBIES
+#define MAX_JOBBIES 5 //should be 25
+unsigned char player_jobbies_tens = 0;
+unsigned char player_jobbies_ones = 0;
+unsigned char player_jobbies = 0;
+unsigned char jobbies_map[]={
+	0, 0, 0, 0, 1,
+	0, 0, 2, 1, 2,
+	0, 1, 1, 3, 8,
+	0, 1, 1, 1, 1,
+	0, 1, 1, 1, 1,
+	1, 2, 1, 1, 0,  
+};
+
+unsigned char jobbies_map_init[]={
+	0, 0, 0, 0, 1,
+	0, 0, 2, 1, 2,
+	0, 1, 1, 3, 8,
+	0, 1, 1, 1, 1,
+	0, 1, 1, 1, 1,
+	1, 2, 1, 1, 0,  
+};
 
 #pragma region ADVENTURE_ROOM
 #define ADVENTURE_GAME_ROOM 19

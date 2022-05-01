@@ -1535,6 +1535,12 @@ const unsigned char KettleBell[]={
 	128
 };
 
+const unsigned char JobbieSmall[]={
+	0,  0,0x88,	3,
+	128
+};
+
+
 const unsigned char Jobbie[]={
 	  0,  0,0x88,	3,
 	  8,  0,0x88,3|OAM_FLIP_H,

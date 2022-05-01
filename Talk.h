@@ -10,6 +10,7 @@ enum
   TALK_ITEM_1,
   TALK_ITEM_2,
   TALK_ITEM_3,
+  TALK_ITEM_6,
   TALK_KING,
   TALK_SMOKE,
   TALK_BATHROOM,
@@ -141,6 +142,7 @@ const unsigned char talk_dlc[] = "CORGS Sim DLC this way.\n\n\n$20 please.";
 const unsigned char talk_clip[] = "Looks like you could clip\nthrough these walls.";
 
 
+
 // const unsigned char talk_27[] = "You're not allowed back here, you might accidentally clip across the map.";
 
 const unsigned char fetch_quest_1[] = "GRUMBLE GRUMBLE\nI'm hungry, but I\ncan't leave my booth\n\nCan you help?";
@@ -152,6 +154,7 @@ const unsigned char item_2[] = "You got an NES copy\nof...\nSuper Mario Bros.";
 const unsigned char item_3[] = "You got an Atari 2600\ncopy of\nAdventure.";
 const unsigned char item_4[] = "You got an Arcade JAMMA\n board of...\nSuper Burger Time";
 const unsigned char item_5[] = "Those bros gave you\na 20lb kettlebell!";
+const unsigned char item_6[] = "You sure threw a lot of\nmoney at those video games!";
 
 const unsigned char fetch_1[] = "\nYou got a SILVER COIN!";
 const unsigned char fetch_2[] = "\nYou got a JUMBO BURGER!";
@@ -170,7 +173,8 @@ const unsigned char thirty_lives[] = "x30";
 // const unsigned char ending_game[] = " game";
 const unsigned char ending_X[] = "Thou art a        OF VIDEO GAMES";
 const unsigned char serf[] = "SERF";
-const unsigned char vassal[] = "SQUIRE";
+const unsigned char vassal[] = "VASSAL";
+const unsigned char squire[] = "SQUIRE";
 const unsigned char knight[] = "KNIGHT";
 const unsigned char duke[] = "DUKE";
 const unsigned char king[] = "KING";
@@ -198,8 +202,8 @@ const unsigned char bottombar[] = {0xfe,0xed,0xff};
 
 
 // big space holders
-const unsigned char lorem256_1[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem256_2[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+// const unsigned char lorem256_1[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem256_2[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //  const unsigned char lorem256_3[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //   const unsigned char lorem256_4[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
@@ -209,8 +213,8 @@ const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipisci
 // const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 // const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
-// const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-// const unsigned char lorem6[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+//const unsigned char lorem6[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //  const unsigned char lorem7[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 //  const unsigned char lorem8[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
