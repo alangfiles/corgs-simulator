@@ -959,7 +959,7 @@ void draw_sprites(void)
 
 	if (which_bg == COIN_GAME_ROOM)
 	{
-		if (!(items_collected & ITEM_COIN_GAME) && player_coins == MAX_COINS)
+		if (!(items_collected & ITEM_COIN_GAME) && player_coins >= MAX_COINS)
 		{
 			oam_meta_spr(COIN_GAME_X, COIN_GAME_Y, GamePrize97);
 		}
@@ -1559,7 +1559,7 @@ void movement(void)
 		}
 	}
 
-	if (which_bg == COIN_GAME_ROOM && (!(items_collected & ITEM_COIN_GAME)) && player_coins == MAX_COINS)
+	if (which_bg == COIN_GAME_ROOM && (!(items_collected & ITEM_COIN_GAME)) && player_coins >= MAX_COINS)
 	{
 		Generic2.x = COIN_GAME_X + 7;
 		Generic2.y = COIN_GAME_Y + 7;
