@@ -129,7 +129,7 @@ void main(void)
 
 				// set defaults
 				game_mode = MODE_GAME;
-				which_bg = KING_ANTE_ROOM;
+				which_bg = STARTING_ROOM;
 				player_x = 0x80;
 				player_y = 0x80;
 
