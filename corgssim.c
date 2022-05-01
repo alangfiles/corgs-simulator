@@ -544,10 +544,10 @@ void initialize_sprites(void)
 	}
 
 	temp3 = jobbies_map[which_bg];
+	temp2 = 0; // if we're out of sprites
 	for (index = 0, index2 = 0; index < MAX_ROOM_SPRITES; ++index)
 	{
-		// first couple of sprites are jobbies
-		if (temp3 > 0)
+		if (temp2 == 1 && temp3 > 0)
 		{
 			sprites_type[index] = SPRITE_Jobbie;
 
@@ -565,13 +565,12 @@ void initialize_sprites(void)
 		else
 		{
 
-			// the bytes of data in the sprite list go:
-			//  x, y, sprite_type_enum
-			//  and the list ends with a 0xff
-
 			temp1 = pointer[index2]; // get a byte of data
-			if (temp1 == TURN_OFF)
-				break; //<--- if we reached the end of list we break
+			if (temp1 == TURN_OFF)	 // we reached the end of the list
+			{
+				temp2 = 1;
+				continue;
+			}
 
 			// otherwise we load the 3 bytes into the correct arrays
 			sprites_x[index] = temp1;
@@ -1242,15 +1241,12 @@ void movement(void)
 	// dungeon push block
 	if (which_bg == DUNGEON_BLOCK_ROOM && push_timer > 100 && block_moved == 0)
 	{
-		//the dungeon block is the first sprite in it's room
-		//so we just need to add the number of jobbies left
-		temp1 = jobbies_map[which_bg]; 
-
+		
 		if (player_direction == LEFT)
 		{
-			if (sprites_x[temp1] > (DUNGEON_BLOCK_X - 0x10))
+			if (sprites_x[0] > (DUNGEON_BLOCK_X - 0x10))
 			{
-				--sprites_x[temp1];
+				--sprites_x[0];
 			}
 			else
 			{
@@ -1261,9 +1257,9 @@ void movement(void)
 
 		if (player_direction == RIGHT)
 		{
-			if (sprites_x[temp1] < (DUNGEON_BLOCK_X + 0x10))
+			if (sprites_x[0] < (DUNGEON_BLOCK_X + 0x10))
 			{
-				++sprites_x[temp1];
+				++sprites_x[0];
 			}
 			else
 			{
