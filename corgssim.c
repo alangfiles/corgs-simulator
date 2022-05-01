@@ -553,10 +553,19 @@ void initialize_sprites(void)
 
 			temp1 = rand8();
 			temp2 = rand8();
-			while (temp2 < 0x40 || temp2 > 0xd0)
+			while (temp2 < 0x60 || temp2 > 0xb0)
 			{
 				temp2 = rand8();
 			}
+			if(temp1 < 0x10)
+			{
+				temp1 += 0x20;
+			}
+			if(temp1 > 0xe0)
+			{
+				temp1 -= 0x20;
+			}
+	
 
 			sprites_x[index] = temp1;
 			sprites_y[index] = temp2;
