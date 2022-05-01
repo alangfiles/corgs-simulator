@@ -17,7 +17,7 @@ mini games:
 [x] add robineete message and . on screen?
 [x] add pipe level / jumping
 [] rpg battle
-[] battle with game jobbies
+[x] battle with game jobbies
 
 fun list:
 [x] king of video games says somethign if you've collected everything?

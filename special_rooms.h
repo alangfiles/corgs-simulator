@@ -84,7 +84,7 @@ unsigned char jobbies_map_init[]={
 
 #pragma region ADVENTURE_ROOM
 #define ADVENTURE_GAME_ROOM 19
-#define ADVENTURE_GAME_X 0xB0
+#define ADVENTURE_GAME_X 0x90
 #define ADVENTURE_GAME_Y 0x60
 
 #pragma endregion ADVENTURE_ROOM
