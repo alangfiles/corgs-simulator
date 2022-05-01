@@ -32,7 +32,7 @@
 #define TEXT_BOX_LENGTH 18
 #define TEXT_BOX_HEIGHT 8
 
-#define PLAYER_HEIGHT 12
+#define PLAYER_HEIGHT 12 
 #define PLAYER_WIDTH 10
 #define PLAYER_PIXELS 7
 

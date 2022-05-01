@@ -18,9 +18,9 @@ const unsigned char room_25_sprites[]={
 	224, 112, SPRITE_SideLadyLeft90,
 	224, 160, SPRITE_BeardSideManLeft79,
 	144, 184, SPRITE_HairBehind9,
-	96, 184, SPRITE_BaldBehind6,
+	// 96, 184, SPRITE_BaldBehind6,
 	192, 144, SPRITE_GlassesRight33,
-	128,160, SPRITE_Girl3,
+	98,160, SPRITE_Girl3,
 	
 	TURN_OFF
 };
@@ -31,7 +31,6 @@ const unsigned char room_25_talk[]={
 	144, 176, TALK_GARY,
 	144, 192, TALK_GARY,
 	200, 152, TALK_INYOURWAY,
-	136, 168, TALK_GENIE,
-	
+	106, 168, TALK_GENIE,
 	TURN_OFF
 };

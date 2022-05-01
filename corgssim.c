@@ -2396,7 +2396,7 @@ void draw_talking(void)
 			break;
 		case 1:
 			pointer = fetch_quest_1;
-			text_length = 16; //just use the `grumble grumble`
+			text_length = 16; // just use the `grumble grumble`
 			break;
 		case 2:
 			pointer = fetch_quest_2;
