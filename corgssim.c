@@ -2394,9 +2394,10 @@ void draw_talking(void)
 			text_decision = 0;
 			text_action = CHOICE_FETCH_QUEST;
 			break;
-		// case 1:
-		// 	// grumble
-		// 	break;
+		case 1:
+			pointer = fetch_quest_1;
+			text_length = 16; //just use the `grumble grumble`
+			break;
 		case 2:
 			pointer = fetch_quest_2;
 			text_length = sizeof(fetch_quest_2);
@@ -2404,9 +2405,10 @@ void draw_talking(void)
 			text_action = CHOICE_FINISH_FETCH;
 			text_decision = 1;
 			break;
-		// case 3:
-		// 	// munch munch
-		// 	break;
+		case 4:
+			pointer = fetch_quest_4;
+			text_length = sizeof(fetch_quest_4);
+			break;
 		default:
 			pointer = blank_1;
 			text_length = sizeof(blank_1);

@@ -147,6 +147,7 @@ const unsigned char talk_clip[] = "Looks like you could clip\nthrough these wall
 
 const unsigned char fetch_quest_1[] = "GRUMBLE GRUMBLE\nI'm hungry, but I\ncan't leave my booth\n\nCan you help?";
 const unsigned char fetch_quest_2[] = "Thank you! Take this!";
+const unsigned char fetch_quest_4[] = "MUNCH MUNCH";
 
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
 const unsigned char item_1[] = "You got a Famicom Disk\nSystem copy of...\nThe Legend of Zelda";
@@ -204,7 +205,7 @@ const unsigned char bottombar[] = {0xfe,0xed,0xff};
 
 // keeping track of space left. each line is 64bytes 4=256kb
 const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+// const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 // const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 // const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
