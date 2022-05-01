@@ -1479,10 +1479,10 @@ void movement(void)
 	if (which_bg == DUNGEON_BLOCK_ROOM)
 	{
 		// make the block a little smaller before activating
-		Generic2.x = DUNGEON_BLOCK_X + 7;
-		Generic2.y = DUNGEON_BLOCK_Y + 7;
+		Generic2.x = DUNGEON_BLOCK_X+8;
+		Generic2.y = DUNGEON_BLOCK_Y;
 		Generic2.width = 4;
-		Generic2.height = 4;
+		Generic2.height = 6;
 		if (check_collision(&Generic, &Generic2))
 		{
 			which_bg = DUNGEON_GAME_ROOM;
