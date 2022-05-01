@@ -180,13 +180,7 @@ const unsigned char knight[] = "KNIGHT";
 const unsigned char duke[] = "DUKE";
 const unsigned char king[] = "KING";
 const unsigned char ending_0[] = "No games! You Knave!";
-// const unsigned char ending_1[] = "Thou art but a SERF OF VIDEO GAMES";
-// const unsigned char ending_2[] = "Thou art a VASSAL OF VIDEO GAMES";
-// const unsigned char ending_3[] = "Thou art a KNIGHT OF VIDEO GAMES";
-// const unsigned char ending_4[] = "Thou art a DUKE OF VIDEO GAMES";
 const unsigned char ending_5[] = "Thou hast even more than me!";
-// const unsigned char ending_5_1[] = "Thou art a KING OF VIDEO GAMES";
-// const unsigned char ending_X[] = "Go forth and find me more games!";
 
 
 //grade them based on the game

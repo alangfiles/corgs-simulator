@@ -160,7 +160,7 @@ void main(void)
 			draw_sprites();
 
 			// for debugging, the lower the line, the less processing we have
-			gray_line();
+			// gray_line();
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
