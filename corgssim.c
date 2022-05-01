@@ -11,7 +11,7 @@ need for launch:
 space saving:
 [x] clean up collision lists (just explicity add it in bg_collision_sub)
 
-mini games:
+mini games: 
 [x] fetch quest
 [x] do reps with the brahs
 [x] add robineete message and . on screen?
@@ -1985,8 +1985,8 @@ void change_room_up()
 	{ // going up from the dungeon
 		which_bg = DUNGEON_BLOCK_ROOM;
 		// put the player near the dungeon block
-		player_x = 130;
-		player_y = 160;
+		player_x = 50;
+		player_y = 100;
 	}
 
 	draw_bg();

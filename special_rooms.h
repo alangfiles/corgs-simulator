@@ -14,9 +14,9 @@ unsigned char items_collected = 0;
 unsigned char item_found = 0;
 
 #pragma region DUNGEON_ROOM
-#define DUNGEON_BLOCK_X 0xA0
-#define DUNGEON_BLOCK_Y 0xC0
-#define DUNGEON_BLOCK_ROOM 22
+#define DUNGEON_BLOCK_X 0x30
+#define DUNGEON_BLOCK_Y 0x50
+#define DUNGEON_BLOCK_ROOM 24
 
 #define DUNGEON_GAME_ROOM 5
 #define DUNGEON_GAME_X 0x80

@@ -1,7 +1,7 @@
 const unsigned char room_25[]={
 
 6,1,1,1,1,1,1,0,0,1,1,1,1,1,1,5,
-2,0,42,40,40,42,0,0,0,0,0,0,0,0,0,3,
+2,40,0,50,0,42,0,0,0,0,0,0,0,0,0,3,
 2,0,0,0,0,0,0,0,0,0,0,0,0,19,36,3,
 2,0,0,0,0,0,0,0,0,0,0,0,0,10,0,3,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,
@@ -14,6 +14,7 @@ const unsigned char room_25[]={
 };
 
 const unsigned char room_25_sprites[]={
+	DUNGEON_BLOCK_X, DUNGEON_BLOCK_Y, SPRITE_DungeonBlock,
 	224, 112, SPRITE_SideLadyLeft90,
 	224, 160, SPRITE_BeardSideManLeft79,
 	144, 184, SPRITE_HairBehind9,
@@ -25,11 +26,6 @@ const unsigned char room_25_sprites[]={
 };
 
 const unsigned char room_25_talk[]={
-	// 40, 120, TALK_PACMAN2, 
-	// 72, 104, TALK_PACMAN,
-	// 88, 120, TALK_CHARACTER,
-	// 56, 104, TALK_WIZARD,
-	// 64, 152, TALK_JUDGE,
 	200, 120, TALK_SPRITES,
 	200, 168, TALK_CLEVER,
 	144, 176, TALK_GARY,
