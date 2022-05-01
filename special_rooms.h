@@ -60,26 +60,26 @@ unsigned char player_coins = 0;
 
 
 //JOBBIES
-#define MAX_JOBBIES 5 //should be 25
+#define MAX_JOBBIES 42 //should be 25
 unsigned char player_jobbies_tens = 0;
 unsigned char player_jobbies_ones = 0;
 unsigned char player_jobbies = 0;
 unsigned char jobbies_map[]={
 	0, 0, 0, 0, 1,
-	0, 0, 2, 1, 2,
-	0, 1, 1, 3, 8,
-	0, 1, 1, 1, 1,
-	0, 1, 1, 1, 1,
-	1, 2, 1, 1, 0,  
+	0, 0, 2, 1, 4,
+	0, 3, 1, 1, 8,
+	0, 0, 1, 1, 1,
+	1, 2, 1, 1, 1,
+	1, 3, 3, 2, 3,
 };
 
 unsigned char jobbies_map_init[]={
 	0, 0, 0, 0, 1,
-	0, 0, 2, 1, 2,
-	0, 1, 1, 3, 8,
-	0, 1, 1, 1, 1,
-	0, 1, 1, 1, 1,
-	1, 2, 1, 1, 0,  
+	0, 0, 2, 1, 4,
+	0, 3, 1, 1, 8,
+	0, 0, 1, 1, 1,
+	1, 2, 1, 1, 1,
+	1, 3, 3, 2, 3,  
 };
 
 #pragma region ADVENTURE_ROOM
