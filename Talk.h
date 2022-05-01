@@ -171,7 +171,8 @@ const unsigned char yes[] = "YES";
 const unsigned char thirty_lives[] = "x30";
 
 // const unsigned char ending_game[] = " game";
-const unsigned char ending_X[] = "Thou art a        OF VIDEO GAMES";
+const unsigned char ending_X[] = "Thou art a";
+const unsigned char ending_Y[] = "OF VIDEO GAMES";
 const unsigned char serf[] = "SERF";
 const unsigned char vassal[] = "VASSAL";
 const unsigned char squire[] = "SQUIRE";
@@ -210,7 +211,7 @@ const unsigned char bottombar[] = {0xfe,0xed,0xff};
 // keeping track of space left. each line is 64bytes 4=256kb
 const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-// const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 // const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
 //const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";

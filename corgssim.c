@@ -2469,8 +2469,8 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
-	items_collected = 0x2e;//0;
-	on_fetchquest = 4; //0;
+	items_collected = 0;
+	on_fetchquest = 0;
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
@@ -2525,12 +2525,12 @@ void initialize_end_screen(void)
 	draw_bg();
 
 	// game time:
-	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(10, 6));
-	one_vram_buffer(48 + minutes_left_tens, NTADR_A(15, 6));
-	one_vram_buffer(48 + minutes_left_ones, NTADR_A(16, 6));
-	one_vram_buffer(':', NTADR_A(17, 6));
-	one_vram_buffer(48 + seconds_left_tens, NTADR_A(18, 6));
-	one_vram_buffer(48 + seconds_left_ones, NTADR_A(19, 6));
+	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(11, 26));
+	one_vram_buffer(48 + minutes_left_tens, NTADR_A(16, 26));
+	one_vram_buffer(48 + minutes_left_ones, NTADR_A(17, 26));
+	one_vram_buffer(':', NTADR_A(18, 26));
+	one_vram_buffer(48 + seconds_left_tens, NTADR_A(19, 26));
+	one_vram_buffer(48 + seconds_left_ones, NTADR_A(20, 26));
 
 	temp1 = 1; // temp1 is the item number, gets shifted
 	temp2 = 0; // temp2 is the items displayed in the ending so far
@@ -2582,28 +2582,29 @@ void draw_ending_text(void)
 		{
 			multi_vram_buffer_horz(ending_5, sizeof(ending_5), NTADR_A(1, 3));
 		}
-		multi_vram_buffer_horz(ending_X, sizeof(ending_X), NTADR_A(0, 4));
+		multi_vram_buffer_horz(ending_X, sizeof(ending_X), NTADR_A(10, 4));
+		multi_vram_buffer_horz(ending_Y, sizeof(ending_Y), NTADR_A(11, 5));
 
 		// specific name
 		switch (temp4)
 		{
 		case 1:
-			multi_vram_buffer_horz(serf, 4, NTADR_A(12, 4));
+			multi_vram_buffer_horz(serf, 4, NTADR_A(6, 5));
 			break;
 		case 2:
-			multi_vram_buffer_horz(vassal, 6, NTADR_A(11, 4));
+			multi_vram_buffer_horz(vassal, 6, NTADR_A(4, 5));
 			break;
 		case 3:
-			multi_vram_buffer_horz(squire, 6, NTADR_A(11, 4));
+			multi_vram_buffer_horz(squire, 6, NTADR_A(4, 5));
 			break;
 		case 4:
-			multi_vram_buffer_horz(knight, 6, NTADR_A(11, 4));
+			multi_vram_buffer_horz(knight, 6, NTADR_A(4, 5));
 			break;
 		case 5:
-			multi_vram_buffer_horz(duke, 4, NTADR_A(12, 4));
+			multi_vram_buffer_horz(duke, 4, NTADR_A(6, 5));
 			break;
 		case 6:
-			multi_vram_buffer_horz(king, 4, NTADR_A(12, 4));
+			multi_vram_buffer_horz(king, 4, NTADR_A(6, 5));
 			break;
 		default:
 			break;
@@ -2630,7 +2631,7 @@ void draw_ending_sprites(void)
 	}
 	if (temp2 & ITEM_DUNGEON_GAME)
 	{
-		oam_meta_spr(0xD0, 0x68, FloppyDisk125);
+		oam_meta_spr(0xCF, 0x68, FloppyDisk125);
 	}
 	if (temp2 & ITEM_BURGER_GAME)
 	{
@@ -2642,11 +2643,11 @@ void draw_ending_sprites(void)
 	}
 	if(temp2 & ITEM_JOBBIES_GAME)
 	{
-		// oam_meta_spr(0x72, 0x38, Jobbie);
-		one_vram_buffer(5, NTADR_A(14, 7));
-		one_vram_buffer(10, NTADR_A(14, 7));
-		one_vram_buffer(8, NTADR_A(15, 8));
-		one_vram_buffer(3, NTADR_A(15, 8));
+		oam_meta_spr(0x72, 0x38, Jobbie);
+		// one_vram_buffer(5, NTADR_A(14, 7));
+		// one_vram_buffer(10, NTADR_A(14, 7));
+		// one_vram_buffer(8, NTADR_A(15, 8));
+		// one_vram_buffer(3, NTADR_A(15, 8));
 	}
 }
 
