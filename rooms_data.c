@@ -295,15 +295,7 @@ const unsigned char inside_metatiles[]={
 // const unsigned char * const trans_col[] = {0,1,2,4,5,18};
 // const unsigned char * const cliff_col[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-//number jobbies in a room
-const unsigned char * const jobbies_list[]={
-	0,0,0,0,0,
-	0,0,0,0,0,
-	0,0,0,0,0,
-	0,0,0,0,0,
-	0,0,0,0,0,
-	0,0,0,0,0,
-};
+
 
 const unsigned char * const room_list[]={
 	room_1,room_2,room_3,room_4,room_5,
@@ -320,8 +312,8 @@ const unsigned char trans_hud = 0;
 const unsigned char title_hud = 0;
 
 const unsigned char * const talk_list[]={
-	blank_talk,blank_talk,room_3_talk,blank_talk,room_5_talk,
-  blank_talk,blank_talk,blank_talk,room_9_talk,blank_talk,
+	blank_talk,blank_talk,blank_sprites,blank_talk,room_5_talk,
+  blank_talk,blank_talk,room_8_talk,room_9_talk,blank_talk,
   blank_talk,room_12_talk,blank_talk,room_14_talk,blank_talk,
   blank_talk,blank_talk,room_18_talk,room_19_talk,room_20_talk,
   room_46_talk,room_47_talk,room_23_talk,room_24_talk,room_25_talk,
@@ -329,8 +321,8 @@ const unsigned char * const talk_list[]={
 };
 
 const unsigned char * const sprite_list[]={
-	blank_sprites,blank_sprites,room_3_sprites,blank_sprites,room_5_sprites,
-  blank_sprites,blank_sprites,blank_sprites,room_9_sprites,blank_sprites,
+	blank_sprites,blank_sprites,blank_sprites,blank_sprites,room_5_sprites,
+  blank_sprites,blank_sprites,room_8_sprites,room_9_sprites,blank_sprites,
   room_11_sprites,room_12_sprites,blank_sprites,room_14_sprites,room_15_sprites,
   blank_sprites,blank_sprites,room_18_sprites,room_19_sprites,room_20_sprites,
   room_46_sprites,room_47_sprites,room_23_sprites,room_24_sprites,room_25_sprites,

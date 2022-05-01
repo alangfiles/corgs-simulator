@@ -129,13 +129,6 @@ const unsigned char shuffle_array[]={
 15,13,11,9,7,5,3,1,14,12,10,8,6,4,2,0	
 };
 
-// const unsigned char shuffle_array[]={
-// 0,1,2,3,4,5,6,7,8,9,
-// 9,8,7,6,5,4,3,2,1,0,
-// 0,2,4,6,8,1,3,5,7,9,
-// 9,7,5,3,1,8,6,4,2,0	
-// };
-
 #define MAX_ROOM_TALKING 16
 unsigned char talk_x[MAX_ROOM_TALKING];
 unsigned char talk_y[MAX_ROOM_TALKING];

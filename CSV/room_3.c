@@ -9,13 +9,3 @@ const unsigned char room_3[]={
 36,35,2,1,33,1,1,1,1,1,1,1,1,1,1,1,
 37,36,35,2,34,2,1,34,1,2,1,34,2,11,1,1,
 2,37,36,1,1,1,1,1,1,1,1,1,1,1,1,1,};
-
-const unsigned char room_3_sprites[]={
-	0x1f, 0x60, SPRITE_Wizard53,
-	TURN_OFF
-};
-
-const unsigned char room_3_talk[]={
-	0x28, 0x68, TALK_DLC,
-	TURN_OFF
-};
