@@ -1659,6 +1659,7 @@ void sprite_collisions(void)
 					if (jobbies_map[which_bg] > 0)
 					{
 						jobbies_map[which_bg] = jobbies_map[which_bg] - 1;
+						++player_jobbies;
 						if (player_jobbies_ones < 9)
 						{
 							++player_jobbies_ones;
