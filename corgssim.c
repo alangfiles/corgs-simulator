@@ -1242,11 +1242,15 @@ void movement(void)
 	// dungeon push block
 	if (which_bg == DUNGEON_BLOCK_ROOM && push_timer > 100 && block_moved == 0)
 	{
+		//the dungeon block is the first sprite in it's room
+		//so we just need to add the number of jobbies left
+		temp1 = jobbies_map[which_bg]; 
+
 		if (player_direction == LEFT)
 		{
-			if (sprites_x[0] > (DUNGEON_BLOCK_X - 0x10))
+			if (sprites_x[temp1] > (DUNGEON_BLOCK_X - 0x10))
 			{
-				--sprites_x[0];
+				--sprites_x[temp1];
 			}
 			else
 			{
@@ -1257,9 +1261,9 @@ void movement(void)
 
 		if (player_direction == RIGHT)
 		{
-			if (sprites_x[0] < (DUNGEON_BLOCK_X + 0x10))
+			if (sprites_x[temp1] < (DUNGEON_BLOCK_X + 0x10))
 			{
-				++sprites_x[0];
+				++sprites_x[temp1];
 			}
 			else
 			{
