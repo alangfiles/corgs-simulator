@@ -11,7 +11,7 @@ need for launch:
 space saving:
 [x] clean up collision lists (just explicity add it in bg_collision_sub)
 
-mini games: 
+mini games:
 [x] fetch quest
 [x] do reps with the brahs
 [x] add robineete message and . on screen?
@@ -327,10 +327,17 @@ void main(void)
 
 					if (temp3)
 					{
-						draw_ending_special(); // special player and game
-						draw_ending_sprites(); // draw games where they go
-						temp2 += temp3;				 // if we got that item, add it to the displayed list
-						delay(45);
+						if (temp3 == ITEM_BURGER_GAME && on_fetchquest != 4)
+						{
+							// dont draw for this case
+						}
+						else
+						{
+							draw_ending_special(); // special player and game
+							draw_ending_sprites(); // draw games where they go
+							temp2 += temp3;				 // if we got that item, add it to the displayed list
+							delay(45);
+						}
 					}
 					temp1 = temp1 << 1; // shift the item up for the next time.
 					++temp6;						// add one more step.
@@ -557,15 +564,14 @@ void initialize_sprites(void)
 			{
 				temp2 = rand8();
 			}
-			if(temp1 < 0x10)
+			if (temp1 < 0x10)
 			{
 				temp1 += 0x20;
 			}
-			if(temp1 > 0xe0)
+			if (temp1 > 0xe0)
 			{
 				temp1 -= 0x20;
 			}
-	
 
 			sprites_x[index] = temp1;
 			sprites_y[index] = temp2;
@@ -1250,7 +1256,7 @@ void movement(void)
 	// dungeon push block
 	if (which_bg == DUNGEON_BLOCK_ROOM && push_timer > 100 && block_moved == 0)
 	{
-		
+
 		if (player_direction == LEFT)
 		{
 			if (sprites_x[0] > (DUNGEON_BLOCK_X - 0x10))
@@ -1479,7 +1485,7 @@ void movement(void)
 	if (which_bg == DUNGEON_BLOCK_ROOM)
 	{
 		// make the block a little smaller before activating
-		Generic2.x = DUNGEON_BLOCK_X+8;
+		Generic2.x = DUNGEON_BLOCK_X + 8;
 		Generic2.y = DUNGEON_BLOCK_Y;
 		Generic2.width = 4;
 		Generic2.height = 6;
@@ -2564,17 +2570,7 @@ void draw_ending_special(void)
 		oam_meta_spr(0x78, 0xA0, FloppyDisk125);
 		break;
 	case ITEM_BURGER_GAME:
-		if (on_fetchquest == 4)
-		{
-			oam_meta_spr(0x78, 0xA0, BurgerGame);
-		}
-		else
-		{
-			--temp4;
-			// decrement it becase we don't have this game.
-			// and we're gonna inc it at the end of this.
-		}
-
+		oam_meta_spr(0x78, 0xA0, BurgerGame);
 		break;
 	case ITEM_KETTLEBELL_GAME:
 		oam_meta_spr(0x78, 0xA0, KettleBell);

@@ -99,7 +99,7 @@ unsigned char on_fetchquest = 0; // 0 - not started, 1 - money, 2 - food, 3 - bu
 
 #pragma region REPS
 #define REPS_ROOM 21
-#define MAX_REPS 70     // how many reps to get the prize
+#define MAX_REPS 60     // how many reps to get the prize
 #define REP_TIMER_MAX 5 // how much time to do the reps
 unsigned char rep_count = 0;
 unsigned char rep_timer = 0;
