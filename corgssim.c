@@ -2481,7 +2481,6 @@ void initialize_title_screen(void)
 	{
 		jobbies_map[temp1] = jobbies_map_init[temp1];
 	}
-	
 
 	song = SONG_TITLE;
 	set_music_speed(5);
@@ -2556,7 +2555,17 @@ void draw_ending_special(void)
 		oam_meta_spr(0x78, 0xA0, FloppyDisk125);
 		break;
 	case ITEM_BURGER_GAME:
-		oam_meta_spr(0x78, 0xA0, BurgerGame);
+		if (on_fetchquest == 4)
+		{
+			oam_meta_spr(0x78, 0xA0, BurgerGame);
+		}
+		else
+		{
+			--temp4;
+			// decrement it becase we don't have this game.
+			// and we're gonna inc it at the end of this.
+		}
+
 		break;
 	case ITEM_KETTLEBELL_GAME:
 		oam_meta_spr(0x78, 0xA0, KettleBell);
@@ -2635,13 +2644,16 @@ void draw_ending_sprites(void)
 	}
 	if (temp2 & ITEM_BURGER_GAME)
 	{
-		oam_meta_spr(0xB0, 0x48, BurgerGame);
+		if (on_fetchquest == 4)
+		{
+			oam_meta_spr(0xB0, 0x48, BurgerGame);
+		}
 	}
 	if (temp2 & ITEM_KETTLEBELL_GAME)
 	{
 		oam_meta_spr(0x82, 0x38, KettleBell);
 	}
-	if(temp2 & ITEM_JOBBIES_GAME)
+	if (temp2 & ITEM_JOBBIES_GAME)
 	{
 		oam_meta_spr(0x72, 0x38, Jobbie);
 		// one_vram_buffer(5, NTADR_A(14, 7));
