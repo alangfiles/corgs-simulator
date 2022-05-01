@@ -936,7 +936,7 @@ void draw_sprites(void)
 		oam_meta_spr(0xC0, 0x20, JobbieSmall);
 		one_vram_buffer('x', NTADR_A(25, 4));
 		one_vram_buffer(48 + player_jobbies_tens, NTADR_A(26, 4));
-		one_vram_buffer(48 + player_jobbies_ones, NTADR_A(26, 4));
+		one_vram_buffer(48 + player_jobbies_ones, NTADR_A(27, 4));
 
 		if (code_active == 1)
 		{
@@ -1659,8 +1659,7 @@ void sprite_collisions(void)
 					if (jobbies_map[which_bg] > 0)
 					{
 						jobbies_map[which_bg] = jobbies_map[which_bg] - 1;
-						++player_jobbies;
-						if (player_jobbies_ones < 10)
+						if (player_jobbies_ones < 9)
 						{
 							++player_jobbies_ones;
 						}
