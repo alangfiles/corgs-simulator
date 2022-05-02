@@ -2676,8 +2676,11 @@ void initialize_intro_screen(void)
 	draw_bg();
 
 	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(7, 10));
+	ppu_wait_nmi();
 	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(6, 12));
+	ppu_wait_nmi();
 	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 14));
+	ppu_wait_nmi();
 	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(4, 16));
 }
 
