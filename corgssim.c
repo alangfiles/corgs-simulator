@@ -943,13 +943,13 @@ void draw_sprites(void)
 		}
 		if (items_collected & ITEM_JOBBIES_GAME)
 		{
-			one_vram_buffer('@', NTADR_A(2, 4));
-			one_vram_buffer(0x4B, NTADR_A(3, 4));
-			one_vram_buffer('Q', NTADR_A(2, 5));
-			one_vram_buffer(0x8E, NTADR_A(3, 5));
+			one_vram_buffer(0x40, NTADR_A(2, 4));
+			one_vram_buffer(0x22, NTADR_A(3, 4));
+			one_vram_buffer(0x28, NTADR_A(2, 5));
+			one_vram_buffer(0x29, NTADR_A(3, 5));
 		}
 
-		oam_meta_spr(0xC0, 0x20, JobbieSmall);
+		one_vram_buffer(0x8E, NTADR_A(24, 4));
 		one_vram_buffer('x', NTADR_A(25, 4));
 		one_vram_buffer(48 + player_jobbies_tens, NTADR_A(26, 4));
 		one_vram_buffer(48 + player_jobbies_ones, NTADR_A(27, 4));
