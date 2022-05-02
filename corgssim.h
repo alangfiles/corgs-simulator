@@ -120,6 +120,7 @@ unsigned char offset;
 
 //pointer used for a bunch of things
 const unsigned char * pointer;
+const unsigned char * pointer2;
 
 //for shuffling 16 enemies
 const unsigned char shuffle_array[]={

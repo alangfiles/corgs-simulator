@@ -690,213 +690,215 @@ void draw_sprites(void)
 			// we could do somethign here like:
 			//  if frame 1 - 8 use AlanAnim1
 			//  else use AlanAnim2
-			oam_meta_spr(temp1, temp2, Alan92);
+			pointer2 = Alan92;
 			break;
 		case SPRITE_BRIAN93:
-			oam_meta_spr(temp1, temp2, Brian93);
+			pointer2 = Brian93;
 			break;
 		case SPRITE_PlayerSprUp:
-			oam_meta_spr(temp1, temp2, PlayerSprUp);
+			pointer2 = PlayerSprUp;
 			break;
 		case SPRITE_PunchoutMan112:
-			oam_meta_spr(temp1, temp2, PunchoutMan112);
+			pointer2 = PunchoutMan112;
 			break;
 		case SPRITE_PunchOutMat113:
-			oam_meta_spr(temp1, temp2, PunchOutMat113);
+			pointer2 = PunchOutMat113;
 			break;
 		case SPRITE_LunchLadyHead36:
-			oam_meta_spr(temp1, temp2, LunchLadyHead36);
+			pointer2 = LunchLadyHead36;
 			break;
 		case SPRITE_BaldRight22:
-			oam_meta_spr(temp1, temp2, BaldRight22);
+			pointer2 = BaldRight22;
 			break;
 		case SPRITE_HairForward114:
-			oam_meta_spr(temp1, temp2, HairForward114);
+			pointer2 = HairForward114;
 			break;
 		case SPRITE_Banner99:
-			oam_meta_spr(temp1, temp2, Banner99);
+			pointer2 = Banner99;
 			break;
 		case SPRITE_BoyKid44:
-			oam_meta_spr(temp1, temp2, BoyKid44);
+			pointer2 = BoyKid44;
 			break;
 		case SPRITE_BaldBehind7:
-			oam_meta_spr(temp1, temp2, BaldBehind7);
+			pointer2 = BaldBehind7;
 			break;
 		case SPRITE_SkirtLady39:
-			oam_meta_spr(temp1, temp2, SkirtLady39);
+			pointer2 = SkirtLady39;
 			break;
 		case SPRITE_HairBehind10:
-			oam_meta_spr(temp1, temp2, HairBehind10);
+			pointer2 = HairBehind10;
 			break;
 		case SPRITE_HatForward17:
-			oam_meta_spr(temp1, temp2, HatForward17);
+			pointer2 = HatForward17;
 			break;
 		case SPRITE_PrettyGirlBehindStand109:
-			oam_meta_spr(temp1, temp2, PrettyGirlBehindStand109);
+			pointer2 = PrettyGirlBehindStand109;
 			break;
 		case SPRITE_SideLadyRight86:
-			oam_meta_spr(temp1, temp2, SideLadyRight86);
+			pointer2 = SideLadyRight86;
 			break;
 		case SPRITE_WideBoyBehind120:
-			oam_meta_spr(temp1, temp2, WideBoyBehind120);
+			pointer2 = WideBoyBehind120;
 			break;
 		case SPRITE_SleepyGuyBehind123:
-			oam_meta_spr(temp1, temp2, SleepyGuyBehind123);
+			pointer2 = SleepyGuyBehind123;
 			break;
 		case SPRITE_HairRight27:
-			oam_meta_spr(temp1, temp2, HairRight27);
+			pointer2 = HairRight27;
 			break;
 		case SPRITE_BigNoseLeft84:
-			oam_meta_spr(temp1, temp2, BigNoseLeft84);
+			pointer2 = BigNoseLeft84;
 			break;
 		case SPRITE_Wizard53:
-			oam_meta_spr(temp1, temp2, Wizard53);
+			pointer2 = Wizard53;
 			break;
 		case SPRITE_Car95:
-			oam_meta_spr(temp1, temp2, Car95);
+			pointer2 = Car95;
 			break;
 		case SPRITE_Car952:
-			oam_meta_spr(temp1, temp2, Car952);
+			pointer2 = Car952;
 			break;
 		case SPRITE_Car96:
-			oam_meta_spr(temp1, temp2, Car96);
+			pointer2 = Car96;
 			break;
 		case SPRITE_Car962:
-			oam_meta_spr(temp1, temp2, Car962);
+			pointer2 = Car962;
 			break;
 		case SPRITE_SkinnyHatMan49:
-			oam_meta_spr(temp1, temp2, SkinnyHatMan49);
+			pointer2 = SkinnyHatMan49;
 			break;
 		case SPRITE_GlassesLeft31:
-			oam_meta_spr(temp1, temp2, GlassesLeft31);
+			pointer2 = GlassesLeft31;
 			break;
 		case SPRITE_BaldForward13:
-			oam_meta_spr(temp1, temp2, BaldForward13);
+			pointer2 = BaldForward13;
 			break;
 		case SPRITE_GirlKid47:
-			oam_meta_spr(temp1, temp2, GirlKid47);
+			pointer2 = GirlKid47;
 			break;
 		case SPRITE_BlueBeard74:
-			oam_meta_spr(temp1, temp2, BlueBeard74);
+			pointer2 = BlueBeard74;
 			break;
 		case SPRITE_King75:
-			oam_meta_spr(temp1, temp2, King75);
+			pointer2 = King75;
 			break;
 		case SPRITE_BigNoseRight83:
-			oam_meta_spr(temp1, temp2, BigNoseRight83);
+			pointer2 = BigNoseRight83;
 			break;
 		case SPRITE_BaldTankBehind121:
-			oam_meta_spr(temp1, temp2, BaldTankBehind121);
+			pointer2 = BaldTankBehind121;
 			break;
 		case SPRITE_OldCoot63:
-			oam_meta_spr(temp1, temp2, OldCoot63);
+			pointer2 = OldCoot63;
 			break;
 		case SPRITE_GlassesRight33:
-			oam_meta_spr(temp1, temp2, GlassesRight33);
+			pointer2 = GlassesRight33;
 			break;
 		case SPRITE_HairRight28:
-			oam_meta_spr(temp1, temp2, HairRight28);
+			pointer2 = HairRight28;
 			break;
 		case SPRITE_SideLadyRight87:
-			oam_meta_spr(temp1, temp2, SideLadyRight87);
+			pointer2 = SideLadyRight87;
 			break;
 		case SPRITE_DressGirl61:
-			oam_meta_spr(temp1, temp2, DressGirl61);
+			pointer2 = DressGirl61;
 			break;
 		case SPRITE_MuscleMan0:
-			oam_meta_spr(temp1, temp2, MuscleMan0);
+			pointer2 = MuscleMan0;
 			break;
 		case SPRITE_MuscleMan1:
-			oam_meta_spr(temp1, temp2, MuscleMan1);
+			pointer2 = MuscleMan1;
 			break;
 		case SPRITE_MuscleMan2:
-			oam_meta_spr(temp1, temp2, MuscleMan2);
+			pointer2 = MuscleMan2;
 			break;
 		case SPRITE_Girl4:
-			oam_meta_spr(temp1, temp2, Girl4);
+			pointer2 = Girl4;
 			break;
 		case SPRITE_FroGuy55:
-			oam_meta_spr(temp1, temp2, FroGuy55);
+			pointer2 = FroGuy55;
 			break;
 		case SPRITE_WideBoy69:
-			oam_meta_spr(temp1, temp2, WideBoy69);
+			pointer2 = WideBoy69;
 			break;
 		case SPRITE_HatBehind117:
-			oam_meta_spr(temp1, temp2, HatBehind117);
+			pointer2 = HatBehind117;
 			break;
 		case SPRITE_Ghost65:
-			oam_meta_spr(temp1, temp2, Ghost65);
+			pointer2 = Ghost65;
 			break;
 		case SPRITE_CostumeMan58:
-			oam_meta_spr(temp1, temp2, CostumeMan58);
+			pointer2 = CostumeMan58;
 			break;
 		case SPRITE_Wizard52:
-			oam_meta_spr(temp1, temp2, Wizard52);
+			pointer2 = Wizard52;
 			break;
 		case SPRITE_SideLadyLeft90:
-			oam_meta_spr(temp1, temp2, SideLadyLeft90);
+			pointer2 = SideLadyLeft90;
 			break;
 		case SPRITE_BeardSideManLeft79:
-			oam_meta_spr(temp1, temp2, BeardSideManLeft79);
+			pointer2 = BeardSideManLeft79;
 			break;
 		case SPRITE_HairBehind9:
-			oam_meta_spr(temp1, temp2, HairBehind9);
+			pointer2 = HairBehind9;
 			break;
 		case SPRITE_BaldBehind6:
-			oam_meta_spr(temp1, temp2, BaldBehind6);
+			pointer2 = BaldBehind6;
 			break;
 		case SPRITE_HairLeft24:
-			oam_meta_spr(temp1, temp2, HairLeft24);
+			pointer2 = HairLeft24;
 			break;
 		case SPRITE_Ghost66:
-			oam_meta_spr(temp1, temp2, Ghost66);
+			pointer2 = Ghost66;
 			break;
 		case SPRITE_HairBehind11:
-			oam_meta_spr(temp1, temp2, HairBehind11);
+			pointer2 = HairBehind11;
 			break;
 		case SPRITE_DressGirl60:
-			oam_meta_spr(temp1, temp2, DressGirl60);
+			pointer2 = DressGirl60;
 			break;
 		case SPRITE_GlassesRight35:
-			oam_meta_spr(temp1, temp2, GlassesRight35);
+			pointer2 = GlassesRight35;
 			break;
 		case SPRITE_SkirtLady40:
-			oam_meta_spr(temp1, temp2, SkirtLady40);
+			pointer2 = SkirtLady40;
 			break;
 		case SPRITE_HairFront129:
-			oam_meta_spr(temp1, temp2, HairFront129);
+			pointer2 = HairFront129;
 			break;
 		case SPRITE_Girl3:
-			oam_meta_spr(temp1, temp2, Girl3);
+			pointer2 = Girl3;
 			break;
 		case SPRITE_BaldBehind8:
-			oam_meta_spr(temp1, temp2, BaldBehind8);
+			pointer2 = BaldBehind8;
 			break;
 		case SPRITE_BaldLeft18:
-			oam_meta_spr(temp1, temp2, BaldLeft18);
+			pointer2 = BaldLeft18;
 			break;
 		case SPRITE_BaldTank73:
-			oam_meta_spr(temp1, temp2, BaldTank73);
+			pointer2 = BaldTank73;
 			break;
 		case SPRITE_COIN:
-			oam_meta_spr(temp1, temp2, Coin);
+			pointer2 = Coin;
 			break;
 		case SPRITE_DungeonBlock:
-			oam_meta_spr(temp1, temp2, DungeonBlock);
+			pointer2 = DungeonBlock;
 			break;
 		case SPRITE_Jobbie:
 			if ((get_frame_count() & 0x0f) > 0x08)
 			{
-				oam_meta_spr(temp1, temp2, Jobbie);
+				pointer2 = Jobbie;
 			}
 			else
 			{
-				oam_meta_spr(temp1, temp2, JobbieTwo);
+				pointer2 = JobbieTwo;
 			}
 
 		default:
 			break;
 		}
+
+		oam_meta_spr(temp1, temp2, pointer2);
 	}
 #pragma endregion room_sprites
 
@@ -941,10 +943,10 @@ void draw_sprites(void)
 		}
 		if (items_collected & ITEM_JOBBIES_GAME)
 		{
-			one_vram_buffer(5, NTADR_A(2, 4));
-			one_vram_buffer(10, NTADR_A(3, 4));
-			one_vram_buffer(8, NTADR_A(2, 5));
-			one_vram_buffer(3, NTADR_A(3, 5));
+			one_vram_buffer('@', NTADR_A(2, 4));
+			one_vram_buffer(0x4B, NTADR_A(3, 4));
+			one_vram_buffer('Q', NTADR_A(2, 5));
+			one_vram_buffer(0x8E, NTADR_A(3, 5));
 		}
 
 		oam_meta_spr(0xC0, 0x20, JobbieSmall);
@@ -1067,16 +1069,18 @@ void draw_player_sprite(void)
 
 		if ((move_frames >= 24 && move_frames < 28) || (move_frames >= 8 && move_frames < 12))
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprDownThree);
+			pointer2 = PlayerSprDownThree;
 		}
 		else if ((move_frames >= 16 && move_frames < 20) || (move_frames < 4))
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprDownTwo);
+			pointer2 = PlayerSprDownTwo;
 		}
 		else
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprDown);
+			pointer2 = PlayerSprDown;
 		}
+
+		oam_meta_spr(player_x, player_y, pointer2);
 
 		break;
 	case LEFT_MOVE:
@@ -1084,6 +1088,7 @@ void draw_player_sprite(void)
 		// if the button's not pressed, display idle animation
 		if (!(pad1 & PAD_LEFT))
 		{
+			// todo, can replace this with pointer?
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			break;
 		}
@@ -1103,14 +1108,19 @@ void draw_player_sprite(void)
 			oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
 			break;
 		}
-		if (move_frames > 7)
+		if (move_frames > 11)
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 			break;
 		}
-		if (move_frames > 3)
+		if (move_frames > 7)
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
+			break;
+		}
+		if (move_frames > 3)
+		{
+			oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
 			break;
 		}
 
@@ -1126,16 +1136,18 @@ void draw_player_sprite(void)
 
 		if ((move_frames >= 24 && move_frames < 28) || (move_frames >= 8 && move_frames < 12))
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprUpThree);
+			pointer2 = PlayerSprUpThree;
 		}
 		else if ((move_frames >= 16 && move_frames < 20) || (move_frames < 4))
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprUpTwo);
+			pointer2 = PlayerSprUpTwo;
 		}
 		else
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprUp);
+			pointer2 = PlayerSprUp;
 		}
+
+		oam_meta_spr(player_x, player_y, pointer2);
 
 		break;
 	case RIGHT_MOVE:
@@ -1143,11 +1155,21 @@ void draw_player_sprite(void)
 		// if the button's not pressed, display idle animation
 		if (!(pad1 & PAD_RIGHT))
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprRight);
-			break;
+			pointer2 = PlayerSprRight;
+			// oam_meta_spr(player_x, player_y, PlayerSprRight);
+			oam_meta_spr(player_x, player_y, pointer2);
+			// break;
 		}
 		// animation frames
-		if (move_frames > 23)
+		// 0    0
+		// 4    2
+		// 8    3
+		// 12   2
+		// 16   0
+		// 20   4
+		// 24   5
+		// 28   4
+		if (move_frames > 28)
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprRightFour);
 			break;
@@ -1162,18 +1184,23 @@ void draw_player_sprite(void)
 			oam_meta_spr(player_x, player_y, PlayerSprRightFour);
 			break;
 		}
-		if (move_frames > 7)
+		if (move_frames > 11)
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
 			break;
 		}
-		if (move_frames > 3)
+		if (move_frames > 7)
 		{
 			oam_meta_spr(player_x, player_y, PlayerSprRightThree);
 			break;
 		}
+		if (move_frames > 3)
+		{
+			oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+			break;
+		}
 
-		oam_meta_spr(player_x, player_y, PlayerSprRight);
+		// oam_meta_spr(player_x, player_y, PlayerSprRight);
 
 		break;
 	default:
@@ -2563,26 +2590,27 @@ void draw_ending_special(void)
 	switch (temp3)
 	{
 	case ITEM_ADVENTURE_GAME:
-		oam_meta_spr(0x78, 0xA0, AdventureGameBig);
+		pointer2 = AdventureGameBig;
 		break;
 	case ITEM_COIN_GAME:
-		oam_meta_spr(0x78, 0xA0, GamePrize97);
+		pointer2 = GamePrize97;
 		break;
 	case ITEM_DUNGEON_GAME:
-		oam_meta_spr(0x78, 0xA0, FloppyDisk125);
+		pointer2 = FloppyDisk125;
 		break;
 	case ITEM_BURGER_GAME:
-		oam_meta_spr(0x78, 0xA0, BurgerGame);
+		pointer2 = BurgerGame;
 		break;
 	case ITEM_KETTLEBELL_GAME:
-		oam_meta_spr(0x78, 0xA0, KettleBell);
+		pointer2 = KettleBell;
 		break;
 	case ITEM_JOBBIES_GAME:
-		oam_meta_spr(0x78, 0xA0, Jobbie);
+		pointer2 = Jobbie;
 		break;
 	default:
 		break;
 	}
+	oam_meta_spr(0x78, 0xA0, pointer2);
 	++temp4; // add to items collected
 }
 
