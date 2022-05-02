@@ -646,12 +646,13 @@ void draw_sprites(void)
 		{
 			if (shot_hit > 3)
 			{
-				oam_meta_spr(shot_x, shot_y, ShotHit);
+				pointer2 = ShotHit;
 			}
 			else
 			{
-				oam_meta_spr(shot_x, shot_y, ShotHitTwo);
+				pointer2 = ShotHitTwo;
 			}
+			
 
 			--shot_hit;
 			if (shot_hit == 0)
@@ -662,8 +663,9 @@ void draw_sprites(void)
 		}
 		else
 		{
-			oam_meta_spr(shot_x, shot_y, Shot);
+			pointer2 = Shot;
 		}
+		oam_meta_spr(shot_x, shot_y, pointer2);
 	}
 
 #pragma region room_sprites
@@ -1084,47 +1086,33 @@ void draw_player_sprite(void)
 
 		break;
 	case LEFT_MOVE:
-
 		// if the button's not pressed, display idle animation
 		if (!(pad1 & PAD_LEFT))
 		{
-			// todo, can replace this with pointer?
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			break;
 		}
-		// animation frames
-		if (move_frames > 23)
+		
+		if (move_frames > 28 || (move_frames >=20 && move_frames < 24))
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-			break;
+			pointer2 = PlayerSprLeftFour;
 		}
-		if (move_frames > 19)
+		else if (move_frames > 24)
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprLeftFive);
-			break;
+			pointer2 = PlayerSprLeftFive;
 		}
-		if (move_frames > 15)
+		else if ((move_frames >= 16 && move_frames < 20) || move_frames < 4)
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprLeftFour);
-			break;
+			pointer2 = PlayerSprLeft;
 		}
-		if (move_frames > 11)
+		else if ((move_frames >= 12 && move_frames < 16) || move_frames < 8)
 		{
-			oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-			break;
-		}
-		if (move_frames > 7)
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprLeftThree);
-			break;
-		}
-		if (move_frames > 3)
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprLeftTwo);
-			break;
+			pointer2 = PlayerSprLeftTwo;
+		} else {
+			pointer2 = PlayerSprLeftThree;
 		}
 
-		oam_meta_spr(player_x, player_y, PlayerSprLeft);
+		oam_meta_spr(player_x, player_y, pointer2);
 
 		break;
 	case UP_MOVE:
@@ -1155,52 +1143,30 @@ void draw_player_sprite(void)
 		// if the button's not pressed, display idle animation
 		if (!(pad1 & PAD_RIGHT))
 		{
-			pointer2 = PlayerSprRight;
-			// oam_meta_spr(player_x, player_y, PlayerSprRight);
-			oam_meta_spr(player_x, player_y, pointer2);
-			// break;
-		}
-		// animation frames
-		// 0    0
-		// 4    2
-		// 8    3
-		// 12   2
-		// 16   0
-		// 20   4
-		// 24   5
-		// 28   4
-		if (move_frames > 28)
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-			break;
-		}
-		if (move_frames > 19)
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprRightFive);
-			break;
-		}
-		if (move_frames > 15)
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprRightFour);
-			break;
-		}
-		if (move_frames > 11)
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
-			break;
-		}
-		if (move_frames > 7)
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprRightThree);
-			break;
-		}
-		if (move_frames > 3)
-		{
-			oam_meta_spr(player_x, player_y, PlayerSprRightTwo);
+			oam_meta_spr(player_x, player_y, PlayerSprRight);
 			break;
 		}
 
-		// oam_meta_spr(player_x, player_y, PlayerSprRight);
+		if (move_frames > 28 || (move_frames >=20 && move_frames < 24))
+		{
+			pointer2 = PlayerSprRightFour;
+		}
+		else if (move_frames > 24)
+		{
+			pointer2 = PlayerSprRightFive;
+		}
+		else if ((move_frames >= 16 && move_frames < 20) || move_frames < 4)
+		{
+			pointer2 = PlayerSprRight;
+		}
+		else if ((move_frames >= 12 && move_frames < 16) || move_frames < 8)
+		{
+			pointer2 = PlayerSprRightTwo;
+		} else {
+			pointer2 = PlayerSprRightThree;
+		}
+
+		oam_meta_spr(player_x, player_y, pointer2);
 
 		break;
 	default:
