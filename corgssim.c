@@ -652,7 +652,6 @@ void draw_sprites(void)
 			{
 				pointer2 = ShotHitTwo;
 			}
-			
 
 			--shot_hit;
 			if (shot_hit == 0)
@@ -1092,8 +1091,8 @@ void draw_player_sprite(void)
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			break;
 		}
-		
-		if (move_frames > 28 || (move_frames >=20 && move_frames < 24))
+
+		if (move_frames > 28 || (move_frames >= 20 && move_frames < 24))
 		{
 			pointer2 = PlayerSprLeftFour;
 		}
@@ -1108,7 +1107,9 @@ void draw_player_sprite(void)
 		else if ((move_frames >= 12 && move_frames < 16) || move_frames < 8)
 		{
 			pointer2 = PlayerSprLeftTwo;
-		} else {
+		}
+		else
+		{
 			pointer2 = PlayerSprLeftThree;
 		}
 
@@ -1147,7 +1148,7 @@ void draw_player_sprite(void)
 			break;
 		}
 
-		if (move_frames > 28 || (move_frames >=20 && move_frames < 24))
+		if (move_frames > 28 || (move_frames >= 20 && move_frames < 24))
 		{
 			pointer2 = PlayerSprRightFour;
 		}
@@ -1162,7 +1163,9 @@ void draw_player_sprite(void)
 		else if ((move_frames >= 12 && move_frames < 16) || move_frames < 8)
 		{
 			pointer2 = PlayerSprRightTwo;
-		} else {
+		}
+		else
+		{
 			pointer2 = PlayerSprRightThree;
 		}
 
@@ -1689,12 +1692,13 @@ void sprite_collisions(void)
 					sprites_type[index] = TURN_OFF;
 					shot_hit = 6; // 6 frames of shot hit.
 					sfx_play(SFX_COIN, 0);
-				} else {
-
-				shot_hit = 6; // 6 frames of shot hit.
-				sfx_play(SFX_GUNTHUD, 0);
 				}
-				
+				else
+				{
+
+					shot_hit = 6; // 6 frames of shot hit.
+					sfx_play(SFX_GUNTHUD, 0);
+				}
 			}
 		}
 	}
@@ -2049,6 +2053,7 @@ void countup_timer(void)
 				if (minutes_left_ones == 9)
 				{
 					++minutes_left_tens;
+					minutes_left_ones = 0;
 				}
 				else
 				{
