@@ -160,7 +160,7 @@ void main(void)
 			draw_sprites();
 
 			// for debugging, the lower the line, the less processing we have
-			// gray_line();
+			gray_line();
 		}
 		while (game_mode == MODE_TALKING_TIME)
 		{
@@ -1185,7 +1185,7 @@ void action(void)
 			++rep_count;
 			if ((rep_count & 1) == 0)
 			{
-				sfx_play(SFX_REP, 0);
+				sfx_play(SFX_COIN, 0);
 			}
 		}
 		else
@@ -1661,6 +1661,7 @@ void sprite_collisions(void)
 			Generic3.height = 4;
 			if (check_collision(&Generic3, &Generic2))
 			{
+				// shot hit something (check for jobbies)
 				if (sprites_type[index] == SPRITE_Jobbie)
 				{
 					// remove from map
@@ -1686,10 +1687,14 @@ void sprite_collisions(void)
 						}
 					}
 					sprites_type[index] = TURN_OFF;
-				}
-				// shot hit something
+					shot_hit = 6; // 6 frames of shot hit.
+					sfx_play(SFX_COIN, 0);
+				} else {
+
 				shot_hit = 6; // 6 frames of shot hit.
 				sfx_play(SFX_GUNTHUD, 0);
+				}
+				
 			}
 		}
 	}
