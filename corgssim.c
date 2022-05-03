@@ -486,10 +486,6 @@ void draw_bg(void)
 	{
 		music_stop();
 		sfx_play(SFX_KING, 0);
-		delay(100);
-		song = SONG_KING;
-		set_music_speed(10);
-		music_play(song);
 	}
 }
 
@@ -1179,7 +1175,7 @@ void action(void)
 			++rep_count;
 			if ((rep_count & 1) == 0)
 			{
-				sfx_play(SFX_COIN, 0);
+				sfx_play(SFX_REP, 0);
 			}
 		}
 		else
@@ -1600,7 +1596,7 @@ void sprite_collisions(void)
 			if (check_collision(&Generic, &Generic2))
 			{
 				sprites_y[index] = TURN_OFF;
-				sfx_play(SFX_COIN, 0);
+				sfx_play(SFX_JOBBIESHOT, 0);
 				++player_coins;
 			}
 		}
@@ -2528,6 +2524,9 @@ void initialize_end_screen(void)
 	// drawing sprites, text, etc.
 
 	game_mode = MODE_END;
+	song = SONG_KING;
+	set_music_speed(10);
+	music_play(song);
 
 	which_bg = KING_ROOM;
 	display_hud_sprites = 0;
