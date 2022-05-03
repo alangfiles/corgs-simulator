@@ -245,3 +245,4 @@ void draw_hud_button(void);
 void draw_ending_sprites(void);
 void draw_ending_text(void);
 void draw_ending_special(void);
+void typewriter(void);

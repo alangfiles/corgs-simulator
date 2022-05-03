@@ -168,30 +168,7 @@ void main(void)
 			countup_timer(); // keep ticking the game timer
 
 			// draw text
-			if (text_rendered != text_length && text_row < 3)
-			{
-				if (pointer[text_rendered] == '\n')
-				{
-					// auto-wrap to next row
-					++text_row;
-					text_col = 0;
-				}
-				else
-				{
-					// this could be more typerwritery if we wanted to add a delay and sound
-					// todo add delay and sfx
-					one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
-					delay(1);
-					++text_col;
-
-					if (text_col == 27) // wrap to next row
-					{
-						++text_row;
-						text_col = 0;
-					}
-				}
-				++text_rendered;
-			}
+			typewriter();
 
 			read_controller();
 
@@ -359,13 +336,21 @@ void main(void)
 				oam_meta_spr(0x78, 0xB0, PlayerSprDown);
 				ppu_wait_nmi();
 				delay(40);
-				draw_ending_text();
+				draw_ending_text(); // sets pointer text
 				ppu_wait_nmi();
 				++temp6;
 			}
 
+			reset_text_values();
 			if (temp6 > 6)
 			{
+				ppu_wait_nmi();
+
+				while (text_rendered != text_length)
+				{
+					typewriter();
+				}
+
 				read_controller();
 
 				if (pad1_new & PAD_START)
@@ -2592,43 +2577,44 @@ void draw_ending_special(void)
 
 void draw_ending_text(void)
 {
-	if (temp4 == 0)
+	switch (temp4)
 	{
-		multi_vram_buffer_horz(ending_0, sizeof(ending_0), NTADR_A(6, 4));
-	}
-	else
-	{
-		if (temp4 == 6)
-		{
-			multi_vram_buffer_horz(ending_5, sizeof(ending_5), NTADR_A(1, 3));
-		}
-		multi_vram_buffer_horz(ending_X, sizeof(ending_X), NTADR_A(10, 4));
-		multi_vram_buffer_horz(ending_Y, sizeof(ending_Y), NTADR_A(11, 5));
-
-		// specific name
-		switch (temp4)
-		{
-		case 1:
-			multi_vram_buffer_horz(serf, 4, NTADR_A(6, 5));
-			break;
-		case 2:
-			multi_vram_buffer_horz(vassal, 6, NTADR_A(4, 5));
-			break;
-		case 3:
-			multi_vram_buffer_horz(squire, 6, NTADR_A(4, 5));
-			break;
-		case 4:
-			multi_vram_buffer_horz(knight, 6, NTADR_A(4, 5));
-			break;
-		case 5:
-			multi_vram_buffer_horz(duke, 4, NTADR_A(6, 5));
-			break;
-		case 6:
-			multi_vram_buffer_horz(king, 4, NTADR_A(6, 5));
-			break;
-		default:
-			break;
-		}
+	case 0:
+		pointer = ending_0;
+		text_length = sizeof(ending_0) - 1;
+		break;
+	case 1:
+		pointer = ending_1;
+		text_length = sizeof(ending_1) - 1;
+		// multi_vram_buffer_horz(serf, 4, NTADR_A(6, 5));
+		break;
+	case 2:
+		pointer = ending_2;
+		text_length = sizeof(ending_2) - 1;
+		// multi_vram_buffer_horz(vassal, 6, NTADR_A(4, 5));
+		break;
+	case 3:
+		pointer = ending_3;
+		text_length = sizeof(ending_3) - 1;
+		// multi_vram_buffer_horz(squire, 6, NTADR_A(4, 5));
+		break;
+	case 4:
+		pointer = ending_4;
+		text_length = sizeof(ending_4) - 1;
+		// multi_vram_buffer_horz(knight, 6, NTADR_A(4, 5));
+		break;
+	case 5:
+		pointer = ending_5;
+		text_length = sizeof(ending_5) - 1;
+		// multi_vram_buffer_horz(duke, 4, NTADR_A(6, 5));
+		break;
+	case 6:
+		pointer = ending_6;
+		text_length = sizeof(ending_6) - 1;
+		// multi_vram_buffer_horz(king, 4, NTADR_A(6, 5));
+		break;
+	default:
+		break;
 	}
 }
 
@@ -2717,4 +2703,32 @@ void toliet_warp(void)
 {
 	sfx_play(SFX_WARP_TOLIET, 0);
 	draw_bg();
+}
+
+void typewriter(void)
+{
+	if (text_rendered != text_length && text_row < 3)
+	{
+		if (pointer[text_rendered] == '\n')
+		{
+			// auto-wrap to next row
+			++text_row;
+			text_col = 0;
+		}
+		else
+		{
+			// this could be more typerwritery if we wanted to add a delay and sound
+			// todo add delay and sfx
+			one_vram_buffer(pointer[text_rendered], NTADR_A(2 + text_col, 3 + text_row));
+			delay(1);
+			++text_col;
+
+			if (text_col == 27) // wrap to next row
+			{
+				++text_row;
+				text_col = 0;
+			}
+		}
+		++text_rendered;
+	}
 }
