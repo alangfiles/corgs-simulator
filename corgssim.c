@@ -119,6 +119,8 @@ void main(void)
 		{
 			ppu_wait_nmi();
 
+			typewriter();
+
 			read_controller();
 
 			if (pad1_new & PAD_START)
@@ -128,6 +130,7 @@ void main(void)
 				music_play(song);
 
 				// set defaults
+				reset_text_values();
 				game_mode = MODE_GAME;
 				which_bg = STARTING_ROOM;
 				player_x = 0x80;
@@ -168,7 +171,10 @@ void main(void)
 			countup_timer(); // keep ticking the game timer
 
 			// draw text
-			typewriter();
+			if (text_row < 3)
+			{
+				typewriter();
+			}
 
 			read_controller();
 
@@ -2665,14 +2671,9 @@ void initialize_intro_screen(void)
 	game_mode = MODE_INTRO;
 	which_bg = INTRO_ROOM;
 	draw_bg();
-
-	multi_vram_buffer_horz(intro_1, sizeof(intro_1), NTADR_A(7, 10));
-	ppu_wait_nmi();
-	multi_vram_buffer_horz(intro_2, sizeof(intro_2), NTADR_A(6, 12));
-	ppu_wait_nmi();
-	multi_vram_buffer_horz(intro_3, sizeof(intro_3), NTADR_A(3, 14));
-	ppu_wait_nmi();
-	multi_vram_buffer_horz(intro_4, sizeof(intro_4), NTADR_A(4, 16));
+	reset_text_values();
+	pointer = intro_1;
+	text_length = sizeof(intro_1)-1;
 }
 
 void read_controller(void)
@@ -2707,7 +2708,8 @@ void toliet_warp(void)
 
 void typewriter(void)
 {
-	if (text_rendered != text_length && text_row < 3)
+
+	if (text_rendered != text_length)
 	{
 		if (pointer[text_rendered] == '\n')
 		{

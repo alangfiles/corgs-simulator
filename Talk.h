@@ -149,7 +149,8 @@ const unsigned char talk_clip[] = "HEY LISTEN!\nLooks like you could clip\nthrou
 // const unsigned char talk_27[] = "You're not allowed back here, you might accidentally clip across the map.";
 
 const unsigned char fetch_quest_1[] = "GRUMBLE GRUMBLE\nI'm hungry, but I\ncan't leave my booth\n\nCan you help?";
-const unsigned char fetch_quest_2[] = "Thank you!\nOne super burger\ndeserves another!\nTake this!";
+// const unsigned char test[] =       "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
+const unsigned char fetch_quest_2[] = "Thank you! One super burgerdeserves another\ntake this!";
 const unsigned char fetch_quest_4[] = "MUNCH MUNCH";
 
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
@@ -163,10 +164,11 @@ const unsigned char item_6[] = "You sure threw a lot of\nmoney at those video ga
 const unsigned char fetch_1[] = "\nYou got a SILVER COIN!";
 const unsigned char fetch_2[] = "\nYou got a JUMBO BURGER!";
 
-const unsigned char intro_1[] = "It is the year 20XX";
-const unsigned char intro_2[] = "The CORGS game show";
-const unsigned char intro_3[] = "has cool games. It is your";
-const unsigned char intro_4[] = "mission to find them all!";
+const unsigned char intro_1[] = "It is the year 20XX\nThe CORGS game show\nhas cool games. It is your\nmission to find them all!";
+// const unsigned char intro_1[] = "It is the year 20XX";
+// const unsigned char intro_2[] = "The CORGS game show";
+// const unsigned char intro_3[] = "has cool games. It is your";
+// const unsigned char intro_4[] = "mission to find them all!";
 
 // constants used to save rom space
 const unsigned char time[] = "TIME";
