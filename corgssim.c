@@ -1182,10 +1182,14 @@ void action(void)
 		{
 			// the shot starts where the player is and moves in the direction
 			// the player was facing when they shot.
-			shot_x = player_x;
-			shot_y = player_y;
-			shot_direction = player_direction;
-			sfx_play(SFX_SHOT, 0);
+			if(which_bg != CLIFF_ROOM)
+			{
+				shot_x = player_x;
+				shot_y = player_y;
+				shot_direction = player_direction;
+				sfx_play(SFX_SHOT, 0);
+			}
+			
 		}
 	}
 	if (rep_timer == 0 && rep_count > 0)

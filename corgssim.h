@@ -46,6 +46,7 @@ unsigned char code_active = 0;
 #define STARTING_ROOM 13
 #define KING_ROOM 6
 #define KING_ANTE_ROOM 21
+#define CLIFF_ROOM 20
 #define INTRO_ROOM 1
 
 // HUD stuff
@@ -96,7 +97,7 @@ unsigned char player_y = 0xA0;
 unsigned char song;
 #define MAX_SONGS 4
 enum {SONG_INSIDE, SONG_TITLE, SONG_OUTSIDE, SONG_KING};
-enum {SFX_WARP_TOLIET, SFX_JUMP, SFX_SHOT, SFX_MYSTERY, SFX_COIN, SFX_VICTORY, SFX_CONTRA, SFX_KING, SFX_REP, SFX_GUNTHUD,SFX_JOBBIESHOT};
+enum {SFX_WARP_TOLIET, SFX_JUMP, SFX_SHOT, SFX_MYSTERY, SFX_JOBBIESHOT, SFX_VICTORY, SFX_CONTRA, SFX_KING, SFX_REP, SFX_GUNTHUD, SFX_COIN};
 
 struct Base {
 	unsigned char x;
