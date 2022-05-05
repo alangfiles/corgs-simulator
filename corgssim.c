@@ -689,9 +689,9 @@ void draw_sprites(void)
 		case SPRITE_PunchoutMan112:
 			pointer2 = PunchoutMan112;
 			break;
-		case SPRITE_PunchOutMat113:
-			pointer2 = PunchOutMat113;
-			break;
+		// case SPRITE_PunchOutMat113:
+		// 	pointer2 = PunchOutMat113;
+		// 	break;
 		case SPRITE_LunchLadyHead36:
 			pointer2 = LunchLadyHead36;
 			break;

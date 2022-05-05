@@ -18,7 +18,7 @@ const unsigned char room_18_sprites[]={
 	112, 80, SPRITE_ALAN92,
 	128, 80, SPRITE_BRIAN93,
 	32, 160, SPRITE_PunchoutMan112,
-	48, 170, SPRITE_PunchOutMat113,
+	//48, 170, SPRITE_PunchOutMat113,
 	192, 96, SPRITE_BaldLeft18,
 	TURN_OFF
 };

@@ -5,7 +5,7 @@ enum
 	SPRITE_ALAN92,
 	SPRITE_BRIAN93,
 	SPRITE_PunchoutMan112,
-	SPRITE_PunchOutMat113,
+	// SPRITE_PunchOutMat113,
 	SPRITE_LunchLadyHead36,
 	SPRITE_BaldRight22,
 	SPRITE_HairForward114,
@@ -1351,13 +1351,13 @@ const unsigned char PunchoutMan112[] = {
 
 };
 
-const unsigned char PunchOutMat113[] = {
+// const unsigned char PunchOutMat113[] = {
 
-		0, 0, 0x2c, 2,
-		8, 0, 0x2c, 2 | OAM_FLIP_H,
-		0, 8, 0x2c, 2 | OAM_FLIP_V,
-		8, 8, 0x2c, 2 | OAM_FLIP_H | OAM_FLIP_V,
-		128};
+// 		0, 0, 0x2c, 2,
+// 		8, 0, 0x2c, 2 | OAM_FLIP_H,
+// 		0, 8, 0x2c, 2 | OAM_FLIP_V,
+// 		8, 8, 0x2c, 2 | OAM_FLIP_H | OAM_FLIP_V,
+// 		128};
 
 const unsigned char HairForward114[] = {
 		0, 0, 0x66, 2,
@@ -1566,8 +1566,8 @@ const unsigned char JobbieTwo[] = {
 		8, 8, 0x99, 3,
 		128};
 
-//girl
-// const unsigned char girlstandleft130[] = {
+// girl
+//  const unsigned char girlstandleft130[] = {
 
 // 		0, 0, 0x40, 2,
 // 		8, 0, 0x41, 2,
