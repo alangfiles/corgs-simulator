@@ -162,7 +162,7 @@ const unsigned char item_6[] = "You sure threw a lot of\nmoney at those video ga
 const unsigned char fetch_1[] = "\nYou got a SILVER COIN!";
 const unsigned char fetch_2[] = "\nYou got a JUMBO BURGER!";
 
-const unsigned char intro_1[] = "It is the year 20XX\nThe CORGS game show\nhas cool games. It is your\nmission to find them all!";
+const unsigned char intro_1[] = "\tIt is the year 20XX\nThe CORG\t\t game show\nhas cool games. It is your\nmission to find them all!";
 // const unsigned char intro_1[] = "It is the year 20XX";
 // const unsigned char intro_2[] = "The CORGS game show";
 // const unsigned char intro_3[] = "has cool games. It is your";

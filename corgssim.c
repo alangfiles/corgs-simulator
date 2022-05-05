@@ -2714,11 +2714,22 @@ void typewriter(void)
 
 	if (text_rendered != text_length)
 	{
+
+		
 		if (pointer[text_rendered] == '\n')
 		{
 			// auto-wrap to next row
 			++text_row;
 			text_col = 0;
+		}
+		else if(pointer[text_rendered] == '\t')
+		{
+			text_col += 4;
+			if (text_col >= 27) // wrap to next row
+			{
+				++text_row;
+				text_col = 0;
+			}
 		}
 		else
 		{
