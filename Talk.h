@@ -117,14 +117,14 @@ const unsigned char talk_arcade[] = "Arcade games are the best!\nThey are like n
 const unsigned char talk_pinball[] = "The guy in the corner\nlooks like\nWilliam S Sessions!";
 const unsigned char talk_drugs[] = "Hey psst. Want some drugs?\n\nHa! Gotcha!\n\nWinners Don't Use Drugs."; // todo add choice
 const unsigned char talk_speaker[] = "...and that's why COLECO\nAdam is the definitive\nvideo game machine.";
-const unsigned char talk_crowd[] = "The speaker isn't very lively, but that would take up\na lot of ROM space."; //ideas?
+const unsigned char talk_crowd[] = "The speaker isn't very lively, but that would take up\na lot of ROM space."; // ideas?
 const unsigned char talk_kick[] = "HEY! HEY! Wanna see my\nkickstarter?";
 const unsigned char talk_copies[] = "I have a copy of\nthis, but I don't have two.";
 const unsigned char talk_youtube[] = "The KING OF VIDEO GAMES?\nI think he's just a myth.";
 const unsigned char talk_kingchat[] = "I hear the KING OF VIDEO\nGAMES is here today.";
 const unsigned char talk_outside[] = "Why walk around outside\nwhen there's a video game\nshow going on inside?";
 const unsigned char talk_newgames[] = "I hear they're making new\ngames for old hardware.\n\nI don't get it.";
-const unsigned char talk_jealous[] = "Those CORGS simulator guys are stealing my thunder."; //ideas?
+const unsigned char talk_jealous[] = "Those CORGS simulator guys are stealing my thunder."; // ideas?
 const unsigned char talk_judge[] = "I'm judging this cosplay\ncontest.";
 const unsigned char talk_character[] = "Why does everyone avoid me?";
 const unsigned char talk_pacman[] = "I ran my Blinky costume\nthrough the washer one too many times.\nNow I'm Pinky.";
@@ -143,8 +143,6 @@ const unsigned char talk_king2[] = "The KING OF VIDEO GAMES?\nI'm gonna try and 
 const unsigned char talk_space[] = "I'm taking up 98 Bytes in\nthe game ROM, but I'm too\nimportant to cut.";
 const unsigned char talk_dlc[] = "CORGS Sim DLC this way.\n\n\n$20 please.";
 const unsigned char talk_clip[] = "HEY LISTEN!\nLooks like you could clip\nthrough these walls.\nIf you were on the\nother side...";
-
-
 
 // const unsigned char talk_27[] = "You're not allowed back here, you might accidentally clip across the map.";
 
@@ -193,19 +191,17 @@ const unsigned char ending_4[] = "4? Enter my court\nThou art a\nKNIGHT OF VIDEO
 const unsigned char ending_5[] = "5!? Sit at my table\nThou art a\nDUKE OF VIDEO GAMES";
 const unsigned char ending_6[] = "Thou hast even more than me!\nTruly Thou art a\n KING OF VIDEO GAMES!";
 
-
-//grade them based on the game
-//1 game, you are but video game stable boy / serf
-//2 games, you are a knight
-//3 games, you are a earl
-//4 games you are an archduke
-//5 games, you have even more than me!
+// grade them based on the game
+// 1 game, you are but video game stable boy / serf
+// 2 games, you are a knight
+// 3 games, you are a earl
+// 4 games you are an archduke
+// 5 games, you have even more than me!
 
 const unsigned char game_genie_text[] = "II' Turbo Championship Edition";
 
-const unsigned char sidebar[] = {0xfd,0xfd,0xfd};
-const unsigned char bottombar[] = {0xfe,0xed,0xff};
-
+const unsigned char sidebar[] = {0xfd, 0xfd, 0xfd};
+const unsigned char bottombar[] = {0xfe, 0xed, 0xff};
 
 // big space holders
 // const unsigned char lorem256_1[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
@@ -222,7 +218,7 @@ const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipisci
 const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 const unsigned char lorem6[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 const unsigned char lorem7[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem8[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+// const unsigned char lorem8[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
 // const unsigned char lorem9[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 // const unsigned char lorem10[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";

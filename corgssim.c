@@ -945,7 +945,7 @@ void draw_sprites(void)
 		if (code_active == 1)
 		{
 			oam_meta_spr(0xBA, 0x30, PlayerHead);
-			multi_vram_buffer_horz(thirty_lives, sizeof(thirty_lives), NTADR_A(25, 6));
+			multi_vram_buffer_horz(thirty_lives, sizeof(thirty_lives) - 1, NTADR_A(25, 6));
 		}
 	}
 #pragma endregion
@@ -1182,14 +1182,13 @@ void action(void)
 		{
 			// the shot starts where the player is and moves in the direction
 			// the player was facing when they shot.
-			if(which_bg != CLIFF_ROOM)
+			if (which_bg != CLIFF_ROOM)
 			{
 				shot_x = player_x;
 				shot_y = player_y;
 				shot_direction = player_direction;
 				sfx_play(SFX_SHOT, 0);
 			}
-			
 		}
 	}
 	if (rep_timer == 0 && rep_count > 0)
@@ -2509,7 +2508,8 @@ void initialize_title_screen(void)
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
 
-	game_genie = 0xAF;
+	game_genie = 0xAE;
+	++game_genie;
 	if (game_genie == 0xBB)
 	{
 		ppu_wait_nmi();
@@ -2676,7 +2676,7 @@ void initialize_intro_screen(void)
 	draw_bg();
 	reset_text_values();
 	pointer = intro_1;
-	text_length = sizeof(intro_1)-1;
+	text_length = sizeof(intro_1) - 1;
 }
 
 void read_controller(void)
