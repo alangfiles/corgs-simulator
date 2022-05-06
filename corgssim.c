@@ -521,8 +521,9 @@ void draw_bg(void)
 		sfx_play(SFX_KING, 0);
 	}
 
-	if (which_bg == KING_ROOM){
-		pal_col(13, 0x16); //change the table colors
+	if (which_bg == KING_ROOM)
+	{
+		pal_col(13, 0x16); // change the table colors
 	}
 }
 
@@ -722,7 +723,6 @@ void draw_sprites(void)
 		}
 	}
 #pragma endregion
-
 
 	draw_player_sprite();
 	if (shot_x >= 0)
@@ -988,7 +988,6 @@ void draw_sprites(void)
 	}
 #pragma endregion room_sprites
 
-
 #pragma region special_sprites
 
 	if (which_bg == DUNGEON_GAME_ROOM)
@@ -1117,7 +1116,6 @@ void draw_player_sprite(void)
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			break;
 		}
-
 
 		if (move_frames >= 28 || (move_frames >= 20 && move_frames < 24))
 		{
@@ -2513,7 +2511,7 @@ void draw_talking(void)
 
 	--text_length;
 
-	ppu_on_all(); 
+	ppu_on_all();
 }
 
 void initialize_title_screen(void)
@@ -2524,7 +2522,7 @@ void initialize_title_screen(void)
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
 	items_collected = 0;
-	on_fetchquest = 0; 
+	on_fetchquest = 0;
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
@@ -2552,8 +2550,8 @@ void initialize_title_screen(void)
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
 
-	game_genie = 0xAF;
-	++game_genie;
+	game_genie = 0xAE;
+	++game_genie; // 0xAF
 	if (game_genie == 0xBB)
 	{
 		ppu_wait_nmi();
@@ -2582,7 +2580,7 @@ void initialize_end_screen(void)
 	draw_bg();
 	// pal_col(5, 0x16);
 	// pal_col(8, 0x16);
-	
+
 	// pal_col(10, 0x16);
 	// pal_col(11, 0x16);
 
@@ -2765,14 +2763,13 @@ void typewriter(void)
 	if (text_rendered != text_length)
 	{
 
-		
 		if (pointer[text_rendered] == '\n')
 		{
 			// auto-wrap to next row
 			++text_row;
 			text_col = 0;
 		}
-		else if(pointer[text_rendered] == '\t')
+		else if (pointer[text_rendered] == '\t')
 		{
 			text_col += 4;
 			if (text_col >= 27) // wrap to next row
