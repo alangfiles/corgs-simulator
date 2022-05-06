@@ -635,7 +635,11 @@ void draw_sprites(void)
 		return;
 	}
 
-	++move_frames;
+	if((get_frame_count()&2) == 2)
+	{
+		++move_frames;
+	}
+	
 	if (move_frames >= 32)
 	{
 		move_frames = 0;
