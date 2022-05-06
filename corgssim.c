@@ -2326,7 +2326,7 @@ void draw_talking(void)
 		text_length = sizeof(talk_drugs);
 		break;
 	case TALK_SPEAKER:
-		pointer = talk_speaker;
+		pointer = talk_speaker; 
 		text_length = sizeof(talk_speaker);
 		break;
 	case TALK_CROWD:
