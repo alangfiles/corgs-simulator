@@ -1118,29 +1118,12 @@ void draw_player_sprite(void)
 			break;
 		}
 
-0
-2
-3
-2
-0
-4
-5
-4
-		32
-		0 - 3: 0
-		4 - 7: 2
-		8 - 11: 3
-		12 - 15: 2
-		16-19: 0
-		20-23:4
-		24-27: 5
-		28-31: 4
 
-		if (move_frames > 28 || (move_frames >= 20 && move_frames < 24))
+		if (move_frames >= 28 || (move_frames >= 20 && move_frames < 24))
 		{
 			pointer2 = PlayerSprLeftFour;
 		}
-		else if (move_frames > 24)
+		else if (move_frames >= 24)
 		{
 			pointer2 = PlayerSprLeftFive;
 		}
@@ -1192,11 +1175,11 @@ void draw_player_sprite(void)
 			break;
 		}
 
-		if (move_frames > 28 || (move_frames >= 20 && move_frames < 24))
+		if (move_frames >= 28 || (move_frames >= 20 && move_frames < 24))
 		{
 			pointer2 = PlayerSprRightFour;
 		}
-		else if (move_frames > 24)
+		else if (move_frames >= 24)
 		{
 			pointer2 = PlayerSprRightFive;
 		}
