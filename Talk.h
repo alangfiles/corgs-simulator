@@ -78,15 +78,19 @@ enum
 
 //"You hear the doors click  behind you, they're locked.";
 //                                    "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
+//"*You sense someone behind you*"
 
+//"* A line forms behind you *"
+// "Hey! Wait my turn, you're playing now."
+//"*I feel someone behind me*"
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
 // const unsigned char test[] =  "XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\XXXXXXXXXXXXXXXXXXXXXXXXXX\";
 
 // const unsigned char test[] =  "I didn't like the outdoors\Brian designed at first,\n\but I like them now.\";
 const unsigned char blank_1[] = "";
-const unsigned char alan_1[] = "Brian did the graphics\nI didn't like the outdoors\nBrian designed at first,\nbut I like them now.";
-const unsigned char brian_1[] = "Alan's to blame for the\nprogramming.";
-const unsigned char guy_1[] = "* You sense someone *\n*    behind you     *";
+const unsigned char alan_1[] = "Brian did the graphics.\nI didn't like the outdoors\nhe designed at first,\nbut I like them now.";
+const unsigned char brian_1[] = "Alan kept running out of\nprogramming space, then\nfinding more.";
+const unsigned char guy_1[] = "Nice outfit.";
 const unsigned char locked_doors[] = "The doors lock behind you.";
 const unsigned char play_game_text[] = "A CORGS simulator\nDo you want to play?";
 const unsigned char talk_smoke[] = "This is a good place to\nsmoke, too bad I can't\nin an NES game.";
@@ -165,7 +169,7 @@ const unsigned char item_6[] = "You sure threw a lot of\nmoney at those video ga
 const unsigned char fetch_1[] = "You got a SILVER COIN!\n\nGo get that guy some food!";
 const unsigned char fetch_2[] = "\nYou got a JUMBO BURGER!";
 
-const unsigned char intro_1[] = "\tIt is the year 20XX\nThe CORG\t\t game show\nhas cool games. It is your\nmission to find them all!";
+const unsigned char intro_1[] = "  It is the year 20XX...\n\n\tThe CORGS game show\nhas cool games. It is your\n  mission to find them all!";
 
 // constants used to save rom space
 const unsigned char time[] = "TIME";

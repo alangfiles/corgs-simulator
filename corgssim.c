@@ -132,7 +132,7 @@ void main(void)
 				// set defaults
 				reset_text_values();
 				game_mode = MODE_GAME;
-				which_bg = KING_ANTE_ROOM-1;//STARTING_ROOM;
+				which_bg = STARTING_ROOM;
 				player_x = 0x80;
 				player_y = 0x80;
 
@@ -663,6 +663,67 @@ void draw_sprites(void)
 	}
 #pragma endregion
 
+#pragma region hud_sprites
+	if (display_hud_sprites)
+	{
+		oam_meta_spr(0x68, 0x1D, Question128);
+		oam_meta_spr(0x88, 0x1D, Dollars127);
+
+		if (items_collected & ITEM_DUNGEON_GAME)
+		{
+			oam_meta_spr(0x10, 0x10, FloppyDisk125);
+		}
+		if (items_collected & ITEM_COIN_GAME)
+		{
+			oam_meta_spr(0x22, 0x10, GamePrize97);
+		}
+		if (items_collected & ITEM_ADVENTURE_GAME)
+		{
+			oam_meta_spr(0x34, 0x10, AdventureGameBig);
+		}
+		if (items_collected & ITEM_BURGER_GAME)
+		{
+			switch (on_fetchquest)
+			{
+			case 1:
+				oam_meta_spr(0x24, 0x20, FetchMoney);
+				break;
+			case 2:
+				oam_meta_spr(0x24, 0x20, FetchFood);
+				break;
+			case 4:
+				oam_meta_spr(0x24, 0x20, BurgerGame);
+				break;
+			default:
+				break;
+			}
+		}
+		if (items_collected & ITEM_KETTLEBELL_GAME)
+		{
+			oam_meta_spr(0x34, 0x20, KettleBell);
+		}
+		if (items_collected & ITEM_JOBBIES_GAME)
+		{
+			one_vram_buffer(0x40, NTADR_A(2, 4));
+			one_vram_buffer(0x22, NTADR_A(3, 4));
+			one_vram_buffer(0x28, NTADR_A(2, 5));
+			one_vram_buffer(0x29, NTADR_A(3, 5));
+		}
+
+		one_vram_buffer(0x8E, NTADR_A(24, 4));
+		one_vram_buffer('x', NTADR_A(25, 4));
+		one_vram_buffer(48 + player_jobbies_tens, NTADR_A(26, 4));
+		one_vram_buffer(48 + player_jobbies_ones, NTADR_A(27, 4));
+
+		if (code_active == 1)
+		{
+			oam_meta_spr(0xBA, 0x30, PlayerHead);
+			multi_vram_buffer_horz(thirty_lives, sizeof(thirty_lives) - 1, NTADR_A(25, 6));
+		}
+	}
+#pragma endregion
+
+
 	draw_player_sprite();
 	if (shot_x >= 0)
 	{ // only draw the shot if it exists
@@ -927,65 +988,6 @@ void draw_sprites(void)
 	}
 #pragma endregion room_sprites
 
-#pragma region hud_sprites
-	if (display_hud_sprites)
-	{
-		oam_meta_spr(0x68, 0x1D, Question128);
-		oam_meta_spr(0x88, 0x1D, Dollars127);
-
-		if (items_collected & ITEM_DUNGEON_GAME)
-		{
-			oam_meta_spr(0x10, 0x10, FloppyDisk125);
-		}
-		if (items_collected & ITEM_COIN_GAME)
-		{
-			oam_meta_spr(0x22, 0x10, GamePrize97);
-		}
-		if (items_collected & ITEM_ADVENTURE_GAME)
-		{
-			oam_meta_spr(0x34, 0x10, AdventureGameBig);
-		}
-		if (items_collected & ITEM_BURGER_GAME)
-		{
-			switch (on_fetchquest)
-			{
-			case 1:
-				oam_meta_spr(0x24, 0x20, FetchMoney);
-				break;
-			case 2:
-				oam_meta_spr(0x24, 0x20, FetchFood);
-				break;
-			case 4:
-				oam_meta_spr(0x24, 0x20, BurgerGame);
-				break;
-			default:
-				break;
-			}
-		}
-		if (items_collected & ITEM_KETTLEBELL_GAME)
-		{
-			oam_meta_spr(0x34, 0x20, KettleBell);
-		}
-		if (items_collected & ITEM_JOBBIES_GAME)
-		{
-			one_vram_buffer(0x40, NTADR_A(2, 4));
-			one_vram_buffer(0x22, NTADR_A(3, 4));
-			one_vram_buffer(0x28, NTADR_A(2, 5));
-			one_vram_buffer(0x29, NTADR_A(3, 5));
-		}
-
-		one_vram_buffer(0x8E, NTADR_A(24, 4));
-		one_vram_buffer('x', NTADR_A(25, 4));
-		one_vram_buffer(48 + player_jobbies_tens, NTADR_A(26, 4));
-		one_vram_buffer(48 + player_jobbies_ones, NTADR_A(27, 4));
-
-		if (code_active == 1)
-		{
-			oam_meta_spr(0xBA, 0x30, PlayerHead);
-			multi_vram_buffer_horz(thirty_lives, sizeof(thirty_lives) - 1, NTADR_A(25, 6));
-		}
-	}
-#pragma endregion
 
 #pragma region special_sprites
 
@@ -2520,8 +2522,8 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
-	items_collected = 63; //alan22
-	on_fetchquest = 4; 
+	items_collected = 0;
+	on_fetchquest = 0; 
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
@@ -2721,6 +2723,7 @@ void initialize_intro_screen(void)
 	which_bg = INTRO_ROOM;
 	draw_bg();
 	reset_text_values();
+	text_row = 7;
 	pointer = intro_1;
 	text_length = sizeof(intro_1) - 1;
 }
