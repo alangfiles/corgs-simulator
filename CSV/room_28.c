@@ -27,7 +27,7 @@ const unsigned char room_28_sprites[]={
 };
 
 const unsigned char room_28_talk[]={
-	200, 136, TALK_STICK,
+	200, 130, TALK_STICK,
 	168, 96, TALK_ARCADE,
 	168, 104, TALK_ARCADE,
 	178, 160, TALK_PINBALL,

@@ -7,7 +7,7 @@ const unsigned char room_24[]={
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 2,42,0,0,0,0,0,0,0,0,0,0,0,0,42,3,
-2,0,0,16,17,21,0,0,0,0,10,21,9,0,0,3,
+2,0,0,16,17,21,0,0,0,0,10,10,9,0,0,3,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,
 7,4,4,4,4,4,4,4,4,4,4,4,4,4,4,8,
 
@@ -20,7 +20,7 @@ const unsigned char room_24_sprites[]={
 	80, 80, SPRITE_WideBoy69, 
 	64, 184, SPRITE_HatBehind117, 
 	128, 128, SPRITE_SkirtLady40,
-	64, 104, SPRITE_BaldBehind8,
+	176, 104, SPRITE_BaldBehind8,
 	TURN_OFF
 };
 
@@ -34,8 +34,7 @@ const unsigned char room_24_talk[]={
 	72, 168, TALK_JEALOUS, 
 	64, 184, TALK_JEALOUS,
 	136, 136, TALK_OUTSIDE,
-	64, 112, TALK_COPIES,
-	
+	184, 112, TALK_COPIES,
 	TURN_OFF
 };
 

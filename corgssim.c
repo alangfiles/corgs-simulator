@@ -2482,6 +2482,10 @@ void draw_talking(void)
 		pointer = talk_clip;
 		text_length = sizeof(talk_clip);
 		break;
+	case TALK_PUNCHOUT:
+		pointer = talk_punchout;
+		text_length = sizeof(talk_punchout);
+		break;
 	default:
 		pointer = blank_1;
 		text_length = sizeof(blank_1);
@@ -2490,7 +2494,7 @@ void draw_talking(void)
 
 	--text_length;
 
-	ppu_on_all();
+	ppu_on_all(); 
 }
 
 void initialize_title_screen(void)

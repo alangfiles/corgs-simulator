@@ -69,8 +69,8 @@ unsigned char jobbies_map[]={
 	0, 0, 2, 1, 2,
 	0, 4, 2, 1, 8,
 	0, 0, 1, 1, 1,
-	0, 2, 1, 0, 1,
-	0, 5, 4, 2, 3,
+	0, 2, 4, 0, 1,
+	0, 5, 4, 2, 0,
 };
 
 unsigned char jobbies_map_init[]={
@@ -78,8 +78,8 @@ unsigned char jobbies_map_init[]={
 	0, 0, 2, 1, 2,
 	0, 4, 2, 1, 8,
 	0, 0, 1, 1, 1,
-	0, 2, 1, 0, 1,
-	0, 5, 4, 2, 3,
+	0, 2, 4, 0, 1,
+	0, 5, 4, 2, 0,
 };
 
 #pragma region ADVENTURE_ROOM
