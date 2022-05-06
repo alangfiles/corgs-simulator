@@ -143,7 +143,7 @@ const unsigned char talk_king2[] = "The KING OF VIDEO GAMES?\nI'm gonna try and 
 const unsigned char talk_space[] = "I'm taking up 98 Bytes in\nthe game ROM, but I'm too\nimportant to cut.";
 
 const unsigned char talk_dlc[] = "CORGS Sim DLC this way.\n\n\n$20 please.";
-const unsigned char talk_clip[] = "HEY LISTEN!\nI think they put in that fence to prevent you from clipping through the map.";
+const unsigned char talk_clip[] = "HEY LISTEN!\nI think they put in that\nfence to prevent you from\nclipping through the map.";
 const unsigned char talk_admission[] = "Kids admitted free.\n\nChild at heart? Full price.";
 const unsigned char talk_graded[] = "I have 5 speedrunning\nrecords.";
 const unsigned char talk_jealous[] = "Those CORGS simulator guys are stealing my thunder."; // ideas?

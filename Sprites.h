@@ -590,13 +590,23 @@ const unsigned char LunchLadyHead36[] = {
 
 const unsigned char SkirtLady39[] = {
 
-		0, 8, 0x92, 2,
-		0, 0, 0x82, 2,
-		8, 0, 0x83, 2,
-		8, 8, 0x92, 2 | OAM_FLIP_H,
+		0, 0, 0x42, 2,
+		8, 0, 0x43, 2,
+		0, 8, 0x52, 2,
+		8, 8, 0x52, 2 | OAM_FLIP_H,
 		128
 
 };
+//old skirtlady for famicom version
+// const unsigned char SkirtLady39[] = {
+
+// 		0, 8, 0x92, 2,
+// 		0, 0, 0x82, 2,
+// 		8, 0, 0x83, 2,
+// 		8, 8, 0x92, 2 | OAM_FLIP_H,
+// 		128
+
+// };
 
 const unsigned char SkirtLady40[] = {
 
