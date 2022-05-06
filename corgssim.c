@@ -294,7 +294,28 @@ void main(void)
 		while (game_mode == MODE_END)
 		{
 
-			if (temp6 < 6)
+			if (temp6 == 0)
+			{
+				ppu_wait_nmi();
+				oam_clear();
+
+				pointer = ending_drac;
+				text_length = sizeof(ending_drac) - 1;
+				draw_ending_sprites(); // draw games where they go
+				oam_meta_spr(0x78, 0xB0, PlayerSprDown);
+
+				while (text_rendered != text_length)
+				{
+					ppu_wait_nmi();
+					typewriter();
+				}
+				reset_text_values();
+				delay(100);
+				draw_bg();
+				++temp6;
+			}
+
+			if (temp6 < 7)
 			{
 				temp5 = get_frame_count();
 				if ((temp5 & 100) == 100)
@@ -335,7 +356,7 @@ void main(void)
 
 			// draw_ending_sprites(); // these sprites are always here (king and games)
 
-			if (temp6 == 6)
+			if (temp6 == 7)
 			{
 				oam_clear();
 				draw_ending_sprites();
@@ -348,7 +369,7 @@ void main(void)
 			}
 
 			reset_text_values();
-			if (temp6 > 6)
+			if (temp6 > 7)
 			{
 				ppu_wait_nmi();
 
