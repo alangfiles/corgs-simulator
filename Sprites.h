@@ -1535,10 +1535,10 @@ const unsigned char FetchFood[] = {
 		128};
 
 const unsigned char BurgerGame[] = {
-		0, 0, 0x3c, 3,
-		8, 0, 0x3d, 3,
-		0, 8, 0x4c, 3,
-		8, 8, 0x4d, 3,
+		0, 0, 0x3c, 2,
+		8, 0, 0x3d, 2,
+		0, 8, 0x4c, 2,
+		8, 8, 0x4d, 2,
 		128};
 
 const unsigned char KettleBell[] = {

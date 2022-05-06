@@ -174,14 +174,14 @@ const unsigned char yes[] = "YES";
 const unsigned char thirty_lives[] = "x30";
 
 // const unsigned char ending_game[] = " game";
-const unsigned char ending_drac[] = "What is a man? A miserable little pile of video games.But enough talk, what have you?";
-const unsigned char ending_0[] = "No games!\nHold thy peace\nThou Knave!";
-const unsigned char ending_1[] = "Only ONE!?\nThou art a\nSERF OF VIDEO GAMES";
-const unsigned char ending_2[] = "TWO are but few!\nThou art a\nVASSAL OF VIDEO GAMES";
-const unsigned char ending_3[] = "Verily you have 3\nThou art a\nSQUIRE OF VIDEO GAMES";
-const unsigned char ending_4[] = "4? Enter my court\nThou art a\nKNIGHT OF VIDEO GAMES";
-const unsigned char ending_5[] = "5!? Sit at my table\nThou art a\nDUKE OF VIDEO GAMES";
-const unsigned char ending_6[] = "Thou hast even more than me!\nTruly Thou art a\n KING OF VIDEO GAMES!";
+const unsigned char ending_drac[] = " What is a man? A cheerful little pile of video games.\t  But enough talk,\n\t   what have you?";
+const unsigned char ending_0[] = "\t\tNary a game?!\n Hold thy peace and begone\n\t\t Thou Knave!";
+const unsigned char ending_1[] = "\t\t Only ONE!?\n\t\t Thou art a\n\t SERF OF VIDEO GAMES";
+const unsigned char ending_2[] = "\t  TWO are but few!\n\t\t Thou art a\n   VASSAL OF VIDEO GAMES";
+const unsigned char ending_3[] = "\tVerily thou hast 3\n\t\t Thou art a\n   SQUIRE OF VIDEO GAMES";
+const unsigned char ending_4[] = "\tA hearty four found!\n\t\tI dub thee a\n   KNIGHT OF VIDEO GAMES";
+const unsigned char ending_5[] = "\t5!? Sit at my table\n\t\t Thou art a\n\tDUKE OF VIDEO GAMES";
+const unsigned char ending_6[] = " 6! Thou hast more than me!\t Thou art the true\n\tKING OF VIDEO GAMES!";
 
 // grade them based on the game
 // 1 game, you are but video game stable boy / serf
@@ -202,9 +202,9 @@ const unsigned char bottombar[] = {0xfe, 0xed, 0xff};
 // const unsigned char lorem256_4[] = "LLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
 // keeping track of space left. each line is 64bytes 4=256kb
-const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
-const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+// const unsigned char lorem1[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+// const unsigned char lorem2[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
+// const unsigned char lorem3[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 // const unsigned char lorem4[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";
 
 // const unsigned char lorem5[] = "orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean";

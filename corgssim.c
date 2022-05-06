@@ -132,7 +132,7 @@ void main(void)
 				// set defaults
 				reset_text_values();
 				game_mode = MODE_GAME;
-				which_bg = STARTING_ROOM;
+				which_bg = KING_ANTE_ROOM-1;//STARTING_ROOM;
 				player_x = 0x80;
 				player_y = 0x80;
 
@@ -310,9 +310,21 @@ void main(void)
 					typewriter();
 				}
 				reset_text_values();
-				delay(100);
+				delay(130);
+				bg_fade_out = 0;
 				draw_bg();
-				++temp6;
+				multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(11, 26));
+				one_vram_buffer(48 + minutes_left_tens, NTADR_A(16, 26));
+				one_vram_buffer(48 + minutes_left_ones, NTADR_A(17, 26));
+				one_vram_buffer(':', NTADR_A(18, 26));
+				one_vram_buffer(48 + seconds_left_tens, NTADR_A(19, 26));
+				one_vram_buffer(48 + seconds_left_ones, NTADR_A(20, 26));
+
+				temp1 = 1; // temp1 is the item number, gets shifted
+				temp2 = 0; // temp2 is the items displayed in the ending so far
+				temp3 = 0; // temp3 is the current item, from temp1&itemscollected
+				temp4 = 0; // num items collected
+				temp6 = 1; // this is if the ending is done, counting the steps
 			}
 
 			if (temp6 < 7)
@@ -507,6 +519,10 @@ void draw_bg(void)
 	{
 		music_stop();
 		sfx_play(SFX_KING, 0);
+	}
+
+	if (which_bg == KING_ROOM){
+		pal_col(13, 0x16); //change the table colors
 	}
 }
 
@@ -2504,8 +2520,8 @@ void initialize_title_screen(void)
 	bg_fade_out = 1;				 // turn back on room fading
 	display_hud_sprites = 1; // turn back on hud sprites
 	item_found = 0;					 // reset item found (in case we were in the item found mode)
-	items_collected = 0;
-	on_fetchquest = 0;
+	items_collected = 63; //alan22
+	on_fetchquest = 4; 
 	code_active = 0;
 	index = 0;
 	player_coins = 0;
@@ -2561,6 +2577,11 @@ void initialize_end_screen(void)
 	display_hud_sprites = 0;
 	bg_display_hud = 0;
 	draw_bg();
+	// pal_col(5, 0x16);
+	// pal_col(8, 0x16);
+	
+	// pal_col(10, 0x16);
+	// pal_col(11, 0x16);
 
 	// game time:
 	multi_vram_buffer_horz(time, sizeof(time) - 1, NTADR_A(11, 26));
@@ -2667,17 +2688,17 @@ void draw_ending_sprites(void)
 	}
 	if (temp2 & ITEM_COIN_GAME)
 	{
-		oam_meta_spr(0x40, 0x48, GamePrize97);
+		oam_meta_spr(0xB0, 0x48, GamePrize97);
 	}
 	if (temp2 & ITEM_DUNGEON_GAME)
 	{
-		oam_meta_spr(0xCF, 0x68, FloppyDisk125);
+		oam_meta_spr(0xD1, 0x68, FloppyDisk125);
 	}
 	if (temp2 & ITEM_BURGER_GAME)
 	{
 		if (on_fetchquest == 4)
 		{
-			oam_meta_spr(0xB0, 0x48, BurgerGame);
+			oam_meta_spr(0x40, 0x48, BurgerGame);
 		}
 	}
 	if (temp2 & ITEM_KETTLEBELL_GAME)
