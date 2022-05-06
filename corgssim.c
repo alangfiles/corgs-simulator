@@ -2551,7 +2551,7 @@ void initialize_title_screen(void)
 	multi_vram_buffer_horz(credits_2, sizeof(credits_2), NTADR_A(3, 25));
 	multi_vram_buffer_horz(credits_3, sizeof(credits_3), NTADR_A(13, 26));
 
-	game_genie = 0xAE;
+	game_genie = 0xAF;
 	++game_genie;
 	if (game_genie == 0xBB)
 	{
