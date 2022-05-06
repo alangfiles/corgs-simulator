@@ -636,7 +636,7 @@ void draw_sprites(void)
 	}
 
 	++move_frames;
-	if (move_frames > 32)
+	if (move_frames >= 32)
 	{
 		move_frames = 0;
 	}
@@ -1117,6 +1117,24 @@ void draw_player_sprite(void)
 			oam_meta_spr(player_x, player_y, PlayerSprLeft);
 			break;
 		}
+
+0
+2
+3
+2
+0
+4
+5
+4
+		32
+		0 - 3: 0
+		4 - 7: 2
+		8 - 11: 3
+		12 - 15: 2
+		16-19: 0
+		20-23:4
+		24-27: 5
+		28-31: 4
 
 		if (move_frames > 28 || (move_frames >= 20 && move_frames < 24))
 		{
