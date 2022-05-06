@@ -20,6 +20,8 @@ const unsigned char room_43_sprites[]={
 };
 
 const unsigned char room_43_talk[]={
+	36, 136, TALK_LOCATION,
+	36, 156, TALK_EBAY,
 	56, 136, TALK_LOCATION,
 	56, 156, TALK_EBAY,
 	168, 120, TALK_PLUMBER,
