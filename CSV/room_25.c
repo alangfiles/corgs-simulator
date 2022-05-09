@@ -27,6 +27,7 @@ const unsigned char room_25_sprites[]={
 
 const unsigned char room_25_talk[]={
 	200, 120, TALK_SPRITES,
+	230, 120, TALK_SPRITES,
 	200, 168, TALK_CLEVER,
 	144, 176, TALK_GARY,
 	144, 192, TALK_GARY,
