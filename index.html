@@ -19,6 +19,12 @@
       max-width: 968px;
     }
 
+    .center img{
+      border: 3px solid grey;
+      border-radius: 3px;
+      margin: 1px;
+    }
+
     #credits{
       margin-top:200px;
     }
@@ -28,19 +34,42 @@
 <body>
   <div id="content">
     <div>
-      <img src="site/title.jpg" alt="CORGS SIMUALTOR" />
+      <img width="500px" src="site/title.jpg" alt="CORGS SIMUALTOR" />
     </div>
     <div>
       <!-- <h1>A CORGS Simulator</h1> -->
       <h2>In the year 20XX...</h2>
       <p>The Columbus Ohio Retro Gaming Society Convention for 2022 has a new entry for the Nintendo Entertainment System (and Famicom). </p>
       <p>If you're interested in going to a video game convention, then it only stands to reason that you're even more interested in playing a video game about going to such a convention.</p>
+      <br/>
+      <p>Explore the CORGS-con and find hidden video games and references. Throw money at video games and maybe even find the KING OF VIDEO GAMES himself!</p>
     </div>
-    <button>Get the game here!</button>
+    
+    <h2>Screenshots</h2>
+    <div class="center">
+      <img width="300px" src="site/screen1.jpg" alt="A player in a convention" />
+      <img width="300px" src="site/screen2.jpg" alt="A player chatting with another" />
+      <img width="300px" src="site/screen3.jpg" alt="A player outside in the game" />
+      <img width="300px" src="site/screen4.jpg" alt="A player chatting with a vendor" />
+      <img width="300px" src="site/screen5.jpg" alt="Video game references" />
+      <img width="300px" src="site/screen6.jpg" alt="Outdoors with a foodtruck" />
+    </div>
 
-    <div id="credits">
-      Created by Alan Files and Brian Burke in 2022
+    <div>
+      <h2>Credits</h2>
+      <p>Created in 3 months in early 2022 by Alan Files and Brian Burke <br/>Graphics by Brian Burke<br/>Programming by Alan Files</p>
+      <p>Songs:</p>
+      <ul>
+        <li>Intro - Alan Files</li>
+        <li>Level Music - Brian Burke</li>
+        <li>In the Hall of the Video Game King - Alan Files</li>
+      </ul>
+      <p>Many thanks to NESDoug <a href="https://nesdoug.com/">https://nesdoug.com/</a>, and Shiru <a href="https://shiru.untergrund.net/">https://shiru.untergrund.net/</a>, for making it easy to write the game in C instead of 6502 Assembly.</p>
     </div>
+
+    
+    <!-- <button>Get the game here!</button> -->
+
   </div>
 </body>
 </html>
